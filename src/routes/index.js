@@ -1,13 +1,19 @@
-import React from "react";
-import PageNotFound from "../components/PageNotFound/PageNotFound";
-import ScreenHome from "../components/Home";
-import ScreenAbout from "../components/About";
-import ScreenContact from "../components/Contact";
-import LoginDashboardScreen from "../components/Admin/Login/Login";
-import Dashboard from "../components/Admin/Dashboard/Dashboard";
-import Recruiment from "../components/Recruiment";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import React, { lazy } from "react";
+
+const PageNotFound = lazy(() =>
+  import("../components/PageNotFound/PageNotFound")
+);
+const ScreenHome = lazy(() => import("../components/Home"));
+const ScreenAbout = lazy(() => import("../components/About"));
+const ScreenContact = lazy(() => import("../components/Contact"));
+const LoginDashboardScreen = lazy(() =>
+  import("../components/Admin/Login/Login")
+);
+const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
+const Recruiment = lazy(() => import("../components/Recruiment"));
+const Login = lazy(() => import("../components/Login"));
+const Register = lazy(() => import("../components/Register"));
+
 const index = [
   {
     path: "/",
