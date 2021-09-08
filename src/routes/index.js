@@ -10,7 +10,7 @@ const LoginDashboardScreen = lazy(() =>
   import("../components/Admin/Login/Login")
 );
 const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
-const Recruiment = lazy(() => import("../components/Recruiment"));
+const Recruitment = lazy(() => import("../components/Recruitment/Index"));
 const Login = lazy(() => import("../components/Login"));
 const Register = lazy(() => import("../components/Register"));
 
@@ -25,10 +25,10 @@ const index = [
     ),
   },
   {
-    path: "/recruiment",
+    path: "/recruitment",
     main: () => (
       <Suspense key={index} fallback={<Fallback />}>
-        <Recruiment />
+        <Recruitment />
       </Suspense>
     ),
   },
