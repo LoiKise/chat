@@ -4,6 +4,8 @@ import {
   Route
 } from "react-router-dom";
 import routes from './routes';
+import Header from './components/Layouts/Header'
+
 function App() {
 
   function RouteContainer(routes) {
@@ -19,12 +21,12 @@ function App() {
   }
   return (
     <Router>
-      {/* <Header /> */}
-      {/* <Navbar /> */}
+      <Header />
       <Switch>
         {RouteContainer(routes)}
       </Switch>
       {/* <ScrollToTop /> */}
+
     </Router>
   );
 }

@@ -8,6 +8,7 @@ import Dashboard from "../components/Admin/Dashboard/Dashboard";
 import Recruiment from "../components/Recruiment";
 import Login from "../components/Login";
 import Register from "../components/Register";
+
 const index = [
   {
     path: "/",
@@ -16,14 +17,17 @@ const index = [
   },
   {
     path: "/recruiment",
+    exact: true,
     main: () => <Recruiment />,
   },
   {
     path: "/register",
+    exact: true,
     main: () => <Register />,
   },
   {
     path: "/login",
+    exact: true,
     main: () => <Login />,
   },
   {
@@ -51,5 +55,6 @@ const index = [
     exact: true,
     main: () => <PageNotFound />,
   },
+
 ];
 export default index;
