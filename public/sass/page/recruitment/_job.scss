@@ -5,6 +5,7 @@
   margin-top: 4.9rem;
   margin-bottom: 3.6rem;
 }
+
 .job-item {
   padding: 2.2rem;
   background-color: #ffffe3;
@@ -43,5 +44,28 @@
   text-align: center;
   text-transform: uppercase;
   font-size: 1.4rem;
-  font-weight: 400;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+.job-list {
+  display: flex;
+  flex-direction: column;
+
+  &__showmore {
+    margin: 0 auto;
+    width: 150px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 6rem;
+    padding: 1rem 0.5rem;
+    text-align: center;
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    background-color: #56cb81;
+  }
 }
