@@ -20,6 +20,7 @@ const index = [
     exact: true,
     main: () => <ScreenHome />,
   },
+
   {
     path: "/recruiment",
     main: () => <Recruiment />,
