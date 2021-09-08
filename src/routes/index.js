@@ -1,5 +1,5 @@
-import React, { lazy } from "react";
-
+import React, { lazy, Suspense } from "react";
+import Fallback from "../components/Fallback";
 const PageNotFound = lazy(() =>
   import("../components/PageNotFound/PageNotFound")
 );
@@ -18,45 +18,80 @@ const index = [
   {
     path: "/",
     exact: true,
-    main: () => <ScreenHome />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenHome />
+      </Suspense>
+    ),
   },
-
   {
     path: "/recruiment",
-    main: () => <Recruiment />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Recruiment />
+      </Suspense>
+    ),
   },
   {
     path: "/register",
-    main: () => <Register />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Register />
+      </Suspense>
+    ),
   },
   {
     path: "/login",
-    main: () => <Login />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: "/About",
     exact: true,
-    main: () => <ScreenAbout />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenAbout />
+      </Suspense>
+    ),
   },
   {
     path: "/Contact",
     exact: true,
-    main: () => <ScreenContact />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenContact />
+      </Suspense>
+    ),
   },
   {
     path: "/Dashboard",
     exact: true,
-    main: () => <LoginDashboardScreen />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <LoginDashboardScreen />
+      </Suspense>
+    ),
   },
   {
     path: "/Admin/Dashboard",
     exact: true,
-    main: () => <Dashboard />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Dashboard />
+      </Suspense>
+    ),
   },
   {
     path: "",
     exact: true,
-    main: () => <PageNotFound />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <PageNotFound />
+      </Suspense>
+    ),
   },
 ];
 export default index;
