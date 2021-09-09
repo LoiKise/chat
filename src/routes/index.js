@@ -8,6 +8,7 @@ import Dashboard from "../components/Admin/Dashboard/Dashboard";
 import Recruiment from "../components/Recruiment";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import ScreenService from "../components/Service";
 const index = [
   {
     path: "/",
@@ -35,6 +36,11 @@ const index = [
     path: "/Contact",
     exact: true,
     main: () => <ScreenContact />,
+  },
+  {
+    path: "/Service",
+    exact: true,
+    main: () => <ScreenService />,
   },
   {
     path: "/Dashboard",
