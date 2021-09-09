@@ -12,7 +12,7 @@ const LoginDashboardScreen = lazy(() =>
 const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
 const Recruitment = lazy(() => import("../components/Recruitment/Index"));
 const Login = lazy(() => import("../components/Login"));
-const Register = lazy(() => import("../components/Register"));
+const Register = lazy(() => import("../components/Register/Index"));
 
 const index = [
   {
