@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default function index() {
   const IMGGG = "/assets/img/icon/Asset 18.png";
   const IMGFB = "/assets/img/icon/Asset 19.png";
+
   return (
     <div className="signup container">
       <div className="row">
