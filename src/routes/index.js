@@ -1,4 +1,3 @@
-
 import React, { lazy, Suspense } from "react";
 import Fallback from "../components/Fallback";
 const PageNotFound = lazy(() =>
@@ -93,6 +92,5 @@ const index = [
       </Suspense>
     ),
   },
-
 ];
 export default index;

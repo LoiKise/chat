@@ -1,9 +1,54 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
+import ErrorMessage from "../ErrorMessage";
+import { rules } from "../../helpers/rules";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { register } from "../../features/auth/authSlice";
 
-export default function index() {
+export default function Index() {
   const IMGGG = "/assets/img/icon/Asset 18.png";
   const IMGFB = "/assets/img/icon/Asset 19.png";
+
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+    setError,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      sdt: "",
+      password: "",
+    },
+  });
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleRegister = async (data) => {
+    const body = {
+      name: data.name,
+      sdt: data.sdt,
+      password: data.password,
+    };
+
+    try {
+      const res = await dispatch(register(body));
+      unwrapResult(res);
+      history.push("/");
+    } catch (error) {
+      if (error.status === 422) {
+        for (const key in error.data) {
+          setError(key, {
+            type: "server",
+            message: error.data[key],
+          });
+        }
+      }
+    }
+  };
 
   return (
     <div className="signup container">
@@ -28,26 +73,49 @@ export default function index() {
             </p>
           </div>
           <div className="signup__input">
-            <form action="#">
+            <form action="#" onSubmit={handleSubmit(handleRegister)}>
               <div className="form-group">
                 <label htmlFor="form-group-name" className="font-weight-bold">
                   Họ và tên
                 </label>
-                <input
-                  type="text"
-                  className="form-control rounded-0"
-                  id="form-group-name"
+                <Controller
+                  name="name"
+                  control={control}
+                  rules={rules.name}
+                  render={({ field }) => (
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Mời nhập tên"
+                      onChange={field.onChange}
+                      value={getValues("name")}
+                      className="form-control rounded-0"
+                      id="form-group-name"
+                    />
+                  )}
                 />
+                <ErrorMessage name="name" errors={errors} />
               </div>
               <div className="form-group">
                 <label htmlFor="form-group-phone" className="font-weight-bold">
                   Số điện thoại
                 </label>
-                <input
-                  type="number"
-                  className="form-control rounded-0"
-                  id="form-group-phone"
+                <Controller
+                  name="sdt"
+                  control={control}
+                  rules={rules.phone}
+                  render={({ field }) => (
+                    <input
+                      type="text"
+                      onChange={field.onChange}
+                      placeholder="Mời nhập số điện thoại"
+                      value={getValues("sdt")}
+                      className="form-control rounded-0"
+                      id="form-group-phone"
+                    />
+                  )}
                 />
+                <ErrorMessage name="sdt" errors={errors} />
               </div>
               <div className="form-group">
                 <label
@@ -56,11 +124,22 @@ export default function index() {
                 >
                   Mật khẩu
                 </label>
-                <input
-                  type="password"
-                  className="form-control rounded-0"
-                  id="form-group-password"
+                <Controller
+                  name="password"
+                  control={control}
+                  rules={rules.password}
+                  render={({ field }) => (
+                    <input
+                      type="password"
+                      onChange={field.onChange}
+                      placeholder="Mời nhập mật khẩu"
+                      value={getValues("password")}
+                      className="form-control rounded-0"
+                      id="form-group-password"
+                    />
+                  )}
                 />
+                <ErrorMessage name="password" errors={errors} />
               </div>
               <div className="button__submit">
                 <button type="submit" className="submit-form">
