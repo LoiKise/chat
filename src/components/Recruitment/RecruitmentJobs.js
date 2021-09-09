@@ -14,7 +14,7 @@ export default function Jobs({ jobs, listjob }) {
   return (
     <div className="job-list">
       {jobs.slice(0, 3).map((job) => (
-        <Job job={job} images={images} />
+        <Job job={job} key={job.id} images={images} />
       ))}
       {!showMore && (
         <button
@@ -26,7 +26,7 @@ export default function Jobs({ jobs, listjob }) {
       )}
       {showMore &&
         listjob.map((listjob) => (
-          <Showmore images={images} listjob={listjob} />
+          <Showmore images={images} key={listjob.id} listjob={listjob} />
         ))}
     </div>
   );

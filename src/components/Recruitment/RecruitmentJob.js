@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function RecruitmentJob({ job, images }) {
   return (
-    <div className="job-item" key={job.id}>
+    <div className="job-item">
       <h2 className="job-item-title">{job.jobtitle}</h2>
       <div className="job-item-list">
         <div className="job-item-list-item">
