@@ -1,5 +1,8 @@
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import routes from "./routes";
+import Header from './components/Layouts/Header'
+import Footer from './components/Layouts/Footer'
 function App() {
   function RouteContainer(routes) {
     var result = null;
@@ -19,10 +22,12 @@ function App() {
   }
   return (
     <Router>
-      {/* <Header /> */}
+      <Header />
       {/* <Navbar /> */}
       <Switch>{RouteContainer(routes)}</Switch>
       {/* <ScrollToTop /> */}
+      {/* <Footer /> */}
+      <Footer />
     </Router>
   );
 }

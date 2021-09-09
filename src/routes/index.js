@@ -1,3 +1,4 @@
+
 import React, { lazy, Suspense } from "react";
 import Fallback from "../components/Fallback";
 const PageNotFound = lazy(() =>
@@ -13,7 +14,6 @@ const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
 const Recruitment = lazy(() => import("../components/Recruitment/Index"));
 const Login = lazy(() => import("../components/Login"));
 const Register = lazy(() => import("../components/Register"));
-
 const index = [
   {
     path: "/",
@@ -93,5 +93,6 @@ const index = [
       </Suspense>
     ),
   },
+
 ];
 export default index;
