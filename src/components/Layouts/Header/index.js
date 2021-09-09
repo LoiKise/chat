@@ -1,56 +1,60 @@
-import React, { useEffect } from 'react';
-// import { NavItem } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { increment } from '../../../features/counter/counterSlice';
+import React from "react";
+import { Link } from "react-router-dom";
 
-
-export default function Index(props) {
-  // const counter = useSelector(state => state.counter)
-  // theme
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //    console.log({counter});
-  // }, [counter])
-  // const logger = () => {
-  //     dispatch(ChangeTheme('active')) action.payload === 'active' ?  state.theme = 
-  // }
+export default function Index() {
   return (
+
     <div className="header">
       <nav className="header__nav">
-        <Link to="/">
+        <Link to="">
           <img
-            src="./assets/img/logo/dark_logo.png"
+            src="./assets/img/icon/dark_logo.png"
             alt="this is logo"
             className="header__logo"
           />
         </Link>
         <ul className="header__nav-list">
           <li className="header__nav-item">
-            <Link className="header__nav-link" href="index.html">TRANG CHỦ</Link>
+            <a className="header__nav-link" href="index.html">
+              TRANG CHỦ
+            </a>
           </li>
           <li className="header__nav-item">
-            <Link className="header__nav-link" to="/">GIỚI THIỆU</Link>
+            <a className="header__nav-link" href>
+              GIỚI THIỆU
+            </a>
           </li>
           <li className="header__nav-item">
-            <Link className="header__nav-link" to="/">DỊCH VỤ</Link>
+            <a className="header__nav-link" href>
+              DỊCH VỤ
+            </a>
           </li>
           <li className="header__nav-item">
-            <Link className="header__nav-link" to="/">TRA CỨU</Link>
+            <a className="header__nav-link" href>
+              TRA CỨU
+            </a>
           </li>
           <li className="header__nav-item">
-            <Link className="header__nav-link" href="tuyendung.html">TUYỂN DỤNG</Link>
+            <a className="header__nav-link" href="tuyendung.html">
+              TUYỂN DỤNG
+            </a>
           </li>
           <li className="header__nav-item">
-            <Link className="header__nav-link" to="/">LIÊN HỆ</Link>
+            <a className="header__nav-link" href>
+              LIÊN HỆ
+            </a>
           </li>
         </ul>
-
         <div className="header__authenWrapper">
-          <Link href="login.html" className="header__authen--login">Đăng nhập</Link>
-          <Link href="signup.html" className="header__authen--signup">Đăng ký</Link>
+          <a href="login.html" className="header__authen--login">
+            Đăng nhập
+          </a>
+          <a href="signup.html" className="header__authen--signup">
+            Đăng ký
+          </a>
         </div>
       </nav>
     </div>
-  )
+
+  );
 }

@@ -11,11 +11,10 @@
 // Layout
 @import "./layout/login";
 @import "./layout/register";
-@import "./layout/header"; 
+@import "./layout/header";
 @import "./layout/navbar";
 @import "./layout/footer";
 @import "./layout/notfound";
-@import "./layout/sliderbar";
 
 // Ultity
 @import "./ultity/button";
@@ -27,7 +26,6 @@
 
 // Home Page
 
-
 // Contact Page
 
 // About Page
@@ -35,6 +33,3 @@
 // Recruitment Page
 @import "./page/recruitment/recruitment";
 @import "./page/recruitment/job";
-
-//Service 
-@import "./page/Service/index";
