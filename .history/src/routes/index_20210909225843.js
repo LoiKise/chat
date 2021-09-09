@@ -6,8 +6,7 @@ const PageNotFound = lazy(() =>
 const ScreenHome = lazy(() => import("../components/Home"));
 const ScreenAbout = lazy(() => import("../components/About"));
 const ScreenContact = lazy(() => import("../components/Contact"));
-const ScreenService = lazy(() => import("../components/Service"));
-const ScreenLoginDashboard = lazy(() =>
+const LoginDashboardScreen = lazy(() =>
   import("../components/Admin/Login/Login")
 );
 const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
@@ -81,7 +80,7 @@ const index = [
     exact: true,
     main: () => (
       <Suspense key={index} fallback={<Fallback />}>
-        <ScreenLoginDashboard />
+        <LoginDashboardScreen />
       </Suspense>
     ),
   },
