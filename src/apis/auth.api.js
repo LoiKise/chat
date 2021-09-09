@@ -1,4 +1,5 @@
 import axios from "axios";
+// import requestAPI from ".";
 
 const authApi = {
   register(data) {
@@ -7,5 +8,8 @@ const authApi = {
       data
     );
   },
+  // register(data) {
+  //   return requestAPI("/Register", "POST", data);
+  // },
 };
 export default authApi;

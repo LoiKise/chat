@@ -6,4 +6,8 @@ export const store = configureStore({
     counter: counterReducer,
     auth: authReducer,
   },
+  devTools: process.env.NODE_ENV === "development",
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware({ serializableCheck: false }),
+  ],
 });
