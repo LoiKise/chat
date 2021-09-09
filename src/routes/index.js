@@ -1,59 +1,97 @@
-import React from "react";
-import PageNotFound from "../components/PageNotFound/PageNotFound";
-import ScreenHome from "../components/Home";
-import ScreenAbout from "../components/About";
-import ScreenContact from "../components/Contact";
-import LoginDashboardScreen from "../components/Admin/Login/Login";
-import Dashboard from "../components/Admin/Dashboard/Dashboard";
-import Recruiment from "../components/Recruiment";
-import Login from "../components/Login";
-import Register from "../components/Register";
 
+import React, { lazy, Suspense } from "react";
+import Fallback from "../components/Fallback";
+const PageNotFound = lazy(() =>
+  import("../components/PageNotFound/PageNotFound")
+);
+const ScreenHome = lazy(() => import("../components/Home"));
+const ScreenAbout = lazy(() => import("../components/About"));
+const ScreenContact = lazy(() => import("../components/Contact"));
+const LoginDashboardScreen = lazy(() =>
+  import("../components/Admin/Login/Login")
+);
+const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
+const Recruitment = lazy(() => import("../components/Recruitment/Index"));
+const Login = lazy(() => import("../components/Login"));
+const Register = lazy(() => import("../components/Register"));
 const index = [
   {
     path: "/",
     exact: true,
-    main: () => <ScreenHome />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenHome />
+      </Suspense>
+    ),
   },
   {
-    path: "/recruiment",
-    exact: true,
-    main: () => <Recruiment />,
+    path: "/recruitment",
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Recruitment />
+      </Suspense>
+    ),
   },
   {
     path: "/register",
-    exact: true,
-    main: () => <Register />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Register />
+      </Suspense>
+    ),
   },
   {
     path: "/login",
-    exact: true,
-    main: () => <Login />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: "/About",
     exact: true,
-    main: () => <ScreenAbout />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenAbout />
+      </Suspense>
+    ),
   },
   {
     path: "/Contact",
     exact: true,
-    main: () => <ScreenContact />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenContact />
+      </Suspense>
+    ),
   },
   {
     path: "/Dashboard",
     exact: true,
-    main: () => <LoginDashboardScreen />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <LoginDashboardScreen />
+      </Suspense>
+    ),
   },
   {
     path: "/Admin/Dashboard",
     exact: true,
-    main: () => <Dashboard />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Dashboard />
+      </Suspense>
+    ),
   },
   {
     path: "",
     exact: true,
-    main: () => <PageNotFound />,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <PageNotFound />
+      </Suspense>
+    ),
   },
 
 ];
