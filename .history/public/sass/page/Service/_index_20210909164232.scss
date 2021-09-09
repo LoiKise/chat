@@ -1,0 +1,145 @@
+.content-detail-pro
+  .nav
+    justify-content: start
+
+  .nav-tabs
+    .nav-link
+      color: #002956
+      padding: 16px 16px 10px 16px
+
+    .nav-item
+      padding-bottom: 0
+
+    border-bottom: 1px solid rgba(0, 41, 86, 0.9)
+
+    .nav-link.active, .nav-item.show .nav-link
+      color: #002956
+      font-weight: 500
+      background-color: #fff
+      border-color: rgba(0, 41, 86, 0.9) rgba(0, 41, 86, 0.9) #ffffff
+
+.pro-text
+  p
+    margin: 30px 10px 5px 10px
+    color: #1c1c1c
+    font-style: italic
+
+  li
+    color: #1c1c1c
+    list-style: circle
+
+.table-drip
+  margin-top: 30px
+
+.tab-content-vandon
+  padding: 100px
+  border: 1px solid
+  margin-top: 20px
+  border-radius: 5px
+
+.content-vandon
+  .form-control-s
+    height: 87px
+    width: 666px
+    border-radius: 14.96px
+    border: 2px solid #FF5E15
+    margin-bottom: 50px
+
+  .fullwidth-section .input-group
+    flex-direction: column
+    align-items: center
+    border-radius: 10px
+    line-height: 5
+
+.cuocvanchuyen .fullwidth-section .input-group-append, .content-vandon .fullwidth-section .input-group-append
+  justify-content: center
+  border-radius: 10px
+
+.cuocvanchuyen .fa-search:before
+  margin-right: 35px
+
+.content-vandon
+  .fa-search:before
+    margin-right: 35px
+
+  .fullwidth-section .btn-outline-secondary
+    border-radius: 15px
+    height: 62px
+    width: 656px
+    background-color: #FF5E15
+    color: white
+    font-size: 20px
+
+.cuocvanchuyen
+  .fullwidth-section .btn-outline-secondary
+    border-radius: 15px
+    height: 62px
+    width: 334.5px
+    background-color: #FF5E15
+    color: white
+    font-size: 20px
+
+  .order
+    background-image: none
+    color: #000
+
+  h4
+    color: black
+    margin: 0
+    font-size: 18px
+    font-weight: 150
+
+  .order__form
+    padding: 0px 3.2%
+    margin-bottom: 50px
+
+  .order__form--textbox
+    width: 90%
+    overflow: hidden
+    font-size: 10px
+    padding: 8px 0
+    background-color: white
+    border-radius: 3px
+    border: 1px solid rgb(0 0 0 / 20%)
+    box-shadow: 2px 2px 3px rgb(0 0 0 / 20%)
+
+  &.order__form--checkbox
+    float: left
+
+  .form-check-input
+    margin-left: 20px
+    margin-top: 13px
+
+
+
+.width
+  margin-left: 20px
+  margin-top: 13px
+
+.cuocvanchuyen .form-check-label, .width
+  font-size: 10pt
+  color: black
+  font-weight: 500
+  margin-left: 40px
+
+.cuocvanchuyen
+  .order__form--icon
+    margin-left: -10px
+
+  .order__form--textbox input
+    border: none
+    outline: none
+    background: none
+    color: black
+    font-size: 15px
+    width: 80%
+    float: left
+    margin: 0 10px
+
+  .row
+    display: block
+    text-align: left
+    margin-bottom: 40px
+
+  .row-form
+    display: flex
