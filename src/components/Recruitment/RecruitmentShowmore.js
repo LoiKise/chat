@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Showmore({ listjob, images }) {
   return (
-    <div className="job-item" key={listjob.id}>
+    <div className="job-item">
       <h2 className="job-item-title">{listjob.jobtitle}</h2>
       <div className="job-item-list">
         <div className="job-item-list-item">
