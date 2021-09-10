@@ -1,13 +1,14 @@
-.header {
+.slider {
   background-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 0.7),
       rgba(0, 0, 0, 0.7)
     ),
-    url(./assets/img/imgs/Background/backgroundHeader.png);
+    url("../assets/img/imgs/Background/backgroundHeader.png");
   height: 100vh;
   width: auto;
-}
+  margin-top: -5.125rem;;
+
   .header__slogan {
     position: relative;
     top: 30%;
@@ -121,4 +122,4 @@
   .header__button-service img {
     height: 2rem;
   }
-
+}

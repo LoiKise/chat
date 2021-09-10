@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import { NavItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import HeaderNavItem from "./HeaderNavItem";
 
 export default function Index() {
-  return (
 
+  const headerItem =
+    [
+      {
+        name: "TRAN CHỦ"
+      },
+      {
+        name: "GIỚI THIỆU",
+      },
+      {
+        name: "DỊCH VỤ"
+      },
+      {
+        name: "TRA CỨU"
+      },
+      {
+        name: "TUYỂN DỤNG"
+      },
+      {
+        name: "LIÊN HỆ"
+      },
+    ]
+
+
+
+  return (
     <div className="header">
       <nav className="header__nav">
         <Link to="">
@@ -14,47 +40,18 @@ export default function Index() {
           />
         </Link>
         <ul className="header__nav-list">
-          <li className="header__nav-item">
-            <a className="header__nav-link" href="index.html">
-              TRANG CHỦ
-            </a>
-          </li>
-          <li className="header__nav-item">
-            <a className="header__nav-link" href>
-              GIỚI THIỆU
-            </a>
-          </li>
-          <li className="header__nav-item">
-            <a className="header__nav-link" href>
-              DỊCH VỤ
-            </a>
-          </li>
-          <li className="header__nav-item">
-            <a className="header__nav-link" href>
-              TRA CỨU
-            </a>
-          </li>
-          <li className="header__nav-item">
-            <a className="header__nav-link" href="tuyendung.html">
-              TUYỂN DỤNG
-            </a>
-          </li>
-          <li className="header__nav-item">
-            <a className="header__nav-link" href>
-              LIÊN HỆ
-            </a>
-          </li>
+          <HeaderNavItem headerItem={headerItem} />
         </ul>
         <div className="header__authenWrapper">
-          <a href="login.html" className="header__authen--login">
+          <Link to="/" className="header__authen--login">
             Đăng nhập
-          </a>
-          <a href="signup.html" className="header__authen--signup">
+          </Link>
+          <Link to="/" className="header__authen--signup">
             Đăng ký
-          </a>
+          </Link>
         </div>
       </nav>
-    </div>
+    </div >
 
   );
 }
