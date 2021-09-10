@@ -48,7 +48,7 @@ export default function Members() {
             </div>
             <div className="section-area__btn">
               <button>Xem thêm
-                <img src="./assets/img/icon/planes.png" className="section-area__btn-icon" />
+                <img src="./assets/img/icon/planes.png" className="section-area__btn-icon" alt="" />
               </button>
             </div>
           </div>

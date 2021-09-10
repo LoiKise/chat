@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { NavItem } from "react-bootstrap";
+import React from "react";
 import { Link } from "react-router-dom";
 import HeaderNavItem from "./HeaderNavItem";
 

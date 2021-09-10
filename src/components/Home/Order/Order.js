@@ -107,7 +107,7 @@ export default function Order(props) {
                     </div>
                     <div class="section-area__btn">
                         <button>Gửi yêu cầu
-                            <img src="./assets/img/icon/planes.png" class="section-area__btn-icon" />
+                            <img src="./assets/img/icon/planes.png" class="section-area__btn-icon" alt=""/>
                         </button>
                     </div>
 

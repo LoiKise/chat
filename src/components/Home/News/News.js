@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import NewItem from './NewItem'
 
 export default function News(props) {
