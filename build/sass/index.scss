@@ -1,0 +1,41 @@
+// Declaration Styles
+@import "./abstracts/mixin";
+@import "./abstracts/variable";
+@import "./base/base";
+@import "./base/typography";
+@import "./base/animation";
+
+// Animation
+@import "./base/animation";
+
+// Layout
+@import "./layout/login";
+@import "./layout/register";
+@import "./layout/header";
+@import "./layout/navbar";
+@import "./layout/footer";
+@import "./layout/notfound";
+
+// Ultity
+@import "./ultity/button";
+
+// Dashboard Page
+@import "./page/dashboard/dashboard";
+@import "./page/dashboard/admin";
+@import "./page/dashboard/login";
+
+// Home Page
+@import "./page/home/sliderbar";
+@import "./page/home/about";
+@import "./page/home/service";
+
+// Contact Page
+
+// About Page
+
+// Recruitment Page
+@import "./page/recruitment/recruitment";
+@import "./page/recruitment/job";
+
+//Service
+@import "./page/Service/index";
