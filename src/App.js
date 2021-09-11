@@ -23,10 +23,9 @@ function App() {
   return (
     <Router>
       <Header />
-      {/* <Navbar /> */}
+  
       <Switch>{RouteContainer(routes)}</Switch>
-      {/* <ScrollToTop /> */}
-      {/* <Footer /> */}
+    
       <Footer />
     </Router>
   );

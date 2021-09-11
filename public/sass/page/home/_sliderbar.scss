@@ -7,7 +7,6 @@
     url("../assets/img/imgs/Background/backgroundHeader.png");
   height: 100vh;
   width: auto;
-  margin-top: -5.125rem;;
 
   .header__slogan {
     position: relative;
@@ -121,5 +120,78 @@
   .header__button-search img,
   .header__button-service img {
     height: 2rem;
+  }
+}
+
+/*---------------------------------reponsive------------------------*/
+
+.slider {
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .header__slogan {
+      height: 0px;
+      left: 0%;
+      top: -30% !important;
+      margin-left: 10px;
+
+      .header__slogan-text {
+        font-size: 3rem;
+      }
+      .header__slogan-icon {
+        display: none;
+      }
+    }
+    .header__button {
+      flex-direction: column;
+      position: relative;
+      top: 0%;
+      width: 0px !important;
+      button {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+.slider {
+  @include tablet {
+    .header__slogan {
+      .header__slogan-icon {
+        right: 0%;
+      }
+    }
+    .header__button {
+      position: relative;
+      left: 0%;
+      width: 500px;
+      margin: 0px auto;
+    }
+  }
+}
+
+.slider {
+  @include desktop {
+    .header__slogan {
+      top: 20%;
+      .header__slogan-icon {
+        right: -60%;
+      }
+    }
+    .header__button {
+      position: relative;
+      top: 50%;
+      left: 0%;
+      width: 900px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+      .ourservices-item {
+        margin-bottom: 65px !important;
+    
+    }
   }
 }

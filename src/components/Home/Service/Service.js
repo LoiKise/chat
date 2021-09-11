@@ -32,15 +32,13 @@ export default function Service() {
                 <div className="ourservices__top">
                     <div className="row justify-content-md-center">
                         <div className="col-md-6">
-                            <CategoryTitle title='Dịch vụ' content='Đội Ngũ Của Chúng Tôi' />
+                            <CategoryTitle title='Dịch vụ' content='Dịch Vụ Của Chúng Tôi' />
                         </div>
                     </div>
                 </div>
                 <div className="ourservices-list">
                     <div className="row">
-                        {/* <ServiceItem List={ServiceList} /> */}
                         <Categories List={ServiceList}  />
-                        {/* <Categories serviceItem={serviceItem}/> */}
                     </div>
                 </div>
             </div>
