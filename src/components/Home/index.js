@@ -6,7 +6,7 @@ import Service from './Service/Service'
 import SliderBar from './SliderBar/SliderBar'
 import News from './News/News'
 
-export default function index(props) {
+export default function index() {
     return (
         <>
             <SliderBar />

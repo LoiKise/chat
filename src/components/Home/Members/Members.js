@@ -1,5 +1,7 @@
 import React from 'react'
-import MemberItem from './MemberItem'
+import ButtonCustom from '../../../utils/Buttons/ButtonCustom'
+import CategoryTitle from '../Category/CategoryTitle/CategoryTitle'
+import MemberItem from './MemberListItem'
 
 export default function Members() {
 
@@ -25,7 +27,7 @@ export default function Members() {
       position: '  Trưởng phòng nhân sự',
     },
   ]
-
+  const IconService = "./assets/img/icon/planes.png"
   return (
     <div>
       <div className="ourmember section-area">
@@ -33,23 +35,16 @@ export default function Members() {
           <div className="ourmember__top">
             <div className="row justify-content-md-center">
               <div className="col-md-6">
-                <div className="section__top">
-                  <span>Đội ngũ</span>
-                  <h2 className="section__top-header">Đội Ngũ Của Chúng Tôi</h2>
-                </div>
+              <CategoryTitle title='Đội ngũ' content='Đội Ngũ Của Chúng Tôi' />
               </div>
             </div>
           </div>
           <div className="ourmember-list">
             <div className="row">
-
               <MemberItem memberItem={memberItem} />
-
             </div>
             <div className="section-area__btn">
-              <button>Xem thêm
-                <img src="./assets/img/icon/planes.png" className="section-area__btn-icon" alt="" />
-              </button>
+              <ButtonCustom name="Gửi Yêu Cầu" linkIcon={IconService} />
             </div>
           </div>
         </div>

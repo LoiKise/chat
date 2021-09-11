@@ -1,12 +1,14 @@
 import React from 'react'
-import ServiceItem from './ServiceItem'
+// import ButtonCustom from '../../../utils/Buttons/ButtonCustom'
+import CategoryTitle from '../Category/CategoryTitle/CategoryTitle'
+import Categories from '../Category/Cateogires'
 
 export default function Service() {
 
-    const serviceItem = [
+    const ServiceList = [
         {
             img: './assets/img/imgs/Services/Ship.jpg',
-            title: ' Vận Tải',
+            title: ' Vận Tải ',
             title1: 'Đường Biển',
             iconImg: './assets/img/icon/black_right_circle_arrow.png',
         },
@@ -25,24 +27,20 @@ export default function Service() {
     ]
 
     return (
-        <div class="ourservices section-area">
-            <div class="container">
-                <div class="ourservices__top">
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-6">
-                            <div class="section__top">
-                                <span>Dịch vụ</span>
-                                <h2 class="section__top-header">Dịch Vụ Của Chúng Tôi</h2>
-                                <div class="section__top-note">
-                                    Vận chuyển hàng hóa trong nước và quốc tế
-                                </div>
-                            </div>
+        <div className="ourservices section-area">
+            <div className="container">
+                <div className="ourservices__top">
+                    <div className="row justify-content-md-center">
+                        <div className="col-md-6">
+                            <CategoryTitle title='Dịch vụ' content='Đội Ngũ Của Chúng Tôi' />
                         </div>
                     </div>
                 </div>
-                <div class="ourservices-list">
-                    <div class="row">
-                        <ServiceItem serviceItem={serviceItem} />
+                <div className="ourservices-list">
+                    <div className="row">
+                        {/* <ServiceItem List={ServiceList} /> */}
+                        <Categories List={ServiceList}  />
+                        {/* <Categories serviceItem={serviceItem}/> */}
                     </div>
                 </div>
             </div>

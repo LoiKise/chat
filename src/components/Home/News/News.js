@@ -1,9 +1,10 @@
 import React from 'react'
-import NewItem from './NewItem'
+import CategoryTitle from '../Category/CategoryTitle/CategoryTitle'
+import Categories from '../Category/Cateogires'
 
-export default function News(props) {
+export default function News() {
 
-    const newItem = [
+    const newList = [
         {
             img: './assets/img/imgs/Services/Ship.jpg',
             info: ' Từ Ngày 12 Tháng 8 Giảm Giá 20% Tất Cả Các Đơn Hàng Vận ChuyểnTrong Nước',
@@ -24,18 +25,13 @@ export default function News(props) {
                 <div className="newandsale__top">
                     <div className="row justify-content-md-center">
                         <div className="col-md-6">
-                            <div className="section__top">
-                                <span>Bảng tin</span>
-                                <h2 className="section__top-header">Thông báo và khuyến mãi</h2>
-                            </div>
+                            <CategoryTitle title='Bảng tin' content='Đội Ngũ Của Chúng Tôi' />
                         </div>
                     </div>
                 </div>
                 <div className="newandsale-list">
                     <div className="row">
-
-                        <NewItem newItem={newItem} />
-
+                        <Categories List={newList} />
                     </div>
                 </div>
             </div>

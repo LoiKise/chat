@@ -1,7 +1,8 @@
 import React from 'react'
+import CategoryTitle from '../Category/CategoryTitle/CategoryTitle'
 import AboutListItem from './AboutListItem'
 
-export default function AboutUs(props) {
+export default function AboutUs() {
 
     const aboutListItem = [
         {
@@ -39,16 +40,11 @@ export default function AboutUs(props) {
                                 </div>
                             </div>
                         </div>
-
                         <div className="col-md-6">
                             <div className="whoweare__content-text">
-                                <span>Chúng tôi là ai</span>
-                                <h2 className="content-text__header">
-                                    Vài điều về <br />
-                                    chúng tôi
-                                </h2>
+                                <CategoryTitle title='Chúng tôi là' content='Vài Điều Về Chúng Tôi' />
                                 <ul className="content-text__list">
-                                    <AboutListItem aboutListItem={aboutListItem}/>
+                                    <AboutListItem aboutListItem={aboutListItem} />
                                 </ul>
                             </div>
                         </div>

@@ -7,7 +7,7 @@ export default function Index() {
   const headerItem =
     [
       {
-        name: "TRAN CHỦ"
+        name: "TRANG CHỦ"
       },
       {
         name: "GIỚI THIỆU",
@@ -26,12 +26,10 @@ export default function Index() {
       },
     ]
 
-
-
   return (
     <div className="header">
       <nav className="header__nav">
-        <Link to="">
+        <Link to="/">
           <img
             src="./assets/img/icon/dark_logo.png"
             alt="this is logo"

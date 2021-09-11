@@ -1,114 +1,108 @@
 import React from 'react'
+import ButtonCustom from '../../../utils/Buttons/ButtonCustom'
+import CategoryTitle from '../Category/CategoryTitle/CategoryTitle'
 
-export default function Order(props) {
+export default function Order() {
+    const IconService = "./assets/img/icon/planes.png"
     return (
-        <div class="ordernow section-area">
-            <div class="container">
-                <div class="ordernow__top">
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-6">
-                            <div class="section__top">
-                                <span>Đặt hàng</span>
-                                <h2 class="section__top-header">Đặt Hàng Ngay</h2>
-                                <div class="section__top-note">
-                                    Vận chuyển hàng hóa trong nước và quốc tế
-                                </div>
-                            </div>
+        <div className="ordernow section-area">
+            <div className="container">
+                <div className="ordernow__top">
+                    <div className="row justify-content-md-center">
+                        <div className="col-md-6">
+                            <CategoryTitle title='Đặt hàng' content='Đặt hàng ngay' />
                         </div>
                     </div>
                 </div>
-                <div class="ordernow-form">
-                    <div class="ordernow-form__userinfor">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="ordernow-form__userinfor-item">
-                                    <input type="text" name="" id="" class="ordernow-form__username" placeholder="Họ và Tên" />
-                                    <img src="./assets/img/icon/tomato_user.png" class="ordernow-form__icon" alt="" />
+                <div className="ordernow-form">
+                    <div className="ordernow-form__userinfor">
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="ordernow-form__userinfor-item">
+                                    <input type="text" name="" id="" className="ordernow-form__username" placeholder="Họ và Tên" />
+                                    <img src="./assets/img/icon/tomato_user.png" className="ordernow-form__icon" alt="" />
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="ordernow-form__userinfor-item">
-                                    <input type="text" name="" id="" class="ordernow-form__userphone" placeholder="Số Điện Thoại" />
-                                    <img src="./assets/img/icon/tomato_phone.png" class="ordernow-form__icon" alt="" />
+                            <div className="col-md-4">
+                                <div className="ordernow-form__userinfor-item">
+                                    <input type="text" name="" id="" className="ordernow-form__userphone" placeholder="Số Điện Thoại" />
+                                    <img src="./assets/img/icon/tomato_phone.png" className="ordernow-form__icon" alt="" />
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="ordernow-form__userinfor-item">
-                                    <input type="text" name="" id="" class="ordernow-form__useremail" placeholder="Email" />
-                                    <img src="./assets/img/icon/tomato_email.png" class="ordernow-form__icon" alt="" />
+                            <div className="col-md-4">
+                                <div className="ordernow-form__userinfor-item">
+                                    <input type="text" name="" id="" className="ordernow-form__useremail" placeholder="Email" />
+                                    <img src="./assets/img/icon/tomato_email.png" className="ordernow-form__icon" alt="" />
 
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="ordernow-form__deliverylocation">
-                        <h3 class="ordernow-form__deliverylocation-header">Điểm Giao Hàng</h3>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="ordernow-form__deliverylocation-item">
-                                    <input type="text" name="" id="" class="ordernow-form__province" placeholder="Tỉnh / Thành Phố" />
-                                    <img src="./assets/img/icon/tomato_down_arrow.png" class="ordernow-form__icon" alt="" />
+                    <div className="ordernow-form__deliverylocation">
+                        <h3 className="ordernow-form__deliverylocation-header">Điểm Giao Hàng</h3>
+                        <div className="row">
+                            <div className="col-md-3">
+                                <div className="ordernow-form__deliverylocation-item">
+                                    <input type="text" name="" id="" className="ordernow-form__province" placeholder="Tỉnh / Thành Phố" />
+                                    <img src="./assets/img/icon/tomato_down_arrow.png" className="ordernow-form__icon" alt="" />
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="ordernow-form__deliverylocation-item">
-                                    <input type="text" name="" id="" class="ordernow-form__province" placeholder="Huyện / Quận" />
-                                    <img src="./assets/img/icon/tomato_down_arrow.png" class="ordernow-form__icon" alt="" />
+                            <div className="col-md-3">
+                                <div className="ordernow-form__deliverylocation-item">
+                                    <input type="text" name="" id="" className="ordernow-form__province" placeholder="Huyện / Quận" />
+                                    <img src="./assets/img/icon/tomato_down_arrow.png" className="ordernow-form__icon" alt="" />
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="ordernow-form__deliverylocation-item">
-                                    <input type="text" name="" id="" class="ordernow-form__province" placeholder="Xã / Thị Xã" />
-                                    <img src="./assets/img/icon/tomato_down_arrow.png" class="ordernow-form__icon" alt="" />
+                            <div className="col-md-3">
+                                <div className="ordernow-form__deliverylocation-item">
+                                    <input type="text" name="" id="" className="ordernow-form__province" placeholder="Xã / Thị Xã" />
+                                    <img src="./assets/img/icon/tomato_down_arrow.png" className="ordernow-form__icon" alt="" />
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="ordernow-form__deliverylocation-item">
-                                    <input type="text" name="" id="" class="ordernow-form__province" placeholder="Địa Chỉ" />
+                            <div className="col-md-3">
+                                <div className="ordernow-form__deliverylocation-item">
+                                    <input type="text" name="" id="" className="ordernow-form__province" placeholder="Địa Chỉ" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="ordernow-form__about">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="ordernow-form__about-item">
-                                    <input type="text" name="" id="" class="ordernow-form__typepackage" placeholder="Loại Hàng" />
-                                    <img src="./assets/img/icon/tomato_down_arrow.png" class="ordernow-form__icon" alt="" />
+                    <div className="ordernow-form__about">
+                        <div className="row">
+                            <div className="col-md-3">
+                                <div className="ordernow-form__about-item">
+                                    <input type="text" name="" id="" className="ordernow-form__typepackage" placeholder="Loại Hàng" />
+                                    <img src="./assets/img/icon/tomato_down_arrow.png" className="ordernow-form__icon" alt="" />
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="ordernow-form__about-item">
-                                    <input type="text" name="" id="" class="ordernow-form__weight" placeholder="Cân Nặng" />
+                            <div className="col-md-3">
+                                <div className="ordernow-form__about-item">
+                                    <input type="text" name="" id="" className="ordernow-form__weight" placeholder="Cân Nặng" />
 
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="ordernow-form__about-check">
-                                    <ul class="form__about-checklist">
-                                        <li class="form__about-checkitem">
+                            <div className="col-md-6">
+                                <div className="ordernow-form__about-check">
+                                    <ul className="form__about-checklist">
+                                        <li className="form__about-checkitem">
                                             <input type="checkbox" name="" id="" />
                                             <span>Chuyển phát nhanh</span>
                                         </li>
-                                        <li class="form__about-checkitem">
+                                        <li className="form__about-checkitem">
                                             <input type="checkbox" name="" id="" />
                                             <span>Dễ vỡ</span>
                                         </li>
-                                        <li class="form__about-checkitem">
+                                        <li className="form__about-checkitem">
                                             <input type="checkbox" name="" id="" />
                                             <span>Hàng đông lạnh</span>
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="section-area__btn">
-                        <button>Gửi yêu cầu
-                            <img src="./assets/img/icon/planes.png" class="section-area__btn-icon" alt=""/>
-                        </button>
+                    <div className='section-area__btn'>
+                        <ButtonCustom name="Gửi Yêu Cầu" linkIcon={IconService} />
                     </div>
 
                 </div>

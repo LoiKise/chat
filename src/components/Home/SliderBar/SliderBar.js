@@ -1,7 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
 
-export default function SliderBar(props) {
+import React from 'react'
+import ButtonCustom from '../../../utils/Buttons/ButtonCustom'
+
+
+export default function SliderBar() {
+    const IconService = "./assets/img/icon/planes.png"
     return (
         <div className='slider'>
             <div className="header__slogan">
@@ -16,14 +19,8 @@ export default function SliderBar(props) {
                 />
             </div>
             <div className="header__button">
-                <Link to="/" className="header__button-search--link">
-                    <button className="header__button-search">
-                        Tra cứu <img src="./assets/img/icon/planes.png" alt="" />
-                    </button>
-                </Link>
-                <button className="header__button-service">
-                    Dịch Vụ <img src="./assets/img/icon/planes.png" alt="" />
-                </button>
+                <ButtonCustom name="Tra Cứu" linkIcon={IconService} isTransparent={false} />
+                <ButtonCustom name="Dịch Vụ" linkIcon={IconService} isTransparent={true} />
             </div>
         </div>
 
