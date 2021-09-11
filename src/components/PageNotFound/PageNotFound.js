@@ -1,12 +1,10 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
-export default function FageNotFound() {
+export default function PageNotFound() {
     let history = useHistory();
-
     function handleClick() {
         history.goBack();
     }
-
     return (
         <div className="not-found parallax">
             <div className="sky-bg" />
