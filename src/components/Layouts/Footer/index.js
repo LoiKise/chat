@@ -1,11 +1,22 @@
-import React from 'react'
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 
-export default function index() {
 
-    
+export default function Footer(props) {
 
-
+    const [showButton, setShowButton] = useState(false)
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            if (window.pageYOffset > 300) {
+                setShowButton(true);
+            } else {
+                setShowButton(false);
+            }
+        });
+    }, []);
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+      };
     return (
         <div>
             <footer className="footer">
@@ -94,9 +105,11 @@ export default function index() {
                 </div>
             </footer>
             <div className="link-fixed">
-                <Link className="scroll" to ='/'>
-                    <img src="./assets/img/icon/gradient_top_circle_arrow.png" alt="" />
-                </Link>
+                {showButton && (
+                    <Link className="scroll" to='/' onClick={scrollToTop}>
+                        <img src="./assets/img/icon/gradient_top_circle_arrow.png" alt="" />
+                    </Link>
+                )}
                 <Link to='/' className="messenger">
                     <img src="./assets/img/icon/cirle_mess.png" alt="" />
                 </Link>

@@ -11,49 +11,45 @@ function Dashboard(props) {
     const menuItems = [
         {
             id: "1",
-            name: "Dashboard",
+            name: "Tổng Quan",
             icon: faHome
         },
         {
             id: "2",
-            name: "Live Chat",
+            name: "Tin Nhắn",
             icon: faInbox
         },
-        // {
-        //     id: "3",
-        //     name: "Email",
-        //     icon: faEnvelope
-        // },
         {
             id: "3",
-            name: "Orders",
+            name: "Đơn hàng",
             icon: faFileInvoice
         },
         {
             id: "4",
-            name: "Drivers",
-            icon: faTshirt
+            name: "Giao Hàng",
+            icon: faEnvelope
         },
         {
             id: "5",
-            name: "News",
-            icon: faNewspaper
+            name: "Tài Xế",
+            icon: faTshirt
         },
         {
             id: "6",
-            name: "Users",
-            icon: faUser
+            name: "Tin Tuyển Dụng",
+            icon: faNewspaper
         },
         {
             id: "7",
-            name: "Report",
-            icon: faShoppingBag
+            name: "Tài Khoản",
+            icon: faUser
         },
         {
             id: "8",
-            name: "Subscribers",
-            icon: faEnvelope
+            name: "Báo cáo & Thống Kê",
+            icon: faShoppingBag
         },
+
     ]
     const [tabId, setTabId] = useState("1");
     const [openMenu, setOpenMenu] = useState(true);
