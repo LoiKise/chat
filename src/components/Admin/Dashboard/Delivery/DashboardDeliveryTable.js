@@ -4,7 +4,7 @@ import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import classNames from 'classnames'
 
-export default function DashboardSubscriberTable(props) {
+export default function DashboardDeliveryTable(props) {
 
     const [email, setEmail] = useState([])
     const [isSortByName, setIsSortByName] = useState(false)
@@ -116,7 +116,7 @@ export default function DashboardSubscriberTable(props) {
         const searchInput = event.target.value
         const search = []
         for (let i in constEmail) {
-            if ((constEmail[i].subscriberEmail).toLowerCase().includes(searchInput)) {
+            if ((constEmail[i].DeliveryEmail).toLowerCase().includes(searchInput)) {
                 search.push(constEmail[i])
             }
         }
@@ -124,12 +124,12 @@ export default function DashboardSubscriberTable(props) {
     }
 
     const sortTable = (event) => {
-        if (event.target.id === "SubscriberEmail") {
+        if (event.target.id === "DeliveryEmail") {
             if (isSortByName) {
                 const sortByName = [...email]
                 sortByName.sort(function (a, b) {
-                    var userA = a.subscriberEmail.toLowerCase();
-                    var userB = b.subscriberEmail.toLowerCase();
+                    var userA = a.DeliveryEmail.toLowerCase();
+                    var userB = b.DeliveryEmail.toLowerCase();
                     if (userA === userB) return 0;
                     return userA > userB ? 1 : -1;
                 })
@@ -138,8 +138,8 @@ export default function DashboardSubscriberTable(props) {
             } else {
                 const sortByName = [...email]
                 sortByName.sort(function (a, b) {
-                    var userA = a.subscriberEmail.toLowerCase();
-                    var userB = b.subscriberEmail.toLowerCase();
+                    var userA = a.DeliveryEmail.toLowerCase();
+                    var userB = b.DeliveryEmail.toLowerCase();
                     if (userA === userB) return 0;
                     return userA < userB ? 1 : -1;
                 })
@@ -185,7 +185,7 @@ export default function DashboardSubscriberTable(props) {
                                                 onClick={(event) => {
                                                     sortTable(event)
                                                 }}
-                                                id={`Subscriber${item}`}
+                                                id={`Delivery${item}`}
                                             >
                                                 {item}
                                             </th>
@@ -203,13 +203,13 @@ export default function DashboardSubscriberTable(props) {
                                     }
                                     return (
                                         <tr key={index}>
-                                            <td className="table-mobile-subscribername">
-                                                <p>{item.subscriberEmail}</p>
+                                            <td className="table-mobile-Deliveryname">
+                                                <p>{item.DeliveryEmail}</p>
                                             </td>
-                                            <td className="table-mobile-subscribersent">
+                                            <td className="table-mobile-Deliverysent">
                                                 <p>{item.sendedEmail.length}</p>
                                             </td>
-                                            <td className="table-mobile-subscriberread">
+                                            <td className="table-mobile-Deliveryread">
                                                 <p>{count}</p>
                                             </td>
                                             <td>
