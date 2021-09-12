@@ -165,8 +165,7 @@ a {
 html {
   font-family: "Roboto", sans-serif;
   font-size: 62.5%;
-  behavior: scroll;
-  height: 400vh; }
+  behavior: scroll; }
 
 .wrapper {
   overflow: hidden; }
@@ -381,9 +380,6 @@ p {
       border: 1px solid #bebec0; }
   .submit-form {
     width: 25%; } }
-
-.header {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../assets/img/imgs/Background/backgroundHeader.png"); }
 
 .header__nav {
   --element-height: 55px;

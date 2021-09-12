@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-export default function DashboardProductEdit(props) {
+export default function DashboardDriverEdit(props) {
 
     const createForm = useRef();
     const cateInput = useRef();
@@ -14,54 +14,54 @@ export default function DashboardProductEdit(props) {
     const [inputValue, setInputValue] = useState([])
     const [cate, setCate] = useState([])
     const [file, setFile] = useState([])
-    const product = props.product
+    const Driver = props.Driver
 
 
-    const [productImg, setProductImg] = useState([])
-    const [productName, setProductName] = useState("")
-    const [productSale, setProductSale] = useState(0)
-    const [productPrice, setProductPrice] = useState(0)
-    const [productDes, setProductDes] = useState("")
-    const [productCate, setProductCate] = useState("")
-    const [productGroupCate, setProductGroupCate] = useState("")
-    const [productGroupCateList, setProductGroupCateList] = useState([])
-    const [productSize, setProductSize] = useState([])
-    const [productSex, setProductSex] = useState([])
+    const [DriverImg, setDriverImg] = useState([])
+    const [DriverName, setDriverName] = useState("")
+    const [DriverSale, setDriverSale] = useState(0)
+    const [DriverPrice, setDriverPrice] = useState(0)
+    const [DriverDes, setDriverDes] = useState("")
+    const [DriverCate, setDriverCate] = useState("")
+    const [DriverGroupCate, setDriverGroupCate] = useState("")
+    const [DriverGroupCateList, setDriverGroupCateList] = useState([])
+    const [DriverSize, setDriverSize] = useState([])
+    const [DriverSex, setDriverSex] = useState([])
 
     const checkedSize = (event) => {
         if (event.target.id === "1") {
             if (isCheckedSmall) {
-                const size = productSize.filter((item) => {
+                const size = DriverSize.filter((item) => {
                     return item !== 'Small'
                 })
-                setProductSize(size)
+                setDriverSize(size)
                 setIsCheckedSmall(false)
             } else {
-                setProductSize(productSize => [...productSize, 'Small'])
+                setDriverSize(DriverSize => [...DriverSize, 'Small'])
                 setIsCheckedSmall(true)
             }
         }
         if (event.target.id === "2") {
             if (isCheckedMedium) {
-                const size = productSize.filter((item) => {
+                const size = DriverSize.filter((item) => {
                     return item !== 'Medium'
                 })
-                setProductSize(size)
+                setDriverSize(size)
                 setIsCheckedMedium(false)
             } else {
-                setProductSize(productSize => [...productSize, 'Medium'])
+                setDriverSize(DriverSize => [...DriverSize, 'Medium'])
                 setIsCheckedMedium(true)
             }
         }
         if (event.target.id === "3") {
-            const size = productSize.filter((item) => {
+            const size = DriverSize.filter((item) => {
                 return item !== 'Large'
             })
-            setProductSize(size)
+            setDriverSize(size)
             if (isCheckedLarge) {
                 setIsCheckedLarge(false)
             } else {
-                setProductSize(productSize => [...productSize, 'Large'])
+                setDriverSize(DriverSize => [...DriverSize, 'Large'])
                 setIsCheckedLarge(true)
             }
         }
@@ -72,40 +72,40 @@ export default function DashboardProductEdit(props) {
     }
 
     useEffect(() => {
-        if (product) {
-            setProductName(product.productName)
-            setProductImg(product.productImg)
-            setProductSale(product.productSale)
-            setProductPrice(product.productPrice)
-            setProductDes(product.productDes)
-            setProductCate(product.productCate)
-            setProductSex(product.productSex)
-            setProductSize(product.productSize)
-            setProductGroupCate(product.productGroupCate)
+        if (Driver) {
+            setDriverName(Driver.DriverName)
+            setDriverImg(Driver.DriverImg)
+            setDriverSale(Driver.DriverSale)
+            setDriverPrice(Driver.DriverPrice)
+            setDriverDes(Driver.DriverDes)
+            setDriverCate(Driver.DriverCate)
+            setDriverSex(Driver.DriverSex)
+            setDriverSize(Driver.DriverSize)
+            setDriverGroupCate(Driver.DriverGroupCate)
 
             // axios.get(`http://pe.heromc.net:4000/category`)
             //     .then(res => {
             //         setCate(res.data)
             //     }
             // )
-            // axios.get(`http://pe.heromc.net:4000/products`)
+            // axios.get(`http://pe.heromc.net:4000/Drivers`)
             //     .then(res => {
-            //         const test = Object.values(res.data.reduce((a, {productGroupCate}) => {
-            //             a[productGroupCate] = a[productGroupCate] || {productGroupCate};
+            //         const test = Object.values(res.data.reduce((a, {DriverGroupCate}) => {
+            //             a[DriverGroupCate] = a[DriverGroupCate] || {DriverGroupCate};
             //             return a;
             //         }, Object.create(null)));
-            //         setProductGroupCateList(test)
+            //         setDriverGroupCateList(test)
             //     }
             // )
-            // if (product.productSize) {
-            //     for (let i of product.productSize) {
+            // if (Driver.DriverSize) {
+            //     for (let i of Driver.DriverSize) {
             //         if(i === "Small") setIsCheckedSmall(true)
             //         if(i === "Medium") setIsCheckedMedium(true)
             //         if(i === "Large") setIsCheckedLarge(true)
             //     }
             // }
         }
-    }, [product])
+    }, [Driver])
 
     const onSubmit = (event) => {
         event.preventDefault()
@@ -119,19 +119,19 @@ export default function DashboardProductEdit(props) {
 
         const imageArr = Array.from(file);
         imageArr.forEach(image => {
-            formData.append('productImg', image);
+            formData.append('DriverImg', image);
         });
 
-        formData.append("productName", productName);
-        formData.append("productSale", productSale);
-        formData.append("productPrice", productPrice);
-        formData.append("productCate", productCate);
-        formData.append("productGroupCate", productGroupCate);
-        formData.append("productSize", productSize);
-        formData.append("productDes", productDes);
-        formData.append("productSex", productSex);
-        formData.append("productDate", new Date());
-        axios.post(`http://pe.heromc.net:4000/products/update/${product._id}`, formData, config)
+        formData.append("DriverName", DriverName);
+        formData.append("DriverSale", DriverSale);
+        formData.append("DriverPrice", DriverPrice);
+        formData.append("DriverCate", DriverCate);
+        formData.append("DriverGroupCate", DriverGroupCate);
+        formData.append("DriverSize", DriverSize);
+        formData.append("DriverDes", DriverDes);
+        formData.append("DriverSex", DriverSex);
+        formData.append("DriverDate", new Date());
+        axios.post(`http://pe.heromc.net:4000/Drivers/update/${Driver._id}`, formData, config)
             .then(() => {
                 props.setCloseEditFunc(false);
                 props.setToastFunc(true);
@@ -146,13 +146,13 @@ export default function DashboardProductEdit(props) {
             cateName: inputValue.cate
         })
         setCate(cate => [...cate, { cateName: inputValue.cate }])
-        setProductCate(inputValue.cate)
+        setDriverCate(inputValue.cate)
         cateInput.current.value = ""
     }
 
     const addNewGroupCate = () => {
-        setProductGroupCate(inputValue.groupCate)
-        setProductGroupCateList(productGroupCateList => [...productGroupCateList, { productGroupCate: inputValue.groupCate }])
+        setDriverGroupCate(inputValue.groupCate)
+        setDriverGroupCateList(DriverGroupCateList => [...DriverGroupCateList, { DriverGroupCate: inputValue.groupCate }])
         groupCateInput.current.value = ""
     }
 
@@ -162,20 +162,20 @@ export default function DashboardProductEdit(props) {
         virutalFile.splice(id, 1)
         setFile(virutalFile)
 
-        const items = [...productImg]
+        const items = [...DriverImg]
         items.splice(id, 1)
-        setProductImg(items)
-        axios.post(`http://pe.heromc.net:4000/products/update/${product._id}`, {
+        setDriverImg(items)
+        axios.post(`http://pe.heromc.net:4000/Drivers/update/${Driver._id}`, {
             deleteImgId: id
         })
     }
 
     return (
-        <div className="DashboardProductInfo">
+        <div className="DashboardDriverInfo">
             <div className="create-box">
                 <div className="create-box-title flex">
                     <div className="create-box-title-text">
-                        Product infomation
+                        Driver infomation
                     </div>
                     <div
                         className="create-box-title-close flex-center"
@@ -186,16 +186,16 @@ export default function DashboardProductEdit(props) {
                         <FontAwesomeIcon icon={faTimes} />
                     </div>
                 </div>
-                {product &&
+                {Driver &&
                     <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
                         <div className="create-box-row flex">
                             <div className="dashboard-left flex">Name</div>
                             <div className="dashboard-right">
                                 <input
                                     type="text" name="name"
-                                    value={productName}
+                                    value={DriverName}
                                     onChange={(event) => {
-                                        setProductName(event.target.value)
+                                        setDriverName(event.target.value)
                                     }} required
                                 ></input>
                             </div>
@@ -207,7 +207,7 @@ export default function DashboardProductEdit(props) {
                                     onChange={(event) => {
                                         const files = event.target.files;
                                         for (let i = 0; i < files.length; i++) {
-                                            setProductImg(product => [...product, URL.createObjectURL(files[i])])
+                                            setDriverImg(Driver => [...Driver, URL.createObjectURL(files[i])])
                                         }
                                         const fileArr = Array.prototype.slice.call(files)
                                         fileArr.forEach(item => {
@@ -215,14 +215,14 @@ export default function DashboardProductEdit(props) {
                                         })
                                     }}
                                     type="file"
-                                    name="productImg"
+                                    name="DriverImg"
                                     className="noborder"
                                     multiple="multiple"
                                     style={{ height: '50px' }}
                                 ></input>
                                 <div className="flex" style={{ overflowY: 'hidden', flexWrap: 'wrap' }}>
-                                    {productImg &&
-                                        productImg.map((item, index) => {
+                                    {DriverImg &&
+                                        DriverImg.map((item, index) => {
                                             return (
                                                 <div className="create-box-img">
                                                     <img key={index} src={item} alt=""></img>
@@ -248,9 +248,9 @@ export default function DashboardProductEdit(props) {
                                 <input
                                     type="number" name="price"
                                     placeholder="USD"
-                                    value={productPrice}
+                                    value={DriverPrice}
                                     onChange={(event) => {
-                                        setProductPrice(event.target.value)
+                                        setDriverPrice(event.target.value)
                                     }} required
                                 ></input>
                             </div>
@@ -262,9 +262,9 @@ export default function DashboardProductEdit(props) {
                                     type="number" placeholder="%"
                                     style={{ width: "100px" }}
                                     name="sale"
-                                    value={productSale}
+                                    value={DriverSale}
                                     onChange={(event) => {
-                                        setProductSale(event.target.value)
+                                        setDriverSale(event.target.value)
                                     }}
                                     required></input>
                                 <label>From: </label>
@@ -277,15 +277,15 @@ export default function DashboardProductEdit(props) {
                             <div className="dashboard-left flex">Category group</div>
                             <div className="dashboard-right flex-center">
                                 <select style={{ width: "350px" }}
-                                    onChange={(event) => { setProductGroupCate(event.target.value) }}
-                                    value={productGroupCate}
+                                    onChange={(event) => { setDriverGroupCate(event.target.value) }}
+                                    value={DriverGroupCate}
                                 >
                                     <option></option>
-                                    {productGroupCateList.length > 0 &&
-                                        productGroupCateList.map((item, index) => {
-                                            if (item.productGroupCate) {
+                                    {DriverGroupCateList.length > 0 &&
+                                        DriverGroupCateList.map((item, index) => {
+                                            if (item.DriverGroupCate) {
                                                 return (
-                                                    <option key={index}>{item.productGroupCate}</option>
+                                                    <option key={index}>{item.DriverGroupCate}</option>
                                                 )
                                             }
                                             return null
@@ -311,8 +311,8 @@ export default function DashboardProductEdit(props) {
                             <div className="dashboard-left flex">Category </div>
                             <div className="dashboard-right flex-center">
                                 <select style={{ width: "350px" }}
-                                    onChange={(event) => { setProductCate(event.target.value) }}
-                                    value={productCate}
+                                    onChange={(event) => { setDriverCate(event.target.value) }}
+                                    value={DriverCate}
                                 >
                                     <option></option>
                                     {cate.length > 0 &&
@@ -342,8 +342,8 @@ export default function DashboardProductEdit(props) {
                             <div className="dashboard-left flex">Sex </div>
                             <div className="dashboard-right flex">
                                 <select style={{ width: "200px" }}
-                                    onChange={(event) => { setProductSex(event.target.value) }}
-                                    value={productSex}
+                                    onChange={(event) => { setDriverSex(event.target.value) }}
+                                    value={DriverSex}
                                     required>
                                     <option></option>
                                     <option>Man</option>
@@ -374,16 +374,16 @@ export default function DashboardProductEdit(props) {
                                 <input
                                     type="text"
                                     name="des"
-                                    value={productDes || ""}
+                                    value={DriverDes || ""}
                                     onChange={(event) => {
-                                        setProductDes(event.target.value)
+                                        setDriverDes(event.target.value)
                                     }} required></input>
                             </div>
                         </div>
 
                         <div className="flex-center" style={{ marginTop: '40px' }}>
                             <button className="create-box-btn btn">
-                                Update product
+                                Update Driver
                             </button>
                         </div>
                     </form>

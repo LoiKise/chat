@@ -1,59 +1,45 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
+// import axios from 'axios'
 
-export default function DashboardCollectionEdit(props) {
+export default function DashboardReportCreate(props) {
 
     const createForm = useRef();
 
-    const [collectionName, setCollectionName] = useState("")
-    const [collectionBanner, setCollectionBanner] = useState([])
+    const [ReportName, setReportName] = useState("")
     const [product, setProduct] = useState([])
     const [productList, setProductList] = useState([])
+    const [newsImg, setNewsImg] = useState([])
     const [file, setFile] = useState([])
 
-    const collection = props.collection
-
-    useEffect(() => {
-        setCollectionBanner([])
-        setCollectionName('')
-        setProductList([])
-        setProduct([])
-        // axios.get(`http://pe.heromc.net:4000/products`)
-        //     .then(res => {
-        //         setProduct(res.data)
-        //     }
-        // )
-        // if (collection) {
-        //     setCollectionBanner([collection.collectionBanner])
-        //     setCollectionName(collection.collectionName)
-        //     setProductList(collection.collectionItems)
-        // }
-    }, [collection])
 
     const onSubmit = (event) => {
         event.preventDefault()
 
-        event.preventDefault()
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }
+        // const config = {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // }
 
         const formData = new FormData();
+        let ReportItems = []
+        for (let i in productList) {
+            ReportItems.push(productList[i]._id)
+        }
+
         const imageArr = Array.from(file);
         imageArr.forEach(image => {
-            formData.append('collectionBanner', image);
-        })
-        formData.append("productList", JSON.stringify(productList));
-        formData.append("collectionName", collectionName);
-        axios.post(`http://pe.heromc.net:4000/collection/update/${collection._id}`, formData, config)
-            .then(() => {
-                props.setCloseEditFunc(false);
-                props.setToastFunc(true);
-            })
+            formData.append('ReportBanner', image);
+        });
+        formData.append("ReportName", ReportName);
+        formData.append('ReportItems', ReportItems);
+        // axios.post('http://pe.heromc.net:4000/Report', formData, config)
+        //     .then(() => {
+        //         props.setCloseCreateFunc(false);
+        //         props.setToastFunc(true);
+        //     })
     }
 
     const deleteImg = (event) => {
@@ -61,10 +47,19 @@ export default function DashboardCollectionEdit(props) {
         virutalFile.splice(event.target.id, 1)
         setFile(virutalFile)
 
-        const items = [...collectionBanner]
+        const items = [...newsImg]
         items.splice(event.target.id, 1)
-        setCollectionBanner(items)
+        setNewsImg(items)
     }
+
+    useEffect(() => {
+        // axios.get(`http://pe.heromc.net:4000/products`)
+        //     .then(res => {
+        //         setProduct(res.data)
+        //     }
+        // )
+        setProduct([])
+    }, [])
 
     return (
         <div className="DashboardProductInfo">
@@ -76,7 +71,7 @@ export default function DashboardCollectionEdit(props) {
                     <div
                         className="create-box-title-close flex-center"
                         onClick={() => {
-                            props.setCloseEditFunc(false);
+                            props.setCloseCreateFunc(false);
                         }}
                     >
                         <FontAwesomeIcon icon={faTimes} />
@@ -88,37 +83,39 @@ export default function DashboardCollectionEdit(props) {
                         <div className="dashboard-right">
                             <input
                                 type="text" name="name"
-                                value={collectionName || ""}
+                                value={ReportName || ""}
                                 onChange={(event) => {
-                                    setCollectionName(event.target.value)
+                                    setReportName(event.target.value)
                                 }} required
                             ></input>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Collection Banner </div>
+                        <div className="dashboard-left flex">Report Banner </div>
                         <div className="dashboard-right">
                             <input
                                 onChange={(event) => {
                                     const files = event.target.files;
                                     for (let i = 0; i < files.length; i++) {
-                                        setCollectionBanner(news => [...news, URL.createObjectURL(files[i])])
+                                        setNewsImg(news => [...news, URL.createObjectURL(files[i])])
                                     }
                                     const fileArr = Array.prototype.slice.call(files)
                                     fileArr.forEach(item => {
+
                                         setFile(file => [...file, item])
                                     })
                                 }}
                                 type="file"
+                                name="newsImg"
                                 className="noborder"
                                 multiple="multiple"
                                 style={{ height: '50px' }}
                             ></input>
                             <div className="flex" style={{ overflowY: 'hidden', flexWrap: 'wrap' }}>
-                                {collectionBanner &&
-                                    collectionBanner.map((item, index) => {
+                                {newsImg &&
+                                    newsImg.map((item, index) => {
                                         return (
-                                            <div key={index} className="create-box-img" style={{ width: '130px' }}>
+                                            <div key={index} className="create-box-img">
                                                 <img key={index} src={item} alt=""></img>
                                                 <div
                                                     className="create-box-img-overlay"
@@ -178,7 +175,7 @@ export default function DashboardCollectionEdit(props) {
                                         <option
                                             key={index}
                                             value={JSON.stringify(item)}
-                                        >Name: {item.productName}, Price: {item.productFinalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</option>
+                                        >Name: {item.productName}, Price: {item.productFinalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</option>
                                     )
                                 })}
                             </select>
@@ -216,7 +213,7 @@ export default function DashboardCollectionEdit(props) {
                     </div>
                     <div className="flex-center" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn">
-                            Update collection
+                            Create Report
                         </button>
                     </div>
                 </form>
