@@ -1,9 +1,18 @@
+.header {
+  position: relative;
+  display: block;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #000;
+}
+.header--home {
+  position: fixed !important;
+  background-color: transparent;
+}
 .header__nav {
   --element-height: 55px;
   display: flex;
   justify-content: space-around;
-
-  height: 55px;
   padding-top: 10px;
 }
 .header__background {

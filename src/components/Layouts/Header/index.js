@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import HeaderNavItem from "./HeaderNavItem";
-
-export default function Index() {
+import classname from 'classname'
+export default function Index({ isHome }) {
 
   const headerItem =
     [
@@ -25,9 +25,11 @@ export default function Index() {
         name: "LIÊN HỆ"
       },
     ]
-
+  console.log('====================================');
+  console.log(isHome);
+  console.log('====================================');
   return (
-    <div className="header">
+    <div className={classname("header", { "header--home": isHome === true })}>
       <nav className="header__nav">
         <Link to="/">
           <img

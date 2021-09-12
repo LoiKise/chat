@@ -1,13 +1,9 @@
 .slider {
-  background-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.7),
-      rgba(0, 0, 0, 0.7)
-    ),
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url("../assets/img/imgs/Background/backgroundHeader.png");
   height: 100vh;
   width: auto;
-  margin-top: -5.125rem;;
+  // margin-top: -5.125rem;;
 
   .header__slogan {
     position: relative;
@@ -73,11 +69,7 @@
     transition: all 0.4s linear;
   }
   .header__button-search {
-    background-image: linear-gradient(
-      to right,
-      var(--gradient-color-from),
-      var(--gradient-color-to)
-    );
+    background-image: linear-gradient(to right, var(--gradient-color-from), var(--gradient-color-to));
   }
   .header__button-search--link {
     text-decoration: none;
@@ -106,11 +98,7 @@
     bottom: 15%;
     width: 130px;
     height: 4px;
-    background-image: linear-gradient(
-      to right,
-      var(--gradient-color-from),
-      var(--gradient-color-to)
-    );
+    background-image: linear-gradient(to right, var(--gradient-color-from), var(--gradient-color-to));
     transition: width 0.4s linear;
   }
 
