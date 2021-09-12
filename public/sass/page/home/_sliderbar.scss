@@ -7,7 +7,6 @@
     url("../assets/img/imgs/Background/backgroundHeader.png");
   height: 100vh;
   width: auto;
-  margin-top: -5.125rem;;
 
   .header__slogan {
     position: relative;
@@ -121,5 +120,135 @@
   .header__button-search img,
   .header__button-service img {
     height: 2rem;
+  }
+}
+
+/*---------------------------------reponsive------------------------*/
+
+// .slider {
+//   @include mobile {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+
+//     .header__slogan {
+//       height: 0px;
+//       left: 0%;
+//       top: -30% !important;
+//       margin-left: 10px;
+
+//       .header__slogan-text {
+//         font-size: 3rem;
+//       }
+//       .header__slogan-icon {
+//         display: none;
+//       }
+//     }
+//     .header__button {
+//       flex-direction: column;
+//       position: relative;
+//       top: 0%;
+//       width: 0px !important;
+//       button {
+//         margin-bottom: 20px;
+//       }
+//     }
+//   }
+// }
+
+// .slider {
+//   @include tablet {
+//     .header__slogan {
+//       .header__slogan-icon {
+//         right: 0%;
+//       }
+//     }
+//     .header__button {
+//       position: relative;
+//       left: 0%;
+//       width: 500px;
+//       margin: 0px auto;
+//     }
+//   }
+// }
+
+// .slider {
+//   @include desktop {
+//     .header__slogan {
+//       top: 20%;
+//       .header__slogan-icon {
+//         right: -60%;
+//       }
+//     }
+//     .header__button {
+//       position: relative;
+//       top: 50%;
+//       left: 0%;
+//       width: 900px;
+//       display: flex;
+//       justify-content: space-between;
+//     }
+
+//       .ourservices-item {
+//         margin-bottom: 65px !important;
+
+//     }
+//   }
+// }
+
+.slider {
+  .header__slogan {
+    @include mobile {
+      top: 24%;
+      left: 3%;
+    }
+    @include tablet {
+      top: 24%;
+      left: 3%;
+    }
+    @include desktop {
+      top: 30%;
+      left: 20%;
+    }
+    .header__slogan-text {
+      @include mobile {
+        font-size: 3rem;
+      }
+    }
+    .header__slogan-icon {
+      @include mobile {
+        display: none;
+      }
+      @include tablet {
+        right: 0%;
+      }
+      @include desktop {
+        right: -56%;
+      }
+    }
+  }
+  .header__button {
+    @include mobile {
+      display: flex;
+      flex-direction: column;
+      width: 0px;
+    }
+    button {
+      margin-bottom: 15px;
+    }
+    @include tablet {
+      right: -25%;
+      left: 0%;
+      width: 500px;
+      margin: 0px auto;
+    }
+    @include desktop {
+      position: relative;
+      top: 50%;
+      left: 0%;
+      width: 900px;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }

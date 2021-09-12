@@ -25,7 +25,7 @@ export default function News() {
                 <div className="newandsale__top">
                     <div className="row justify-content-md-center">
                         <div className="col-md-6">
-                            <CategoryTitle title='Bảng tin' content='Đội Ngũ Của Chúng Tôi' />
+                            <CategoryTitle title='Bảng tin' content='Thông Báo Và Khuyến Mãi' />
                         </div>
                     </div>
                 </div>

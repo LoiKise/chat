@@ -68,3 +68,26 @@
   word-wrap: break-word;
   opacity: 0.8;
 }
+
+
+/*---------------------------------reponsive------------------------*/
+
+
+.newandsale {
+  @include mobile {
+    margin-top: 1170px;
+  }
+}
+
+.newandsale {
+  @include tablet {
+    margin-top: 2570px;
+  }
+}
+
+
+.newandsale {
+  @include desktop {
+    margin-top: 0px;
+  }
+}
