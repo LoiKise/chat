@@ -6,11 +6,17 @@ import { Controller, useForm } from "react-hook-form"
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
+import { GoogleLogin } from 'react-google-login'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 export default function Index() {
   const ICONGG = "/assets/img/icon/Asset 18.png";
   const ICONFB = "/assets/img/icon/Asset 19.png";
   const ICONLOGO = "/assets/img/icon/Asset 16.png";
+
+  // id login gg, face
+  const clientId = "427076436287-ig3ubafn7i6og61d4ng1jqe5a9ejs4du.apps.googleusercontent.com"
+  const appId = "1249486168829023"
 
   const { control, handleSubmit , getValues,  formState: {errors}, setError } = useForm({
     defaultValues: {
@@ -44,39 +50,72 @@ export default function Index() {
     }
   }
 
+  //login gg
+  const responseGoogle = (res) => {
+    console.log('AccessToken', res.accessToken)
+    console.log('Login gg success', res.profileObj);
+  }
+
+  //login face
+  const responseFacebook = (res) => {
+    console.log(res);
+    console.log('AccessToken :', res.accessToken)
+  }
+
   return (
     <div className="login container py-5">
       <div className="row">
         <div className="col col-md-6 col-12 login__form">
           <h3 className="text-center p-3">ĐĂNG NHẬP</h3>
           <div className="login__social">
-            <button
-              className="
-          login__google
-          d-flex
-          justify-content-center
-          align-items-center
-        "
-            >
-              <img src={ICONGG} alt="icon__google" />
-              <p className="login__google--title font-weight-bold">
-                Đăng nhập với Google
-              </p>
-            </button>
-            <button
-              className="
-          login__face
-          d-flex
-          justify-content-center
-          align-items-center
-        "
+
+          <GoogleLogin
+            clientId={clientId}
+            render={renderProps => (
+              <button
+                onClick={()=> renderProps.onClick} disabled={renderProps.disabled}
+                  className="
+                    login__google
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                  "
+                >
+                  <img src={ICONGG} alt="icon__google" />
+                  <p className="login__google--title font-weight-bold">
+                    Đăng nhập với Google
+                  </p>
+                </button>
+            )}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
+
+          <FacebookLogin
+            appId={appId}
+            autoLoad={true}
+            fields="name,email,picture"
+            callback={responseFacebook} 
+            render={renderProps => (
+              <button
+                onClick={() => renderProps.onClick}
+                  className="
+              login__face
+              d-flex
+              justify-content-center
+              align-items-center
+            "
             >
               <img src={ICONFB} alt="icon__face" />
               <p className="login__face--title font-weight-bold">
                 Đăng nhập với Facebook
               </p>
             </button>
-          </div>
+            )}
+          />
+ 
+        </div>
           <div className="login__input">
             <form action="#" onSubmit={handleSubmit(handleLogin)}>
               <div className="form-group">
@@ -130,7 +169,7 @@ export default function Index() {
                   align-items-center
                 "
               >
-                <Link className="forgot-password" to="">
+                <Link className="forgot-password" to="/#">
                   Quên mật khẩu
                 </Link>
                 <button type="submit" className="submit-form">
@@ -140,7 +179,7 @@ export default function Index() {
             </form>
           </div>
           <p className="not--account">Bạn chưa có tài khoản ?</p>
-          <Link to="" className="signup__link">
+          <Link to="/#" className="signup__link">
             Đăng kí miễn phí ngay
           </Link>
         </div>
