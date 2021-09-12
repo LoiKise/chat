@@ -73,7 +73,7 @@ export default function Index() {
             clientId={clientId}
             render={renderProps => (
               <button
-                onClick={()=> renderProps.onClick} disabled={renderProps.disabled}
+                onClick={renderProps.onClick} disabled={renderProps.disabled}
                   className="
                     login__google
                     d-flex
@@ -99,7 +99,7 @@ export default function Index() {
             callback={responseFacebook} 
             render={renderProps => (
               <button
-                onClick={() => renderProps.onClick}
+                onClick={ renderProps.onClick}
                   className="
               login__face
               d-flex
@@ -126,7 +126,7 @@ export default function Index() {
                   name="sdt"
                   control = {control}
                   rules={rules.phone}
-                  render={({ field }) => ( 
+                  render={({ field }) => (
                     <input
                     type="number"
                     className="form-control rounded-0"
@@ -169,9 +169,9 @@ export default function Index() {
                   align-items-center
                 "
               >
-                <Link className="forgot-password" to="/#">
+                {/* <Link className="forgot-password" to="/#">
                   Quên mật khẩu
-                </Link>
+                </Link> */}
                 <button type="submit" className="submit-form">
                   Đăng nhập
                 </button>
@@ -179,9 +179,9 @@ export default function Index() {
             </form>
           </div>
           <p className="not--account">Bạn chưa có tài khoản ?</p>
-          <Link to="/#" className="signup__link">
+          {/* <Link to="/#" className="signup__link">
             Đăng kí miễn phí ngay
-          </Link>
+          </Link> */}
         </div>
         <div className="col col-md-6 col-12 login__introduce">
           <div className="logo__introduce">
