@@ -13,6 +13,25 @@ export const register = createAsyncThunk(
   }
 );
 
+export const login = createAsyncThunk(
+  "auth/login",
+  async (data, thunkAPI) => {
+    try {
+      const res = await authApi.login(data);
+      return res;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+const handleAuth=(state,action)=>{
+  const {sdt,access_token}=action.payload.data
+  state.profile=sdt
+  localStorage.setItem("sdt", JSON.stringify(state.profile));
+  localStorage.setItem('accessToken',access_token)
+}
+
 const auth = createSlice({
   name: "auth",
   initialState: {
@@ -20,10 +39,8 @@ const auth = createSlice({
   },
 
   extraReducers: {
-    [register.fulfilled]: (state, action) => {
-      state.profile = action.payload.data;
-      localStorage.setItem("user", JSON.stringify(state.profile));
-    },
+    [register.fulfilled]: handleAuth,
+    [login.fulfilled]:  handleAuth,
   },
 });
 

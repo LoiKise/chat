@@ -1,10 +1,49 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import ErrorMessage from "../ErrorMessage";
+import { rules } from "../../helpers/rules";
+import { Controller, useForm } from "react-hook-form"
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/auth/authSlice";
 
-export default function index() {
+export default function Index() {
   const ICONGG = "/assets/img/icon/Asset 18.png";
   const ICONFB = "/assets/img/icon/Asset 19.png";
   const ICONLOGO = "/assets/img/icon/Asset 16.png";
+
+  const { control, handleSubmit , getValues,  formState: {errors}, setError } = useForm({
+    defaultValues: {
+      sdt: "",
+      password: "",
+    }
+  });
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  
+  const handleLogin = async (data) => {
+    const body = {
+      sdt : data.sdt,
+      password: data.password,
+    }
+
+    try {
+      const res = await dispatch(login(body));
+      unwrapResult(res);
+      history.push("/");
+    } catch (error) {
+      if (error.status === 422) {
+        for (const key in error.data) {
+          setError(key, {
+            type: "server",
+            message: error.data[key],
+          });
+        }
+      }
+    }
+  }
+
   return (
     <div className="login container py-5">
       <div className="row">
@@ -39,16 +78,26 @@ export default function index() {
             </button>
           </div>
           <div className="login__input">
-            <form action="#">
+            <form action="#" onSubmit={handleSubmit(handleLogin)}>
               <div className="form-group">
                 <label htmlFor="form-group-phone" className="font-weight-bold">
                   Số điện thoại
                 </label>
-                <input
-                  type="number"
-                  className="form-control rounded-0"
-                  id="form-group-phone"
+                <Controller 
+                  name="sdt"
+                  control = {control}
+                  rules={rules.phone}
+                  render={({ field }) => (
+                    <input
+                    type="number"
+                    className="form-control rounded-0"
+                    id="form-group-phone"
+                    onChange={field.onChange}
+                    value={getValues("sdt")}
+                    />
+                  )}
                 />
+                <ErrorMessage name="sdt" errors={errors} />
               </div>
               <div className="form-group">
                 <label
@@ -57,19 +106,29 @@ export default function index() {
                 >
                   Mật khẩu
                 </label>
-                <input
-                  type="password"
-                  className="form-control rounded-0"
-                  id="form-group-password"
+                <Controller 
+                  name="password"
+                  control = {control}
+                  rules={rules.password}
+                  render={({ field }) => (
+                    <input
+                    type="password"
+                    className="form-control rounded-0"
+                    id="form-group-password"
+                    onChange={field.onChange}
+                    value={getValues("password")}
+                    />
+                  )}
                 />
+                <ErrorMessage name="password" errors={errors} />
               </div>
               <div
                 className="
-            login__input--submit
-            d-flex
-            justify-content-between
-            align-items-center
-          "
+                  login__input--submit
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                "
               >
                 <Link className="forgot-password" to="">
                   Quên mật khẩu
