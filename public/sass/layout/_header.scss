@@ -11,9 +11,8 @@
 }
 .header__nav {
   --element-height: 55px;
-  display: flex;
-  justify-content: space-around;
-  padding-top: 10px;
+  display: flex !important;
+  justify-content: space-evenly !important;
 }
 .header__background {
   position: relative;
@@ -26,9 +25,13 @@
   display: flex;
   justify-content: space-between;
   list-style: none;
+  margin-right: 150px;
+  margin-bottom: 0 !important;
+}
+.header__nav--collapse {
+  flex-grow: 0 !important;
 }
 .header__nav-item {
-  /* background-color: black; */
   width: 140px;
   text-align: center;
 }
@@ -60,6 +63,17 @@
   text-decoration: none;
   color: var(--gradient-color-to);
 }
+
 .header__authen--signup {
   margin-left: 20px;
 }
+
+.navbar-light .navbar-toggler {
+  color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: antiquewhite;
+}
+
+/*---------------------------------reponsive------------------------*/
+
+/*---------------------------------reponsive------------------------*/

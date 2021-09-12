@@ -28,7 +28,7 @@ export default function AboutUs() {
             <div className="whoweare section-area">
                 <div className="whoweare__content">
                     <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-12 col-lg-6">
                             <div className="whoweare__content-img">
                                 <img src="./assets/img/imgs/whoweare.jpg" alt="" />
                                 <div className="whoweare__content-experience">
@@ -40,7 +40,7 @@ export default function AboutUs() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-12 col-lg-6">
                             <div className="whoweare__content-text">
                                 <CategoryTitle title='Chúng tôi là' content='Vài Điều Về Chúng Tôi' />
                                 <ul className="content-text__list">
