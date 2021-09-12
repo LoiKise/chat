@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-export default function DashboardProductCreate(props) {
+export default function DashboardDriverCreate(props) {
 
     const createForm = useRef();
     const cateInput = useRef();
@@ -17,10 +17,10 @@ export default function DashboardProductCreate(props) {
     const [size, setSize] = useState([])
     const [sex, setSex] = useState("")
     const [file, setFile] = useState([])
-    const [productGroupCate, setProductGroupCate] = useState("")
-    const [productGroupCateList, setProductGroupCateList] = useState([])
+    const [DriverGroupCate, setDriverGroupCate] = useState("")
+    const [DriverGroupCateList, setDriverGroupCateList] = useState([])
 
-    const [productImg, setProductImg] = useState([])
+    const [DriverImg, setDriverImg] = useState([])
 
     const checkedSize = (event) => {
         if (event.target.id === "1") {
@@ -54,15 +54,15 @@ export default function DashboardProductCreate(props) {
     }
 
     useEffect(() => {
-        setProductGroupCateList([])
+        setDriverGroupCateList([])
         setCate([])
-        // axios.get(`http://pe.heromc.net:4000/products`)
+        // axios.get(`http://pe.heromc.net:4000/Drivers`)
         //     .then(res => {
-        //         const test = Object.values(res.data.reduce((a, {productGroupCate}) => {
-        //             a[productGroupCate] = a[productGroupCate] || {productGroupCate};
+        //         const test = Object.values(res.data.reduce((a, {DriverGroupCate}) => {
+        //             a[DriverGroupCate] = a[DriverGroupCate] || {DriverGroupCate};
         //             return a;
         //         }, Object.create(null)));
-        //         setProductGroupCateList(test)
+        //         setDriverGroupCateList(test)
         //     }
         // )
         // axios.get(`http://pe.heromc.net:4000/category`)
@@ -83,19 +83,19 @@ export default function DashboardProductCreate(props) {
 
         const imageArr = Array.from(file);
         imageArr.forEach(image => {
-            formData.append('productImg', image);
+            formData.append('DriverImg', image);
         });
 
-        formData.append("productName", inputValue.name);
-        formData.append("productSale", inputValue.sale);
-        formData.append("productPrice", inputValue.price);
-        formData.append("productCate", cateValue);
-        formData.append("productGroupCate", productGroupCate);
-        formData.append("productSize", size);
-        formData.append("productDes", inputValue.des);
-        formData.append("productSex", sex);
-        formData.append("productDate", new Date());
-        axios.post('http://pe.heromc.net:4000/products', formData, config)
+        formData.append("DriverName", inputValue.name);
+        formData.append("DriverSale", inputValue.sale);
+        formData.append("DriverPrice", inputValue.price);
+        formData.append("DriverCate", cateValue);
+        formData.append("DriverGroupCate", DriverGroupCate);
+        formData.append("DriverSize", size);
+        formData.append("DriverDes", inputValue.des);
+        formData.append("DriverSex", sex);
+        formData.append("DriverDate", new Date());
+        axios.post('http://pe.heromc.net:4000/Drivers', formData, config)
             .then(() => {
                 props.setCloseCreateFunc(false);
                 props.setToastFunc(true);
@@ -112,8 +112,8 @@ export default function DashboardProductCreate(props) {
     }
 
     const addNewGroupCate = () => {
-        setProductGroupCate(inputValue.groupCate)
-        setProductGroupCateList(productGroupCateList => [...productGroupCateList, { productGroupCate: inputValue.groupCate }])
+        setDriverGroupCate(inputValue.groupCate)
+        setDriverGroupCateList(DriverGroupCateList => [...DriverGroupCateList, { DriverGroupCate: inputValue.groupCate }])
         groupCateInput.current.value = ""
     }
 
@@ -122,17 +122,17 @@ export default function DashboardProductCreate(props) {
         virutalFile.splice(event.target.id, 1)
         setFile(virutalFile)
 
-        const items = [...productImg]
+        const items = [...DriverImg]
         items.splice(event.target.id, 1)
-        setProductImg(items)
+        setDriverImg(items)
     }
 
     return (
-        <div className="DashboardProductInfo">
+        <div className="DashboardDriverInfo">
             <div className="create-box">
                 <div className="create-box-title flex">
                     <div className="create-box-title-text">
-                        Product infomation
+                        Driver infomation
                     </div>
                     <div
                         className="create-box-title-close flex-center"
@@ -157,7 +157,7 @@ export default function DashboardProductCreate(props) {
                                 onChange={(event) => {
                                     const files = event.target.files;
                                     for (let i = 0; i < files.length; i++) {
-                                        setProductImg(product => [...product, URL.createObjectURL(files[i])])
+                                        setDriverImg(Driver => [...Driver, URL.createObjectURL(files[i])])
                                     }
                                     const fileArr = Array.prototype.slice.call(files)
                                     fileArr.forEach(item => {
@@ -166,14 +166,14 @@ export default function DashboardProductCreate(props) {
                                     })
                                 }}
                                 type="file"
-                                name="productImg"
+                                name="DriverImg"
                                 className="noborder"
                                 multiple="multiple"
                                 style={{ height: '50px' }}
                             ></input>
                             <div className="flex" style={{ overflowY: 'hidden', flexWrap: 'wrap' }}>
-                                {productImg &&
-                                    productImg.map((item, index) => {
+                                {DriverImg &&
+                                    DriverImg.map((item, index) => {
                                         return (
                                             <div key={index} className="create-box-img">
                                                 <img key={index} src={item} alt=""></img>
@@ -213,13 +213,13 @@ export default function DashboardProductCreate(props) {
                         <div className="dashboard-left flex">Category group</div>
                         <div className="dashboard-right flex-center">
                             <select style={{ width: "350px" }}
-                                onChange={(event) => { setProductGroupCate(event.target.value) }}
-                                value={productGroupCate}
+                                onChange={(event) => { setDriverGroupCate(event.target.value) }}
+                                value={DriverGroupCate}
                             >
-                                {productGroupCateList.length > 0 &&
-                                    productGroupCateList.map((item, index) => {
+                                {DriverGroupCateList.length > 0 &&
+                                    DriverGroupCateList.map((item, index) => {
                                         return (
-                                            <option key={index}>{item.productGroupCate}</option>
+                                            <option key={index}>{item.DriverGroupCate}</option>
                                         )
                                     })
                                 }
@@ -308,7 +308,7 @@ export default function DashboardProductCreate(props) {
 
                     <div className="flex-center" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn">
-                            Add product
+                            Add Driver
                         </button>
                     </div>
                 </form>

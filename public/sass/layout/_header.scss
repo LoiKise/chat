@@ -1,19 +1,10 @@
-.header {
-  background-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.7),
-      rgba(0, 0, 0, 0.7)
-    ),
-    url("../assets/img/imgs/Background/backgroundHeader.png");
-  display: flex;
-  justify-content: space-around;
-}
 .header__nav {
   --element-height: 55px;
   display: flex;
   justify-content: space-around;
   height: 55px;
   padding-top: 10px;
+  padding: 50px;
 }
 .header__background {
   position: relative;

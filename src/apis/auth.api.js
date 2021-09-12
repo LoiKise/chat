@@ -11,5 +11,11 @@ const authApi = {
   // register(data) {
   //   return requestAPI("/Register", "POST", data);
   // },
+  login(data) {
+    return axios.post(
+      "https://606730cf98f405001728e82c.mockapi.io/login",
+      data
+    )
+  }
 };
 export default authApi;

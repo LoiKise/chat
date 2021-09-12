@@ -165,8 +165,7 @@ a {
 html {
   font-family: "Roboto", sans-serif;
   font-size: 62.5%;
-  behavior: scroll;
-  height: 400vh; }
+  behavior: scroll; }
 
 .wrapper {
   overflow: hidden; }
@@ -382,17 +381,13 @@ p {
   .submit-form {
     width: 25%; } }
 
-.header {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../assets/img/imgs/Background/backgroundHeader.png");
-  display: flex;
-  justify-content: space-around; }
-
 .header__nav {
   --element-height: 55px;
   display: flex;
   justify-content: space-around;
   height: 55px;
-  padding-top: 10px; }
+  padding-top: 10px;
+  padding: 50px; }
 
 .header__background {
   position: relative;
@@ -3571,50 +3566,60 @@ select {
 
 /*---------------------------------reponsive------------------------*/
 @media (max-width: 480px) {
-  .slider {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; }
-    .slider .header__slogan {
-      height: 0px;
-      left: 0%;
-      top: -30% !important;
-      margin-left: 10px; }
-      .slider .header__slogan .header__slogan-text {
-        font-size: 3rem; }
-      .slider .header__slogan .header__slogan-icon {
-        display: none; }
-    .slider .header__button {
-      flex-direction: column;
-      position: relative;
-      top: 0%;
-      width: 0px !important; }
-      .slider .header__button button {
-        margin-bottom: 20px; } }
+  .slider .header__slogan {
+    top: 24%;
+    left: 3%; } }
+
+@media (min-width: 768px) {
+  .slider .header__slogan {
+    top: 24%;
+    left: 3%; } }
+
+@media (min-width: 1367px) {
+  .slider .header__slogan {
+    top: 30%;
+    left: 20%; } }
+
+@media (max-width: 480px) {
+  .slider .header__slogan .header__slogan-text {
+    font-size: 3rem; } }
+
+@media (max-width: 480px) {
+  .slider .header__slogan .header__slogan-icon {
+    display: none; } }
 
 @media (min-width: 768px) {
   .slider .header__slogan .header__slogan-icon {
-    right: 0%; }
+    right: 0%; } }
+
+@media (min-width: 1367px) {
+  .slider .header__slogan .header__slogan-icon {
+    right: -56%; } }
+
+@media (max-width: 480px) {
   .slider .header__button {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 0px; } }
+
+.slider .header__button button {
+  margin-bottom: 15px; }
+
+@media (min-width: 768px) {
+  .slider .header__button {
+    right: -25%;
     left: 0%;
     width: 500px;
     margin: 0px auto; } }
 
 @media (min-width: 1367px) {
-  .slider .header__slogan {
-    top: 20%; }
-    .slider .header__slogan .header__slogan-icon {
-      right: -60%; }
   .slider .header__button {
     position: relative;
     top: 50%;
     left: 0%;
     width: 900px;
     display: flex;
-    justify-content: space-between; }
-  .slider .ourservices-item {
-    margin-bottom: 65px !important; } }
+    justify-content: space-between; } }
 
 .whoweare {
   background-color: white; }

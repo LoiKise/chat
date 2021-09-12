@@ -41,17 +41,9 @@ function App() {
   }
   return (
     <Router>
-<<<<<<< HEAD
-      <Header />
-  
-      <Switch>{RouteContainer(routes)}</Switch>
-    
-      <Footer />
-=======
       <Switch>
         {RouteContainer(routes)}
       </Switch>
->>>>>>> 9cf9ee4c6a985a59e8c24ad54726ffa4ec632096
     </Router>
   );
 }
