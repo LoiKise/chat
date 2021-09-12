@@ -31,7 +31,7 @@ function Dashboard(props) {
         },
         {
             id: "4",
-            name: "Products",
+            name: "Drivers",
             icon: faTshirt
         },
         {
@@ -46,7 +46,7 @@ function Dashboard(props) {
         },
         {
             id: "7",
-            name: "Collection",
+            name: "Report",
             icon: faShoppingBag
         },
         {
@@ -58,7 +58,7 @@ function Dashboard(props) {
     const [tabId, setTabId] = useState("1");
     const [openMenu, setOpenMenu] = useState(true);
     const [openMenuMobile, setOpenMenuMobile] = useState(true);
-    const [productId, setProductId] = useState("")
+    const [DriverId, setDriverId] = useState("")
 
     // const socket = socketIOClient(ENDPOINT);
 
@@ -130,7 +130,7 @@ function Dashboard(props) {
     const setOpenEditFunc = (event) => {
         document.body.style.overflow = 'hidden';
         setOpenEdit(true)
-        setProductId(event.target.id)
+        setDriverId(event.target.id)
     }
 
     const setCloseEditFunc = (bool) => {
@@ -163,7 +163,7 @@ function Dashboard(props) {
                 setCloseCreateFunc={setCloseCreateFunc}
                 setOpenEditFunc={setOpenEditFunc}
                 setCloseEditFunc={setCloseEditFunc}
-                productId={productId}
+                DriverId={DriverId}
                 orderNotice={orderNotice}
             />
         </div>

@@ -4,21 +4,25 @@ import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import classNames from 'classnames'
 
-export default function DashboardCollectionTable(props) {
+export default function DashboardDriverTable(props) {
 
-    const [collection, setCollection] = useState([])
+    const [Drivers, setDrivers] = useState([])
+    // const [searchInput, setSearchInput] = useState("")
+    const [constDrivers, setConstDrivers] = useState([])
     const [isSortByName, setIsSortByName] = useState(false)
-    const [constCollection, setConstCollection] = useState([])
+    const [isSortByPrice, setIsSortByPrice] = useState(false)
+    const [isSortBySale, setIsSortBySale] = useState(false)
+    const [isSortBySold, setIsSortBySold] = useState(false)
 
     useEffect(() => {
-        // axios.get(`http://pe.heromc.net:4000/collection`)
+        setDrivers([])
+        setConstDrivers([])
+        // axios.get(`http://pe.heromc.net:4000/Drivers`)
         //     .then(res => {
-        //         setCollection(res.data)
-        //         setConstCollection(res.data)
+        //         setDrivers(res.data)
+        //         setConstDrivers(res.data)
         //     }
         //     )
-        setCollection([])
-        setConstCollection([])
     }, [props.isChange])
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -42,9 +46,9 @@ export default function DashboardCollectionTable(props) {
 
     const indexOfLast = currentPage * itemsPerPage;
     const indexOfFirst = indexOfLast - itemsPerPage;
-    const current = collection.slice(indexOfFirst, indexOfLast);
+    const current = Drivers.slice(indexOfFirst, indexOfLast);
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(collection.length / itemsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(Drivers.length / itemsPerPage); i++) {
         pageNumbers.push(i);
     }
 
@@ -99,10 +103,10 @@ export default function DashboardCollectionTable(props) {
     }
 
     const deleteOnClick = (event) => {
-        axios.post(`http://pe.heromc.net:4000/collection/delete/:${event.target.id}`, {
-            id: event.target.id
+        axios.post(`http://pe.heromc.net:4000/Drivers/delete/:${event.target.id}`, {
+            DriverId: event.target.id
         })
-        setCollection(collection.filter((item) => {
+        setDrivers(Drivers.filter((item) => {
             return item._id !== event.target.id
         }))
     }
@@ -113,40 +117,108 @@ export default function DashboardCollectionTable(props) {
     const searchOnChange = (event) => {
         const searchInput = event.target.value
         const search = []
-        for (let i in constCollection) {
-            if ((constCollection[i].collectionName).toLowerCase().includes(searchInput)) {
-                search.push(constCollection[i])
+        for (let i in constDrivers) {
+            if ((constDrivers[i].DriverName).toLowerCase().includes(searchInput)) {
+                search.push(constDrivers[i])
             }
         }
-        setCollection(search)
+        setDrivers(search)
     }
 
     const sortTable = (event) => {
-        if (event.target.id === "CollectionName") {
+        if (event.target.id === "DriverName") {
             if (isSortByName) {
-                const sortByName = [...collection]
+                const sortByName = [...Drivers]
                 sortByName.sort(function (a, b) {
-                    var collectionA = a.collectionName.toLowerCase();
-                    var collectionB = b.collectionName.toLowerCase();
-                    if (collectionA === collectionB) return 0;
-                    return collectionA > collectionB ? 1 : -1;
+                    var nameA = a.DriverName.toLowerCase();
+                    var nameB = b.DriverName.toLowerCase();
+                    if (nameA === nameB) return 0;
+                    return nameA > nameB ? 1 : -1;
                 })
                 setIsSortByName(false)
-                setCollection(sortByName)
+                setDrivers(sortByName)
             } else {
-                const sortByName = [...collection]
+                const sortByName = [...Drivers]
                 sortByName.sort(function (a, b) {
-                    var collectionA = a.collectionName.toLowerCase();
-                    var collectionB = b.collectionName.toLowerCase();
-                    if (collectionA === collectionB) return 0;
-                    return collectionA < collectionB ? 1 : -1;
+                    var nameA = a.DriverName.toLowerCase();
+                    var nameB = b.DriverName.toLowerCase();
+                    if (nameA === nameB) return 0;
+                    return nameA < nameB ? 1 : -1;
                 })
                 setIsSortByName(true)
-                setCollection(sortByName)
+                setDrivers(sortByName)
+            }
+        }
+        if (event.target.id === "DriverPrice") {
+            if (isSortByPrice) {
+                const sortByPrice = [...Drivers]
+                sortByPrice.sort(function (a, b) {
+                    var priceA = a.DriverPrice;
+                    var priceB = b.DriverPrice;
+                    if (priceA === priceB) return 0;
+                    return priceA > priceB ? 1 : -1;
+                })
+                setIsSortByPrice(false)
+                setDrivers(sortByPrice)
+            } else {
+                const sortByPrice = [...Drivers]
+                sortByPrice.sort(function (a, b) {
+                    var priceA = a.DriverPrice;
+                    var priceB = b.DriverPrice;
+                    if (priceA === priceB) return 0;
+                    return priceA < priceB ? 1 : -1;
+                })
+                setIsSortByPrice(true)
+                setDrivers(sortByPrice)
+            }
+        }
+        if (event.target.id === "DriverSale") {
+            if (isSortBySale) {
+                const sortBySale = [...Drivers]
+                sortBySale.sort(function (a, b) {
+                    var saleA = a.DriverSale;
+                    var saleB = b.DriverSale;
+                    if (saleA === saleB) return 0;
+                    return saleA > saleB ? 1 : -1;
+                })
+                setIsSortBySale(false)
+                setDrivers(sortBySale)
+            } else {
+                const sortBySale = [...Drivers]
+                sortBySale.sort(function (a, b) {
+                    var saleA = a.DriverSale;
+                    var saleB = b.DriverSale;
+                    if (saleA === saleB) return 0;
+                    return saleA < saleB ? 1 : -1;
+                })
+                setIsSortBySale(true)
+                setDrivers(sortBySale)
+            }
+        }
+        if (event.target.id === "DriverSold") {
+            if (isSortBySold) {
+                const sortBySold = [...Drivers]
+                sortBySold.sort(function (a, b) {
+                    var SoldA = a.DriverSold;
+                    var SoldB = b.DriverSold;
+                    if (SoldA === SoldB) return 0;
+                    return SoldA > SoldB ? 1 : -1;
+                })
+                setIsSortBySold(false)
+                setDrivers(sortBySold)
+            } else {
+                const sortBySold = [...Drivers]
+                sortBySold.sort(function (a, b) {
+                    var SoldA = a.DriverSold;
+                    var SoldB = b.DriverSold;
+                    if (SoldA === SoldB) return 0;
+                    return SoldA < SoldB ? 1 : -1;
+                })
+                setIsSortBySold(true)
+                setDrivers(sortBySold)
             }
         }
     }
-
     return (
         <div className="topfive flex-col" style={{ width: '100%' }}>
             <div className={`headerbox flex-center ${props.color}`}>
@@ -163,27 +235,24 @@ export default function DashboardCollectionTable(props) {
                             onClick={props.setOpenCreateFunc}
                         >Add new</div>
                         <div className="dashboard-addnew-search">
-                            <form
-                                onSubmit={searchOnSubmit}
-                            >
+                            <form onSubmit={searchOnSubmit}>
                                 <input type="text" placeholder="Search records"
-                                    onChange={searchOnChange}
-                                ></input>
+                                    onChange={searchOnChange}></input>
                             </form>
                         </div>
                     </div>
                     <table className="dashboard-table" style={{ tableLayout: 'fixed' }}>
                         <tbody>
-                            <tr className="dashboard-order">
+                            <tr>
                                 {
                                     props.table.map((item, index) => {
                                         return (
                                             <th
-                                                key={index} className="table-new-title table-order-title"
+                                                key={index} className="table-title"
                                                 onClick={(event) => {
                                                     sortTable(event)
                                                 }}
-                                                id={`Collection${item}`}
+                                                id={`Driver${item}`}
                                             >
                                                 {item}
                                             </th>
@@ -193,47 +262,73 @@ export default function DashboardCollectionTable(props) {
                             </tr>
                             {
                                 current.map((item, index) => {
-                                    const date = new Date(item.collectionTime)
-                                    const day = date.getDate()
-                                    const month = date.getMonth() + 1
-                                    const year = date.getFullYear()
-                                    // let totalItem = 0;
-                                    // for (let i in item.orderList) {
-                                    //     totalItem += item.orderList[i].amount
-                                    // }
+                                    const date = new Date(item.DriverDate)
+                                    const day = date.getDate();
+                                    const month = date.getMonth() + 1;
+                                    const year = date.getFullYear();
+                                    const shortedDate = day + '/' + month + '/' + year;
+                                    //Counting star vote
+                                    const ratingList = item.DriverVote.map(a => a.ratingStar); // get all rating
+
+                                    const totalRating = ratingList.reduce((a, b) => a + b, 0);
+
+                                    var averageRating = 0;
+                                    if (totalRating === 0) {
+                                        averageRating = 0
+                                    } else {
+                                        averageRating = totalRating / Number(ratingList.length);
+                                    }
+
                                     return (
                                         <tr key={index}>
-                                            <td className="table-name">
-                                                <p>{item.collectionName}</p>
+                                            <td className="table-name table-mobile-Drivername">
+                                                <p>{item.DriverName}</p>
                                             </td>
-                                            <td
-                                                style={{ display: 'flex' }}
-                                                className="table-mobile-collectionbanner">
+                                            <td className="table-mobile-Driverimages" style={{ display: 'flex' }}>
                                                 <img
-                                                    src={item.collectionBanner}
-                                                    width="120px" height="80px"
+                                                    src={item.DriverImg[0]}
+                                                    width="70px" height="80px"
                                                     style={{ padding: '5px 0' }}
                                                     alt=""
                                                 />
                                             </td>
                                             <td>
-                                                <select
-                                                    className="table-input"
-                                                    style={{ height: '30px', width: '80%' }}
-                                                >
-                                                    {
-                                                        item.collectionItems.map((item, index) => {
-                                                            return (
-                                                                <option key={index}>
-                                                                    {item.productName}
-                                                                </option>
-                                                            )
-                                                        })
-                                                    }
-                                                </select>
+                                                <p>{item.DriverPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                             </td>
-                                            <td className="table-mobile-collectiondate">
-                                                <p>{day}-{month}-{year}</p>
+                                            {item.DriverSale > 0 &&
+                                                <td className="table-mobile-Driversale">
+                                                    <p style={{ color: 'green' }}>{item.DriverSale}%</p>
+                                                </td>
+                                            }
+                                            {item.DriverSale === 0 &&
+                                                <td className="table-mobile-Driversale">
+                                                    <p style={{ color: 'red' }}>No sale</p>
+                                                </td>
+                                            }
+                                            <td className="table-mobile-Driversold">
+                                                <p>{item.DriverSold}</p>
+                                            </td>
+                                            <td className="table-mobile-Driverdate">
+                                                <p>{shortedDate}</p>
+                                            </td>
+                                            <td className="star-rating">
+                                                <div className="star-rating-list flex">
+                                                    <p className={
+                                                        averageRating > 0 ? "star-color star" : "star"
+                                                    }>★</p>
+                                                    <p className={
+                                                        averageRating > 1 ? "star-color star" : "star"
+                                                    }>★</p>
+                                                    <p className={
+                                                        averageRating > 2 ? "star-color star" : "star"
+                                                    }>★</p>
+                                                    <p className={
+                                                        averageRating > 3 ? "star-color star" : "star"
+                                                    }>★</p>
+                                                    <p className={
+                                                        averageRating > 4 ? "star-color star" : "star"
+                                                    }>★</p>
+                                                </div>
                                             </td>
                                             <td>
                                                 <div className="action-table flex">
