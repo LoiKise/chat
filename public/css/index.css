@@ -244,6 +244,18 @@ html {
 .section-area__btn-icon {
   height: 18px; }
 
+@keyframes toTop {
+  from {
+    top: 200%; }
+  to {
+    top: 0; } }
+
+@keyframes toTop {
+  from {
+    top: 200%; }
+  to {
+    top: 0; } }
+
 * {
   padding: 0;
   margin: 0;
@@ -3501,12 +3513,6 @@ select {
     top: 0;
     right: -60%;
     animation: toTop 2s cubic-bezier(1, 0, 0, 1); }
-
-@keyframes toTop {
-  from {
-    top: 200%; }
-  to {
-    top: 0; } }
   .slider .header__button {
     position: relative;
     top: 50%;
