@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function index() {
+
+    
+
+
     return (
         <div>
             <footer className="footer">
@@ -90,13 +94,13 @@ export default function index() {
                 </div>
             </footer>
             <div className="link-fixed">
-                <Link className="scroll">
+                <Link className="scroll" to ='/'>
                     <img src="./assets/img/icon/gradient_top_circle_arrow.png" alt="" />
                 </Link>
-                <Link to='' className="messenger">
+                <Link to='/' className="messenger">
                     <img src="./assets/img/icon/cirle_mess.png" alt="" />
                 </Link>
-                <Link to='' className="zalo">
+                <Link to='/' className="zalo">
                     <img src="./assets/img/icon/circle_zalo.png" alt="" />
                 </Link>
             </div>

@@ -126,7 +126,7 @@ export default function Index() {
                   name="sdt"
                   control = {control}
                   rules={rules.phone}
-                  render={({ field }) => (
+                  render={({ field }) => ( 
                     <input
                     type="number"
                     className="form-control rounded-0"

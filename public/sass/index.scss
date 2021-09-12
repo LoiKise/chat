@@ -11,7 +11,7 @@
 // Layout
 @import "./layout/login";
 @import "./layout/register";
-@import "./layout/header"; 
+@import "./layout/header";
 @import "./layout/navbar";
 @import "./layout/footer";
 @import "./layout/notfound";
@@ -25,6 +25,12 @@
 @import "./page/dashboard/login";
 
 // Home Page
+@import "./page/home/sliderbar";
+@import "./page/home/about";
+@import "./page/home/service";
+@import "./page/home/order";
+@import "./page/home/members";
+@import "./page/home/news";
 
 // Contact Page
 
@@ -34,5 +40,5 @@
 @import "./page/recruitment/recruitment";
 @import "./page/recruitment/job";
 
-//Service 
+//Service
 @import "./page/Service/index";

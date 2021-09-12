@@ -4,30 +4,47 @@ import routes from "./routes";
 import Header from './components/Layouts/Header'
 import Footer from './components/Layouts/Footer'
 function App() {
-  function RouteContainer(routes) {
+
+  const RouteContainer = (routes) => {
     var result = null;
     if (routes.length > 0) {
       result = routes.map((route, index) => {
+        let isHome = route.path === '/' ? true : false
         return (
           <Route
             key={index}
             path={route.path}
             exact={route.exact}
-            component={route.main}
+            component={() => {
+              return (
+                <>
+                  {route.path !== '/login' &&
+                    route.path !== '/register' &&
+                    route.path !== '/Dashboard' &&
+                    route.path !== '/Admin/Dashboard' &&
+                    route.path !== ''
+                    && <Header isHome={isHome} />}
+                  <route.main />
+                  {route.path !== '/login' &&
+                    route.path !== '/register' &&
+                    route.path !== '/Dashboard' &&
+                    route.path !== '/Admin/Dashboard' &&
+                    route.path !== ''
+                    && <Footer />}
+                </>
+              )
+            }}
           />
-        );
+        )
       });
     }
     return result;
   }
   return (
     <Router>
-      <Header />
-      {/* <Navbar /> */}
-      <Switch>{RouteContainer(routes)}</Switch>
-      {/* <ScrollToTop /> */}
-      {/* <Footer /> */}
-      <Footer />
+      <Switch>
+        {RouteContainer(routes)}
+      </Switch>
     </Router>
   );
 }

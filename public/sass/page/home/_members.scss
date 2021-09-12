@@ -1,0 +1,31 @@
+.ourmember__top {
+    margin-top: 60px;
+  }
+  .ourmember-list {
+    margin-top: 63px;
+  }
+  .ourmember-img {
+    width: 100%;
+    border-radius: 50%;
+    border: 0.2px solid var(--gradient-color-to);
+    cursor: pointer;
+  }
+  .ourmember-infor {
+    text-align: center;
+    margin-top: 42px;
+  }
+  .ourmember-infor__membername {
+    font-size: 2.6rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .ourmember-infor__memberposition {
+    color: var(--gradient-color-to);
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+
+
+  /*---------------------------------reponsive------------------------*/
+

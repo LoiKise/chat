@@ -11,54 +11,50 @@ function Dashboard(props) {
     const menuItems = [
         {
             id: "1",
-            name: "Dashboard",
+            name: "Tổng Quan",
             icon: faHome
         },
         {
             id: "2",
-            name: "Live Chat",
+            name: "Tin Nhắn",
             icon: faInbox
         },
-        // {
-        //     id: "3",
-        //     name: "Email",
-        //     icon: faEnvelope
-        // },
         {
             id: "3",
-            name: "Orders",
+            name: "Đơn hàng",
             icon: faFileInvoice
         },
         {
             id: "4",
-            name: "Products",
-            icon: faTshirt
+            name: "Giao Hàng",
+            icon: faEnvelope
         },
         {
             id: "5",
-            name: "News",
-            icon: faNewspaper
+            name: "Tài Xế",
+            icon: faTshirt
         },
         {
             id: "6",
-            name: "Users",
-            icon: faUser
+            name: "Tin Tuyển Dụng",
+            icon: faNewspaper
         },
         {
             id: "7",
-            name: "Collection",
-            icon: faShoppingBag
+            name: "Tài Khoản",
+            icon: faUser
         },
         {
             id: "8",
-            name: "Subscribers",
-            icon: faEnvelope
+            name: "Báo cáo & Thống Kê",
+            icon: faShoppingBag
         },
+
     ]
     const [tabId, setTabId] = useState("1");
     const [openMenu, setOpenMenu] = useState(true);
     const [openMenuMobile, setOpenMenuMobile] = useState(true);
-    const [productId, setProductId] = useState("")
+    const [DriverId, setDriverId] = useState("")
 
     // const socket = socketIOClient(ENDPOINT);
 
@@ -130,7 +126,7 @@ function Dashboard(props) {
     const setOpenEditFunc = (event) => {
         document.body.style.overflow = 'hidden';
         setOpenEdit(true)
-        setProductId(event.target.id)
+        setDriverId(event.target.id)
     }
 
     const setCloseEditFunc = (bool) => {
@@ -163,7 +159,7 @@ function Dashboard(props) {
                 setCloseCreateFunc={setCloseCreateFunc}
                 setOpenEditFunc={setOpenEditFunc}
                 setCloseEditFunc={setCloseEditFunc}
-                productId={productId}
+                DriverId={DriverId}
                 orderNotice={orderNotice}
             />
         </div>

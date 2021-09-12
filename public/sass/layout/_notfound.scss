@@ -69,7 +69,7 @@
     -moz-animation: surf 2s;
     -o-animation: surf 2s;
     animation: surf 2s;
-    @include mobie {
+    @include mobile {
         top: 30%;
         left: 35%;
         color: #fff;
@@ -116,7 +116,7 @@
     -moz-animation: wave-message 1s;
     -o-animation: wave-message 1s;
     animation: wave-message 1s;
-    @include mobie {
+    @include mobile {
         font-size: 2rem;
     }
 }
