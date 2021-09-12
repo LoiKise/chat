@@ -1,10 +1,18 @@
+.header {
+  position: relative;
+  display: block;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #000;
+}
+.header--home {
+  position: fixed !important;
+  background-color: transparent;
+}
 .header__nav {
   --element-height: 55px;
-  display: flex;
-  justify-content: space-around;
-  height: 55px;
-  padding-top: 10px;
-  padding: 50px;
+  display: flex !important;
+  justify-content: space-evenly !important;
 }
 .header__background {
   position: relative;
@@ -17,11 +25,13 @@
   display: flex;
   justify-content: space-between;
   list-style: none;
-  margin-right: 200px;
-  margin-left: 100px;
+  margin-right: 150px;
+  margin-bottom: 0 !important;
+}
+.header__nav--collapse {
+  flex-grow: 0 !important;
 }
 .header__nav-item {
-  /* background-color: black; */
   width: 140px;
   text-align: center;
 }
@@ -67,93 +77,3 @@
 /*---------------------------------reponsive------------------------*/
 
 /*---------------------------------reponsive------------------------*/
-
-.header {
-  @include mobile {
-    flex-direction: column-reverse;
-    .navbar-collapse {
-      background-color: #000;
-      height: 100vh;
-      min-width: 47vh;
-      margin-left: -17px;
-    }
-    .header__nav-list {
-      flex-direction: column;
-      margin: 0px auto;
-    }
-    .header__authenWrapper {
-      display: flex;
-      flex-direction: column;
-      margin: 0px auto;
-
-      .header__authen--signup {
-        margin-left: 0px;
-      }
-    }
-  }
-}
-
-.header {
-  @include tablet {
-    margin-bottom: -9px;
-    flex-direction: column-reverse;
-    .navbar-collapse {
-      background-color: #000;
-      height: 100vh;
-      width: 122vh;
-      margin-left: -10px;
-      margin-right: -10px;
-    }
-    .header__nav-list {
-      flex-direction: column;
-      margin: 0px auto;
-    }
-    .header__authenWrapper {
-      display: flex;
-      flex-direction: column;
-      margin: 0px auto;
-      .header__authen--signup {
-        margin-left: 0px;
-      }
-    }
-  }
-}
-
-.header {
-  @include desktop {
-  
-    .navbar-brand {
-      margin-left: 58px;
-      margin-top: 10px;
-    }
-    .header__nav {
-      height: 55px;
-    }
-    .navbar-collapse {
-      background-color: transparent;
-      height: auto;
-      min-width: auto;
-      margin-left: 0px;
-
-      .navbar-nav {
-        margin: 0px auto;
-      }
-    }
-    .header__nav-list {
-      flex-direction: row;
-      margin: 0px auto;
-      margin-left: -45px;
-      margin-top: 7px;
-    }
-    .header__authenWrapper {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-top: 7px;
-      transform: translateX(78px);
-      .header__authen--login{
-        margin-right: 20px;
-      }
-    }
-  }
-}

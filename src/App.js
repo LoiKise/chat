@@ -9,6 +9,7 @@ function App() {
     var result = null;
     if (routes.length > 0) {
       result = routes.map((route, index) => {
+        let isHome = route.path === '/' ? true : false
         return (
           <Route
             key={index}
@@ -22,7 +23,7 @@ function App() {
                     route.path !== '/Dashboard' &&
                     route.path !== '/Admin/Dashboard' &&
                     route.path !== ''
-                    && <Header />}
+                    && <Header isHome={isHome} />}
                   <route.main />
                   {route.path !== '/login' &&
                     route.path !== '/register' &&

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import HeaderNavItem from "./HeaderNavItem";
+import classname from 'classname'
 import { Nav, Navbar, NavbarBrand } from 'react-bootstrap'
 import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
-
-export default function Index() {
+export default function Index({ isHome }) {
 
   const headerItem =
     [
@@ -27,10 +27,12 @@ export default function Index() {
         name: "LIÊN HỆ"
       },
     ]
-
+  console.log('====================================');
+  console.log(isHome);
+  console.log('====================================');
   return (
-    <div className="header">
-      <Navbar className="header__nav" sticky="top" expand='lg'>
+    <div className={classname("header", { "header--home": isHome === true })}>
+      <Navbar className="header__nav" >
         <NavbarBrand>
           <Link to="/">
             <img
@@ -41,7 +43,7 @@ export default function Index() {
           </Link>
         </NavbarBrand>
         <Navbar.Toggle />
-        <NavbarCollapse>
+        <NavbarCollapse className="header__nav--collapse">
           <Nav>
             <ul className="header__nav-list">
               <HeaderNavItem headerItem={headerItem} />
