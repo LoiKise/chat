@@ -4,7 +4,8 @@ import routes from "./routes";
 import Header from './components/Layouts/Header'
 import Footer from './components/Layouts/Footer'
 function App() {
-  function RouteContainer(routes) {
+
+  const RouteContainer = (routes) => {
     var result = null;
     if (routes.length > 0) {
       result = routes.map((route, index) => {
@@ -13,20 +14,44 @@ function App() {
             key={index}
             path={route.path}
             exact={route.exact}
-            component={route.main}
+            component={() => {
+              return (
+                <>
+                  {route.path !== '/login' &&
+                    route.path !== '/register' &&
+                    route.path !== '/Dashboard' &&
+                    route.path !== '/Admin/Dashboard' &&
+                    route.path !== ''
+                    && <Header />}
+                  <route.main />
+                  {route.path !== '/login' &&
+                    route.path !== '/register' &&
+                    route.path !== '/Dashboard' &&
+                    route.path !== '/Admin/Dashboard' &&
+                    route.path !== ''
+                    && <Footer />}
+                </>
+              )
+            }}
           />
-        );
+        )
       });
     }
     return result;
   }
   return (
     <Router>
+<<<<<<< HEAD
       <Header />
   
       <Switch>{RouteContainer(routes)}</Switch>
     
       <Footer />
+=======
+      <Switch>
+        {RouteContainer(routes)}
+      </Switch>
+>>>>>>> 9cf9ee4c6a985a59e8c24ad54726ffa4ec632096
     </Router>
   );
 }
