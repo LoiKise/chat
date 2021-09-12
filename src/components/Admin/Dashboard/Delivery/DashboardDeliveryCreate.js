@@ -1,65 +1,56 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-export default function DashboardSubscriberCreate(props) {
+export default function DashboardDeliveryCreate(props) {
 
     const createForm = useRef();
-    
-    const [subscriberEmail, setSubscriberEmail] = useState("")
 
-    const email = props.email;
- 
-    useEffect(()=> {
-        if (email) {    
-            setSubscriberEmail(email.subscriberEmail)
-        }
-    },[email])
+    const [DeliveryEmail, setDeliveryEmail] = useState("")
 
     const onSubmit = (event) => {
         event.preventDefault()
-
-        axios.post(`http://pe.heromc.net:4000/email/update/${email._id}`, {
-            subscriberEmail: subscriberEmail
-        }).then(()=>{
-            props.setCloseEditFunc(false);
+        axios.post('http://pe.heromc.net:4000/email', {
+            Delivery: DeliveryEmail
+        }).then(() => {
+            props.setCloseCreateFunc(false);
             props.setToastFunc(true);
         })
     }
 
     return (
         <div className="DashboardProductInfo">
-            <div className="create-box"> 
+            <div className="create-box">
                 <div className="create-box-title flex">
                     <div className="create-box-title-text">
-                        Email infomation
+                        Subcriber infomation
                     </div>
-                    <div  
+                    <div
                         className="create-box-title-close flex-center"
-                        onClick={()=>{
-                            props.setCloseEditFunc(false);
+                        onClick={() => {
+                            props.setCloseCreateFunc(false);
                         }}
                     >
-                        <FontAwesomeIcon icon={faTimes}/>
+                        <FontAwesomeIcon icon={faTimes} />
                     </div>
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Email</div>
                         <div className="dashboard-right">
-                            <input 
-                                type="text" name="email" 
-                                value={subscriberEmail || ""}
-                                onChange={(event)=>{
-                                    setSubscriberEmail(event.target.value)
+                            <input
+                                type="text" name="email"
+                                value={DeliveryEmail || ""}
+                                onChange={(event) => {
+                                    setDeliveryEmail(event.target.value)
                                 }} required
-                                ></input>
+                            ></input>
                         </div>
                     </div>
-                    <div className="flex-center" style={{marginTop: '40px'}}>
+                    <div className="flex-center" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn">
-                            Edit subscriber
+                            Create subcriber
                         </button>
                     </div>
                 </form>
