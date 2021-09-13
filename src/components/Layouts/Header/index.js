@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import HeaderNavItem from "./HeaderNavItem";
 import classname from 'classname'
@@ -44,7 +44,7 @@ export default function Index({ isHome }) {
   const [colorChange, setColorchange] = useState(false);
   useEffect(() => {
     const changeNavbarColor = () => {
-      if (window.scrollY >= 710) {
+      if (window.scrollY >= 80) {
         setColorchange(true);
       }
       else {
