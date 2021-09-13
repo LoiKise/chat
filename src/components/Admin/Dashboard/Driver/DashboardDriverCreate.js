@@ -95,17 +95,17 @@ export default function DashboardDriverCreate(props) {
         formData.append("DriverDes", inputValue.des);
         formData.append("DriverSex", sex);
         formData.append("DriverDate", new Date());
-        axios.post('http://pe.heromc.net:4000/Drivers', formData, config)
-            .then(() => {
-                props.setCloseCreateFunc(false);
-                props.setToastFunc(true);
-            })
+        // axios.post('http://pe.heromc.net:4000/Drivers', formData, config)
+        //     .then(() => {
+        //         props.setCloseCreateFunc(false);
+        //         props.setToastFunc(true);
+        //     })
     }
 
     const addNewCate = () => {
-        axios.post('http://pe.heromc.net:4000/category', {
-            cateName: inputValue.cate
-        })
+        // axios.post('http://pe.heromc.net:4000/category', {
+        //     cateName: inputValue.cate
+        // })
         setCate(cate => [...cate, { cateName: inputValue.cate }])
         setCateValue(inputValue.cate)
         cateInput.current.value = ""

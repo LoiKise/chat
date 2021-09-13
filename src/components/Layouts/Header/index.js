@@ -27,9 +27,6 @@ export default function Index({ isHome }) {
         name: "LIÊN HỆ"
       },
     ]
-  console.log('====================================');
-  console.log(isHome);
-  console.log('====================================');
   return (
     <div className={classname("header", { "header--home": isHome === true })}>
       <Navbar className="header__nav" >

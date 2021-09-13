@@ -1339,8 +1339,8 @@ p {
 .DashboardMenu {
   width: 260px;
   height: 100vh;
-  background-color: blue;
   background-image: url(https://c0.wallpaperflare.com/preview/43/814/377/cargo-cargo-container-colorful-colourful.jpg);
+  background-color: rgba(0, 188, 212, 0.4);
   background-size: cover;
   background-position: -80px;
   position: fixed;
@@ -1459,7 +1459,6 @@ p {
   height: 18px; }
 
 .DashboardBody {
-  padding: 20px 30px;
   background-color: #eaeaea;
   flex-grow: 1;
   margin-left: 260px;
@@ -1471,6 +1470,7 @@ p {
 
 .dashboard-header {
   height: 41px;
+  padding: 20px 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1662,7 +1662,8 @@ p {
   padding: 15px 10px;
   justify-content: space-between;
   cursor: pointer;
-  transition: 0.3s; }
+  transition: 0.3s;
+  background: #fff; }
 
 .top-location-div:hover {
   background: #eee; }
@@ -2175,7 +2176,8 @@ p {
 
 .dashboard-product {
   /* background-color: #fff; */
-  position: relative; }
+  position: relative;
+  padding: 20px 30px; }
 
 .dashboard-table {
   width: 100%;
@@ -2315,8 +2317,7 @@ select {
   border-bottom: 1px #777 solid; }
 
 .DashboardProductInfo {
-  width: 80%;
-  left: 20%;
+  width: 85%;
   height: 100vh;
   background-color: rgba(1, 1, 1, 0.7);
   position: fixed;

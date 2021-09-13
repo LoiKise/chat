@@ -7,7 +7,7 @@ export default function DashboardOrder(props) {
 
     const [table, setTable] = useState([])
 
-    useEffect(()=>{ 
+    useEffect(() => {
         if (window.innerWidth <= 600) {
             setTable([
                 "ID",
@@ -53,28 +53,28 @@ export default function DashboardOrder(props) {
             }
         }
         window.addEventListener("resize", handleResize);
-        return (()=>{
+        return (() => {
             window.removeEventListener("resize", handleResize);
         })
     }, [])
-    
+
 
     return (
         <div className="dashboard-product">
-            <div className={props.toast ? "toast toast-show" : "toast"} style={{top: '20px'}}>
-                <FontAwesomeIcon icon={faCheckCircle} className="icon"/>
-                Update order successfully
+            <div className={props.toast ? "toast toast-show" : "toast"} style={{ top: '20px' }}>
+                <FontAwesomeIcon icon={faCheckCircle} className="icon" />
+                Cập nhật đơn hàng thành công
             </div>
             <DashboardProductTable
-                icon = {faUser}
-                title = "Orders"
-                color = "orange"
-                table = {table}
-                setOpenCreateFunc = {props.setOpenCreateFunc}
-                setCloseCreateFunc = {props.setCloseCreateFunc}
-                setOpenEditFunc = {props.setOpenEditFunc}
-                setCloseEditFunc = {props.setCloseEditFunc}
-                isChange = {props.isChange}
+                icon={faUser}
+                title="Orders"
+                color="orange"
+                table={table}
+                setOpenCreateFunc={props.setOpenCreateFunc}
+                setCloseCreateFunc={props.setCloseCreateFunc}
+                setOpenEditFunc={props.setOpenEditFunc}
+                setCloseEditFunc={props.setCloseEditFunc}
+                isChange={props.isChange}
             />
         </div>
     )
