@@ -17,21 +17,27 @@ export default function Index({ isHome }) {
   const headerItem = [
     {
       name: "TRANG CHỦ",
+      link: "/",
     },
     {
       name: "GIỚI THIỆU",
+      link: "/About",
     },
     {
       name: "DỊCH VỤ",
+      link: "/Service",
     },
     {
       name: "TRA CỨU",
+      link: "/",
     },
     {
       name: "TUYỂN DỤNG",
+      link: "/Recruitment",
     },
     {
       name: "LIÊN HỆ",
+      link: "/Contact",
     },
   ];
   return (
