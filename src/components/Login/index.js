@@ -1,13 +1,13 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage";
 import { rules } from "../../helpers/rules";
-import { Controller, useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
-import { GoogleLogin } from 'react-google-login'
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 export default function Index() {
   const ICONGG = "/assets/img/icon/Asset 18.png";
@@ -15,24 +15,31 @@ export default function Index() {
   const ICONLOGO = "/assets/img/icon/Asset 16.png";
 
   // id login gg, face
-  const clientId = "427076436287-ig3ubafn7i6og61d4ng1jqe5a9ejs4du.apps.googleusercontent.com"
-  const appId = "1249486168829023"
+  const clientId =
+    "427076436287-ig3ubafn7i6og61d4ng1jqe5a9ejs4du.apps.googleusercontent.com";
+  const appId = "1249486168829023";
 
-  const { control, handleSubmit , getValues,  formState: {errors}, setError } = useForm({
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+    setError,
+  } = useForm({
     defaultValues: {
       sdt: "",
       password: "",
-    }
+    },
   });
 
   const dispatch = useDispatch();
   const history = useHistory();
-  
+
   const handleLogin = async (data) => {
     const body = {
-      sdt : data.sdt,
+      sdt: data.sdt,
       password: data.password,
-    }
+    };
 
     try {
       const res = await dispatch(login(body));
@@ -48,19 +55,19 @@ export default function Index() {
         }
       }
     }
-  }
+  };
 
   //login gg
   const responseGoogle = (res) => {
-    console.log('AccessToken', res.accessToken)
-    console.log('Login gg success', res.profileObj);
-  }
+    console.log("AccessToken", res.accessToken);
+    console.log("Login gg success", res.profileObj);
+  };
 
   //login face
   const responseFacebook = (res) => {
     console.log(res);
-    console.log('AccessToken :', res.accessToken)
-  }
+    console.log("AccessToken :", res.accessToken);
+  };
 
   return (
     <div className="login container py-5">
@@ -68,12 +75,12 @@ export default function Index() {
         <div className="col col-md-6 col-12 login__form">
           <h3 className="text-center p-3">ĐĂNG NHẬP</h3>
           <div className="login__social">
-
-          <GoogleLogin
-            clientId={clientId}
-            render={renderProps => (
-              <button
-                onClick={renderProps.onClick} disabled={renderProps.disabled}
+            <GoogleLogin
+              clientId={clientId}
+              render={(renderProps) => (
+                <button
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
                   className="
                     login__google
                     d-flex
@@ -86,53 +93,52 @@ export default function Index() {
                     Đăng nhập với Google
                   </p>
                 </button>
-            )}
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-          />
+              )}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
 
-          <FacebookLogin
-            appId={appId}
-            autoLoad={true}
-            fields="name,email,picture"
-            callback={responseFacebook} 
-            render={renderProps => (
-              <button
-                onClick={ renderProps.onClick}
+            <FacebookLogin
+              appId={appId}
+              autoLoad={true}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              render={(renderProps) => (
+                <button
+                  onClick={renderProps.onClick}
                   className="
               login__face
               d-flex
               justify-content-center
               align-items-center
             "
-            >
-              <img src={ICONFB} alt="icon__face" />
-              <p className="login__face--title font-weight-bold">
-                Đăng nhập với Facebook
-              </p>
-            </button>
-            )}
-          />
- 
-        </div>
+                >
+                  <img src={ICONFB} alt="icon__face" />
+                  <p className="login__face--title font-weight-bold">
+                    Đăng nhập với Facebook
+                  </p>
+                </button>
+              )}
+            />
+          </div>
           <div className="login__input">
             <form action="#" onSubmit={handleSubmit(handleLogin)}>
               <div className="form-group">
                 <label htmlFor="form-group-phone" className="font-weight-bold">
                   Số điện thoại
                 </label>
-                <Controller 
+                <Controller
                   name="sdt"
-                  control = {control}
+                  control={control}
                   rules={rules.phone}
                   render={({ field }) => (
                     <input
-                    type="number"
-                    className="form-control rounded-0"
-                    id="form-group-phone"
-                    onChange={field.onChange}
-                    value={getValues("sdt")}
+                      type="number"
+                      className="form-control rounded-0"
+                      id="form-group-phone"
+                      onChange={field.onChange}
+                      value={getValues("sdt")}
                     />
                   )}
                 />
@@ -145,17 +151,17 @@ export default function Index() {
                 >
                   Mật khẩu
                 </label>
-                <Controller 
+                <Controller
                   name="password"
-                  control = {control}
+                  control={control}
                   rules={rules.password}
                   render={({ field }) => (
                     <input
-                    type="password"
-                    className="form-control rounded-0"
-                    id="form-group-password"
-                    onChange={field.onChange}
-                    value={getValues("password")}
+                      type="password"
+                      className="form-control rounded-0"
+                      id="form-group-password"
+                      onChange={field.onChange}
+                      value={getValues("password")}
                     />
                   )}
                 />
