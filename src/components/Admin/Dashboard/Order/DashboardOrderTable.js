@@ -268,6 +268,12 @@ export default function DashboardUserTable(props) {
                                             <td className="mobile-table-paymentmethod">
                                                 <p style={{ textTransform: 'capitalize' }}>{item.phone}</p>
                                             </td>
+                                            <td className="mobile-table-paymentmethod">
+                                                <p style={{ textTransform: 'capitalize' }}>{item.type}</p>
+                                            </td>
+                                            <td className="mobile-table-paymentmethod">
+                                                <p style={{ textTransform: 'capitalize' }}>{item.phone}</p>
+                                            </td>
                                             <td>
                                                 <div key={index} className="flex" style={{ justifyContent: 'space-between' }}>
                                                     <p style={{ margin: '10px 0', width: '50px', marginLeft: '20px' }}>{item.quantity}</p>
