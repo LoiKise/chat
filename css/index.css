@@ -493,7 +493,6 @@ p {
 }
 
 .header {
-  position: relative;
   display: block;
   width: 100%;
   -webkit-box-pack: justify;
@@ -502,48 +501,14 @@ p {
   background-color: #000;
 }
 
-.header .colorChange {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  background-color: #000;
-}
-
-.header .colorChange .navbar-brand img {
-  max-width: 36%;
-}
-
-.header .colorChange .navbar-nav {
-  margin-top: -22px;
-  margin-left: -77px;
-}
-
 .header--home {
-  position: fixed !important;
-  background-color: transparent;
-  z-index: 999;
-}
-
-.header__nav {
-  --element-height: 55px;
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
-  -webkit-box-pack: space-evenly !important;
-      -ms-flex-pack: space-evenly !important;
-          justify-content: space-evenly !important;
-}
-
-.header__background {
-  position: relative;
-  z-index: -1;
+  background: transparent;
+  position: fixed;
 }
 
 .header__logo {
   height: var(--element-height);
+  max-width: 50%;
 }
 
 .header__nav-list {
@@ -556,6 +521,7 @@ p {
   list-style: none;
   margin-right: 150px;
   margin-bottom: 0 !important;
+  margin-top: 0px !important;
 }
 
 .header__nav--collapse {
@@ -621,6 +587,50 @@ p {
   border-color: rgba(0, 0, 0, 0.1);
   background-color: antiquewhite;
   display: block;
+  width: 100%;
+  margin-top: -12px;
+  z-index: 99;
+}
+
+.header .colorChange {
+  -webkit-transform: translateY(-11px);
+          transform: translateY(-11px);
+  position: fixed;
+  width: 100%;
+  z-index: 20;
+}
+
+.header .colorChange {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #000;
+  -webkit-transition: all 2s;
+  transition: all 2s;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+}
+
+.header .colorChange .navbar-brand img {
+  max-width: 36%;
+  text-align: center;
+}
+
+.header .colorChange .navbar-nav {
+  margin-top: -22px;
+  margin-left: -77px;
+}
+
+.header .colorChange .navbar-collapse {
+  margin-top: 7px;
+}
+
+.header .colorChange .header__authenWrapper {
+  -webkit-transform: translateX(115px);
+          transform: translateX(115px);
 }
 
 /*-------------------------reponsive-----------------------*/
@@ -658,6 +668,8 @@ p {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    margin-left: -31px;
+    margin-top: 0px;
   }
 }
 
@@ -675,6 +687,8 @@ p {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    margin-left: -32px;
+    margin-top: 26px;
   }
 }
 
@@ -695,6 +709,20 @@ p {
   }
 }
 
+@media (min-width: 768px) {
+  .header__nav-list .header__authenWrapper {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+
+@media (min-width: 1367px) {
+  .header__nav-list .header__authenWrapper {
+    -webkit-transform: translateX(115px);
+            transform: translateX(115px);
+  }
+}
+
 @media (max-width: 480px) {
   .navbar-collapse {
     margin-left: -11px;
@@ -704,6 +732,12 @@ p {
 @media (min-width: 768px) {
   .navbar-collapse {
     margin-left: -11px;
+  }
+}
+
+@media (min-width: 1367px) {
+  .header .colorChange .navbar-collapse .header__nav-list {
+    margin-top: 0px;
   }
 }
 
@@ -971,7 +1005,7 @@ p {
   }
   .footer .container2 {
     margin: 0px auto;
-    width: 1200px;
+    width: 1200px !important;
   }
   .footer .container2 .footer-list {
     display: -webkit-box;

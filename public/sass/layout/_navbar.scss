@@ -4,9 +4,40 @@
     border-color: rgba(0, 0, 0, 0.1);
     background-color: antiquewhite;
     display: block;
+    width: 100%;
+    margin-top: -12px;
+    z-index: 99;
   }
 }
 
+.header {
+  .colorChange {
+    display: flex;
+    justify-content: space-between;
+    background-color: #000;
+    transition: all 2s;
+    animation-duration: 3s;
+    transform: translateY(-11px);
+    position: fixed;
+    width: 100%;
+    z-index: 20;
+    margin-top: 5px;
+    .navbar-brand img {
+      max-width: 36%;
+      text-align:center;
+    }
+    .navbar-nav {
+      margin-top: -22px;
+      margin-left: -77px;
+    }
+    .navbar-collapse{
+      margin-top: 7px;
+    }
+    .header__authenWrapper {
+      transform: translateX(115px);
+    }
+  }
+}
 /*-------------------------reponsive-----------------------*/
 
 .navbar-brand {
@@ -32,7 +63,10 @@
     z-index: 9999;
     position: fixed;
     align-items: center;
+    margin-left: -31px;
+    margin-top: 0px;
   }
+
   @include tablet {
     flex-direction: column;
     background-color: #a78964;
@@ -41,6 +75,8 @@
     z-index: 9999;
     position: fixed;
     align-items: center;
+    margin-left: -32px;
+    margin-top: 26px;
   }
   @include desktop {
     flex-direction: row;
@@ -51,6 +87,14 @@
     position: fixed;
     align-items: center;
   }
+  .header__authenWrapper {
+    @include tablet {
+      transform: translateX(0px);
+    }
+    @include desktop {
+      transform: translateX(115px);
+    }
+  }
 }
 
 .navbar-collapse {
@@ -59,5 +103,17 @@
   }
   @include tablet {
     margin-left: -11px;
+  }
+}
+
+.header {
+  @include desktop {
+    .colorChange {
+      .navbar-collapse {
+        .header__nav-list {
+          margin-top: 0px;
+        }
+      }
+    }
   }
 }
