@@ -33,13 +33,6 @@ export default function Index({ isHome }) {
         link: 'Contact'
       },
     ]
-
-  console.log('====================================');
-  console.log(isHome);
-  console.log('====================================');
-
- 
-
   //event change color navbar
   const [colorChange, setColorchange] = useState(false);
   useEffect(() => {
