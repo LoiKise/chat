@@ -928,6 +928,9 @@
 .table-order-title:first-child {
     width: 10% !important;
 }
+.table-order-title--special {
+    width: 7% !important;
+}
 .table-title:last-child {
     width: 80px;
 }
@@ -1558,6 +1561,9 @@ select {
     #OrderPaymentMethod,
     .mobile-table-paymentmethod {
         display: none;
+    }
+    .mobile-table-paymentmethod {
+        position: relative !important;
     }
     #ProductName {
         width: 150px;
