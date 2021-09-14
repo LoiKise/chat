@@ -1,0 +1,69 @@
+.order {
+  padding-top: 180px;
+  .list-cost {
+    margin-top: 50px;
+    > span {
+      background: #fd7a3b;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      margin-left: 20px;
+      padding: 12px 22px 12px;
+      cursor: pointer;
+    }
+  }
+  span {
+    line-height: 19px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  border-bottom: none !important;
+  margin-bottom: 10px !important;
+  .nav-link.active {
+    background-color: #fdcdb7 !important;
+    font-weight: 900;
+    color: #fd7a3b !important;
+    padding: 13px;
+  }
+  .nav-link {
+    font-weight: 900;
+    color: #a3aa46;
+    &:hover {
+      border-color: transparent !important;
+    }
+  }
+}
+.tab-content {
+  > .active {
+    width: 168% !important;
+  }
+}
+
+.form_order {
+  .section-area {
+    background-image: linear-gradient(
+      to right,
+      #e44846,
+      var(--gradient-color-to)
+    );
+    border-radius: 66px !important;
+    margin-top: 70px;
+    padding-left: 75px;
+    padding-right: 86px;
+    margin-bottom: 86px;
+  }
+}
+.section__top-header {
+  display: none;
+}
+
+.ordernow-form__deliverylocation-item input {
+  font-size: 15px;
+}
