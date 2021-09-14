@@ -5,9 +5,26 @@
   justify-content: space-between;
   background-color: #000;
 }
+
+.header {
+  .colorChange {
+    display: flex;
+    justify-content: space-between;
+    background-color: #000;
+    .navbar-brand img {
+      max-width: 36%;
+    }
+    .navbar-nav {
+      margin-top: -22px;
+      margin-left: -77px;
+    }
+  }
+}
+
 .header--home {
   position: fixed !important;
   background-color: transparent;
+  z-index: 999;
 }
 .header__nav {
   --element-height: 55px;
@@ -72,6 +89,7 @@
   color: rgba(0, 0, 0, 0.5);
   border-color: rgba(0, 0, 0, 0.1);
   background-color: antiquewhite;
+  display: block;
 }
 
 /*---------------------------------reponsive------------------------*/
