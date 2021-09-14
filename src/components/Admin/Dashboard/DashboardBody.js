@@ -88,7 +88,7 @@ export default function DashboardBody(props) {
 
     return (
         <div
-            className={classNames("DashboardBody", {
+            className={classNames("DashboardBody px-5 pt-2", {
                 DashboardBody_small: !props.openMenu
             })}>
             {

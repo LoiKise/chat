@@ -128,11 +128,11 @@ export default function DashboardDriverCreate(props) {
     }
 
     return (
-        <div className="DashboardDriverInfo">
+        <div className="DashboardProductInfo">
             <div className="create-box">
                 <div className="create-box-title flex">
                     <div className="create-box-title-text">
-                        Driver infomation
+                        Thông tin tài xế
                     </div>
                     <div
                         className="create-box-title-close flex-center"
@@ -145,7 +145,7 @@ export default function DashboardDriverCreate(props) {
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Name</div>
+                        <div className="dashboard-left flex">Họ và tên</div>
                         <div className="dashboard-right">
                             <input type="text" name="name" onChange={handleOnChange} required></input>
                         </div>
