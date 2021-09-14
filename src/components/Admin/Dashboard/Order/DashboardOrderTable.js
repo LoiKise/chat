@@ -1,14 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTimes, faEye } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import classNames from 'classnames'
+import moment from 'moment';
 
 export default function DashboardUserTable(props) {
 
     const [order, setOrder] = useState([
         {
-
+            id: 1000000000,
+            type: 'HL', //HL : Hàng Lô, HL : Hàng Kiện  
+            createdDate: Date.now(),
+            createdBy: 'Admin',
+            phone: '0901150222',
+            customerName: 'Hoài Nhớ',
+            customerType: 'VL',// KVL : Khách vãng lai , KM : Khách mối
+            driver: {
+                id: 123456,
+                name: 'Thành Long',
+                age: 21,
+            },
+            productName: 'Thực phẩm',
+            unit: {
+                id: 1,
+                name: 'KG' //1 : KG ,2 : Gam, 
+            },
+            quantity: 5, //5 items
+            totalPrice: 250000,
+            status: 'LK' //LK : Lưu Kho - DVC : Đang vận chuyển - DG : Đã giao
         }
     ])
     const [constOrder, setConstOrder] = useState([])
@@ -16,8 +36,8 @@ export default function DashboardUserTable(props) {
     const [isSortByTotal, setIsSortByTotal] = useState(false)
 
     useEffect(() => {
-        setOrder([])
-        setConstOrder([])
+        // setOrder([])
+        // setConstOrder([])
         // axios.get(`http://pe.heromc.net:4000/order`)
         //     .then(res => {
         //         setOrder(res.data)
@@ -226,61 +246,59 @@ export default function DashboardUserTable(props) {
                             </tr>
                             {
                                 current.map((item, index) => {
-                                    const date = new Date(item.orderDate)
+                                    const date = new Date(item.createdDate)
                                     const day = date.getDate()
                                     const month = date.getMonth() + 1
                                     const year = date.getFullYear()
-                                    var totalItem = 0;
-                                    for (let i in item.orderList) {
-                                        totalItem += item.orderList[i].amount
-                                    }
                                     return (
                                         <tr key={index} className="mobile-table">
                                             <td className="mobile-table-orderinfo">
                                                 <ul style={{ margin: '10px 0' }}>
-                                                    <li className="flex">
-                                                        <p style={{ marginRight: '5px', fontWeight: 'bold' }}>#{item.orderId}</p>
-                                                        <p className="mobile-table-name">by {item.orderName}</p>
+                                                    <li className="flex ">
+                                                        <p style={{ marginRight: '5px', fontWeight: 'bold' }}>#{item.id}</p>
+                                                    </li>
+                                                    <li className="flex ">
+                                                        <p className="mobile-table-name">bởi {item.createdBy}</p>
                                                     </li>
                                                 </ul>
                                             </td>
-                                            <td className="mobile-table-shippinginfo">
-                                                <div className="flex" style={{ alignItems: 'center', margin: '10px 0' }}>
-                                                    <p
-                                                        style={{ wordWrap: 'break-word', WebkitLineClamp: '3' }}
-                                                    >{item.orderAddress}, {item.orderHuyen}, {item.orderTinh}</p>
-                                                </div>
-                                            </td>
                                             <td>
-                                                <p>{day}-{month}-{year}</p>
+                                                <p>{moment(item.createdDate).format('YYYY-MM-DD HH:mm:ss')} </p>
                                             </td>
                                             <td className="mobile-table-paymentmethod">
-                                                <p style={{ textTransform: 'capitalize' }}>{item.orderPaymentMethod}</p>
+                                                <p style={{ textTransform: 'capitalize' }}>{item.phone}</p>
                                             </td>
                                             <td>
-                                                {typeof (totalItem) === 'number' &&
-                                                    <div key={index} className="flex" style={{ justifyContent: 'space-between' }}>
-                                                        {/* <p style={{margin: '10px 0', width: '100%', WebkitLineClamp: '2'}}>{virtualArr.productName}</p> */}
-                                                        <p style={{ margin: '10px 0', width: '50px', marginLeft: '20px' }}>{totalItem}</p>
-                                                    </div>
-                                                }
+                                                <div key={index} className="flex" style={{ justifyContent: 'space-between' }}>
+                                                    <p style={{ margin: '10px 0', width: '50px', marginLeft: '20px' }}>{item.quantity}</p>
+                                                </div>
+                                            </td>
+                                            <td className="mobile-table-unit ">
+                                                <p style={{ textTransform: 'uppercase' }}>{item.unit.name}</p>
                                             </td>
                                             <td className="mobile-table-totalmoney">
-                                                <p>{item.orderTotal} đ</p>
+                                                <p>{item.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                             </td>
                                             <td>
                                                 <div className="action-table flex">
                                                     <div
+                                                        className="action-item flex-center action-orange"
+                                                        onClick={props.setOpenEditFunc}
+                                                        id={item.id}
+                                                    >
+                                                        <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faEye} />
+                                                    </div>
+                                                    <div
                                                         className="action-item flex-center action-green"
                                                         onClick={props.setOpenEditFunc}
-                                                        id={item._id}
+                                                        id={item.id}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faPencilAlt} />
                                                     </div>
                                                     <div
                                                         className="action-item flex-center action-red"
                                                         onClick={deleteOnClick}
-                                                        id={item._id}
+                                                        id={item.id}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
                                                     </div>

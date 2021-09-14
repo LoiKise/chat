@@ -10,45 +10,73 @@ export default function DashboardOrder(props) {
     useEffect(() => {
         if (window.innerWidth <= 600) {
             setTable([
-                "ID",
-                "ShippingInfo",
-                "Date",
-                "PaymentMethod",
-                "Items",
-                "Total Money",
-                "Action"
+                "Thông tin đơn hàng",
+                "Ngày tạo",
+                "Loại Hàng",
+                "Khách Hàng",
+                "Phân loại",
+                "Số điện thoại",
+                "Tài Xế",
+                "Sản Phẩm",
+                "Số lượng",
+                "Đơn vị",
+                "Tổng tiền",
+                "Trạng thái",
+                "Ghi chú",
+                "Công cụ"
             ])
         } else {
             setTable([
-                "Order Info",
-                "ShippingInfo",
-                "Date",
-                "PaymentMethod",
-                "Items",
-                "Total Money",
-                "Action"
+                "Thông tin đơn hàng",
+                "Ngày tạo",
+                "Loại Hàng",
+                "Khách Hàng",
+                "Phân loại",
+                "Số điện thoại",
+                "Tài Xế",
+                "Sản Phẩm",
+                "Số lượng",
+                "Đơn vị",
+                "Tổng tiền",
+                "Trạng thái",
+                "Ghi chú",
+                "Công cụ"
             ])
         }
         function handleResize() {
             if (window.innerWidth <= 600) {
                 setTable([
-                    "ID",
-                    "ShippingInfo",
-                    "Date",
-                    "PaymentMethod",
-                    "Items",
-                    "Total Money",
-                    "Action"
+                    "Thông tin đơn hàng",
+                    "Ngày tạo",
+                    "Loại Hàng",
+                    "Khách Hàng",
+                    "Phân loại",
+                    "Số điện thoại",
+                    "Tài Xế",
+                    "Sản Phẩm",
+                    "Số lượng",
+                    "Đơn vị",
+                    "Tổng tiền",
+                    "Trạng thái",
+                    "Ghi chú",
+                    "Công cụ"
                 ])
             } else {
                 setTable([
-                    "Order Info",
-                    "ShippingInfo",
-                    "Date",
-                    "PaymentMethod",
-                    "Items",
-                    "Total Money",
-                    "Action"
+                    "Thông tin đơn hàng",
+                    "Ngày tạo",
+                    "Loại Hàng",
+                    "Khách Hàng",
+                    "Phân loại",
+                    "Số điện thoại",
+                    "Tài Xế",
+                    "Sản Phẩm",
+                    "Số lượng",
+                    "Đơn vị",
+                    "Tổng tiền",
+                    "Trạng thái",
+                    "Ghi chú",
+                    "Công cụ"
                 ])
             }
         }

@@ -896,6 +896,7 @@
 .dashboard-table tr th,
 .dashboard-table tr td {
     padding-left: 10px;
+    vertical-align: middle;
 }
 .dashboard-table tr:nth-child(even) {
     background-color: #f7f7f7;
@@ -925,7 +926,7 @@
     width: 100px;
 }
 .table-order-title:first-child {
-    width: 20% !important;
+    width: 10% !important;
 }
 .table-title:last-child {
     width: 80px;
@@ -1132,6 +1133,13 @@ select {
 }
 .action-green:hover {
     background-color: #40a33f;
+}
+.action-orange {
+    background-color: #f7bd42;
+    transition: 0.5s;
+}
+.action-orange:hover {
+    background-color: #fb940c;
 }
 .action-red {
     background-color: #fc4455;
