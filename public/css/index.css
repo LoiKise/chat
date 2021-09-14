@@ -700,7 +700,7 @@ p {
   font-weight: 600; }
 
 /* Scroll Into View*/
-.scroll {
+.scroll-btn {
   position: fixed;
   bottom: 17rem;
   right: 4rem; }
@@ -2357,6 +2357,9 @@ p {
 .table-order-title:first-child {
   width: 10% !important; }
 
+.table-order-title--special {
+  width: 7% !important; }
+
 .table-title:last-child {
   width: 80px; }
 
@@ -2927,6 +2930,8 @@ select {
   #OrderPaymentMethod,
   .mobile-table-paymentmethod {
     display: none; }
+  .mobile-table-paymentmethod {
+    position: relative !important; }
   #ProductName {
     width: 150px; }
   #ProductRating,
@@ -3565,6 +3570,22 @@ select {
     transform: translateX(0px); } }
 
 /* Button */
+.MuiDataGrid-root .MuiDataGrid-cell--textLeft {
+  font-size: 12px !important; }
+
+.MuiDataGrid-root .MuiDataGrid-columnHeaderCheckbox {
+  min-width: 50px !important;
+  max-width: 50px !important;
+  width: 50px !important; }
+
+.MuiDataGrid-root .MuiDataGrid-cellCheckbox {
+  min-width: 50px !important;
+  max-width: 50px !important;
+  width: 50px !important; }
+
+.MuiTooltip-popper div {
+  font-size: 16px !important; }
+
 .slider {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../assets/img/imgs/Background/backgroundHeader.png");
   height: 100vh;

@@ -16,7 +16,7 @@ export default function Footer(props) {
     }, []);
     const scrollToTop = () => {
         window.scrollTo(0, 0);
-      };
+    };
     return (
         <div>
             <footer className="footer">
@@ -106,7 +106,7 @@ export default function Footer(props) {
             </footer>
             <div className="link-fixed">
                 {showButton && (
-                    <Link className="scroll" to='/' onClick={scrollToTop}>
+                    <Link className="scroll-btn" to='/' onClick={scrollToTop}>
                         <img src="./assets/img/icon/gradient_top_circle_arrow.png" alt="" />
                     </Link>
                 )}
