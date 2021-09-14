@@ -23,14 +23,14 @@
     z-index: 20;
     margin-top: 5px;
     .navbar-brand img {
-      max-width: 36%;
-      text-align:center;
+      max-width: 50%;
+      text-align: center;
     }
     .navbar-nav {
       margin-top: -22px;
       margin-left: -77px;
     }
-    .navbar-collapse{
+    .navbar-collapse {
       margin-top: 7px;
     }
     .header__authenWrapper {
@@ -39,20 +39,39 @@
   }
 }
 /*-------------------------reponsive-----------------------*/
-
-.navbar-brand {
+.navbar {
   @include mobile {
-    margin-right: 220px !important;
+    flex-direction: row-reverse;
   }
-
   @include tablet {
-    margin-right: 620px !important;
+    flex-direction: row-reverse;
   }
-  @include desktop {
-    margin-right: 112px !important;
-    margin-left: 54px;
+  .navbar-brand {
+    @include mobile {
+      margin-right: 220px !important;
+    }
+    @include tablet {
+      margin-right: 620px !important;
+    }
+    @include desktop {
+      margin-right: 112px !important;
+      margin-left: 54px;
+    }
   }
 }
+.navbar-light {
+  .navbar-toggler {
+    @include mobile {
+      width: 10%;
+      transform: translateY(-23px);
+    }
+    @include tablet {
+      width: 5%;
+      transform: translateY(-23px);
+    }
+  }
+}
+
 .header__nav-list {
   @include mobile {
     flex-direction: column;
@@ -63,8 +82,8 @@
     z-index: 9999;
     position: fixed;
     align-items: center;
-    margin-left: -31px;
-    margin-top: 0px;
+    align-items: center;
+    transform: translate(68px, 17px);
   }
 
   @include tablet {
@@ -75,8 +94,7 @@
     z-index: 9999;
     position: fixed;
     align-items: center;
-    margin-left: -32px;
-    margin-top: 26px;
+    transform: translate(68px, 17px);
   }
   @include desktop {
     flex-direction: row;
@@ -103,6 +121,9 @@
   }
   @include tablet {
     margin-left: -11px;
+  }
+  @include desktop {
+    transform: translate(-81px, -17px) !important;
   }
 }
 

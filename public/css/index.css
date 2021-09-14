@@ -406,8 +406,8 @@ p {
   .header--home .navbar-brand {
     text-align: center; }
   .header--home .navbar-expand-lg .navbar-nav {
-    margin-top: -15px;
-    margin-left: -68px; }
+    margin-top: -22px;
+    margin-left: -77px; }
 
 .header__logo {
   height: var(--element-height);
@@ -488,7 +488,7 @@ p {
   z-index: 20;
   margin-top: 5px; }
   .header .colorChange .navbar-brand img {
-    max-width: 36%;
+    max-width: 50%;
     text-align: center; }
   .header .colorChange .navbar-nav {
     margin-top: -22px;
@@ -500,17 +500,35 @@ p {
 
 /*-------------------------reponsive-----------------------*/
 @media (max-width: 480px) {
-  .navbar-brand {
+  .navbar {
+    flex-direction: row-reverse; } }
+
+@media (min-width: 768px) {
+  .navbar {
+    flex-direction: row-reverse; } }
+
+@media (max-width: 480px) {
+  .navbar .navbar-brand {
     margin-right: 220px !important; } }
 
 @media (min-width: 768px) {
-  .navbar-brand {
+  .navbar .navbar-brand {
     margin-right: 620px !important; } }
 
 @media (min-width: 1367px) {
-  .navbar-brand {
+  .navbar .navbar-brand {
     margin-right: 112px !important;
     margin-left: 54px; } }
+
+@media (max-width: 480px) {
+  .navbar-light .navbar-toggler {
+    width: 10%;
+    transform: translateY(-23px); } }
+
+@media (min-width: 768px) {
+  .navbar-light .navbar-toggler {
+    width: 5%;
+    transform: translateY(-23px); } }
 
 @media (max-width: 480px) {
   .header__nav-list {
@@ -522,8 +540,8 @@ p {
     z-index: 9999;
     position: fixed;
     align-items: center;
-    margin-left: -31px;
-    margin-top: 0px; } }
+    align-items: center;
+    transform: translate(68px, 17px); } }
 
 @media (min-width: 768px) {
   .header__nav-list {
@@ -534,8 +552,7 @@ p {
     z-index: 9999;
     position: fixed;
     align-items: center;
-    margin-left: -32px;
-    margin-top: 26px; } }
+    transform: translate(68px, 17px); } }
 
 @media (min-width: 1367px) {
   .header__nav-list {
@@ -562,6 +579,10 @@ p {
 @media (min-width: 768px) {
   .navbar-collapse {
     margin-left: -11px; } }
+
+@media (min-width: 1367px) {
+  .navbar-collapse {
+    transform: translate(-81px, -17px) !important; } }
 
 @media (min-width: 1367px) {
   .header .colorChange .navbar-collapse .header__nav-list {
