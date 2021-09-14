@@ -6,10 +6,14 @@ import classNames from 'classnames'
 
 export default function DashboardUserTable(props) {
 
-    const [order, setOrder] = useState([])
+    const [order, setOrder] = useState([
+        {
+
+        }
+    ])
+    const [constOrder, setConstOrder] = useState([])
     const [isSortByName, setIsSortByName] = useState(false)
     const [isSortByTotal, setIsSortByTotal] = useState(false)
-    const [constOrder, setConstOrder] = useState([])
 
     useEffect(() => {
         setOrder([])
