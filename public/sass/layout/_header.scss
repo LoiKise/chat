@@ -1,42 +1,26 @@
 .header {
-  position: relative;
   display: block;
   width: 100%;
   justify-content: space-between;
   background-color: #000;
-}
-
-.header {
-  .colorChange {
-    display: flex;
-    justify-content: space-between;
-    background-color: #000;
-    .navbar-brand img {
-      max-width: 36%;
-    }
-    .navbar-nav {
-      margin-top: -22px;
-      margin-left: -77px;
-    }
-  }
+  position: fixed;
+  z-index: 999;
 }
 
 .header--home {
-  position: fixed !important;
-  background-color: transparent;
-  z-index: 999;
+  background: transparent;
+  .navbar-brand {
+    text-align: center;
+  }
+  .navbar-expand-lg .navbar-nav {
+    margin-top: -15px;
+    margin-left: -68px;
+  }
 }
-.header__nav {
-  --element-height: 55px;
-  display: flex !important;
-  justify-content: space-evenly !important;
-}
-.header__background {
-  position: relative;
-  z-index: -1;
-}
+
 .header__logo {
   height: var(--element-height);
+  max-width: 50%;
 }
 .header__nav-list {
   display: flex;
@@ -44,6 +28,7 @@
   list-style: none;
   margin-right: 150px;
   margin-bottom: 0 !important;
+  margin-top: 0px !important;
 }
 .header__nav--collapse {
   flex-grow: 0 !important;
