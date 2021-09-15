@@ -1,18 +1,16 @@
-.navbar-light {
-  .navbar-toggler {
-    color: rgba(0, 0, 0, 0.5);
-    border-color: rgba(0, 0, 0, 0.1);
-    background-color: antiquewhite;
-    display: block;
-    width: 100%;
-    margin-top: -12px;
-    z-index: 99;
-  }
-
-}
-
+// .navbar-light {
+//   .navbar-toggler {
+//     color: rgba(0, 0, 0, 0.5);
+//     border-color: rgba(0, 0, 0, 0.1);
+//     background-color: antiquewhite;
+//     display: block;
+//     width: 100%;
+//     z-index: 99;
+//   }
+// }
 
 .header--home {
+  background: transparent;
   .colorChange {
     display: flex;
     justify-content: space-between;
@@ -25,8 +23,7 @@
     z-index: 20;
     margin-top: 5px;
     .navbar-brand img {
-      max-width: 50%;
-      text-align: center;
+      width: 100px;
     }
     .navbar-nav {
       margin-top: -22px;

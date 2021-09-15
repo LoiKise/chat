@@ -61,10 +61,8 @@ export default function Index({ isHome }) {
 
   return (
     <div className={classname("header", { "header--home": isHome === true })}>
-      <Navbar
-        expand="lg"
-        className={colorChange ? "colorChange" : "header__nav"}
-      >
+      
+      <Navbar expand="lg" className={colorChange ? "colorChange" : "header__nav"}>
         <Navbar.Brand>
           <Link to="/">
             <img

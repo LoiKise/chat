@@ -5,18 +5,9 @@
   background-color: #000;
   position: fixed;
   z-index: 999;
-  .navbar-collapse {
-    margin-top: -20px;
-    margin-left: -73px;
-    .header__authenWrapper {
-      transform: translateX(66px);
-    }
-  }
-  
 }
 
-.header--home {
-  background: transparent;
+.header {
   .navbar-brand {
     text-align: center;
   }
@@ -32,24 +23,20 @@
     }
   }
 }
-.header__logo {
-  height: var(--element-height);
-  max-width: 50%;
+.header__logo{
+  width: 100px;
 }
 .header__nav-list {
   display: flex;
   justify-content: space-between;
   list-style: none;
-  margin-right: 150px;
-  margin-bottom: 0 !important;
-  margin-top: 0px !important;
 }
 .header__nav--collapse {
   flex-grow: 0 !important;
 }
 .header__nav-item {
   width: 140px;
-  text-align: center;
+  // text-align: center;
 }
 .header__nav-link {
   display: inline-block;
