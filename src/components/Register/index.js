@@ -5,11 +5,16 @@ import ErrorMessage from "../ErrorMessage";
 import { rules } from "../../helpers/rules";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { register } from "../../features/auth/authSlice";
+import { login, register } from "../../features/auth/authSlice";
+import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 export default function Index() {
-  const IMGGG = "/assets/img/icon/Asset 18.png";
-  const IMGFB = "/assets/img/icon/Asset 19.png";
+  const ICONGG = "/assets/img/icon/Asset 18.png";
+  const ICONFB = "/assets/img/icon/Asset 19.png";
+  const clientId =
+    "427076436287-ig3ubafn7i6og61d4ng1jqe5a9ejs4du.apps.googleusercontent.com";
+  const appId = "1249486168829023";
 
   const {
     control,
@@ -29,13 +34,64 @@ export default function Index() {
 
   const handleRegister = async (data) => {
     const body = {
-      name: data.name,
-      sdt: data.sdt,
+      user: {
+        name: data.name,
+        sdt: data.sdt,
+      },
       password: data.password,
     };
 
     try {
       const res = await dispatch(register(body));
+      unwrapResult(res);
+      history.push("/");
+    } catch (error) {
+      if (error.status === 422) {
+        for (const key in error.data) {
+          setError(key, {
+            type: "server",
+            message: error.data[key],
+          });
+        }
+      }
+    }
+  };
+
+  const responseGoogle = async (res) => {
+    const body = {
+      user: res.profileObj,
+      accessToken: res.accessToken,
+    };
+    try {
+      const res = await dispatch(login(body));
+      unwrapResult(res);
+      history.push("/");
+    } catch (error) {
+      if (error.status === 422) {
+        for (const key in error.data) {
+          setError(key, {
+            type: "server",
+            message: error.data[key],
+          });
+        }
+      }
+    }
+  };
+
+  //login face
+  const responseFacebook = async (res) => {
+    const profileObj = {
+      name: res.name,
+      email: res.email,
+      picture: res.picture,
+    };
+
+    const body = {
+      user: profileObj,
+      accessToken: res.accessToken,
+    };
+    try {
+      const res = await dispatch(login(body));
       unwrapResult(res);
       history.push("/");
     } catch (error) {
@@ -56,18 +112,52 @@ export default function Index() {
         <div className="col col-12 signup__form">
           <h3 className="text-center p-1">ĐĂNG KÝ</h3>
           <div className="signup__social">
-            <button className="signup__google d-flex justify-content-center align-items-center">
-              <img src={IMGGG} alt="icon__google" />
-              <p className="signup__google--title font-weight-bold">
-                Đăng nhập với Google
-              </p>
-            </button>
-            <button className="signup__face d-flex justify-content-center align-items-center">
-              <img src={IMGFB} alt="icon__face" />
-              <p className="signup__face--title font-weight-bold">
-                Đăng nhập với Facebook
-              </p>
-            </button>
+            <GoogleLogin
+              clientId={clientId}
+              render={(renderProps) => (
+                <button
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  className="
+                    login__google
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                  "
+                >
+                  <img src={ICONGG} alt="icon__google" />
+                  <p className="login__google--title font-weight-bold">
+                    Đăng nhập với Google
+                  </p>
+                </button>
+              )}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
+
+            <FacebookLogin
+              appId={appId}
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              render={(renderProps) => (
+                <button
+                  onClick={renderProps.onClick}
+                  className="
+              login__face
+              d-flex
+              justify-content-center
+              align-items-center
+            "
+                >
+                  <img src={ICONFB} alt="icon__face" />
+                  <p className="login__face--title font-weight-bold">
+                    Đăng nhập với Facebook
+                  </p>
+                </button>
+              )}
+            />
             <p className="title__social">
               Đăng ký nhanh với Google hoặc Facebook
             </p>

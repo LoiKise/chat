@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authApi from "../../apis/auth.api";
+import LocalStorage from "../../helpers/localStorage";
 
 export const register = createAsyncThunk(
-  "/Register",
+  "auth/register",
   async (data, thunkAPI) => {
     try {
       const res = await authApi.register(data);
@@ -13,11 +14,20 @@ export const register = createAsyncThunk(
   }
 );
 
-export const login = createAsyncThunk(
-  "auth/login",
+export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
+  try {
+    const res = await authApi.login(data);
+    return res;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const logout = createAsyncThunk(
+  "auth/logout",
   async (data, thunkAPI) => {
     try {
-      const res = await authApi.login(data);
+      const res = await authApi.logout(data);
       return res;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -25,22 +35,30 @@ export const login = createAsyncThunk(
   }
 );
 
-const handleAuth=(state,action)=>{
-  const {sdt,access_token}=action.payload.data
-  state.profile=sdt
-  localStorage.setItem("sdt", JSON.stringify(state.profile));
-  localStorage.setItem('accessToken',access_token)
-}
+const handleAuth = (state, action) => {
+  const { user, accessToken } = action.payload.data;
+  state.profile = user;
+  console.log(user);
+  localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
+  localStorage.setItem(LocalStorage.accessToken, accessToken);
+};
+
+const handleUnAuth = (state) => {
+  state.profile = {};
+  localStorage.removeItem(LocalStorage.user);
+  localStorage.removeItem(LocalStorage.accessToken);
+};
 
 const auth = createSlice({
   name: "auth",
   initialState: {
-    profile: JSON.parse(localStorage.getItem(localStorage.user)) || {},
+    profile: JSON.parse(localStorage.getItem(LocalStorage.user)) || {},
   },
 
   extraReducers: {
     [register.fulfilled]: handleAuth,
-    [login.fulfilled]:  handleAuth,
+    [login.fulfilled]: handleAuth,
+    [logout.fulfilled]: handleUnAuth,
   },
 });
 

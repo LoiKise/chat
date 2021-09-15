@@ -1,0 +1,123 @@
+.search {
+  padding-top: 150px;
+  .MuiTabs-flexContainer {
+    display: flex;
+    border-bottom: 1px solid #cecece;
+    .MuiTab-textColorInherit.Mui-selected {
+      color: red !important;
+    }
+  }
+}
+.tabs_content {
+  margin-top: 30px;
+  text-align: center;
+  .tabs__content__code {
+    border: 1px solid #cecece;
+    padding-top: 36px;
+    padding-bottom: 30px;
+    border-radius: 24px;
+    margin-bottom: 66px;
+  }
+}
+
+.MuiTypography-body1 {
+  div {
+    .tabs__search {
+      width: 55%;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #fd7a3b;
+      margin-bottom: 15px;
+      font-size: 19px;
+      &:focus {
+        border: 1px solid #fd7a3b !important;
+        outline: none;
+      }
+    }
+    > p {
+      margin-bottom: 15px !important;
+      font-size: 13px;
+    }
+    button {
+      width: 55%;
+      padding: 10px;
+      background-color: #fd7a3b;
+      color: #fff;
+      font-size: 18px;
+      text-transform: uppercase;
+      font-weight: 700;
+      outline-color: non;
+      border: 1px solid #fd7a3b;
+      border-radius: 11px;
+      .MuiSvgIcon-root {
+        transform: rotateY(168deg);
+        font-size: 25px;
+      }
+    }
+  }
+}
+
+.tab_content_move {
+  margin-bottom: 70px;
+  p {
+    font-weight: 600;
+  }
+  .ordernow-form__userinfor-item input,
+  .ordernow-form__deliverylocation-item input,
+  .ordernow-form__about input {
+    border-radius: 17px;
+    padding-left: 32px;
+    padding-right: 50px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    height: 55px;
+    width: 100%;
+    border: 1px solid #a3a3a3;
+    width: 80%;
+  }
+  .ordernow-form__icon {
+    position: absolute;
+    top: 47%;
+    transform: translateY(-50%);
+    right: 53px;
+  }
+  .form__about-checkitem {
+    color: #151515;
+    position: absolute;
+    left: 37%;
+    bottom: 20%;
+  }
+
+  .btn_tab_search {
+    width: 19%;
+    font-size: 13px;
+  }
+}
+
+.tab_content_Office {
+  margin-bottom: 288px;
+  margin-top: 50px;
+  .ordernow-form__userinfor-item input,
+  .ordernow-form__deliverylocation-item input,
+  .ordernow-form__about input {
+    border-radius: 17px;
+    padding-left: 32px;
+    padding-right: 50px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    height: 55px;
+    width: 100%;
+    border: 1px solid #a3a3a3;
+    width: 80%;
+  }
+  .ordernow-form__icon {
+    position: absolute;
+    top: 47%;
+    transform: translateY(-50%);
+    right: 53px;
+  }
+  .btn_tab_search {
+    width: 12%;
+    font-size: 13px;
+  }
+}
