@@ -1,14 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import CustomPagination from './CustomPagination';
-import CustomNoRowsOverlay from './CustomNoRowsOverlay';
 import MaterialTable from 'material-table';
-
+import { useSnackbar } from 'notistack';
 export default function DashboardOrderCreate(props) {
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const createForm = useRef();
 
     const [province, setProvince] = useState([ //Tỉnh / Thành Phố
@@ -45,22 +41,18 @@ export default function DashboardOrderCreate(props) {
         name: '',
         phone: '',
         address: '',
-        district: null,
-        province: '',
+        district: '',
+        province: null,
+        provinceName: '',
     })
     const [reciever, setReciever] = useState({
         name: '',
         phone: '',
         address: '',
-        district: null,
+        district: '',
         province: null,
+        provinceName: '',
     })
-
-    const [orderDistrict, setOrderDistrict] = useState("")
-
-    const [orderProvince, setOrderProvince] = useState("")
-    const [customerProvinceName, setCustomerProvinceName] = useState("")
-    const [recieverProvinceName, setRecieverProvinceName] = useState("")
 
     const [orderPaymentMethod, setOrderPaymentMethod] = useState("")
 
@@ -145,12 +137,32 @@ export default function DashboardOrderCreate(props) {
         })
     }, [])
 
-    useEffect(() => {
-        console.log({ customer });
-    }, [customer])
-
     const onSubmit = (event) => {
         event.preventDefault()
+        let dataFormat = { ...data, customer, reciever, productList }
+        console.log({ dataFormat });
+        if (dataFormat.customer.district.length <= 0 || dataFormat.reciever.district.length <= 0) {
+            enqueueSnackbar('Quận/Huyện không được bỏ trống', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (productList.length <= 0) {
+            enqueueSnackbar('Hàng hóa không được bỏ trống', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else {
+            enqueueSnackbar('Thêm đơn hàng thành công', {
+                persist: false,
+                variant: 'success',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        }
     }
 
     const [driverList, setDriverList] = useState([
@@ -187,7 +199,6 @@ export default function DashboardOrderCreate(props) {
         },
     ])
     const [data, setData] = useState({
-        driverId: null,
         orderName: '',
         unitId: null,
         quantity: null,
@@ -254,10 +265,13 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-right">
                             <select
                                 className="input"
-                                value={customer?.province || ""}
+                                value={customer.province}
                                 onChange={(event) => {
-                                    setCustomer({ ...customer, province: event.target.value })
-                                    setCustomerProvinceName(province[event.target.selectedIndex - 1].name)
+                                    setCustomer({
+                                        ...customer,
+                                        province: event.target.value,
+                                        provinceName: province[event.target.selectedIndex - 1].name
+                                    })
                                     //province: province[event.target.selectedIndex - 1].name
                                 }}
                             >
@@ -283,7 +297,7 @@ export default function DashboardOrderCreate(props) {
                                     setCustomer({ ...customer, district: event.target.value })
                                 }}
                             >
-                                <option disabled selected value>Chọn quận/huyện</option>
+                                <option selected value>Chọn quận/huyện</option>
                                 {district.filter(el => el.idProvince.toString() === customer.province).map((item, index) => {
                                     return (
                                         <option
@@ -342,8 +356,11 @@ export default function DashboardOrderCreate(props) {
                                 className="input"
                                 value={reciever.province}
                                 onChange={(event) => {
-                                    setRecieverProvinceName(event.target.selectedIndex)
-                                    setReciever({ ...reciever, province: event.target.value })
+                                    setReciever({
+                                        ...reciever,
+                                        province: event.target.value,
+                                        provinceName: province[event.target.selectedIndex - 1].name
+                                    })
                                 }}
                             >
                                 <option disabled selected value>Chọn tỉnh/thành phố</option>
@@ -351,7 +368,7 @@ export default function DashboardOrderCreate(props) {
                                     return (
                                         <option
                                             key={index}
-                                            value={item.name}
+                                            value={item.id}
                                         >{item.name}</option>
                                     )
                                 })}
@@ -363,29 +380,27 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-right">
                             <select
                                 className="input"
-                                value={reciever.district}
+                                value={reciever.district || ""}
                                 onChange={(event) => {
                                     setReciever({ ...reciever, district: event.target.value })
+                                    console.log(event.target.value);
                                 }}
                             >
-                                <option disabled selected value>Chọn quận/huyện</option>
-                                {district.map((item, index) => {
-                                    if (index === recieverProvinceName) {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item.name}
-                                            >{item.name}</option>
-                                        )
-                                    }
-                                    return null
+                                <option selected value="">Chọn quận/huyện</option>
+                                {district.filter(el => el.idProvince.toString() === reciever.province).map((item, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            value={item.name}
+                                        >{item.name}</option>
+                                    )
                                 })}
                             </select>
                         </div>
                     </div>
 
                     {/* Order Details Infomation */}
-                    <div className="create-box-row flex">
+                    {/* <div className="create-box-row flex">
                         <div className="dashboard-left flex">Tài xế</div>
                         <div className="dashboard-right">
                             <select
@@ -407,6 +422,33 @@ export default function DashboardOrderCreate(props) {
                             </select>
                         </div>
                     </div>
+                     */}
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Tên hàng hóa</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="text" name="orderName"
+                                value={data?.orderName || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, orderName: event.target.value })
+                                }}
+                                required
+                            ></input>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Số lượng</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="number" name="quantity"
+                                value={data?.quantity || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, quantity: event.target.value })
+                                }}
+                                required
+                            ></input>
+                        </div>
+                    </div>
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Đơn vị tính</div>
                         <div className="dashboard-right">
@@ -422,7 +464,7 @@ export default function DashboardOrderCreate(props) {
                                     return (
                                         <option
                                             key={index}
-                                            value={item.name}
+                                            value={item.symbox}
                                         >{item.name}</option>
                                     )
                                 })}

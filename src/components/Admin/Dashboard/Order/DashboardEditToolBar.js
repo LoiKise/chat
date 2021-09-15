@@ -1,8 +1,15 @@
 
+import { useSnackbar } from 'notistack';
 import * as React from 'react';
 export function EditToolbar({ index }) {
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar()
     const handleEdit = () => {
-        console.log(index);
+        enqueueSnackbar('Sửa thành công', {
+            persist: false,
+            variant: 'success',
+            preventDuplicate: true,
+            autoHideDuration: 3000,
+        })
     };
 
     return (
