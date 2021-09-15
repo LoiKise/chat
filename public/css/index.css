@@ -525,7 +525,7 @@ p {
   margin-top: -12px;
   z-index: 99; }
 
-.header .colorChange {
+.header--home .colorChange {
   display: flex;
   justify-content: space-between;
   background-color: #000;
@@ -536,15 +536,15 @@ p {
   width: 100%;
   z-index: 20;
   margin-top: 5px; }
-  .header .colorChange .navbar-brand img {
+  .header--home .colorChange .navbar-brand img {
     max-width: 50%;
     text-align: center; }
-  .header .colorChange .navbar-nav {
+  .header--home .colorChange .navbar-nav {
     margin-top: -22px;
     margin-left: -77px; }
-  .header .colorChange .navbar-collapse {
+  .header--home .colorChange .navbar-collapse {
     margin-top: 7px; }
-  .header .colorChange .header__authenWrapper {
+  .header--home .colorChange .header__authenWrapper {
     transform: translateX(66px); }
 
 /*-------------------------reponsive-----------------------*/
