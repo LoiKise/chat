@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faTimes, faEye } from '@fortawesome/free-solid-svg-icons';
+// import { faPencilAlt, faTimes, faEye } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { DataGrid, GridToolbar, GridOverlay } from '@mui/x-data-grid';
 import { createTheme } from '@material-ui/core/styles';
@@ -238,20 +238,7 @@ export default function DashboardUserTable(props) {
         }
     ])
     const [selection, setSelection] = useState()
-    useEffect(() => {
 
-        if (order.length > 0) {
-            order.forEach(item => {
-                item.createdDate = moment(item.createdDate).format('YYYY-MM-DD HH:mm:ss')
-                item.totalPrice = `${item.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ`
-                item.customerType = item.customerType?.name
-                item.driver = item.driver?.name
-                item.type = item.type?.name
-                item.status = item.status?.name
-                item.unit = item.unit?.name
-            })
-        }
-    }, [constOrder])
 
     const deleteOnClick = () => {
         console.log({ selection });

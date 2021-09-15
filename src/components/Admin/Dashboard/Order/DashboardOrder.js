@@ -11,18 +11,33 @@ export default function DashboardOrder(props) {
     useEffect(() => {
         if (window.innerWidth <= 600) {
             setTable([
-                { headerName: "Thông tin đơn hàng", field: 'id', editable: false, width: 150, },
+                { headerName: "Mã Đơn", field: 'id', editable: false },
                 { headerName: "Ngày tạo", field: 'createdDate', editable: false },
                 { headerName: "Khách Hàng", field: 'customerName' },
-                { headerName: "Phân loại", field: 'customerType' },
+                {
+                    headerName: "Phân loại", field: 'customerType',
+                    valueFormatter: params => params.row?.customerType?.name
+                },
                 { headerName: "Số điện thoại", field: 'phone' },
-                { headerName: "Tài Xế", field: 'driver' },
+                {
+                    headerName: "Tài Xế", field: 'driver',
+                    valueFormatter: params => params.row?.driver?.name
+                },
                 { headerName: "Sản Phẩm", field: 'productName' },
-                { headerName: "Loại Hàng", field: 'type' },
+                {
+                    headerName: "Loại Hàng", field: 'type',
+                    valueFormatter: params => params.row?.type?.name
+                },
                 { headerName: "Số lượng", field: 'quantity' },
-                { headerName: "Đơn vị", field: 'unit' },
+                {
+                    headerName: "Đơn vị", field: 'unit',
+                    valueFormatter: params => params.row?.unit?.name
+                },
                 { headerName: "Tổng tiền", field: 'totalPrice' },
-                { headerName: "Trạng thái", field: 'status' },
+                {
+                    headerName: "Trạng thái", field: 'status',
+                    valueFormatter: params => params.row?.status?.name
+                },
                 { headerName: "Ghi chú", field: 'note' },
                 {
                     headerName: "Công cụ", field: 'control',
@@ -30,7 +45,7 @@ export default function DashboardOrder(props) {
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                <EditToolbar index={params.row.id} />
+                                <EditToolbar index={params.row} />
                             </div>
                         );
                     }
@@ -38,18 +53,33 @@ export default function DashboardOrder(props) {
             ])
         } else {
             setTable([
-                { headerName: "Thông tin đơn hàng", field: 'id', editable: false, width: 150, },
+                { headerName: "Mã Đơn", field: 'id', editable: false },
                 { headerName: "Ngày tạo", field: 'createdDate', editable: false },
                 { headerName: "Khách Hàng", field: 'customerName' },
-                { headerName: "Phân loại", field: 'customerType' },
+                {
+                    headerName: "Phân loại", field: 'customerType',
+                    valueFormatter: params => params.row?.customerType?.name
+                },
                 { headerName: "Số điện thoại", field: 'phone' },
-                { headerName: "Tài Xế", field: 'driver' },
+                {
+                    headerName: "Tài Xế", field: 'driver',
+                    valueFormatter: params => params.row?.driver?.name
+                },
                 { headerName: "Sản Phẩm", field: 'productName' },
-                { headerName: "Loại Hàng", field: 'type' },
+                {
+                    headerName: "Loại Hàng", field: 'type',
+                    valueFormatter: params => params.row?.type?.name
+                },
                 { headerName: "Số lượng", field: 'quantity' },
-                { headerName: "Đơn vị", field: 'unit' },
+                {
+                    headerName: "Đơn vị", field: 'unit',
+                    valueFormatter: params => params.row?.unit?.name
+                },
                 { headerName: "Tổng tiền", field: 'totalPrice' },
-                { headerName: "Trạng thái", field: 'status' },
+                {
+                    headerName: "Trạng thái", field: 'status',
+                    valueFormatter: params => params.row?.status?.name
+                },
                 { headerName: "Ghi chú", field: 'note' },
                 {
                     headerName: "Công cụ", field: 'control',
@@ -67,54 +97,33 @@ export default function DashboardOrder(props) {
         function handleResize() {
             if (window.innerWidth <= 600) {
                 setTable([
-                    { headerName: "Thông tin đơn hàng", field: 'id', editable: false, width: 150, },
+                    { headerName: "Mã Đơn", field: 'id', editable: false },
                     { headerName: "Ngày tạo", field: 'createdDate', editable: false },
                     { headerName: "Khách Hàng", field: 'customerName' },
-                    { headerName: "Phân loại", field: 'customerType' },
+                    {
+                        headerName: "Phân loại", field: 'customerType',
+                        valueFormatter: params => params.row?.customerType?.name
+                    },
                     { headerName: "Số điện thoại", field: 'phone' },
                     {
                         headerName: "Tài Xế", field: 'driver',
-                        valueFormatter: (params) => {
-                            console.log({ driver: params });
-                            return params.driver.name
-                        },
+                        valueFormatter: params => params.row?.driver?.name
                     },
                     { headerName: "Sản Phẩm", field: 'productName' },
-                    { headerName: "Loại Hàng", field: 'type' },
-                    { headerName: "Số lượng", field: 'quantity' },
-                    { headerName: "Đơn vị", field: 'unit' },
-                    { headerName: "Tổng tiền", field: 'totalPrice' },
-                    { headerName: "Trạng thái", field: 'status' },
                     {
-                        headerName: "Ghi chú", field: 'note',
-
+                        headerName: "Loại Hàng", field: 'type',
+                        valueFormatter: params => params.row?.type?.name
                     },
-                    {
-                        headerName: "Công cụ", field: 'control',
-                        disableClickEventBubbling: true,
-                        renderCell: (params) => {
-                            return (
-                                <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                    <EditToolbar index={params.row.id} />
-                                </div>
-                            );
-                        }
-                    }
-                ])
-            } else {
-                setTable([
-                    { headerName: "Thông tin đơn hàng", field: 'id', editable: false, width: 150, },
-                    { headerName: "Ngày tạo", field: 'createdDate', editable: false },
-                    { headerName: "Khách Hàng", field: 'customerName' },
-                    { headerName: "Phân loại", field: 'customerType' },
-                    { headerName: "Số điện thoại", field: 'phone' },
-                    { headerName: "Tài Xế", field: 'driver' },
-                    { headerName: "Sản Phẩm", field: 'productName' },
-                    { headerName: "Loại Hàng", field: 'type' },
                     { headerName: "Số lượng", field: 'quantity' },
-                    { headerName: "Đơn vị", field: 'unit' },
+                    {
+                        headerName: "Đơn vị", field: 'unit',
+                        valueFormatter: params => params.row?.unit?.name
+                    },
                     { headerName: "Tổng tiền", field: 'totalPrice' },
-                    { headerName: "Trạng thái", field: 'status' },
+                    {
+                        headerName: "Trạng thái", field: 'status',
+                        valueFormatter: params => params.row?.status?.name
+                    },
                     { headerName: "Ghi chú", field: 'note' },
                     {
                         headerName: "Công cụ", field: 'control',
@@ -122,7 +131,49 @@ export default function DashboardOrder(props) {
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                    <EditToolbar index={params.row.id} />
+                                    <EditToolbar index={params.row} />
+                                </div>
+                            );
+                        }
+                    }
+                ])
+            } else {
+                setTable([
+                    { headerName: "Mã Đơn", field: 'id', editable: false },
+                    { headerName: "Ngày tạo", field: 'createdDate', editable: false },
+                    { headerName: "Khách Hàng", field: 'customerName' },
+                    {
+                        headerName: "Phân loại", field: 'customerType',
+                        valueFormatter: params => params.row?.customerType?.name
+                    },
+                    { headerName: "Số điện thoại", field: 'phone' },
+                    {
+                        headerName: "Tài Xế", field: 'driver',
+                        valueFormatter: params => params.row?.driver?.name
+                    },
+                    { headerName: "Sản Phẩm", field: 'productName' },
+                    {
+                        headerName: "Loại Hàng", field: 'type',
+                        valueFormatter: params => params.row?.type?.name
+                    },
+                    { headerName: "Số lượng", field: 'quantity' },
+                    {
+                        headerName: "Đơn vị", field: 'unit',
+                        valueFormatter: params => params.row?.unit?.name
+                    },
+                    { headerName: "Tổng tiền", field: 'totalPrice' },
+                    {
+                        headerName: "Trạng thái", field: 'status',
+                        valueFormatter: params => params.row?.status?.name
+                    },
+                    { headerName: "Ghi chú", field: 'note' },
+                    {
+                        headerName: "Công cụ", field: 'control',
+                        disableClickEventBubbling: true,
+                        renderCell: (params) => {
+                            return (
+                                <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                                    <EditToolbar index={params.row} />
                                 </div>
                             );
                         }
