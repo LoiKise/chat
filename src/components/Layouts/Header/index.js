@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import HeaderNavItem from "./HeaderNavItem";
 import classname from "classname";
-import { Nav, Navbar, NavbarBrand } from "react-bootstrap";
-import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { Nav, Navbar } from "react-bootstrap";
 import { logout } from "../../../features/auth/authSlice";
 import useAuthenticated from "../../../helpers/useAuthenticated";
+import { useDispatch, useSelector } from "react-redux";
+
 export default function Index({ isHome }) {
   const authenticated = useAuthenticated();
   const name = useSelector((state) => state.auth.profile.name);
   const dispatch = useDispatch();
 
+  const handleLogout = () => dispatch(logout());
   const headerItem = [
     {
       name: "TRANG CHỦ",
@@ -73,50 +73,44 @@ export default function Index({ isHome }) {
             <ul className="header__nav-list">
               <HeaderNavItem headerItem={headerItem} />
               <div className="header__authenWrapper">
-                <Link to="/login" className="header__authen--login">
-                  Đăng nhập
-                </Link>
-                <Link to="/register" className="header__authen--signup">
-                  Đăng ký
-                </Link>
+                {authenticated && (
+                  <div class="account">
+                    <Link to="">
+                      <div class="account-personal">
+                        <img src="./assets/img/icon/user_img.png" alt="" />
+                      </div>
+                    </Link>
+                    <span>{name}</span>
+                    <div class="account-menu">
+                      <img src="./assets/img/icon/bars.png" alt="" />
+
+                      <div className="account-menu__list">
+                        <Link to="" className="account-menu__item">
+                          Tài khoản của tôi
+                        </Link>
+                        <Link
+                          onClick={handleLogout}
+                          to=""
+                          className="account-menu__item"
+                        >
+                          Đăng xuất
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {!authenticated && (
+                  <div className="header__authenWrapper">
+                    <Link to="/login" className="header__authen--login">
+                      Đăng nhập
+                    </Link>
+                    <Link to="/register" className="header__authen--signup">
+                      Đăng ký
+                    </Link>
+                  </div>
+                )}
               </div>
             </ul>
-            {authenticated && (
-              <div class="account">
-                <Link to="">
-                  <div class="account-personal">
-                    <img src="./assets/img/icon/user_img.png" alt="" />
-                  </div>
-                </Link>
-                <span>{name}</span>
-                <div class="account-menu">
-                  <img src="./assets/img/icon/bars.png" alt="" />
-
-                  <div className="account-menu__list">
-                    <Link to="" className="account-menu__item">
-                      Tài khoản của tôi
-                    </Link>
-                    <Link
-                      onClick={handleLogout}
-                      to=""
-                      className="account-menu__item"
-                    >
-                      Đăng xuất
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-            {!authenticated && (
-              <div className="header__authenWrapper">
-                <Link to="/login" className="header__authen--login">
-                  Đăng nhập
-                </Link>
-                <Link to="/register" className="header__authen--signup">
-                  Đăng ký
-                </Link>
-              </div>
-            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
