@@ -16,7 +16,7 @@ export default function Index() {
   }, []);
   return (
     <>
-      <div className="recruitment mt-3">
+      <div className="recruitment">
         <div className="container">
           <div className="recruitment-content">
             <h1 className="recruitment-title">Tuyển dụng</h1>
