@@ -10,7 +10,6 @@ export default function index() {
 
 
   return (
-
     <div className="order" >
       <div className="container">
         <div style={{ display: 'block', width: 700, padding: 30 }}>

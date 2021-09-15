@@ -8,6 +8,7 @@
     margin-top: -12px;
     z-index: 99;
   }
+
 }
 
 .header {
@@ -34,10 +35,11 @@
       margin-top: 7px;
     }
     .header__authenWrapper {
-      transform: translateX(115px);
+      transform: translateX(66px);
     }
   }
 }
+
 /*-------------------------reponsive-----------------------*/
 .navbar {
   @include mobile {
