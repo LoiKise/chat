@@ -17,7 +17,6 @@
     margin-left: -77px;
   }
 }
-
 .header__logo {
   height: var(--element-height);
   max-width: 50%;
@@ -84,6 +83,7 @@
   gap: 0 1rem;
 
   span {
+    width: max-content;
     color: white;
     font-size: 1.6rem;
   }
@@ -97,7 +97,6 @@
   &-menu {
     position: relative;
     cursor: pointer;
-    margin-left: 2rem;
 
     &:hover &__list {
       display: flex;

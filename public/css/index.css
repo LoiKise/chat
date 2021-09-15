@@ -471,6 +471,7 @@ p {
   align-items: center;
   gap: 0 1rem; }
   .account span {
+    width: max-content;
     color: white;
     font-size: 1.6rem; }
   .account-personal img {
@@ -479,8 +480,7 @@ p {
     object-fit: cover; }
   .account-menu {
     position: relative;
-    cursor: pointer;
-    margin-left: 2rem; }
+    cursor: pointer; }
     .account-menu:hover .account-menu__list {
       display: flex; }
     .account-menu img {
