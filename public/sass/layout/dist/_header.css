@@ -5,31 +5,32 @@
   background-color: #000;
   position: fixed;
   z-index: 999;
-  .navbar-collapse{
-    margin-top: -17px;
-    margin-left: -105px;
-  }
+}
+.header .navbar-collapse {
+  margin-top: -17px;
+  margin-left: -105px;
 }
 
 .header--home {
   background: transparent;
-  .navbar-brand {
-    text-align: center;
-  }
-  .navbar-expand-lg .navbar-nav {
-    margin-top: -22px;
-    margin-left: -77px;
-  }
-  .navbar-collapse {
-    margin-top: 0px;
-    margin-left: 5px;
-  }
+}
+.header--home .navbar-brand {
+  text-align: center;
+}
+.header--home .navbar-expand-lg .navbar-nav {
+  margin-top: -22px;
+  margin-left: -77px;
+}
+.header--home .navbar-collapse {
+  margin-top: 0px;
+  margin-left: 5px;
 }
 
 .header__logo {
   height: var(--element-height);
   max-width: 50%;
 }
+
 .header__nav-list {
   display: flex;
   justify-content: space-between;
@@ -38,36 +39,42 @@
   margin-bottom: 0 !important;
   margin-top: 0px !important;
 }
+
 .header__nav--collapse {
   flex-grow: 0 !important;
 }
+
 .header__nav-item {
   width: 140px;
   text-align: center;
 }
+
 .header__nav-link {
   display: inline-block;
   text-decoration: none;
   width: 100%;
-  color: rgb(253, 253, 253);
+  color: #fdfdfd;
   font-size: 1.6rem;
   font-weight: 500;
   line-height: var(--element-height);
   transition: all 0.2s linear;
 }
+
 .header__nav-link:hover {
   color: var(--gradient-color-to);
   text-decoration: none;
 }
+
 .header__authen--login,
 .header__authen--signup {
   text-decoration: none;
-  color: rgb(253, 253, 253);
+  color: #fdfdfd;
   font-size: 1.6rem;
   font-weight: 500;
   line-height: var(--element-height);
   transition: all 0.2s linear;
 }
+
 .header__authen--login:hover,
 .header__authen--signup:hover {
   text-decoration: none;
@@ -86,5 +93,4 @@
 }
 
 /*---------------------------------reponsive------------------------*/
-
 /*---------------------------------reponsive------------------------*/

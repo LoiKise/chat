@@ -8,6 +8,7 @@
     margin-top: -12px;
     z-index: 99;
   }
+
 }
 
 .header {
@@ -38,6 +39,7 @@
     }
   }
 }
+
 /*-------------------------reponsive-----------------------*/
 .navbar {
   @include mobile {

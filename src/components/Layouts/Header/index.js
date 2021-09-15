@@ -22,7 +22,7 @@ export default function Index({ isHome }) {
       },
       {
         name: "TRA CỨU",
-        link: "/"
+        link: "/Search"
       },
       {
         name: "TUYỂN DỤNG",
@@ -37,12 +37,15 @@ export default function Index({ isHome }) {
   const [colorChange, setColorchange] = useState(false);
   useEffect(() => {
     const changeNavbarColor = () => {
-      if (window.scrollY >= 80) {
-        setColorchange(true);
+      if (isHome === true) {
+        if (window.scrollY >= 80) {
+          setColorchange(true);
+        }
+        else {
+          setColorchange(false);
+        }
       }
-      else {
-        setColorchange(false);
-      }
+     
     };
     window.addEventListener('scroll', changeNavbarColor);
   }, [])
