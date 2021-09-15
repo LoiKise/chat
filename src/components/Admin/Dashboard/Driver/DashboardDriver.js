@@ -20,7 +20,7 @@ export default function DashboardDriver(props) {
     ]
 
     return (
-        <div className="dashboard-Driver">
+        <div className="dashboard-product">
             <div className={props.toast ? "toast toast-show" : "toast"} style={{ top: '20px' }}>
                 <FontAwesomeIcon icon={faCheckCircle} className="icon" />
                 Cập Nhật Tài Xế Thành Công

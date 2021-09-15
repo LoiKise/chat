@@ -4,6 +4,7 @@ import CategoryTitle from '../Category/CategoryTitle/CategoryTitle'
 
 export default function Order() {
     const IconService = "./assets/img/icon/planes.png"
+    
     return (
         <div className="ordernow section-area">
             <div className="container">

@@ -131,20 +131,20 @@ export default function DashboardDriverEdit(props) {
         formData.append("DriverDes", DriverDes);
         formData.append("DriverSex", DriverSex);
         formData.append("DriverDate", new Date());
-        axios.post(`http://pe.heromc.net:4000/Drivers/update/${Driver._id}`, formData, config)
-            .then(() => {
-                props.setCloseEditFunc(false);
-                props.setToastFunc(true);
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        // axios.post(`http://pe.heromc.net:4000/Drivers/update/${Driver._id}`, formData, config)
+        //     .then(() => {
+        //         props.setCloseEditFunc(false);
+        //         props.setToastFunc(true);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err)
+        //     })
     }
 
     const addNewCate = () => {
-        axios.post('http://pe.heromc.net:4000/category', {
-            cateName: inputValue.cate
-        })
+        // axios.post('http://pe.heromc.net:4000/category', {
+        //     cateName: inputValue.cate
+        // })
         setCate(cate => [...cate, { cateName: inputValue.cate }])
         setDriverCate(inputValue.cate)
         cateInput.current.value = ""

@@ -6,11 +6,15 @@
     ),
     url("../assets/img/imgs/Background/backgroundHeader.png");
 }
-.header__nav {
+
+.colorChange{
+ background-color: red !important;
+}
+
+.navbar-light {
   --element-height: 55px;
   display: flex;
   justify-content: space-around;
-
   height: 55px;
   padding-top: 10px;
 }
@@ -27,7 +31,7 @@
   list-style: none;
 }
 .header__nav-item {
-  /* background-color: black; */
+  background-color: black;
   width: 140px;
   text-align: center;
 }
