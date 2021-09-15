@@ -9,6 +9,26 @@ export const rules = {
       message: "Tên có độ dài tối đa là 160 ký tự",
     },
   },
+  title: {
+    required: {
+      value: true,
+      message: "Tiêu đề là bắt buộc nhập",
+    },
+    maxLength: {
+      value: 160,
+      message: "Tiêu đề có độ dài tối đa là 160 ký tự",
+    },
+  },
+  content: {
+    required: {
+      value: true,
+      message: "Nội dung là bắt buộc nhập",
+    },
+    maxLength: {
+      value: 160,
+      message: "Nội dung có độ dài tối đa là 160 ký tự",
+    },
+  },
   email: {
     required: {
       value: true,

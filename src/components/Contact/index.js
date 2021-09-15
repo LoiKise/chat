@@ -101,6 +101,7 @@ export default function Index() {
                     <Controller
                       name="name"
                       control={control}
+                      rules={rules.name}
                       render={({ field }) => (
                         <input
                           name="name"
@@ -170,6 +171,7 @@ export default function Index() {
                     <Controller
                       name="title"
                       control={control}
+                      rules={rules.title}
                       render={({ field }) => (
                         <input
                           name="title"
@@ -184,6 +186,7 @@ export default function Index() {
                       alt=""
                       className="contact-form__icon"
                     />
+                    <ErrorMessage name="title" errors={errors} />
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -191,6 +194,7 @@ export default function Index() {
                     <Controller
                       name="content"
                       control={control}
+                      rules={rules.content}
                       render={({ field }) => (
                         <textarea
                           name="content"
@@ -206,6 +210,7 @@ export default function Index() {
                       alt=""
                       className="contact-form__icon"
                     />
+                    <ErrorMessage name="content" errors={errors} />
                   </div>
                 </div>
               </div>
