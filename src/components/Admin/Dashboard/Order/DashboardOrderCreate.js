@@ -46,7 +46,7 @@ export default function DashboardOrderCreate(props) {
         phone: '',
         address: '',
         district: null,
-        province: null,
+        province: '',
     })
     const [reciever, setReciever] = useState({
         name: '',
@@ -59,8 +59,8 @@ export default function DashboardOrderCreate(props) {
     const [orderDistrict, setOrderDistrict] = useState("")
 
     const [orderProvince, setOrderProvince] = useState("")
-    const [customerProvinceId, setCustomerProvinceId] = useState(null)
-    const [recieverProvinceId, setRecieverProvinceId] = useState(null)
+    const [customerProvinceName, setCustomerProvinceName] = useState("")
+    const [recieverProvinceName, setRecieverProvinceName] = useState("")
 
     const [orderPaymentMethod, setOrderPaymentMethod] = useState("")
 
@@ -146,8 +146,8 @@ export default function DashboardOrderCreate(props) {
     }, [])
 
     useEffect(() => {
-        console.log(customerProvinceId);
-    }, [customerProvinceId])
+        console.log({ customer });
+    }, [customer])
 
     const onSubmit = (event) => {
         event.preventDefault()
@@ -254,11 +254,11 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-right">
                             <select
                                 className="input"
-                                value={customer.province || ""}
+                                value={customer?.province || ""}
                                 onChange={(event) => {
-                                    setCustomer({ ...customer, province: province[event.target.selectedIndex - 1].name })
-                                    setCustomerProvinceId(event.target.value)
-                                    console.log(province[event.target.selectedIndex - 1].name);
+                                    setCustomer({ ...customer, province: event.target.value })
+                                    setCustomerProvinceName(province[event.target.selectedIndex - 1].name)
+                                    //province: province[event.target.selectedIndex - 1].name
                                 }}
                             >
                                 <option disabled selected value>Chọn tỉnh/thành phố</option>
@@ -284,16 +284,13 @@ export default function DashboardOrderCreate(props) {
                                 }}
                             >
                                 <option disabled selected value>Chọn quận/huyện</option>
-                                {district.map((item, index) => {
-                                    if (index === customerProvinceId) {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item.name}
-                                            >{item.name}</option>
-                                        )
-                                    }
-                                    return null
+                                {district.filter(el => el.idProvince.toString() === customer.province).map((item, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            value={item.name}
+                                        >{item.name}</option>
+                                    )
                                 })}
                             </select>
                         </div>
@@ -306,9 +303,9 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-right">
                             <input
                                 type="text" name="name"
-                                value={customer?.name || ""}
+                                value={reciever?.name || ""}
                                 onChange={(event) => {
-                                    setCustomer({ ...customer, name: event.target.value })
+                                    setReciever({ ...reciever, name: event.target.value })
                                 }}
                                 required
                             ></input>
@@ -319,9 +316,9 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-right">
                             <input
                                 type="text" name="phone"
-                                value={customer?.phone || ""}
+                                value={reciever?.phone || ""}
                                 onChange={(event) => {
-                                    setCustomer({ ...customer, phone: event.target.value })
+                                    setReciever({ ...reciever, phone: event.target.value })
                                 }} required
                             ></input>
                         </div>
@@ -331,9 +328,9 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-right">
                             <input
                                 type="text" name="address"
-                                value={customer?.address || ""}
+                                value={reciever?.address || ""}
                                 onChange={(event) => {
-                                    setCustomer({ ...customer, address: event.target.value })
+                                    setReciever({ ...reciever, address: event.target.value })
                                 }} required
                             ></input>
                         </div>
@@ -345,7 +342,7 @@ export default function DashboardOrderCreate(props) {
                                 className="input"
                                 value={reciever.province}
                                 onChange={(event) => {
-                                    setRecieverProvinceId(event.target.selectedIndex)
+                                    setRecieverProvinceName(event.target.selectedIndex)
                                     setReciever({ ...reciever, province: event.target.value })
                                 }}
                             >
@@ -373,7 +370,7 @@ export default function DashboardOrderCreate(props) {
                             >
                                 <option disabled selected value>Chọn quận/huyện</option>
                                 {district.map((item, index) => {
-                                    if (index === recieverProvinceId) {
+                                    if (index === recieverProvinceName) {
                                         return (
                                             <option
                                                 key={index}
