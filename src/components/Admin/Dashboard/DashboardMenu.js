@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleUp, faIdCard, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
-
+const LOGO = "./assets/img/logo/dark_logo.png"
 export default function DashboardMenu(props) {
 
     const [openUserOpt, setOpenUserOpt] = useState(false)
@@ -38,8 +38,8 @@ export default function DashboardMenu(props) {
                     {hideText === false
                         &&
                         <img
-                            alt=""
-                            src="https://demo.uix.store/sober/wp-content/themes/sober/images/logo-light.svg"
+                            alt="LogoDB"
+                            src={LOGO}
                             height='24px'
                             style={{ marginLeft: '27px' }}
                         ></img>
