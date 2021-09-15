@@ -465,8 +465,47 @@ p {
   background-color: antiquewhite;
   display: block; }
 
-/*---------------------------------reponsive------------------------*/
-/*---------------------------------reponsive------------------------*/
+.account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 1rem; }
+  .account span {
+    width: max-content;
+    color: white;
+    font-size: 1.6rem; }
+  .account-personal img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover; }
+  .account-menu {
+    position: relative;
+    cursor: pointer; }
+    .account-menu:hover .account-menu__list {
+      display: flex; }
+    .account-menu img {
+      width: 4rem;
+      height: 4rem;
+      object-fit: cover; }
+    .account-menu__list {
+      position: absolute;
+      display: none;
+      flex-direction: column;
+      border-radius: 8px;
+      left: -100%;
+      top: 100%;
+      width: max-content;
+      background-color: #f34d14; }
+      .account-menu__list a {
+        color: #ccc;
+        font-size: 1.4rem;
+        opacity: 0.9;
+        padding: 1rem;
+        text-decoration: none !important; }
+        .account-menu__list a:hover {
+          color: #fff !important;
+          opacity: 1; }
+
 .navbar-light .navbar-toggler {
   color: rgba(0, 0, 0, 0.5);
   border-color: rgba(0, 0, 0, 0.1);
