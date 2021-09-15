@@ -1,125 +1,219 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-
+import MaterialTable from 'material-table';
+import { useSnackbar } from 'notistack';
 export default function DashboardOrderCreate(props) {
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const createForm = useRef();
 
-    const [tinh, setTinh] = useState([])
-    const [huyen, setHuyen] = useState([])
+    const [province, setProvince] = useState([ //Tỉnh / Thành Phố
+        {
+            id: 111,
+            name: 'Cà Mau',
+        },
+        {
+            id: 222,
+            name: 'Hồ Chí Minh'
+        }
+    ])
+    const [district, setDistrict] = useState([ //Quận / Huyện
+        {
+            id: 1,
+            name: 'Bình Thạnh',
+            idProvince: 222,
+        },
+        {
+            id: 2,
+            name: 'Trần Văn Thời',
+            idProvince: 111,
 
-    const [orderName, setOrderName] = useState("")
-    const [orderEmail, setOrderEmail] = useState("")
-    const [orderPhone, setOrderPhone] = useState("")
-    const [orderAddress, setOrderAddress] = useState("")
-    const [orderProvince, setOrderProvince] = useState(null)
-    const [orderDistric, setOrderDistric] = useState(null)
+        },
+        {
+            id: 3,
+            name: 'Năm Căn',
+            idProvince: 111,
+
+        }
+    ])
+
+    const [customer, setCustomer] = useState({
+        name: '',
+        phone: '',
+        address: '',
+        district: '',
+        province: null,
+        provinceName: '',
+    })
+    const [reciever, setReciever] = useState({
+        name: '',
+        phone: '',
+        address: '',
+        district: '',
+        province: null,
+        provinceName: '',
+    })
+
     const [orderPaymentMethod, setOrderPaymentMethod] = useState("")
-    const [provinceId, setProvinceId] = useState("")
-    const [product, setProduct] = useState([])
-    const [productList, setProductList] = useState([])
 
+    const [table, setTable] = useState([])
+    const [productList, setProductList] = useState([])
+    useEffect(() => {
+        if (window.innerWidth <= 600) {
+            setTable([
+                { title: "STT", field: 'id', },
+                {
+                    title: "Phân loại", field: 'customerType',
+                },
+                { title: "Sản Phẩm", field: 'productName' },
+                {
+                    title: "Loại Hàng", field: 'type',
+                },
+                { title: "Số lượng", field: 'quantity' },
+                {
+                    title: "Đơn vị", field: 'unit',
+                },
+                { title: "Ghi chú", field: 'note' },
+
+            ])
+        } else {
+            setTable([
+                { title: "STT", field: 'id', },
+                {
+                    title: "Phân loại", field: 'customerType',
+                },
+                { title: "Sản Phẩm", field: 'productName' },
+                {
+                    title: "Loại Hàng", field: 'type',
+                },
+                { title: "Số lượng", field: 'quantity' },
+                {
+                    title: "Đơn vị", field: 'unit',
+                },
+                { title: "Ghi chú", field: 'note' },
+
+            ])
+        }
+        function handleResize() {
+            if (window.innerWidth <= 600) {
+                setTable([
+                    { title: "STT", field: 'id', },
+                    {
+                        title: "Phân loại", field: 'customerType',
+                    },
+                    { title: "Sản Phẩm", field: 'productName' },
+                    {
+                        title: "Loại Hàng", field: 'type',
+                    },
+                    { title: "Số lượng", field: 'quantity' },
+                    {
+                        title: "Đơn vị", field: 'unit',
+                    },
+                    { title: "Ghi chú", field: 'note' },
+
+                ])
+            } else {
+                setTable([
+                    { title: "STT", field: 'id', },
+                    {
+                        title: "Phân loại", field: 'customerType',
+                    },
+                    { title: "Sản Phẩm", field: 'productName' },
+                    {
+                        title: "Loại Hàng", field: 'type',
+                    },
+                    { title: "Số lượng", field: 'quantity' },
+                    {
+                        title: "Đơn vị", field: 'unit',
+                    },
+                    { title: "Ghi chú", field: 'note' },
+
+                ])
+            }
+        }
+        window.addEventListener("resize", handleResize);
+        return (() => {
+            window.removeEventListener("resize", handleResize);
+        })
+    }, [])
 
     const onSubmit = (event) => {
         event.preventDefault()
-
-        var listOrder = []
-        var total = 0;
-        for (let i in productList) {
-            const data = {
-                id: productList[i]._id,
-                amount: productList[i].count,
-            }
-            total += productList[i].productFinalPrice * productList[i].count
-            listOrder.push(data)
+        let dataFormat = { ...data, customer, reciever, productList }
+        console.log({ dataFormat });
+        if (dataFormat.customer.district.length <= 0 || dataFormat.reciever.district.length <= 0) {
+            enqueueSnackbar('Quận/Huyện không được bỏ trống', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (productList.length <= 0) {
+            enqueueSnackbar('Hàng hóa không được bỏ trống', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else {
+            enqueueSnackbar('Thêm đơn hàng thành công', {
+                persist: false,
+                variant: 'success',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
         }
-
-        axios.post('http://pe.heromc.net:4000/order', {
-            orderName: orderName,
-            orderEmail: orderEmail,
-            orderPhone: orderPhone,
-            orderAddress: orderAddress,
-            orderTinh: orderProvince,
-            orderHuyen: orderDistric,
-            orderList: listOrder,
-            orderTotal: total,
-            orderPaymentMethod: orderPaymentMethod,
-            orderDate: new Date()
-        }).then(() => {
-            props.setCloseCreateFunc(false);
-            props.setToastFunc(true);
-        })
     }
 
-    const [userList, setUserList] = useState([])
-    const [user, setUser] = useState("")
+    const [driverList, setDriverList] = useState([
+        {
+            id: 1,
+            name: 'Thành Long',
+        },
+        {
+            id: 2,
+            name: 'Hoài Nhớ',
+        },
+    ])
 
-    useEffect(() => {
-        setTinh([])
-        setHuyen([])
-        setProduct([])
-        setUserList([])
-        // axios.get(`http://pe.heromc.net:4000/users/list`)
-        //     .then(res => {
-        //         setUserList(res.data)
-        //         res.data.filter((item) => {
-        //             if (item.userEmail === user) {
-        //                 setOrderName(item.userName)
-        //                 setOrderEmail(item.userEmail)
-        //                 setOrderPhone(item.userPhone)
-        //                 setOrderProvince(item.userProvince)
-        //                 setOrderDistric(item.userDistric)
-        //                 setOrderAddress(item.userAddress)
-        //                 if (item.userTinh !== "") {
-        //                     tinh.filter((item2) => {
-        //                         if (item.userTinh === item2.name) {
-        //                             setProvinceId(item2.id)
-        //                         }
-        //                         return null
-        //                     })
-        //                     setOrderProvince(item.userTinh)
-        //                 }
-        //                 if (item.userHuyen !== "") {
-        //                     setOrderDistric(item.userHuyen)
-        //                 }
-        //             }
-        //             return null
-        //         })
-        //     }
-        //     )
-        // axios.get(`http://pe.heromc.net:4000/vietnam`)
-        //     .then(res => {
-        //         setTinh(res.data[0].tinh)
-        //         setHuyen(res.data[0].huyen)
-        //     }
-        //     )
-        // axios.get(`http://pe.heromc.net:4000/products`)
-        //     .then(res => {
-        //         setProduct(res.data)
-        //     }
-        //     )
-        // if (user === "") {
-        //     setOrderName("")
-        //     setOrderEmail("")
-        //     setOrderPhone("")
-        //     setOrderAddress("")
-        //     setOrderProvince("")
-        //     setProvinceId("")
-        // }
-
-    }, [user, tinh])
+    const [unitList, setUnitList] = useState([
+        {
+            id: 1,
+            name: 'Kilogam',
+            symbox: 'KG'
+        },
+        {
+            id: 1,
+            name: 'Gam',
+            symbox: 'G'
+        },
+        {
+            id: 1,
+            name: 'Cái',
+            symbox: 'C'
+        },
+        {
+            id: 1,
+            name: 'Thùng',
+            symbox: 'T'
+        },
+    ])
+    const [data, setData] = useState({
+        orderName: '',
+        unitId: null,
+        quantity: null,
+        totalPrice: null,
+    })
 
     return (
         <div className="DashboardProductInfo">
             <div className="create-box">
                 <div className="create-box-title flex">
-                    <div className="create-box-title-text">
-                        Order infomation
-                    </div>
+                    <h2 className="create-box-title-text ">
+                        Thông tin đơn hàng
+                    </h2>
                     <div
-                        className="create-box-title-close flex-center"
+                        className="btn btn-outline-danger"
                         onClick={() => {
                             props.setCloseCreateFunc(false);
                         }}
@@ -128,78 +222,83 @@ export default function DashboardOrderCreate(props) {
                     </div>
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
+                    {/* Sender Infomation */}
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Already have an account?</div>
+                        <div className="dashboard-left flex">Khách hàng gửi</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="text" name="name"
+                                value={customer?.name || ""}
+                                onChange={(event) => {
+                                    setCustomer({ ...customer, name: event.target.value })
+                                }}
+                                required
+                            ></input>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Số điện thoại</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="text" name="phone"
+                                value={customer?.phone || ""}
+                                onChange={(event) => {
+                                    setCustomer({ ...customer, phone: event.target.value })
+                                }} required
+                            ></input>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Địa chỉ cụ thể</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="text" name="address"
+                                value={customer?.address || ""}
+                                onChange={(event) => {
+                                    setCustomer({ ...customer, address: event.target.value })
+                                }} required
+                            ></input>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Tỉnh/Thành Phố</div>
                         <div className="dashboard-right">
                             <select
                                 className="input"
+                                value={customer.province}
                                 onChange={(event) => {
-                                    setUser(event.target.value)
+                                    setCustomer({
+                                        ...customer,
+                                        province: event.target.value,
+                                        provinceName: province[event.target.selectedIndex - 1].name
+                                    })
+                                    //province: province[event.target.selectedIndex - 1].name
                                 }}
                             >
-                                <option></option>
-                                {
-                                    userList.map((item, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item.userEmail}
-                                            >{item.userEmail}</option>
-                                        )
-                                    })
-                                }
+                                <option disabled selected value>Chọn tỉnh/thành phố</option>
+                                {province.map((item, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            value={item.id}
+                                        >{item.name}</option>
+                                    )
+                                })}
                             </select>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Name</div>
-                        <div className="dashboard-right">
-                            <input
-                                type="text" name="name"
-                                value={orderName || ""}
-                                onChange={(event) => {
-                                    setOrderName(event.target.value)
-                                }} required
-                            ></input>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Email</div>
-                        <div className="dashboard-right">
-                            <input
-                                type="text" name="email"
-                                value={orderEmail || ""}
-                                onChange={(event) => {
-                                    setOrderEmail(event.target.value)
-                                }} required
-                            ></input>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Phone</div>
-                        <div className="dashboard-right">
-                            <input
-                                type="text" name="phone"
-                                value={orderPhone || ""}
-                                onChange={(event) => {
-                                    setOrderPhone(event.target.value)
-                                }} required
-                            ></input>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Province</div>
+                        <div className="dashboard-left flex">Quận/Huyện</div>
                         <div className="dashboard-right">
                             <select
                                 className="input"
-                                value={orderProvince}
+                                value={customer.district || ""}
                                 onChange={(event) => {
-                                    setProvinceId(event.target.selectedIndex)
-                                    setOrderProvince(event.target.value)
+                                    setCustomer({ ...customer, district: event.target.value })
                                 }}
                             >
-                                <option disabled selected value>select a province</option>
-                                {tinh.map((item, index) => {
+                                <option selected value>Chọn quận/huyện</option>
+                                {district.filter(el => el.idProvince.toString() === customer.province).map((item, index) => {
                                     return (
                                         <option
                                             key={index}
@@ -210,159 +309,184 @@ export default function DashboardOrderCreate(props) {
                             </select>
                         </div>
                     </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">District</div>
-                        <div className="dashboard-right">
-                            <select
-                                className="input"
-                                value={"orderDistric"}
-                                onChange={(event) => {
-                                    setOrderDistric(event.target.value)
-                                }}
-                            >
-                                <option disabled selected value>select a district</option>
-                                {huyen.map((item, index) => {
-                                    if (item.tinh_id === provinceId) {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item.name}
-                                            >{item.name}</option>
-                                        )
-                                    }
-                                    return null
-                                })}
-                            </select>
-                        </div>
-                    </div>
+
+                    {/* Reciever Infomation */}
 
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Address</div>
+                        <div className="dashboard-left flex">Khách hàng nhận</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="text" name="name"
+                                value={reciever?.name || ""}
+                                onChange={(event) => {
+                                    setReciever({ ...reciever, name: event.target.value })
+                                }}
+                                required
+                            ></input>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Số điện thoại</div>
                         <div className="dashboard-right">
                             <input
                                 type="text" name="phone"
-                                value={orderAddress || ""}
+                                value={reciever?.phone || ""}
                                 onChange={(event) => {
-                                    setOrderAddress(event.target.value)
+                                    setReciever({ ...reciever, phone: event.target.value })
                                 }} required
                             ></input>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Items</div>
+                        <div className="dashboard-left flex">Địa chỉ cụ thể</div>
                         <div className="dashboard-right">
-                            <select
-                                className="input"
-                                style={{ height: '25px', marginBottom: '10px' }}
-                                value={""}
+                            <input
+                                type="text" name="address"
+                                value={reciever?.address || ""}
                                 onChange={(event) => {
-                                    const isExists = (cartItems = [], item = {}) => {
-                                        for (let cartItem of cartItems) {
-                                            if (cartItem._id === item._id) {
-                                                return cartItem;
-                                            }
-                                        }
-                                        return false;
-                                    }
-
-                                    const value = event.target.value
-                                    const virtualCart = [...productList]
-                                    if (productList.length === 0) {
-                                        virtualCart.push({ ...JSON.parse(value), count: 1 })
-                                    } else {
-                                        if (!isExists(productList, JSON.parse(value))) {
-                                            virtualCart.push({ ...JSON.parse(value), count: 1 })
-                                        } else {
-                                            for (let i = 0; i < virtualCart.length; i++) {
-                                                if (virtualCart[i]._id === JSON.parse(value)._id) {
-                                                    virtualCart[i].count += 1
-                                                    break
-                                                }
-                                            }
-                                        }
-                                    }
-                                    setProductList(virtualCart)
-                                }}
-                            >
-                                <option selected value>select a product</option>
-                                {product.map((item, index) => {
-                                    return (
-                                        <option
-                                            key={index}
-                                            value={JSON.stringify(item)}
-                                        >Name: {item.productName}, Price: {item.productFinalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</option>
-                                    )
-                                })}
-                            </select>
-                            <div className="" style={{ overflowY: 'hidden', flexWrap: 'wrap' }}>
-                                {productList &&
-                                    productList.map((item, index) => {
-                                        return (
-                                            <div
-                                                key={index}
-                                                className="order-list-item"
-                                            >
-                                                <img src={item.productImg[0]} alt=""></img>
-                                                <p style={{ width: '55%' }}>{item.productName}</p>
-                                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <p
-                                                        id={index}
-                                                        className="count-btn flex-center"
-                                                        onClick={(event) => {
-                                                            const arr = [...productList]
-                                                            const id = event.target.id;
-                                                            for (let i in arr) {
-                                                                if (id === i) {
-                                                                    if (arr[i].count === 0) {
-                                                                        return
-                                                                    } else {
-                                                                        arr[i].count -= 1
-                                                                    }
-                                                                }
-                                                            }
-                                                            setProductList(arr)
-                                                        }}
-                                                    >-</p>
-                                                    <p>{item.count}</p>
-                                                    <p
-                                                        id={index}
-                                                        className="count-btn flex-center"
-                                                        onClick={(event) => {
-                                                            const arr = [...productList]
-                                                            const id = event.target.id;
-                                                            for (let i in arr) {
-                                                                if (id === i) {
-                                                                    arr[i].count += 1
-                                                                }
-                                                            }
-                                                            setProductList(arr)
-                                                        }}
-                                                    >+</p>
-                                                </div>
-                                                <div
-                                                    id={index}
-                                                    className="delete-order-item flex-center"
-                                                    onClick={(event) => {
-                                                        var arr = [];
-                                                        const id = event.target.id;
-                                                        for (let i in productList) {
-                                                            if (i !== id) {
-                                                                arr.push(productList[i])
-                                                            }
-                                                        }
-                                                        setProductList(arr)
-                                                    }}>
-                                                    <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
+                                    setReciever({ ...reciever, address: event.target.value })
+                                }} required
+                            ></input>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Payment method</div>
+                        <div className="dashboard-left flex">Tỉnh/Thành Phố</div>
+                        <div className="dashboard-right">
+                            <select
+                                className="input"
+                                value={reciever.province}
+                                onChange={(event) => {
+                                    setReciever({
+                                        ...reciever,
+                                        province: event.target.value,
+                                        provinceName: province[event.target.selectedIndex - 1].name
+                                    })
+                                }}
+                            >
+                                <option disabled selected value>Chọn tỉnh/thành phố</option>
+                                {province.map((item, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            value={item.id}
+                                        >{item.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Quận/Huyện</div>
+                        <div className="dashboard-right">
+                            <select
+                                className="input"
+                                value={reciever.district || ""}
+                                onChange={(event) => {
+                                    setReciever({ ...reciever, district: event.target.value })
+                                    console.log(event.target.value);
+                                }}
+                            >
+                                <option selected value="">Chọn quận/huyện</option>
+                                {district.filter(el => el.idProvince.toString() === reciever.province).map((item, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            value={item.name}
+                                        >{item.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Order Details Infomation */}
+                    {/* <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Tài xế</div>
+                        <div className="dashboard-right">
+                            <select
+                                className="input"
+                                value={data.driverId}
+                                onChange={(event) => {
+                                    setData({ ...data, driverId: event.target.value })
+                                }}
+                            >
+                                <option disabled selected value>Chọn tài xế</option>
+                                {driverList.map((item, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            value={item.name}
+                                        >{item.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                    </div>
+                     */}
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Tên hàng hóa</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="text" name="orderName"
+                                value={data?.orderName || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, orderName: event.target.value })
+                                }}
+                                required
+                            ></input>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Số lượng</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="number" name="quantity"
+                                value={data?.quantity || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, quantity: event.target.value })
+                                }}
+                                required
+                            ></input>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Đơn vị tính</div>
+                        <div className="dashboard-right">
+                            <select
+                                className="input"
+                                value={data.unitId}
+                                onChange={(event) => {
+                                    setData({ ...data, unitId: event.target.value })
+                                }}
+                            >
+                                <option disabled selected value>Chọn đơn vị tính</option>
+                                {unitList.map((item, index) => {
+                                    return (
+                                        <option
+                                            key={index}
+                                            value={item.symbox}
+                                        >{item.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Thành tiền</div>
+                        <div className="dashboard-right">
+                            <input
+                                type="text" name="totalPrice"
+                                value={data?.totalPrice || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, totalPrice: event.target.value })
+                                }}
+                                required
+                            ></input>
+                        </div>
+                    </div>
+
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Phương thức thanh toán</div>
                         <div className="dashboard-right">
                             <select
                                 className="input"
@@ -373,19 +497,96 @@ export default function DashboardOrderCreate(props) {
                                 }} required
                             >
                                 <option></option>
-                                <option value="cash on delivery">Cash On Delivery</option>
-                                <option value="direct back transfer">Direct Back Transfer</option>
-                                <option value="paypal">Paypal</option>
+                                <option value="cash on delivery">Ship COD</option>
+                                <option value="direct back transfer">Chuyển khoản</option>
+                                <option value="paypal">Thanh toán Paypal</option>
                             </select>
                         </div>
                     </div>
+
+                    <MaterialTable
+                        title="Danh sách hàng hóa"
+                        data={productList}
+                        columns={table}
+                        options={{
+                            search: true,
+                            selection: true,
+                            actionsColumnIndex: -1,
+                            addRowPosition: "first",
+                            exportButton: true,
+                        }}
+                        localization={{
+                            pagination: {
+                                labelDisplayedRows: '{from}-{to} trong {count}',
+                                labelRowsSelect: 'sản phẩm',
+                                previousTooltip: 'Trang trước',
+                                firstTooltip: 'Trang đầu',
+                                nextTooltip: 'Trang kế',
+                                lastTooltip: 'Trang cuối'
+                            },
+                            toolbar: {
+                                nRowsSelected: '{0} hàng đang được chọn',
+                                exportTitle: 'Tải xuống',
+                                searchTooltip: 'Tìm kiếm'
+                            },
+                            header: {
+                                actions: 'Tùy chỉnh'
+                            },
+                            body: {
+                                emptyDataSourceMessage: 'Chưa có sản phẩm',
+                                filterRow: {
+                                    filterTooltip: 'Lọc'
+                                },
+                                addTooltip: 'Thêm',
+                                editTooltip: 'Sửa',
+                                deleteTooltip: 'Xóa',
+                            }
+                        }}
+                        actions={[
+                            rowData => ({
+                                icon: 'delete',
+                                tooltip: 'Xóa tất cả lựa chọn',
+                                onClick: (event, rowData) => alert(" " + rowData.name),
+                                disabled: rowData.birthYear < 2000
+                            })
+                        ]}
+                        editable={{
+                            onRowAdd: (newRow) => new Promise((resolve, reject) => {
+                                const updatedRows = [...productList, { id: Math.floor(Math.random() * 100), ...newRow }]
+                                setTimeout(() => {
+                                    setProductList(updatedRows)
+                                    resolve()
+                                }, 2000)
+                            }),
+                            onRowDelete: selectedRow => new Promise((resolve, reject) => {
+                                const index = selectedRow.tableData.id;
+                                const updatedRows = [...productList]
+                                updatedRows.splice(index, 1)
+                                setTimeout(() => {
+                                    setProductList(updatedRows)
+                                    resolve()
+                                }, 2000)
+                            }),
+                            onRowUpdate: (updatedRow, oldRow) => new Promise((resolve, reject) => {
+                                const index = oldRow.tableData.id;
+                                const updatedRows = [...productList]
+                                updatedRows[index] = updatedRow
+                                setTimeout(() => {
+                                    setProductList(updatedRows)
+                                    resolve()
+                                }, 2000)
+                            })
+                        }}
+                    />
                     <div className="flex-center" style={{ marginTop: '40px' }}>
-                        <button className="create-box-btn btn">
-                            Create order
+                        <button className="create-box-btn btn btn-outline-success">
+                            Tạo đơn hàng
                         </button>
                     </div>
+
+
                 </form>
             </div>
-        </div>
+        </div >
     )
 }
