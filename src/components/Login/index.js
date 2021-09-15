@@ -8,11 +8,18 @@ import { useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import useAuthenticated from "../../helpers/useAuthenticated";
 
 export default function Index() {
   const ICONGG = "/assets/img/icon/Asset 18.png";
   const ICONFB = "/assets/img/icon/Asset 19.png";
   const ICONLOGO = "/assets/img/icon/Asset 16.png";
+  const selector = useAuthenticated();
+  if (selector) {
+    console.log(selector);
+  } else {
+    console.log(selector);
+  }
 
   // id login gg, face
   const clientId =
@@ -58,15 +65,52 @@ export default function Index() {
   };
 
   //login gg
-  const responseGoogle = (res) => {
-    console.log("AccessToken", res.accessToken);
-    console.log("Login gg success", res.profileObj);
+  const responseGoogle = async (res) => {
+    const body = {
+      user: res.profileObj,
+      accessToken: res.accessToken,
+    };
+    try {
+      const res = await dispatch(login(body));
+      unwrapResult(res);
+      history.push("/");
+    } catch (error) {
+      if (error.status === 422) {
+        for (const key in error.data) {
+          setError(key, {
+            type: "server",
+            message: error.data[key],
+          });
+        }
+      }
+    }
   };
 
   //login face
-  const responseFacebook = (res) => {
-    console.log(res);
-    console.log("AccessToken :", res.accessToken);
+  const responseFacebook = async (res) => {
+    const profileObj = {
+      name: res.name,
+      email: res.email,
+      picture: res.picture,
+    };
+    const body = {
+      user: profileObj,
+      accessToken: res.accessToken,
+    };
+    try {
+      const res = await dispatch(login(body));
+      unwrapResult(res);
+      history.push("/");
+    } catch (error) {
+      if (error.status === 422) {
+        for (const key in error.data) {
+          setError(key, {
+            type: "server",
+            message: error.data[key],
+          });
+        }
+      }
+    }
   };
 
   return (
@@ -80,7 +124,6 @@ export default function Index() {
               render={(renderProps) => (
                 <button
                   onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
                   className="
                     login__google
                     d-flex
@@ -101,7 +144,7 @@ export default function Index() {
 
             <FacebookLogin
               appId={appId}
-              autoLoad={true}
+              autoLoad={false}
               fields="name,email,picture"
               callback={responseFacebook}
               render={(renderProps) => (
