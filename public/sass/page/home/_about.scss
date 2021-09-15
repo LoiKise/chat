@@ -107,6 +107,34 @@
 
 /*---------------------------------reponsive------------------------*/
 
+// .whoweare {
+//   @include mobile {
+//     .whoweare__content-experience {
+//       span {
+//         font-size: 3.9rem;
+//       }
+//       & :after {
+//         bottom: 56% !important;
+//         left: 95%;
+//       }
+//       p {
+//         font-size: 1.1rem;
+//       }
+//     }
+//     .whoweare__content-text {
+//       margin-top: 60px;
+//     }
+//   }
+// }
+
+// .whoweare {
+//   @include tablet {
+//     .whoweare__content-text {
+//       margin-top: 60px;
+//     }
+//   }
+// }
+
 .whoweare {
   @include mobile {
     .whoweare__content-experience {
@@ -125,14 +153,9 @@
       margin-top: 60px;
     }
   }
-}
-
-.whoweare {
   @include tablet {
     .whoweare__content-text {
       margin-top: 60px;
     }
   }
 }
-
-

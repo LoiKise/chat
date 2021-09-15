@@ -19,8 +19,8 @@ export default function SliderBar() {
                 />
             </div>
             <div className="header__button">
-                <ButtonCustom name="Tra Cứu" linkIcon={IconService} isTransparent={false} />
-                <ButtonCustom name="Dịch Vụ" linkIcon={IconService} isTransparent={true} />
+                <ButtonCustom name="Tra Cứu" linkIcon={IconService} isTransparent={2} />
+                <ButtonCustom name="Dịch Vụ" linkIcon={IconService} isTransparent={1} />
             </div>
         </div>
 

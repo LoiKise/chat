@@ -51,7 +51,7 @@ export default function DashboardLocation(props) {
                 </div>
                 <div className="top-location-content flex">
                     <div className="top-location-list">
-                        <div className="top-location-div flex header">
+                        <div className="top-location-div flex">
                             <div style={{ width: '60%' }}>Province</div>
                             <div style={{ width: '20%', textAlign: 'right' }}>Amount</div>
                             <div style={{ width: '20%', textAlign: 'right' }}>Percent</div>

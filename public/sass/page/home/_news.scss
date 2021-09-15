@@ -69,25 +69,27 @@
   opacity: 0.8;
 }
 
-
 /*---------------------------------reponsive------------------------*/
-
 
 .newandsale {
   @include mobile {
-    margin-top: 1170px;
+    margin-top: 560px;
   }
-}
-
-.newandsale {
   @include tablet {
-    margin-top: 2570px;
+    margin-top: 570px;
   }
-}
-
-
-.newandsale {
   @include desktop {
     margin-top: 0px;
+  }
+}
+
+.ourservices-item {
+  @include mobile {
+    max-width: 80%;
+    margin: 0px auto;
+    margin-bottom: 27px;
+  }
+  @include tablet {
+    max-width: 100%;
   }
 }
