@@ -44,9 +44,7 @@ export default function Index() {
 
   const handleLogin = async (data) => {
     const body = {
-      user: {
-        name: data.sdt,
-      },
+      sdt: data.sdt,
       password: data.password,
     };
 

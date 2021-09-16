@@ -111,7 +111,7 @@
 }
 
 /* Scroll Into View*/
-.scroll {
+.scroll-btn {
   position: fixed;
   bottom: 17rem;
   right: 4rem;
@@ -138,10 +138,8 @@
       max-width: 100% !important;
       .footer-list {
         flex-direction: column;
-
         .footer-item {
           width: 100% !important;
-
           margin: 0px auto !important;
           display: flex;
           align-items: center;
@@ -154,25 +152,23 @@
           }
         }
       }
-      .footer-bottom {
-        display: flex;
-        justify-content: center;
-      }
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: center;
+      margin-top: -50px;
     }
   }
-}
-
-.footer {
   @include tablet {
-    margin-top: 1005px;
+    margin-top: 1180px;
     .container2 {
       width: 100% !important;
       height: auto;
       .footer-list {
         flex-direction: column !important;
         .footer-item {
-          width: 100% !important;
-          margin: 0px auto !important;
+          width: 100%;
+          margin: 0px auto;
           display: flex;
           align-items: center;
           span {
@@ -185,14 +181,11 @@
       }
     }
   }
-}
-
-.footer {
   @include desktop {
     margin-top: 0px;
     .container2 {
       margin: 0px auto;
-      width: 1200px;
+      width: 1200px !important;
       .footer-list {
         display: flex;
         flex-direction: row !important;

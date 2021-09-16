@@ -97,7 +97,6 @@
 
 /*---------------------------------reponsive------------------------*/
 
-
 .ordernow {
   @include mobile {
     margin-top: 500px;
@@ -112,18 +111,12 @@
   .ordernow-form__about-item {
     margin-bottom: 20px;
   }
-}
-
-.ordernow {
   @include tablet {
-    margin-top: 1000px;
+    margin-top: 1100px;
     height: auto;
   }
-}
-
-.ordernow {
   @include desktop {
-    margin-top: 10px;
+    margin-top: -18px;
     height: auto;
   }
 }
