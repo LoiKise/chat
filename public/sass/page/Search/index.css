@@ -1,0 +1,140 @@
+.search {
+  padding-top: 150px;
+}
+
+.search .MuiTabs-flexContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 1px solid #cecece;
+}
+
+.search .MuiTabs-flexContainer .MuiTab-textColorInherit.Mui-selected {
+  color: red !important;
+}
+
+.tabs_content {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.tabs_content .tabs__content__code {
+  border: 1px solid #cecece;
+  padding-top: 36px;
+  padding-bottom: 30px;
+  border-radius: 24px;
+  margin-bottom: 66px;
+}
+
+.MuiTypography-body1 div .tabs__search {
+  width: 55%;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #fd7a3b;
+  margin-bottom: 15px;
+  font-size: 19px;
+}
+
+.MuiTypography-body1 div .tabs__search:focus {
+  border: 1px solid #fd7a3b !important;
+  outline: none;
+}
+
+.MuiTypography-body1 div > p {
+  margin-bottom: 15px !important;
+  font-size: 13px;
+}
+
+.MuiTypography-body1 div button {
+  width: 55%;
+  padding: 10px;
+  background-color: #fd7a3b;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  outline-color: non;
+  border: 1px solid #fd7a3b;
+  border-radius: 11px;
+}
+
+.MuiTypography-body1 div button .MuiSvgIcon-root {
+  -webkit-transform: rotateY(168deg);
+          transform: rotateY(168deg);
+  font-size: 25px;
+}
+
+.tab_content_move {
+  margin-bottom: 70px;
+}
+
+.tab_content_move p {
+  font-weight: 600;
+}
+
+.tab_content_move .ordernow-form__userinfor-item input,
+.tab_content_move .ordernow-form__deliverylocation-item input,
+.tab_content_move .ordernow-form__about input {
+  border-radius: 17px;
+  padding-left: 32px;
+  padding-right: 50px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  height: 55px;
+  width: 100%;
+  border: 1px solid #a3a3a3;
+  width: 80%;
+}
+
+.tab_content_move .ordernow-form__icon {
+  position: absolute;
+  top: 47%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 53px;
+}
+
+.tab_content_move .form__about-checkitem {
+  color: #151515;
+  position: absolute;
+  left: 37%;
+  bottom: 20%;
+}
+
+.tab_content_move .btn_tab_search {
+  width: 19%;
+  font-size: 13px;
+}
+
+.tab_content_Office {
+  margin-bottom: 288px;
+  margin-top: 50px;
+}
+
+.tab_content_Office .ordernow-form__userinfor-item input,
+.tab_content_Office .ordernow-form__deliverylocation-item input,
+.tab_content_Office .ordernow-form__about input {
+  border-radius: 17px;
+  padding-left: 32px;
+  padding-right: 50px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  height: 55px;
+  width: 100%;
+  border: 1px solid #a3a3a3;
+  width: 80%;
+}
+
+.tab_content_Office .ordernow-form__icon {
+  position: absolute;
+  top: 47%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 53px;
+}
+
+.tab_content_Office .btn_tab_search {
+  width: 12%;
+  font-size: 13px;
+}
+/*# sourceMappingURL=index.css.map */

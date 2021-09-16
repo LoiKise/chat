@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import DashboardHeader from './DashboardHeader'
 import DashboardMain from './Main/DashboardMain';
 import classNames from 'classnames'
@@ -46,44 +46,44 @@ export default function DashboardBody(props) {
         }, 3000)
     }
 
-    useEffect(() => {
-        //     Axios.get(`http://pe.heromc.net:4000/Drivers/${props.DriverId}`)
-        //         .then(res => {
-        //             setDriver(res.data)
-        setDriver({})
-        //         }
-        //         )
-        //     Axios.get(`http://pe.heromc.net:4000/news/${props.DriverId}`)
-        //         .then(res => {
-        // setNews(res.data)
-        setNews({})
-        //         }
-        //         )
-        //     Axios.get(`http://pe.heromc.net:4000/users/list/${props.DriverId}`)
-        //         .then(res => {
-        //             setUser(res.data)
-        setUser({})
-        //         }
-        //         )
-        //     Axios.get(`http://pe.heromc.net:4000/order/${props.DriverId}`)
-        //         .then(res => {
-        //             setOrder(res.data)
-        setOrder({})
-        //         }
-        //         )
-        //     Axios.get(`http://pe.heromc.net:4000/Report/${props.DriverId}`)
-        //         .then(res => {
-        // setReport(res.data)
-        setReport({})
-        //         }
-        //         )
-        //     Axios.get(`http://pe.heromc.net:4000/email/${props.DriverId}`)
-        //         .then(res => {
-        //             setEmail(res.data)
-        setEmail({})
-        //         }
-        //         )
-    }, [props.DriverId, props.openEdit])
+    // useEffect(() => {
+    //     //     Axios.get(`http://pe.heromc.net:4000/Drivers/${props.DriverId}`)
+    //     //         .then(res => {
+    //     //             setDriver(res.data)
+    //     setDriver({})
+    //     //         }
+    //     //         )
+    //     //     Axios.get(`http://pe.heromc.net:4000/news/${props.DriverId}`)
+    //     //         .then(res => {
+    //     // setNews(res.data)
+    //     setNews({})
+    //     //         }
+    //     //         )
+    //     //     Axios.get(`http://pe.heromc.net:4000/users/list/${props.DriverId}`)
+    //     //         .then(res => {
+    //     //             setUser(res.data)
+    //     setUser({})
+    //     //         }
+    //     //         )
+    //     //     Axios.get(`http://pe.heromc.net:4000/order/${props.DriverId}`)
+    //     //         .then(res => {
+    //     //             setOrder(res.data)
+    //     setOrder({})
+    //     //         }
+    //     //         )
+    //     //     Axios.get(`http://pe.heromc.net:4000/Report/${props.DriverId}`)
+    //     //         .then(res => {
+    //     // setReport(res.data)
+    //     setReport({})
+    //     //         }
+    //     //         )
+    //     //     Axios.get(`http://pe.heromc.net:4000/email/${props.DriverId}`)
+    //     //         .then(res => {
+    //     //             setEmail(res.data)
+    //     setEmail({})
+    //     //         }
+    //     //         )
+    // }, [props.DriverId, props.openEdit])
     const openMenuMobile = props.openMenuMobile;
 
     return (

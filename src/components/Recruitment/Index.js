@@ -13,10 +13,11 @@ export default function Index() {
   });
   const [filters, setFilters] = useState({});
   const [searchValue, setSearchValue] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const query = useQuery();
   const history = useHistory();
   const dispatch = useDispatch();
-  const Quantity = jobs.pagination.limit * jobs.pagination.page_size;
+
   useEffect(() => {
     const _filter = {
       ...query,
@@ -35,6 +36,8 @@ export default function Index() {
       const data = await dispatch(getRecruitments({ params }));
       const res = await unwrapResult(data);
       setJob(res.data.data);
+      let quantity = res.data.data;
+      setQuantity(quantity.pagination.page_size * quantity.products.length);
     };
     _getRecruitments();
 
@@ -50,6 +53,7 @@ export default function Index() {
     event.preventDefault();
     history.push(`/recruitment?name=${searchValue}`);
   };
+
   return (
     <>
       <div className="recruitment">
@@ -99,7 +103,7 @@ export default function Index() {
           </button>
         </form>
         <div className="job">
-          <h2 className="job-title">{Quantity} công việc đang được tuyển</h2>
+          <h2 className="job-title">{quantity} công việc đang được tuyển</h2>
           <JobList jobs={jobs} filters={filters} />
         </div>
       </div>
