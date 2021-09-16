@@ -4228,6 +4228,41 @@ select {
   margin-bottom: 6.6rem !important;
   font-size: 1.8rem; }
 
+.recruitment-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem auto 4rem; }
+  .recruitment-pagination button {
+    color: rgba(0, 0, 0, 0.4);
+    min-width: 4rem;
+    height: 3rem;
+    margin: 0 1.5rem;
+    border: none;
+    background-color: transparent;
+    font-size: 2rem;
+    border-radius: 2px; }
+    .recruitment-pagination button.active {
+      color: #fff;
+      background: #ee4d2d;
+      transition: background 0.2s ease; }
+      .recruitment-pagination button.active:hover {
+        background: #f05d40; }
+
+.recruitment-icon {
+  color: rgba(0, 0, 0, 0.4);
+  min-width: 4rem;
+  height: 3rem;
+  margin: 0 1.5rem;
+  border: none;
+  background-color: transparent;
+  font-size: 2rem;
+  border-radius: 2px; }
+  .recruitment-icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: currentColor; }
+
 /* Công việc */
 .job-title {
   font-size: 2.8rem;
@@ -4237,8 +4272,9 @@ select {
 
 .job-item {
   padding: 2.2rem;
-  background-color: #ffffe3;
-  box-shadow: 4px 4px 2px 2px #ccc;
+  background-color: #fff;
+  border-left: 5px solid #fff;
+  box-shadow: 4px 4px 10px 2px #ccc;
   width: 1000px; }
 
 .job-item:not(:last-child) {
@@ -4249,7 +4285,7 @@ select {
 
 .job-item-title {
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1.6rem; }
 
 .job-item-list {
@@ -4262,6 +4298,8 @@ select {
 
 .job-item-list-item span {
   margin-left: 1rem;
+  color: #212529;
+  font-weight: 500;
   font-size: 1.4rem; }
 
 .job-item-btn {
@@ -4280,19 +4318,35 @@ select {
 .job-list {
   display: flex;
   flex-direction: column; }
-  .job-list__showmore {
-    margin: 0 auto;
-    width: 150px;
+
+.job-search {
+  display: flex;
+  max-width: 400px;
+  margin-top: 1rem;
+  padding: 4px;
+  border: 1px solid #ccc; }
+  .job-search input {
     font-size: 1.4rem;
-    font-weight: 500;
-    margin-bottom: 6rem;
-    padding: 1rem 0.5rem;
-    text-align: center;
-    color: #fff;
-    outline: none;
+    color: #000;
+    width: 100%;
     border: none;
+    outline: none; }
+  .job-search button {
+    background-color: #000;
+    padding: 1rem 2rem;
+    border: none;
+    outline: none;
     border-radius: 4px;
-    background-color: #56cb81; }
+    transition: all 1s ease; }
+    .job-search button:hover {
+      background-color: #fff;
+      transition: all 1s ease; }
+    .job-search button:hover svg {
+      fill: #000;
+      transition: all 1s ease; }
+    .job-search button svg {
+      fill: #fff;
+      transition: all 1s ease; }
 
 .order {
   padding-top: 180px; }

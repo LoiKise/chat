@@ -8,8 +8,9 @@
 
 .job-item {
   padding: 2.2rem;
-  background-color: #ffffe3;
-  box-shadow: 4px 4px 2px 2px #ccc;
+  background-color: #fff;
+  border-left: 5px solid #fff;
+  box-shadow: 4px 4px 10px 2px #ccc;
   width: 1000px;
 }
 .job-item:not(:last-child) {
@@ -20,7 +21,7 @@
 }
 .job-item-title {
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1.6rem;
 }
 .job-item-list {
@@ -33,6 +34,8 @@
 }
 .job-item-list-item span {
   margin-left: 1rem;
+  color: #212529;
+  font-weight: 500;
   font-size: 1.4rem;
 }
 .job-item-btn {
@@ -53,19 +56,43 @@
 .job-list {
   display: flex;
   flex-direction: column;
+}
 
-  &__showmore {
-    margin: 0 auto;
-    width: 150px;
+.job-search {
+  display: flex;
+  max-width: 400px;
+  margin-top: 1rem;
+  padding: 4px;
+  border: 1px solid #ccc;
+
+  input {
     font-size: 1.4rem;
-    font-weight: 500;
-    margin-bottom: 6rem;
-    padding: 1rem 0.5rem;
-    text-align: center;
-    color: #fff;
-    outline: none;
+    color: #000;
+    width: 100%;
     border: none;
+    outline: none;
+  }
+
+  button {
+    background-color: #000;
+    padding: 1rem 2rem;
+    border: none;
+    outline: none;
     border-radius: 4px;
-    background-color: #56cb81;
+    transition: all 1s ease;
+
+    &:hover {
+      background-color: #fff;
+      transition: all 1s ease;
+    }
+
+    &:hover svg {
+      fill: #000;
+      transition: all 1s ease;
+    }
+    svg {
+      fill: #fff;
+      transition: all 1s ease;
+    }
   }
 }
