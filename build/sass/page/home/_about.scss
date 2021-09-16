@@ -20,11 +20,7 @@
     align-items: center;
     width: 50%;
     height: 21%;
-    background-image: linear-gradient(
-      to right,
-      var(--gradient-color-from),
-      var(--gradient-color-to)
-    );
+    background-image: linear-gradient(to right, var(--gradient-color-from), var(--gradient-color-to));
     border-radius: 20px;
   }
   .whoweare__content-experience span {
