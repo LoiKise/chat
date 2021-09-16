@@ -5,7 +5,7 @@ const PageNotFound = lazy(() =>
 );
 const ScreenHome = lazy(() => import("../components/Home"));
 const ScreenAbout = lazy(() => import("../components/About"));
-const ScreenContact = lazy(() => import("../components/Contact/Index"));
+const ScreenContact = lazy(() => import("../components/Contact"));
 const ScreenService = lazy(() => import("../components/Service"));
 const ScreenLoginDashboard = lazy(() =>
   import("../components/Admin/Login/Login")
