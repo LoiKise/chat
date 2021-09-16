@@ -8,8 +8,6 @@ import useAuthenticated from "../../../helpers/useAuthenticated";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Index({ isHome }) {
-
-
   const authenticated = useAuthenticated();
   const name = useSelector((state) => state.auth.profile.name);
   const dispatch = useDispatch();
@@ -22,7 +20,7 @@ export default function Index({ isHome }) {
     },
     {
       name: "GIỚI THIỆU",
-      link: "/",
+      link: "/About",
     },
     {
       name: "DỊCH VỤ",
@@ -30,15 +28,15 @@ export default function Index({ isHome }) {
     },
     {
       name: "TRA CỨU",
-      link: "/Search",
+      link: "/",
     },
     {
       name: "TUYỂN DỤNG",
-      link: "/recruitment",
+      link: "/Recruitment",
     },
     {
       name: "LIÊN HỆ",
-      link: "Contact",
+      link: "/Contact",
     },
   ];
 
@@ -50,19 +48,20 @@ export default function Index({ isHome }) {
       if (isHome === true) {
         if (window.scrollY >= 80) {
           setColorchange(true);
-        }
-        else {
+        } else {
           setColorchange(false);
         }
       }
-    }
+    };
     window.addEventListener("scroll", changeNavbarColor);
-  }, [])
+  }, [isHome]);
 
   return (
     <div className={classname("header", { "header--home": isHome === true })}>
-      
-      <Navbar expand="lg" className={colorChange ? "colorChange" : "header__nav"}>
+      <Navbar
+        expand="lg"
+        className={colorChange ? "colorChange" : "header__nav"}
+      >
         <Navbar.Brand>
           <Link to="/">
             <img

@@ -7,7 +7,8 @@ const ScreenHome = lazy(() => import("../components/Home"));
 const ScreenAbout = lazy(() => import("../components/About"));
 const ScreenContact = lazy(() => import("../components/Contact"));
 const ScreenService = lazy(() => import("../components/Service"));
-const ScreenLoginDashboard = lazy(() => import("../components/Admin/Login/Login")
+const ScreenLoginDashboard = lazy(() =>
+  import("../components/Admin/Login/Login")
 );
 const ScreenSearch = lazy(() => import("../components/Search/Search.js"));
 const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
@@ -25,7 +26,7 @@ const index = [
     ),
   },
   {
-    path: "/recruitment",
+    path: "/Recruitment",
     main: () => (
       <Suspense key={index} fallback={<Fallback />}>
         <Recruitment />
@@ -69,18 +70,7 @@ const index = [
   {
     path: "/Service",
     exact: true,
-    main: () =>
-    (
-      <Suspense key={index} fallback={<Fallback />}>
-        <ScreenService />
-      </Suspense>
-    ),
-  },
-  {
-    path: "/Search",
-    exact: true,
-    main: () =>
-    (
+    main: () => (
       <Suspense key={index} fallback={<Fallback />}>
         <ScreenSearch />
       </Suspense>
