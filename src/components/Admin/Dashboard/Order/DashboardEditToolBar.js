@@ -1,10 +1,12 @@
 
 import { useSnackbar } from 'notistack';
 import * as React from 'react';
-export function EditToolbar({ index }) {
+export function EditToolbar(props, order) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar()
     const handleEdit = () => {
-        enqueueSnackbar('Sửa thành công', {
+        props.setOpenEditFunc();
+        console.log({ order });
+        enqueueSnackbar('Cập nhật đơn hàng thành công', {
             persist: false,
             variant: 'success',
             preventDuplicate: true,
@@ -15,7 +17,7 @@ export function EditToolbar({ index }) {
     return (
         <div
             className="dashboard-addnew-btn btn btn-outline-warning"
-            onClick={handleEdit}
+            onClick={() => handleEdit()}
         >Sửa</div>
     );
 }

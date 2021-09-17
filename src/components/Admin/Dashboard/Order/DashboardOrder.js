@@ -12,45 +12,53 @@ export default function DashboardOrder(props) {
         if (window.innerWidth <= 600) {
             setTable([
                 { headerName: "Mã Đơn", field: 'id', editable: false, disableClickEventBubbling: true },
-                { headerName: "Ngày tạo", field: 'createdDate', editable: false, disableClickEventBubbling: true },
-                { headerName: "Khách Hàng", field: 'customerName', disableClickEventBubbling: true },
+                { headerName: "Ngày tạo", field: 'createdAt', editable: false, disableClickEventBubbling: true },
+                { headerName: "Khách hàng gửi", field: 'customerName', disableClickEventBubbling: true },
                 {
                     headerName: "Phân loại", field: 'customerType', hide: true,
-                    valueFormatter: params => params.row?.customerType?.name
-                    , disableClickEventBubbling: true
+                    // valueFormatter: params => params.row?.customerType?.name,
+                    disableClickEventBubbling: true
                 },
-                { headerName: "Số điện thoại", field: 'phone', disableClickEventBubbling: true },
+                { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', disableClickEventBubbling: true },
+                { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', disableClickEventBubbling: true, hide: true },
+                { headerName: "Khách hàng nhận", field: 'receiverName', disableClickEventBubbling: true },
+                { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', disableClickEventBubbling: true },
+                { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', disableClickEventBubbling: true, hide: true },
                 {
                     headerName: "Tài Xế", field: 'driver', hide: true,
-                    valueFormatter: params => params.row?.driver?.name
-                    , disableClickEventBubbling: true
+                    valueFormatter: params => params.row?.driver?.name,
+                    disableClickEventBubbling: true
                 },
-                { headerName: "Sản Phẩm", field: 'productName', disableClickEventBubbling: true },
                 {
-                    headerName: "Loại Hàng", field: 'type', hide: true,
-                    valueFormatter: params => params.row?.type?.name
-                    , disableClickEventBubbling: true
+                    headerName: "Loại Hàng", field: 'orderType', hide: true,
+                    valueFormatter: params => params.row?.categories?.name,
+                    disableClickEventBubbling: true
                 },
                 { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                 {
                     headerName: "Đơn vị", field: 'unit',
-                    valueFormatter: params => params.row?.unit?.name
-                    , disableClickEventBubbling: true
+                    valueFormatter: params => params.row?.unit?.name,
+                    disableClickEventBubbling: true
                 },
                 { headerName: "Tổng tiền", field: 'totalPrice', disableClickEventBubbling: true },
                 {
                     headerName: "Trạng thái", field: 'status',
-                    valueFormatter: params => params.row?.status?.name
-                    , disableClickEventBubbling: true
+                    // valueFormatter: params => params.row?.status?.name,
+                    disableClickEventBubbling: true
                 },
-                { headerName: "Ghi chú", field: 'note', disableClickEventBubbling: true },
+                {
+                    headerName: "Trạng thái", field: 'status',
+                    // valueFormatter: params => params.row?.status?.name,
+                    disableClickEventBubbling: true
+                },
+                { headerName: "Ghi chú", field: 'notes', disableClickEventBubbling: true },
                 {
                     headerName: "Công cụ", field: 'control',
                     disableClickEventBubbling: true,
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                <EditToolbar index={params.row} />
+                                <EditToolbar order={params} setOpenEditFunc={props.setOpenEditFunc} />
                             </div>
                         );
                     }
@@ -59,45 +67,53 @@ export default function DashboardOrder(props) {
         } else {
             setTable([
                 { headerName: "Mã Đơn", field: 'id', editable: false, disableClickEventBubbling: true },
-                { headerName: "Ngày tạo", field: 'createdDate', editable: false, disableClickEventBubbling: true },
-                { headerName: "Khách Hàng", field: 'customerName', disableClickEventBubbling: true },
+                { headerName: "Ngày tạo", field: 'createdAt', editable: false, disableClickEventBubbling: true },
+                { headerName: "Khách hàng gửi", field: 'customerName', disableClickEventBubbling: true },
                 {
                     headerName: "Phân loại", field: 'customerType', hide: true,
-                    valueFormatter: params => params.row?.customerType?.name
-                    , disableClickEventBubbling: true
+                    // valueFormatter: params => params.row?.customerType?.name,
+                    disableClickEventBubbling: true
                 },
-                { headerName: "Số điện thoại", field: 'phone', disableClickEventBubbling: true },
+                { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', disableClickEventBubbling: true },
+                { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', disableClickEventBubbling: true, hide: true },
+                { headerName: "Khách hàng nhận", field: 'receiverName', disableClickEventBubbling: true },
+                { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', disableClickEventBubbling: true },
+                { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', disableClickEventBubbling: true, hide: true },
                 {
                     headerName: "Tài Xế", field: 'driver', hide: true,
-                    valueFormatter: params => params.row?.driver?.name
-                    , disableClickEventBubbling: true
+                    valueFormatter: params => params.row?.driver?.name,
+                    disableClickEventBubbling: true
                 },
-                { headerName: "Sản Phẩm", field: 'productName', disableClickEventBubbling: true },
                 {
-                    headerName: "Loại Hàng", field: 'type', hide: true,
-                    valueFormatter: params => params.row?.type?.name
-                    , disableClickEventBubbling: true
+                    headerName: "Loại Hàng", field: 'orderType', hide: true,
+                    valueFormatter: params => params.row?.categories?.name,
+                    disableClickEventBubbling: true
                 },
                 { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                 {
                     headerName: "Đơn vị", field: 'unit',
-                    valueFormatter: params => params.row?.unit?.name
-                    , disableClickEventBubbling: true
+                    valueFormatter: params => params.row?.unit?.name,
+                    disableClickEventBubbling: true
                 },
                 { headerName: "Tổng tiền", field: 'totalPrice', disableClickEventBubbling: true },
                 {
                     headerName: "Trạng thái", field: 'status',
-                    valueFormatter: params => params.row?.status?.name
-                    , disableClickEventBubbling: true
+                    // valueFormatter: params => params.row?.status?.name,
+                    disableClickEventBubbling: true
                 },
-                { headerName: "Ghi chú", field: 'note', disableClickEventBubbling: true },
+                {
+                    headerName: "Trạng thái", field: 'status',
+                    // valueFormatter: params => params.row?.status?.name,
+                    disableClickEventBubbling: true
+                },
+                { headerName: "Ghi chú", field: 'notes', disableClickEventBubbling: true },
                 {
                     headerName: "Công cụ", field: 'control',
                     disableClickEventBubbling: true,
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                <EditToolbar index={params.row} />
+                                <EditToolbar order={params} setOpenEditFunc={props.setOpenEditFunc} />
                             </div>
                         );
                     }
@@ -108,45 +124,53 @@ export default function DashboardOrder(props) {
             if (window.innerWidth <= 600) {
                 setTable([
                     { headerName: "Mã Đơn", field: 'id', editable: false, disableClickEventBubbling: true },
-                    { headerName: "Ngày tạo", field: 'createdDate', editable: false, disableClickEventBubbling: true },
-                    { headerName: "Khách Hàng", field: 'customerName', disableClickEventBubbling: true },
+                    { headerName: "Ngày tạo", field: 'createdAt', editable: false, disableClickEventBubbling: true },
+                    { headerName: "Khách hàng gửi", field: 'customerName', disableClickEventBubbling: true },
                     {
                         headerName: "Phân loại", field: 'customerType', hide: true,
-                        valueFormatter: params => params.row?.customerType?.name
-                        , disableClickEventBubbling: true
+                        // valueFormatter: params => params.row?.customerType?.name,
+                        disableClickEventBubbling: true
                     },
-                    { headerName: "Số điện thoại", field: 'phone', disableClickEventBubbling: true },
+                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', disableClickEventBubbling: true },
+                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', disableClickEventBubbling: true, hide: true },
+                    { headerName: "Khách hàng nhận", field: 'receiverName', disableClickEventBubbling: true },
+                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', disableClickEventBubbling: true },
+                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', disableClickEventBubbling: true, hide: true },
                     {
                         headerName: "Tài Xế", field: 'driver', hide: true,
-                        valueFormatter: params => params.row?.driver?.name
-                        , disableClickEventBubbling: true
+                        valueFormatter: params => params.row?.driver?.name,
+                        disableClickEventBubbling: true
                     },
-                    { headerName: "Sản Phẩm", field: 'productName', disableClickEventBubbling: true },
                     {
-                        headerName: "Loại Hàng", field: 'type', hide: true,
-                        valueFormatter: params => params.row?.type?.name
-                        , disableClickEventBubbling: true
+                        headerName: "Loại Hàng", field: 'orderType', hide: true,
+                        valueFormatter: params => params.row?.categories?.name,
+                        disableClickEventBubbling: true
                     },
                     { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                     {
                         headerName: "Đơn vị", field: 'unit',
-                        valueFormatter: params => params.row?.unit?.name
-                        , disableClickEventBubbling: true
+                        valueFormatter: params => params.row?.unit?.name,
+                        disableClickEventBubbling: true
                     },
                     { headerName: "Tổng tiền", field: 'totalPrice', disableClickEventBubbling: true },
                     {
                         headerName: "Trạng thái", field: 'status',
-                        valueFormatter: params => params.row?.status?.name
-                        , disableClickEventBubbling: true
+                        // valueFormatter: params => params.row?.status?.name,
+                        disableClickEventBubbling: true
                     },
-                    { headerName: "Ghi chú", field: 'note', disableClickEventBubbling: true },
+                    {
+                        headerName: "Trạng thái", field: 'status',
+                        // valueFormatter: params => params.row?.status?.name,
+                        disableClickEventBubbling: true
+                    },
+                    { headerName: "Ghi chú", field: 'notes', disableClickEventBubbling: true },
                     {
                         headerName: "Công cụ", field: 'control',
                         disableClickEventBubbling: true,
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                    <EditToolbar index={params.row} />
+                                    <EditToolbar order={params} setOpenEditFunc={props.setOpenEditFunc} />
                                 </div>
                             );
                         }
@@ -154,41 +178,54 @@ export default function DashboardOrder(props) {
                 ])
             } else {
                 setTable([
-                    { headerName: "Mã Đơn", field: 'id', editable: false },
-                    { headerName: "Ngày tạo", field: 'createdDate', editable: false },
-                    { headerName: "Khách Hàng", field: 'customerName' },
+                    { headerName: "Mã Đơn", field: 'id', editable: false, disableClickEventBubbling: true },
+                    { headerName: "Ngày tạo", field: 'createdAt', editable: false, disableClickEventBubbling: true },
+                    { headerName: "Khách hàng gửi", field: 'customerName', disableClickEventBubbling: true },
                     {
-                        headerName: "Phân loại", field: 'customerType',
-                        valueFormatter: params => params.row?.customerType?.name
+                        headerName: "Phân loại", field: 'customerType', hide: true,
+                        // valueFormatter: params => params.row?.customerType?.name,
+                        disableClickEventBubbling: true
                     },
-                    { headerName: "Số điện thoại", field: 'phone' },
+                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', disableClickEventBubbling: true },
+                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', disableClickEventBubbling: true, hide: true },
+                    { headerName: "Khách hàng nhận", field: 'receiverName', disableClickEventBubbling: true },
+                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', disableClickEventBubbling: true },
+                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', disableClickEventBubbling: true, hide: true },
                     {
-                        headerName: "Tài Xế", field: 'driver',
-                        valueFormatter: params => params.row?.driver?.name
+                        headerName: "Tài Xế", field: 'driver', hide: true,
+                        valueFormatter: params => params.row?.driver?.name,
+                        disableClickEventBubbling: true
                     },
-                    { headerName: "Sản Phẩm", field: 'productName' },
                     {
-                        headerName: "Loại Hàng", field: 'type',
-                        valueFormatter: params => params.row?.type?.name
+                        headerName: "Loại Hàng", field: 'orderType', hide: true,
+                        valueFormatter: params => params.row?.categories?.name,
+                        disableClickEventBubbling: true
                     },
-                    { headerName: "Số lượng", field: 'quantity' },
+                    { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                     {
                         headerName: "Đơn vị", field: 'unit',
-                        valueFormatter: params => params.row?.unit?.name
+                        valueFormatter: params => params.row?.unit?.name,
+                        disableClickEventBubbling: true
                     },
-                    { headerName: "Tổng tiền", field: 'totalPrice' },
+                    { headerName: "Tổng tiền", field: 'totalPrice', disableClickEventBubbling: true },
                     {
                         headerName: "Trạng thái", field: 'status',
-                        valueFormatter: params => params.row?.status?.name
+                        // valueFormatter: params => params.row?.status?.name,
+                        disableClickEventBubbling: true
                     },
-                    { headerName: "Ghi chú", field: 'note' },
+                    {
+                        headerName: "Trạng thái", field: 'status',
+                        // valueFormatter: params => params.row?.status?.name,
+                        disableClickEventBubbling: true
+                    },
+                    { headerName: "Ghi chú", field: 'notes', disableClickEventBubbling: true },
                     {
                         headerName: "Công cụ", field: 'control',
                         disableClickEventBubbling: true,
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                    <EditToolbar index={params.row} />
+                                    <EditToolbar order={params} setOpenEditFunc={props.setOpenEditFunc} />
                                 </div>
                             );
                         }
@@ -205,10 +242,6 @@ export default function DashboardOrder(props) {
 
     return (
         <div className="dashboard-product">
-            <div className={props.toast ? "toast toast-show" : "toast"} style={{ top: '20px' }}>
-                <FontAwesomeIcon icon={faCheckCircle} className="icon" />
-                Cập nhật đơn hàng thành công
-            </div>
             <DashboardProductTable
                 icon={faUser}
                 title="Orders"
