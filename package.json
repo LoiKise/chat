@@ -45,7 +45,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=3006 && react-scripts start",
     "sasstocss": "node-sass ./public/sass/index.scss ./public/css/index.css -w",
     "build": "react-scripts build",
     "test": "react-scripts test",

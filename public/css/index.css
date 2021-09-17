@@ -2529,6 +2529,10 @@ select {
   width: 70%;
   text-align: left; }
 
+.dashboard-right--input {
+  width: 70%;
+  text-align: left; }
+
 .dashboard-right input {
   outline: none;
   border: none;
@@ -3618,6 +3622,15 @@ select {
 
 .MuiTooltip-popper div {
   font-size: 16px !important; }
+
+.MuiInput-root {
+  width: 100%; }
+
+.MuiTextField-root {
+  width: 100%; }
+
+.MTableToolbar-searchField-18 {
+  width: auto; }
 
 .slider {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../assets/img/imgs/Background/backgroundHeader.png");
