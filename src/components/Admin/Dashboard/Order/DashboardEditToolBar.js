@@ -1,11 +1,17 @@
 
 import { useSnackbar } from 'notistack';
 import * as React from 'react';
-export function EditToolbar(props, order) {
+import { useDispatch } from 'react-redux';
+import { getOrderUpdate } from '../../../../features/order/orderSlice';
+export function EditToolbar({ setOpenEditFunc, params }) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+    const dispatch = useDispatch();
     const handleEdit = () => {
-        props.setOpenEditFunc();
-        console.log({ order });
+        setOpenEditFunc();
+        console.log('====================================');
+        console.log(params);
+        console.log('====================================');
+        dispatch(getOrderUpdate(params))
         enqueueSnackbar('Cập nhật đơn hàng thành công', {
             persist: false,
             variant: 'success',

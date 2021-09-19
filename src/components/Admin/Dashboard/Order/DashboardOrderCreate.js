@@ -33,9 +33,7 @@ export default function DashboardOrderCreate(props) {
     })
     const [paymentList, setPaymentList] = useState([])
     const [unitList, setUnitList] = useState([])
-    const [table, setTable] = useState([
-
-    ])
+    const [table, setTable] = useState([])
     const [products, setProducts] = useState([])
 
     const [driverList, setDriverList] = useState([
@@ -63,6 +61,7 @@ export default function DashboardOrderCreate(props) {
         }
     ])
     const [data, setData] = useState({
+        customerType: '',
         orderName: '',
         orderType: null,
         unit_id: null,
@@ -75,6 +74,7 @@ export default function DashboardOrderCreate(props) {
     })
 
     //Custom Selection
+    const [sltTypeCustomer, setSltTypeCustomer] = useState(false);
     const [sltProvinceCustomer, setSltProvinceCustomer] = useState(false);
     const [sltDistrictCustomer, setSltDistrictCustomer] = useState(false);
     const [sltProvinceReceiver, setSltProvinceReceiver] = useState(false);
@@ -86,6 +86,7 @@ export default function DashboardOrderCreate(props) {
 
 
     const handleClose = () => {
+        setSltTypeCustomer(false);
         setSltProvinceCustomer(false);
         setSltDistrictCustomer(false);
         setSltProvinceReceiver(false);
@@ -95,7 +96,9 @@ export default function DashboardOrderCreate(props) {
         setSltUnit(false);
         setSltPayment(false);
     };
-
+    const handleOpenSltTypeCustomer = () => {
+        setSltTypeCustomer(true);
+    };
     const handleOpenSltProvinceCustomer = () => {
         setSltProvinceCustomer(true);
     };
@@ -135,7 +138,7 @@ export default function DashboardOrderCreate(props) {
                 if (res) {
                     setUnitList(res.data?.data)
                     setTable([
-                        { title: "STT", field: 'id', },
+                        { title: "STT", field: 'id', render: rowData => rowData?.tableData?.id + 1, editable: 'never' },
                         { title: "Sản Phẩm", field: 'name' },
                         { title: "Số lượng", field: 'quantity' },
                         {
@@ -178,16 +181,25 @@ export default function DashboardOrderCreate(props) {
     const onSubmit = (event) => {
         event.preventDefault()
         let dataFormat = { ...data, ...customer, ...receiver, products }
+        let validatePhone = /^(((0))[0-9]{9})$/g;
+        let validatePhone1 = /^(((0))[0-9]{9})$/g;
 
         if (dataFormat.customerDistrict.length <= 0 || dataFormat.receiverDistrict.length <= 0) {
-            enqueueSnackbar('Quận/Huyện không được bỏ trống', {
+            enqueueSnackbar('Quận/Huyện không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
         } else if (products.length <= 0) {
-            enqueueSnackbar('Hàng hóa không được bỏ trống', {
+            enqueueSnackbar('Hàng hóa không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (validatePhone.test(`${dataFormat.customerPhone}`) === false || validatePhone1.test(`${dataFormat.receiverPhone}`) === false) {
+            enqueueSnackbar('Số điện thoại sai định dạng hoặc không tồn tại, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'error',
                 preventDuplicate: true,
@@ -231,6 +243,37 @@ export default function DashboardOrderCreate(props) {
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
                     {/* Sender Infomation */}
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Phân loại khách hàng<span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right">
+                            <Select
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltTypeCustomer}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltTypeCustomer}
+                                value={data.customerType || ""}
+                                defaultValue={"Khách Vãng Lai"}
+                                onChange={(event) => {
+                                    setData({
+                                        ...data,
+                                        customerType: event.target.value,
+                                    })
+                                }}
+                            >
+                                <MenuItem value="Khách Vãng Lai" selected>
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn loại khách hàng :</em>
+                                </MenuItem>
+                                <MenuItem value="Khách Mối" >
+                                    <em >Khách mối</em>
+                                </MenuItem>
+                                <MenuItem value="Khách Vãng Lai" >
+                                    <em >Khách vãng lai</em>
+                                </MenuItem>
+                            </Select>
+                        </div>
+                    </div>
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Khách hàng gửi <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right--input">
@@ -281,14 +324,13 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-left flex">Tỉnh/Thành Phố ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">
                             <Select
-                                defaultValue={1}
                                 className="MUI-customBorder"
                                 labelId="demo-controlled-open-select-label"
                                 id="demo-controlled-open-select"
                                 open={sltProvinceCustomer}
                                 onClose={handleClose}
                                 onOpen={handleOpenSltProvinceCustomer}
-                                value={customer.customerProvince}
+                                value={customer.customerProvince || ""}
                                 onChange={(event, params) => {
                                     setCustomer({
                                         ...customer,
@@ -297,10 +339,10 @@ export default function DashboardOrderCreate(props) {
                                     })
                                 }}
                             >
-                                <MenuItem value="" selected>
+                                <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
                                 </MenuItem>
-                                {province?.map((item, index) => {
+                                {province && province.length > 0 && province?.map((item, index) => {
                                     return <MenuItem key={index} value={item.id} name={item.cityName}>{item.cityName}</MenuItem>
                                 })}
                             </Select>
@@ -310,7 +352,6 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-left flex">Quận/Huyện ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">
                             <Select
-                                defaultValue={1}
                                 className="MUI-customBorder"
                                 labelId="demo-controlled-open-select-label"
                                 id="demo-controlled-open-select"
@@ -323,10 +364,10 @@ export default function DashboardOrderCreate(props) {
                                 }}
 
                             >
-                                <MenuItem value="" selected>
+                                <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
                                 </MenuItem>
-                                {province?.find(el => el.id === customer.customerProvince)?.districts?.map((item, index) => {
+                                {province && province.length > 0 && province?.find(el => el.id === customer.customerProvince)?.districts?.map((item, index) => {
                                     return <MenuItem key={index} value={item.name}>{item.name}</MenuItem>
                                 })}
                             </Select>
@@ -385,14 +426,13 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-left flex">Tỉnh/Thành Phố ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">
                             <Select
-                                defaultValue={1}
                                 className="MUI-customBorder"
                                 labelId="demo-controlled-open-select-label"
                                 id="demo-controlled-open-select"
                                 open={sltProvinceReceiver}
                                 onClose={handleClose}
                                 onOpen={handleOpenSltProvinceReceiver}
-                                value={receiver.receiverProvince}
+                                value={receiver.receiverProvince || ""}
                                 onChange={(event, params) => {
                                     setReceiver({
                                         ...receiver,
@@ -401,10 +441,10 @@ export default function DashboardOrderCreate(props) {
                                     })
                                 }}
                             >
-                                <MenuItem value="" selected>
+                                <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
                                 </MenuItem>
-                                {province?.map((item, index) => {
+                                {province && province.length > 0 && province?.map((item, index) => {
                                     return <MenuItem key={index} value={item.id} name={item.cityName}> {item.cityName} </MenuItem>
                                 })}
                             </Select>
@@ -414,7 +454,6 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-left flex">Quận/Huyện ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">
                             <Select
-                                defaultValue={1}
                                 className="MUI-customBorder"
                                 labelId="demo-controlled-open-select-label"
                                 id="demo-controlled-open-select"
@@ -426,10 +465,10 @@ export default function DashboardOrderCreate(props) {
                                     setReceiver({ ...receiver, receiverDistrict: event.target.value })
                                 }}
                             >
-                                <MenuItem value="" selected>
+                                <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn quận/huyện :</em>
                                 </MenuItem>
-                                {province?.find(el => el.id === receiver.receiverProvince)?.districts?.map((item, index) => {
+                                {province && province.length > 0 && province?.find(el => el.id === receiver.receiverProvince)?.districts?.map((item, index) => {
                                     return <MenuItem key={index} value={item.name}>{item.name}</MenuItem>
                                 })}
                             </Select>
@@ -441,7 +480,6 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-left flex">Tài xế</div>
                         <div className="dashboard-right">
                             <Select
-                            defaultValue={1}
                             className="MUI-customBorder"
                                 labelId="demo-controlled-open-select-label"
                                 id="demo-controlled-open-select"
@@ -453,7 +491,7 @@ export default function DashboardOrderCreate(props) {
                                     setData({ ...data, driver_id: event.target.value })
                                 }}
                             >
-                                <MenuItem value="" selected>
+                                <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tài xế (Tạo đơn có thể không cần tài xế ) :</em>
                                 </MenuItem>
                                 {driverList.map((item, index) => {
@@ -483,7 +521,7 @@ export default function DashboardOrderCreate(props) {
                         <div className="dashboard-left flex">Loại hàng hóa <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">
                             <Select
-                                defaultValue={1}
+
                                 className="MUI-customBorder"
                                 labelId="demo-controlled-open-select-label"
                                 id="demo-controlled-open-select"
@@ -495,10 +533,10 @@ export default function DashboardOrderCreate(props) {
                                     setData({ ...data, orderType: event.target.value })
                                 }}
                             >
-                                <MenuItem value="" selected>
+                                <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn loại hàng khi đóng gói :</em>
                                 </MenuItem>
-                                {orderType?.map((item, index) => {
+                                {orderType && orderType.length > 0 && orderType?.map((item, index) => {
                                     return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
                                 })}
                             </Select>
@@ -532,15 +570,15 @@ export default function DashboardOrderCreate(props) {
                                 open={sltUnit}
                                 onClose={handleClose}
                                 onOpen={handleOpenSltUnit}
-                                value={data.unit_id}
+                                value={data.unit_id || ""}
                                 onChange={(event) => {
                                     setData({ ...data, unit_id: event.target.value })
                                 }}
                             >
-                                <MenuItem value="" selected>
+                                <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn đơn vị tính :</em>
                                 </MenuItem>
-                                {unitList?.map((item, index) => {
+                                {unitList && unitList.length > 0 && unitList?.map((item, index) => {
                                     return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
                                 })}
                             </Select>
@@ -574,15 +612,15 @@ export default function DashboardOrderCreate(props) {
                                 open={sltPayment}
                                 onClose={handleClose}
                                 onOpen={handleOpenSltPayment}
-                                value={data.payment_id}
+                                value={data.payment_id || ""}
                                 onChange={(event) => {
                                     setData({ ...data, payment_id: event.target.value })
                                 }}
                             >
-                                <MenuItem value="" selected>
+                                <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn phương thức thanh toán :</em>
                                 </MenuItem>
-                                {paymentList?.map((item, index) => {
+                                {paymentList && paymentList.length > 0 && paymentList?.map((item, index) => {
                                     return <MenuItem key={index} value={item.id}>{item.namePayment}</MenuItem>
                                 })}
                             </Select>
@@ -596,6 +634,7 @@ export default function DashboardOrderCreate(props) {
                                 label="Ghi chú đơn hàng"
                                 variant="outlined"
                                 color="primary"
+                                value={data?.notes || ""}
                                 onChange={(event) => {
                                     setData({ ...data, notes: event.target.value })
                                 }}
@@ -650,7 +689,7 @@ export default function DashboardOrderCreate(props) {
                         ]}
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
-                                const updatedRows = [...products, { id: Math.floor(Math.random() * 100), ...newRow }]
+                                const updatedRows = [...products, newRow]
                                 setTimeout(() => {
                                     setProducts(updatedRows)
                                     resolve()
@@ -686,5 +725,6 @@ export default function DashboardOrderCreate(props) {
                 </form>
             </div>
         </div >
+
     )
 }
