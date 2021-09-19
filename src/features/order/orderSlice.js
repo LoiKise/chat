@@ -101,6 +101,6 @@ export const orderSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { AddOrder, CallBackGetOrder } = orderSlice.actions
+export const { AddOrder, CallBackGetOrder, getOrderUpdate } = orderSlice.actions
 
 export default orderSlice.reducer

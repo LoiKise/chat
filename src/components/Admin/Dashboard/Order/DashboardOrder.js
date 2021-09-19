@@ -14,12 +14,10 @@ export default function DashboardOrder(props) {
                 { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
-                    valueFormatter: params => {
-                        console.log({ params: moment(params.row?.createdAt).format("YYYY-MM-DD HH:mm:ss") });
-                        moment(params.row?.createdAt).format("YYYY-MM-DD HH:mm:ss")
-                    },
+                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
                     renderCell: renderCellExpand
                 },
+                { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
                 { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
                 { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
                 { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
@@ -41,7 +39,7 @@ export default function DashboardOrder(props) {
                     headerName: "Đơn vị", field: 'unit', valueFormatter: params => params.row?.unit?.name,
                 },
                 {
-                    headerName: "Tổng tiền", field: 'totalPrice',
+                    headerName: "Tổng tiền", field: 'totalPrice', width: 120,
                     valueFormatter: params => `${params.row?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`,
                     disableClickEventBubbling: true
                 },
@@ -57,7 +55,10 @@ export default function DashboardOrder(props) {
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                <EditToolbar order={params} setOpenEditFunc={props.setOpenEditFunc} />
+                                <EditToolbar
+                                    params={params.row}
+                                    setOpenEditFunc={props.setOpenEditFunc}
+                                />
                             </div>
                         );
                     }
@@ -71,6 +72,7 @@ export default function DashboardOrder(props) {
                     valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
                     renderCell: renderCellExpand
                 },
+                { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
                 { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
                 { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
                 { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
@@ -92,7 +94,7 @@ export default function DashboardOrder(props) {
                     headerName: "Đơn vị", field: 'unit', valueFormatter: params => params.row?.unit?.name,
                 },
                 {
-                    headerName: "Tổng tiền", field: 'totalPrice',
+                    headerName: "Tổng tiền", field: 'totalPrice', width: 120,
                     valueFormatter: params => `${params.row?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`,
                     disableClickEventBubbling: true
                 },
@@ -108,7 +110,10 @@ export default function DashboardOrder(props) {
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                <EditToolbar order={params} setOpenEditFunc={props.setOpenEditFunc} />
+                                <EditToolbar
+                                    params={params.row}
+                                    setOpenEditFunc={props.setOpenEditFunc}
+                                />
                             </div>
                         );
                     }
@@ -121,9 +126,10 @@ export default function DashboardOrder(props) {
                     { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
-                        valueFormatter: params => moment(params.row?.createdAt).format('L'),
+                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
                         renderCell: renderCellExpand
                     },
+                    { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
                     { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
                     { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
                     { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
@@ -145,7 +151,7 @@ export default function DashboardOrder(props) {
                         headerName: "Đơn vị", field: 'unit', valueFormatter: params => params.row?.unit?.name,
                     },
                     {
-                        headerName: "Tổng tiền", field: 'totalPrice',
+                        headerName: "Tổng tiền", field: 'totalPrice', width: 120,
                         valueFormatter: params => `${params.row?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`,
                         disableClickEventBubbling: true
                     },
@@ -161,7 +167,10 @@ export default function DashboardOrder(props) {
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                    <EditToolbar order={params} setOpenEditFunc={props.setOpenEditFunc} />
+                                    <EditToolbar
+                                        params={params.row}
+                                        setOpenEditFunc={props.setOpenEditFunc}
+                                    />
                                 </div>
                             );
                         }
@@ -169,58 +178,54 @@ export default function DashboardOrder(props) {
                 ])
             } else {
                 setTable([
-                    { headerName: "Mã Đơn", field: 'id', editable: true, disableClickEventBubbling: true },
-                    { headerName: "Ngày tạo", field: 'createdAt', editable: true, disableClickEventBubbling: true },
-                    { headerName: "Khách hàng gửi", field: 'customerName', disableClickEventBubbling: true, editable: true, },
+                    { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
                     {
-                        headerName: "Phân loại", field: 'customerType', hide: true,
-                        // valueFormatter: params => params.row?.customerType?.name,
-                        disableClickEventBubbling: true
+                        headerName: "Ngày tạo", field: 'createdAt',
+                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        renderCell: renderCellExpand
                     },
-                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', disableClickEventBubbling: true },
-                    {
-                        headerName: "Địa chỉ gửi hàng", field: 'customerAddress',
-                        disableClickEventBubbling: true,
-                        hide: true,
-                    },
-                    { headerName: "Khách hàng nhận", field: 'receiverName', disableClickEventBubbling: true, editable: true, },
-                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', disableClickEventBubbling: true },
-                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', disableClickEventBubbling: true, hide: true, editable: true, },
+                    { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
+                    { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
+                    { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
+                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
+                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
+                    { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
+                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
+                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
                     {
                         headerName: "Tài Xế", field: 'driver', hide: true,
                         valueFormatter: params => params.row?.driver?.name,
-                        disableClickEventBubbling: true
+                        renderCell: renderCellExpand, hide: true
                     },
                     {
-                        headerName: "Loại Hàng", field: 'orderType', hide: true,
-                        valueFormatter: params => params.row?.categories?.name,
-                        disableClickEventBubbling: true
+                        headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
+                        renderCell: renderCellExpand
                     },
                     { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                     {
-                        headerName: "Đơn vị", field: 'unit',
-                        valueFormatter: params => params.row?.unit?.name,
-                        disableClickEventBubbling: true
+                        headerName: "Đơn vị", field: 'unit', valueFormatter: params => params.row?.unit?.name,
                     },
-                    { headerName: "Tổng tiền", field: 'totalPrice', disableClickEventBubbling: true },
                     {
-                        headerName: "Trạng thái", field: 'status',
-                        // valueFormatter: params => params.row?.status?.name,
+                        headerName: "Tổng tiền", field: 'totalPrice', width: 120,
+                        valueFormatter: params => `${params.row?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`,
                         disableClickEventBubbling: true
                     },
                     {
                         headerName: "Trạng thái", field: 'status',
-                        // valueFormatter: params => params.row?.status?.name,
-                        disableClickEventBubbling: true
+
+                        renderCell: renderCellExpand
                     },
-                    { headerName: "Ghi chú", field: 'notes', disableClickEventBubbling: true },
+                    { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
                     {
                         headerName: "Công cụ", field: 'control',
-                        disableClickEventBubbling: true,
+
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-                                    <EditToolbar order={params} setOpenEditFunc={props.setOpenEditFunc} />
+                                    <EditToolbar
+                                        params={params.row}
+                                        setOpenEditFunc={props.setOpenEditFunc}
+                                    />
                                 </div>
                             );
                         }

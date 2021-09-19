@@ -6,13 +6,14 @@ import CustomNoRowsOverlay from './CustomNoRowsOverlay';
 import CustomToolbar from './DashboardConfigToolBar';
 import { useSelector } from 'react-redux';
 import requestAPI from '../../../../apis';
+import { useSnackbar } from 'notistack';
 
 export default function DashboardOrderTable(props) {
     const update = useSelector(state => state.order.callbackGet)
     const [order, setOrder] = useState([])
     const [constOrder, setConstOrder] = useState([])
-    const [selection, setSelection] = useState()
-
+    const [selection, setSelection] = useState([])
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     useEffect(() => {
         getOrders();
     }, [update])
@@ -29,9 +30,30 @@ export default function DashboardOrderTable(props) {
         return data
     }
     const deleteOnClick = () => {
-        console.log({ selection });
+        if (selection.length > 0) {
+            RemoveOrder(selection[0]).then(res => {
+                if (res) {
+                    enqueueSnackbar('Xóa hóa đơn thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                }
+            }).catch(err => console.log(err))
+        } else {
+            enqueueSnackbar('Vui lòng chọn hóa đơn muốn xóa', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        }
     }
-
+    const RemoveOrder = async (id) => {
+        const data = await requestAPI(`/order/${id}`, 'DELETE')
+        return data
+    }
     const searchOnSubmit = (event) => {
         event.preventDefault()
     }
@@ -86,14 +108,13 @@ export default function DashboardOrderTable(props) {
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
                             }}
-                            // rowHeight={100}
                             columns={props.table}
                             rows={order}
                             pagination
                             pageSize={5}
                             rowsPerPageOptions={[5]}
                             onSelectionModelChange={(newSelectionModel) => {
-                                console.log({ idDelete: newSelectionModel })
+                                setSelection(newSelectionModel)
                             }}
                             checkboxSelection
                         />
