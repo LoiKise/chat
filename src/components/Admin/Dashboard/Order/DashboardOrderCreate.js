@@ -645,6 +645,8 @@ export default function DashboardOrderCreate(props) {
                         title="Danh sách hàng hóa"
                         data={products}
                         columns={table}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
                         options={{
                             search: true,
                             selection: true,

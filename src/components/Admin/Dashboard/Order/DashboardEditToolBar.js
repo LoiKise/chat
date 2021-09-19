@@ -8,9 +8,6 @@ export function EditToolbar({ setOpenEditFunc, params }) {
     const dispatch = useDispatch();
     const handleEdit = () => {
         setOpenEditFunc();
-        console.log('====================================');
-        console.log(params);
-        console.log('====================================');
         dispatch(getOrderUpdate(params))
         enqueueSnackbar('Cập nhật đơn hàng thành công', {
             persist: false,

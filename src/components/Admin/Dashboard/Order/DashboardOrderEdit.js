@@ -204,7 +204,7 @@ export default function DashboardOrderCreate(props) {
         return data
     }
     const updateOrder = async (dataFormat) => {
-        const data = await requestAPI(`/order/${dataFormat?.id}`, 'POST', dataFormat)
+        const data = await requestAPI(`/order/${dataFormat?.id}`, 'PUT', dataFormat)
         return data
     }
     const onSubmit = (event) => {
@@ -394,7 +394,7 @@ export default function DashboardOrderCreate(props) {
                                 <MenuItem value={null} selected>
                                     <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
                                 </MenuItem>
-                                {province && province.length > 0 && province?.find(el => el.id === customer.customerProvince)?.districts?.map((item, index) => {
+                                {province && province.length > 0 && province?.find(el => el.id === data.customerProvince)?.districts?.map((item, index) => {
                                     return <MenuItem key={index} value={item.name}>{item.name}</MenuItem>
                                 })}
                             </Select>
