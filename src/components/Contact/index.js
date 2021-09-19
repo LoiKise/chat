@@ -232,11 +232,11 @@ export default function Index() {
           alt=""
           className="ordernow-decoration1"
         />
-        <img
+        {/* <img
           src="./assets/img/imgs/Decoration/circle_deco.png"
           alt=""
           className="ordernow-decoration2"
-        />
+        /> */}
       </div>
     </div>
   );
