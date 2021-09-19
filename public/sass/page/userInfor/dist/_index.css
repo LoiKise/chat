@@ -1,0 +1,123 @@
+.User_Infor {
+  padding-top: 150px;
+  text-align: center;
+  padding-bottom: 225px;
+  background-color: #f4f7f2;
+}
+.User_Infor .bg-white {
+  border-radius: 20px;
+}
+.User_Infor .title_information {
+  background-color: #fee1df;
+  border-radius: 4px;
+  width: 238px;
+  box-shadow: #c3bdbd 0px 8px 24px;
+  margin: 0px auto;
+  margin-top: 35px;
+}
+.User_Infor .title_information h1 {
+  display: inline-block;
+  padding: 8px;
+  font-size: 15px;
+  color: #fd7a3b;
+  font-weight: 700;
+}
+
+.infomation {
+  margin-top: 70px;
+}
+.infomation .infomation__icon img {
+  border: 1px solid #bfbbbb;
+  border-radius: 100%;
+}
+.infomation .informatio__name span {
+  font-size: 13px;
+  font-weight: 600;
+}
+.infomation .informatio__phone {
+  justify-content: center;
+}
+.infomation .informatio__phone p {
+  font-size: 13px;
+  font-weight: 500;
+}
+.infomation .informatio__phone span {
+  font-size: 13px;
+  font-weight: 800;
+}
+.infomation .informatio__password {
+  justify-content: center;
+  margin-top: 15px;
+}
+.infomation .informatio__password p {
+  font-size: 13px;
+  padding-right: 18px;
+  font-weight: 500;
+}
+.infomation .informatio__password span {
+  font-size: 13px;
+  font-weight: 800;
+  transform: translateX(-12px);
+}
+.infomation .btn_update_user {
+  margin-top: 150px;
+  margin-bottom: 50px;
+}
+.infomation .btn_update_user button {
+  padding: 7px;
+  background-color: #56cb81;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: 9px;
+  outline: none;
+  border: none;
+}
+
+.detail_history {
+  height: auto;
+}
+.detail_history .d-flex {
+  width: 90%;
+  margin: 0px auto;
+  background-color: #ffffe3;
+  justify-content: space-around;
+  margin-top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-bottom: 50px;
+}
+.detail_history .name__history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  transform: translateX(-45px);
+}
+.detail_history .name__history span {
+  font-size: 15px;
+  font-weight: 600;
+}
+.detail_history .name__history span:nth-child(2) {
+  margin-right: 120px;
+}
+.detail_history .icon__history {
+  padding: 20px;
+}
+.detail_history .icon__history img {
+  background-color: #caf1e2;
+  padding: 10px;
+  width: 65px;
+  border-radius: 15px;
+}
+.detail_history div :nth-child(3) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detail_history div :nth-child(3) button {
+  padding: 7px;
+  background-color: #56cb81;
+  font-weight: 500;
+  font-size: 13px;
+  border-radius: 9px;
+}

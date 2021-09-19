@@ -90,7 +90,7 @@ export default function index() {
         </div>
       </footer>
       <div className="link-fixed">
-        <Link className="scroll" to="/">
+        <Link className="scroll" to="">
           <img src="./assets/img/icon/gradient_top_circle_arrow.png" alt="" />
         </Link>
         <Link to="/" className="messenger">
