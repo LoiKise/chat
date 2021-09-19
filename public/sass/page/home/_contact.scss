@@ -1,7 +1,7 @@
 .contact {
   background-color: black;
   color: white;
-  margin-top: 1rem;
+  padding-top: 30%;
 
   &__top {
     margin-top: 60px;
@@ -119,4 +119,14 @@
 
 .section-area__btn {
   margin-top: 0 !important;
+}
+@media screen and (max-width: 768px){
+  .contact-form , .contact__top{
+    .row{
+      margin-left: 0;
+    }
+  }
+  .footer{
+    padding-top: 45%;
+  }
 }

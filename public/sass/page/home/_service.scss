@@ -86,6 +86,17 @@
       margin-left: 34px;
       margin-bottom: 25px;
     }
+    .ourservices__top{
+      margin-top: 0;
+      .row {
+        margin-left: 0;
+      }
+    }
+    .ourservices-list {
+      .row {
+        margin-left: 0;
+      }
+    }
   }
   @include tablet {
     margin-top: 500px;

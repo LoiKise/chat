@@ -73,7 +73,10 @@
 
 .newandsale {
   @include mobile {
-    margin-top: 560px;
+    margin-top: 350px;
+    .row {
+      margin-left: 0;
+    }
   }
   @include tablet {
     margin-top: 570px;
