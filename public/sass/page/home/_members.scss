@@ -27,7 +27,13 @@
 }
 
 /*---------------------------------reponsive------------------------*/
-
+.ourmember{
+  @include mobile{
+    .row {
+      margin-left: 0;
+    }
+  }
+}
 .ourmember-list {
   .ourmember-item {
     @include mobile {

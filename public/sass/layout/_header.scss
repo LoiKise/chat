@@ -19,7 +19,7 @@
     margin-top: 0px;
     margin-left: 5px;
     .header__authenWrapper {
-      transform: translateX(66px);
+      // transform: translateX(66px);
     }
   }
 }
@@ -34,10 +34,10 @@
 .header__nav--collapse {
   flex-grow: 0 !important;
 }
-.header__nav-item {
-  width: 140px;
-  // text-align: center;
-}
+// .header__nav-item {
+//   width: 140px;
+//   // text-align: center;
+// }
 .header__nav-link {
   display: inline-block;
   text-decoration: none;

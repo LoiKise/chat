@@ -33,7 +33,7 @@
       margin-top: 7px;
     }
     .header__authenWrapper {
-      transform: translateX(66px);
+      // transform: translateX(66px);
     }
   }
 }
@@ -48,7 +48,7 @@
   }
   .navbar-brand {
     @include mobile {
-      margin-right: 220px !important;
+ 
     }
     @include tablet {
       margin-right: 620px !important;
@@ -83,7 +83,7 @@
     position: fixed;
     align-items: center;
     align-items: center;
-    transform: translate(68px, 17px);
+    transform: translate(16%, 16%);
   }
 
   @include tablet {
@@ -94,12 +94,12 @@
     z-index: 9999;
     position: fixed;
     align-items: center;
-    transform: translate(68px, 17px);
+    transform: translate(16%, 16%);
   }
   @include desktop {
     flex-direction: row;
     background-color: transparent;
-    width: auto;
+    width: 85%;
     height: auto;
     z-index: 9999;
     position: fixed;
@@ -110,7 +110,7 @@
       transform: translateX(0px);
     }
     @include desktop {
-      transform: translateX(115px);
+      //transform: translateX(115px);
     }
   }
 }
