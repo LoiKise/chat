@@ -86,6 +86,7 @@ export default function DashboardOrderTable(props) {
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
                             }}
+                            // rowHeight={100}
                             columns={props.table}
                             rows={order}
                             pagination
