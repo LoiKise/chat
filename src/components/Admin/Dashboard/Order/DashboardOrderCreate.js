@@ -692,6 +692,7 @@ export default function DashboardOrderCreate(props) {
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
                                 const updatedRows = [...products, newRow]
+                                console.log({ newRow });
                                 setTimeout(() => {
                                     setProducts(updatedRows)
                                     resolve()

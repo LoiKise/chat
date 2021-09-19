@@ -213,7 +213,7 @@ export default function DashboardOrderCreate(props) {
         let validatePhone = /^(((0))[0-9]{9})$/g;
         let validatePhone1 = /^(((0))[0-9]{9})$/g;
 
-        if (dataFormat.customerDistrict.length <= 0 || dataFormat.receiverDistrict.length <= 0) {
+        if (dataFormat?.customerDistrict?.length <= 0 || dataFormat?.receiverDistrict?.length <= 0) {
             enqueueSnackbar('Quận/Huyện không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
@@ -239,11 +239,11 @@ export default function DashboardOrderCreate(props) {
             dataFormat.receiverAddress = dataFormat.receiverAddress + ', ' + dataFormat.receiverDistrict + ', ' + dataFormat.receiverProvinceName
             dataFormat.quantity = parseInt(dataFormat.quantity, 10)
             console.log({ dataFormat });
-            updateOrder(dataFormat).then(res => {
-                if (res.data) {
-                    dispatch(CallBackGetOrder());
-                }
-            })
+            // updateOrder(dataFormat).then(res => {
+            //     if (res.data) {
+            //         dispatch(CallBackGetOrder());
+            //     }
+            // })
             enqueueSnackbar('Cập nhật đơn hàng thành công', {
                 persist: false,
                 variant: 'success',
