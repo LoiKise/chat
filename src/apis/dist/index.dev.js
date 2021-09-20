@@ -23,7 +23,7 @@ function requestAPI(url, method, body, injectHeader) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          urlOrigin = "https://localhost:3000";
+          urlOrigin = "http://localhost:3000";
           headers = _objectSpread({
             "Content-Type": "application/json",
             // 'Content-Type': 'multipart/form-data',
