@@ -394,6 +394,7 @@ p {
     width: 25%; } }
 
 .header {
+  line-height: 2.5;
   display: block;
   width: 100%;
   justify-content: space-between;
@@ -554,7 +555,7 @@ p {
   .header__nav-list {
     flex-direction: column;
     flex-direction: column;
-    background-color: #a78964;
+    background-color: black;
     width: 100%;
     height: auto;
     z-index: 9999;
@@ -4244,8 +4245,7 @@ select {
 
 .contact {
   background-color: black;
-  color: white;
-  padding-top: 30%; }
+  color: white; }
   .contact__top {
     margin-top: 60px; }
     .contact__top .section__top-header {
@@ -4327,8 +4327,10 @@ input::-webkit-input-placeholder {
   margin-top: 0 !important; }
 
 @media screen and (max-width: 768px) {
-  .contact-form .row, .contact__top .row {
-    margin-left: 0; }
+  .contact {
+    padding-top: 30%; }
+    .contact-form .row, .contact_top .row {
+      margin-left: 0; }
   .footer {
     padding-top: 45%; } }
 
