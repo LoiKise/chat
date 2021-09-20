@@ -36,17 +36,6 @@ export default function DashboardOrderCreate(props) {
     const [table, setTable] = useState([])
     const [products, setProducts] = useState([])
 
-    const [driverList, setDriverList] = useState([
-        {
-            id: 1,
-            name: 'Thành Long',
-        },
-        {
-            id: 2,
-            name: 'Hoài Nhớ',
-        },
-    ])
-
 
     const [orderType, setOrderType] = useState([
         {
@@ -130,7 +119,6 @@ export default function DashboardOrderCreate(props) {
         getProvince();
         getUnit();
         getPayment();
-
     }, [])
     const getUnit = async () => {
         const data = await requestAPI('/unit', 'GET')
@@ -142,7 +130,7 @@ export default function DashboardOrderCreate(props) {
                         { title: "Sản Phẩm", field: 'name' },
                         { title: "Số lượng", field: 'quantity' },
                         {
-                            title: "Đơn vị", field: 'unit_id',
+                            title: "Đơn vị", field: 'unit',
                             lookup: res.data?.data?.reduce((item, cur, i) => {
                                 item[cur.id] = cur.name;
                                 return item;
@@ -175,6 +163,7 @@ export default function DashboardOrderCreate(props) {
         return data
     }
     const createOrders = async (dataFormat) => {
+
         const data = await requestAPI('/order', 'POST', dataFormat)
         return data
     }
@@ -210,6 +199,7 @@ export default function DashboardOrderCreate(props) {
             dataFormat.customerAddress = dataFormat.customerAddress + ', ' + dataFormat.customerDistrict + ', ' + dataFormat.customerProvinceName
             dataFormat.receiverAddress = dataFormat.receiverAddress + ', ' + dataFormat.receiverDistrict + ', ' + dataFormat.receiverProvinceName
             dataFormat.quantity = parseInt(dataFormat.quantity, 10)
+
             console.log({ dataFormat });
             createOrders(dataFormat).then(res => {
                 if (res.data) {
@@ -705,7 +695,7 @@ export default function DashboardOrderCreate(props) {
                                 setTimeout(() => {
                                     setProducts(updatedRows)
                                     resolve()
-                                }, 2000)
+                                }, 1000)
                             }),
                             onRowUpdate: (updatedRow, oldRow) => new Promise((resolve, reject) => {
                                 const index = oldRow.tableData.id;
@@ -714,7 +704,7 @@ export default function DashboardOrderCreate(props) {
                                 setTimeout(() => {
                                     setProducts(updatedRows)
                                     resolve()
-                                }, 2000)
+                                }, 1000)
                             })
                         }}
                     />
