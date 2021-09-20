@@ -45,7 +45,7 @@ export default function DashboardOrder(props) {
                 },
                 {
                     headerName: "Trạng thái", field: 'status',
-
+                    valueFormatter: params => params?.row?.deliveryOrders?.length > 0 && params?.row?.deliveryOrders?.at(-1).status?.name,
                     renderCell: renderCellExpand
                 },
                 { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
@@ -100,7 +100,7 @@ export default function DashboardOrder(props) {
                 },
                 {
                     headerName: "Trạng thái", field: 'status',
-
+                    valueFormatter: params => params?.row?.deliveryOrders?.length > 0 && params?.row?.deliveryOrders?.at(-1).status?.name,
                     renderCell: renderCellExpand
                 },
                 { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
@@ -157,7 +157,7 @@ export default function DashboardOrder(props) {
                     },
                     {
                         headerName: "Trạng thái", field: 'status',
-
+                        valueFormatter: params => params?.deliveryOrders?.at(-1).status?.name,
                         renderCell: renderCellExpand
                     },
                     { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
@@ -212,7 +212,7 @@ export default function DashboardOrder(props) {
                     },
                     {
                         headerName: "Trạng thái", field: 'status',
-
+                        valueFormatter: params => params?.deliveryOrders?.at(-1).status?.name,
                         renderCell: renderCellExpand
                     },
                     { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
