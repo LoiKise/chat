@@ -194,7 +194,15 @@ export default function DashboardOrderCreate(props) {
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
-        } else {
+        } else if (dataFormat.totalPrice < 0 || dataFormat.totalPrice > 100000000) {
+            enqueueSnackbar('Số tiền không được âm và lớn hơn 1.000.000.000đ', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        }
+        else {
             // let customerAddressfull = dataFormat.customerAddress + dataFormat.customerDistrict + dataFormat.customerProvinceName
             dataFormat.customerAddress = dataFormat.customerAddress + ', ' + dataFormat.customerDistrict + ', ' + dataFormat.customerProvinceName
             dataFormat.receiverAddress = dataFormat.receiverAddress + ', ' + dataFormat.receiverDistrict + ', ' + dataFormat.receiverProvinceName
@@ -465,32 +473,6 @@ export default function DashboardOrderCreate(props) {
                         </div>
                     </div>
 
-                    {/* Product Infomation */}
-                    {/* <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Tài xế</div>
-                        <div className="dashboard-right">
-                            <Select
-                            className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltDriver}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltDriver}
-                                value={data.driver_id || ""}
-                                onChange={(event) => {
-                                    setData({ ...data, driver_id: event.target.value })
-                                }}
-                            >
-                                <MenuItem value={null} selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tài xế (Tạo đơn có thể không cần tài xế ) :</em>
-                                </MenuItem>
-                                {driverList.map((item, index) => {
-                                    return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
-                                })}
-                            </Select>
-                        </div>
-                    </div>
-                     */}
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Tên hàng hóa <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right--input">
@@ -681,12 +663,22 @@ export default function DashboardOrderCreate(props) {
                         ]}
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
-                                const updatedRows = [...products, newRow]
-                                console.log({ newRow });
-                                setTimeout(() => {
-                                    setProducts(updatedRows)
-                                    resolve()
-                                }, 1000)
+                                if (isNaN(newRow.quantity)) {
+                                    enqueueSnackbar('Số lượng vui lòng nhập số', {
+                                        persist: false,
+                                        variant: 'error',
+                                        preventDuplicate: true,
+                                        autoHideDuration: 3000,
+                                    })
+                                    reject();
+                                } else {
+                                    const updatedRows = [...products, newRow]
+                                    setTimeout(() => {
+                                        setProducts(updatedRows)
+                                        resolve()
+                                    }, 1000)
+                                }
+
                             }),
                             onRowDelete: selectedRow => new Promise((resolve, reject) => {
                                 const index = selectedRow.tableData.id;

@@ -3617,6 +3617,9 @@ select {
   border: 1px solid rgba(0, 0, 0, 0.23) !important;
   border-radius: 4px !important; }
 
+.MuiTypography-body2 {
+  font-size: 13px !important; }
+
 .MuiInputBase-input {
   font-size: 14px !important; }
 

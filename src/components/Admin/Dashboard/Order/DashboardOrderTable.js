@@ -25,7 +25,7 @@ export default function DashboardOrderTable(props) {
                 if (res) {
                     setOrder(res.data?.data)
                     setConstOrder(res.data?.data)
-                    console.log(res.data.data);
+                    console.log({ arr: res.data?.data });
                 }
             })
             .catch(err => console.log(err))
@@ -33,7 +33,7 @@ export default function DashboardOrderTable(props) {
     }
     const deleteOnClick = () => {
         if (selection.length > 0) {
-            RemoveOrder(selection[0]).then(res => {
+            RemoveOrder({ idList: selection }).then(res => {
                 if (res) {
                     dispatch(CallBackGetOrder());
                     enqueueSnackbar('Xóa hóa đơn thành công', {
@@ -53,25 +53,27 @@ export default function DashboardOrderTable(props) {
             })
         }
     }
-    const RemoveOrder = async (id) => {
-        const data = await requestAPI(`/order/${id}`, 'DELETE')
+    const RemoveOrder = async (list) => {
+        const data = await requestAPI(`/order/delete`, 'DELETE', list)
         return data
     }
     const searchOnSubmit = (event) => {
         event.preventDefault()
     }
     const searchOnChange = (event) => {
-        // const searchInput = event.target.value
-        // const search = []
-        // for (let i in constOrder) {
-        //     if ((constOrder[i].orderName).toLowerCase().includes(searchInput)) {
-        //         search.push(constOrder[i])
-        //     }
-        //     else if ((constOrder[i].orderId).toString().includes((searchInput))) {
-        //         search.push(constOrder[i])
-        //     }
-        // }
-        // setOrder(search)
+        const searchInput = event.target.value
+        const search = []
+        if (searchInput !== '') {
+            for (let i in constOrder) {
+                if ((constOrder[i].customerPhone).includes(searchInput)) {
+                    search.push(constOrder[i])
+                }
+            }
+            setOrder(search)
+        } else {
+            setOrder(constOrder)
+        }
+
     }
 
 
@@ -98,7 +100,7 @@ export default function DashboardOrderTable(props) {
                             <form
                                 onSubmit={searchOnSubmit}
                             >
-                                <input type="text" placeholder="Search records"
+                                <input type="text" placeholder="Tìm kiếm theo số điện thoại"
                                     onChange={searchOnChange}
                                 ></input>
                             </form>
