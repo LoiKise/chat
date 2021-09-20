@@ -6,6 +6,7 @@ import { rules } from "../../helpers/rules";
 import ErrorMessage from "../ErrorMessage";
 import { contact } from "../../features/contact/contactSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
+//
 export default function Index() {
   const {
     control,
