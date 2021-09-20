@@ -4,9 +4,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import CustomPagination from './CustomPagination';
 import CustomNoRowsOverlay from './CustomNoRowsOverlay';
 import CustomToolbar from './DashboardConfigToolBar';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
+import { CallBackGetOrder } from '../../../../features/order/orderSlice';
 
 export default function DashboardOrderTable(props) {
     const update = useSelector(state => state.order.callbackGet)
@@ -14,6 +15,7 @@ export default function DashboardOrderTable(props) {
     const [constOrder, setConstOrder] = useState([])
     const [selection, setSelection] = useState([])
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
     useEffect(() => {
         getOrders();
     }, [update])
@@ -33,6 +35,7 @@ export default function DashboardOrderTable(props) {
         if (selection.length > 0) {
             RemoveOrder(selection[0]).then(res => {
                 if (res) {
+                    dispatch(CallBackGetOrder());
                     enqueueSnackbar('Xóa hóa đơn thành công', {
                         persist: false,
                         variant: 'success',

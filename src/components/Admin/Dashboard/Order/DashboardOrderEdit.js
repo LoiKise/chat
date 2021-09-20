@@ -40,7 +40,8 @@ export default function DashboardOrderCreate(props) {
         {
             id: 9,
             name: "Mực tươi",
-            quantity: 2
+            quantity: 2,
+            unit_id: 1,
         }
     ])
     const [orderType, setOrderType] = useState([
@@ -158,7 +159,12 @@ export default function DashboardOrderCreate(props) {
                 orderType: update?.categories?.id
             }
             setData(state)
-            setProducts(update.products?.map(row => ({ ...row })))
+            setProducts(update.products?.map(row => ({
+                id: row.id,
+                name: row.name,
+                quantity: row.quantity,
+                unit_id: row.unit.id
+            })))
         }
     }, [])
     const getUnit = async () => {
@@ -213,7 +219,7 @@ export default function DashboardOrderCreate(props) {
         let validatePhone = /^(((0))[0-9]{9})$/g;
         let validatePhone1 = /^(((0))[0-9]{9})$/g;
 
-        if (dataFormat.customerDistrict.length <= 0 || dataFormat.receiverDistrict.length <= 0) {
+        if (dataFormat?.customerDistrict?.length <= 0 || dataFormat?.receiverDistrict?.length <= 0) {
             enqueueSnackbar('Quận/Huyện không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
@@ -238,7 +244,15 @@ export default function DashboardOrderCreate(props) {
             dataFormat.customerAddress = dataFormat.customerAddress + ', ' + dataFormat.customerDistrict + ', ' + dataFormat.customerProvinceName
             dataFormat.receiverAddress = dataFormat.receiverAddress + ', ' + dataFormat.receiverDistrict + ', ' + dataFormat.receiverProvinceName
             dataFormat.quantity = parseInt(dataFormat.quantity, 10)
+            dataFormat.unit = dataFormat.unit
+            delete dataFormat.customerProvince;
+            delete dataFormat.customerDistrict;
+            delete dataFormat.customerProvinceName;
+            delete dataFormat.receiverProvince;
+            delete dataFormat.receiverDistrict;
+            delete dataFormat.receiverProvinceName;
             console.log({ dataFormat });
+
             updateOrder(dataFormat).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetOrder());
@@ -677,19 +691,14 @@ export default function DashboardOrderCreate(props) {
                                 addTooltip: 'Thêm',
                                 editTooltip: 'Sửa',
                                 deleteTooltip: 'Xóa',
+
                             }
                         }}
-                        actions={[
-                            rowData => ({
-                                icon: 'delete',
-                                tooltip: 'Xóa tất cả lựa chọn',
-                                onClick: (event, rowData) => alert(" " + rowData.name),
-                                disabled: rowData.birthYear < 2000
-                            })
-                        ]}
+                        actions={[]}
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
-                                const updatedRows = [...products, { id: Math.floor(Math.random() * 100), ...newRow }]
+                                console.log(newRow);
+                                const updatedRows = [...products, { ...newRow, unit_id: parseInt(newRow.unit_id, 10) }]
                                 setTimeout(() => {
                                     setProducts(updatedRows)
                                     resolve()
