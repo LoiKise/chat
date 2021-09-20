@@ -75,6 +75,7 @@
 }
 
 .tab_content_Office {
+  display: flex;
   margin-bottom: 288px;
   margin-top: -50px;
   .ordernow-form__userinfor-item input,
@@ -212,5 +213,19 @@
         width: 32%;
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .btn_tab_search {
+    margin-top: 15% !important;
+    width: 40% !important;
+  }
+  .form__about-checkitem {
+    left: 15% !important;
+    bottom: 0% !important;
+  }
+  .tab_content_Office {
+    display: block !important;
   }
 }

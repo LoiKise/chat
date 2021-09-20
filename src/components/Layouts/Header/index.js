@@ -77,7 +77,7 @@ export default function Index({ isHome }) {
             <Nav className="me-auto">
               <ul className="header__nav-list">
                 <HeaderNavItem headerItem={headerItem} />
-                <div className="header__authenWrapper">
+                <li className="header__nav-item header__authenWrapper">
                   {authenticated && (
                     <div class="account">
                       <Link to="">
@@ -107,14 +107,14 @@ export default function Index({ isHome }) {
                   {!authenticated && (
                     <div className="header__authenWrapper">
                       <Link to="/login" className="header__authen--login">
-                        Đăng nhập
+                        ĐĂNG NHẬP
                       </Link>
                       <Link to="/register" className="header__authen--signup">
-                        Đăng ký
+                        ĐĂNG KÝ
                       </Link>
                     </div>
                   )}
-                </div>
+                </li>
               </ul>
             </Nav>
           </Navbar.Collapse>

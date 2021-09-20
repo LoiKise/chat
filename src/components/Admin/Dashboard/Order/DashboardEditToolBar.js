@@ -1,10 +1,15 @@
 
 import { useSnackbar } from 'notistack';
 import * as React from 'react';
-export function EditToolbar({ index }) {
+import { useDispatch } from 'react-redux';
+import { getOrderUpdate } from '../../../../features/order/orderSlice';
+export function EditToolbar({ setOpenEditFunc, params }) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+    const dispatch = useDispatch();
     const handleEdit = () => {
-        enqueueSnackbar('Sửa thành công', {
+        setOpenEditFunc();
+        dispatch(getOrderUpdate(params))
+        enqueueSnackbar('Cập nhật đơn hàng thành công', {
             persist: false,
             variant: 'success',
             preventDuplicate: true,
@@ -15,7 +20,7 @@ export function EditToolbar({ index }) {
     return (
         <div
             className="dashboard-addnew-btn btn btn-outline-warning"
-            onClick={handleEdit}
+            onClick={() => handleEdit()}
         >Sửa</div>
     );
 }

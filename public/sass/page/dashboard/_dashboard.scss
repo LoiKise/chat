@@ -143,6 +143,7 @@
     margin-left: 260px;
     transition: 0.5s;
     min-height: 100vh;
+    position: relative;
 }
 .DashboardBody_small {
     margin-left: 80px;
@@ -1027,7 +1028,8 @@ select {
 }
 
 .DashboardProductInfo {
-    width: 85%;
+    position: absolute !important;
+    width: 100%;
     // left: 20%;
     height: 100vh;
     background-color: rgba(1, 1, 1, 0.7);
@@ -1069,6 +1071,10 @@ select {
     align-items: center;
 }
 .dashboard-right {
+    width: 70%;
+    text-align: left;
+}
+.dashboard-right--input {
     width: 70%;
     text-align: left;
 }

@@ -1,182 +1,74 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import CustomPagination from './CustomPagination';
 import CustomNoRowsOverlay from './CustomNoRowsOverlay';
-
-
+import CustomToolbar from './DashboardConfigToolBar';
+import { useSelector } from 'react-redux';
+import requestAPI from '../../../../apis';
+import { useSnackbar } from 'notistack';
 
 export default function DashboardOrderTable(props) {
-    const [order, setOrder] = useState([
-        {
-            id: 1000000001,
-            type: {
-                id: 123,
-                symbox: 'HL',
-                name: 'Hàng lô'
-            }, //HL : Hàng Lô, HL : Hàng Kiện  
-            createdDate: Date.now(),
-            createdBy: 'Admin',
-            phone: '0901150222',
-            customerName: 'Hoài Nhớ',
-            customerType: {
-                id: 123,
-                symbox: 'KM',
-                name: 'Khách mối'
-            },// KVL : Khách vãng lai , KM : Khách mối
-            driver: {
-                id: 111,
-                name: 'Thành Long',
-                age: 22
-            },
-            productName: 'Thực phẩm',
-            unit: {
-                id: 1,
-                symbox: 'KG',
-                name: 'Kilogam'
-            },
-            quantity: 5,
-            totalPrice: 60000,
-            status: {
-                id: 1,
-                symbox: 'LK',
-                name: 'Lưu Kho'
-            }, //LK : Lưu Kho - DVC : Đang vận chuyển - DG : Đã giao
-            note: 'Hàng khô, có mùi, tránh ẩm ướt',
-        },
-        {
-            id: 1000000002,
-            type: {
-                id: 123,
-                symbox: 'HK',
-                name: 'Hàng Kiện'
-            }, //HL : Hàng Lô, HK : Hàng Kiện  
-            createdDate: Date.now(),
-            createdBy: 'Admin',
-            phone: '0912521560',
-            customerName: 'GPT Group',
-            customerType: {
-                id: 123,
-                symbox: 'KVL',
-                name: 'Khách vãng lai'
-            },// KVL : Khách vãng lai , KM : Khách mối
-            driver: {
-                id: 111,
-                name: 'Thành Long',
-                age: 22
-            },
-            productName: 'Điện thoại',
-            unit: {
-                id: 1,
-                symbox: 'C',
-                name: 'Cái'
-            },
-            quantity: 5, //5 items
-            totalPrice: 250000,
-            status: {
-                id: 1,
-                symbox: 'DVC',
-                name: 'Đang vận chuyển'
-            }, //LK : Lưu Kho - DVC : Đang vận chuyển - DG : Đã giao
-            note: 'Hàng dễ vỡ, tránh ẩm ướt',
-        }
-    ])
-    const [constOrder, setConstOrder] = useState([
-        {
-            id: 1000000001,
-            type: {
-                id: 123,
-                symbox: 'HL',
-                name: 'Hàng lô'
-            }, //HL : Hàng Lô, HL : Hàng Kiện  
-            createdDate: Date.now(),
-            createdBy: 'Admin',
-            phone: '0901150222',
-            customerName: 'Hoài Nhớ',
-            customerType: {
-                id: 123,
-                symbox: 'KM',
-                name: 'Khách mối'
-            },// KVL : Khách vãng lai , KM : Khách mối
-            driver: {
-                id: 111,
-                name: 'Thành Long',
-                age: 22
-            },
-            productName: 'Thực phẩm',
-            unit: {
-                id: 1,
-                symbox: 'KG',
-                name: 'Kilogam'
-            },
-            quantity: 5,
-            totalPrice: 60000,
-            status: {
-                id: 1,
-                symbox: 'LK',
-                name: 'Lưu Kho'
-            }, //LK : Lưu Kho - DVC : Đang vận chuyển - DG : Đã giao
-            note: 'Hàng khô, có mùi, tránh ẩm ướt',
-        },
-        {
-            id: 1000000002,
-            type: {
-                id: 123,
-                symbox: 'HK',
-                name: 'Hàng Kiện'
-            }, //HL : Hàng Lô, HK : Hàng Kiện  
-            createdDate: Date.now(),
-            createdBy: 'Admin',
-            phone: '0912521560',
-            customerName: 'GPT Group',
-            customerType: {
-                id: 123,
-                symbox: 'KVL',
-                name: 'Khách vãng lai'
-            },// KVL : Khách vãng lai , KM : Khách mối
-            driver: {
-                id: 111,
-                name: 'Thành Long',
-                age: 22
-            },
-            productName: 'Điện thoại',
-            unit: {
-                id: 1,
-                symbox: 'C',
-                name: 'Cái'
-            },
-            quantity: 5, //5 items
-            totalPrice: 250000,
-            status: {
-                id: 1,
-                symbox: 'DVC',
-                name: 'Đang vận chuyển'
-            }, //LK : Lưu Kho - DVC : Đang vận chuyển - DG : Đã giao
-            note: 'Hàng dễ vỡ, tránh ẩm ướt',
-        }
-    ])
-    const [selection, setSelection] = useState()
-
-
-    const deleteOnClick = () => {
-        console.log({ selection });
+    const update = useSelector(state => state.order.callbackGet)
+    const [order, setOrder] = useState([])
+    const [constOrder, setConstOrder] = useState([])
+    const [selection, setSelection] = useState([])
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    useEffect(() => {
+        getOrders();
+    }, [update])
+    const getOrders = async () => {
+        const data = await requestAPI('/orders', 'GET')
+            .then(res => {
+                if (res) {
+                    setOrder(res.data?.data)
+                    setConstOrder(res.data?.data)
+                    console.log(res.data.data);
+                }
+            })
+            .catch(err => console.log(err))
+        return data
     }
-
+    const deleteOnClick = () => {
+        if (selection.length > 0) {
+            RemoveOrder(selection[0]).then(res => {
+                if (res) {
+                    enqueueSnackbar('Xóa hóa đơn thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                }
+            }).catch(err => console.log(err))
+        } else {
+            enqueueSnackbar('Vui lòng chọn hóa đơn muốn xóa', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        }
+    }
+    const RemoveOrder = async (id) => {
+        const data = await requestAPI(`/order/${id}`, 'DELETE')
+        return data
+    }
     const searchOnSubmit = (event) => {
         event.preventDefault()
     }
     const searchOnChange = (event) => {
-        const searchInput = event.target.value
-        const search = []
-        for (let i in constOrder) {
-            if ((constOrder[i].orderName).toLowerCase().includes(searchInput)) {
-                search.push(constOrder[i])
-            }
-            else if ((constOrder[i].orderId).toString().includes((searchInput))) {
-                search.push(constOrder[i])
-            }
-        }
-        setOrder(search)
+        // const searchInput = event.target.value
+        // const search = []
+        // for (let i in constOrder) {
+        //     if ((constOrder[i].orderName).toLowerCase().includes(searchInput)) {
+        //         search.push(constOrder[i])
+        //     }
+        //     else if ((constOrder[i].orderId).toString().includes((searchInput))) {
+        //         search.push(constOrder[i])
+        //     }
+        // }
+        // setOrder(search)
     }
 
 
@@ -212,7 +104,7 @@ export default function DashboardOrderTable(props) {
                     <div style={{ height: 400, width: "100%" }}>
                         <DataGrid
                             components={{
-                                Toolbar: GridToolbar,
+                                Toolbar: CustomToolbar,
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
                             }}
@@ -222,7 +114,7 @@ export default function DashboardOrderTable(props) {
                             pageSize={5}
                             rowsPerPageOptions={[5]}
                             onSelectionModelChange={(newSelectionModel) => {
-                                console.log({ idDelete: newSelectionModel })
+                                setSelection(newSelectionModel)
                             }}
                             checkboxSelection
                         />

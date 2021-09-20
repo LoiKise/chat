@@ -137,6 +137,11 @@
 
 .whoweare {
   @include mobile {
+    .whoweare__content{
+      .row{
+        margin-left: 0;
+      }
+    }
     .whoweare__content-experience {
       span {
         font-size: 3.9rem;
@@ -151,6 +156,9 @@
     }
     .whoweare__content-text {
       margin-top: 60px;
+      span {
+        margin-left: 0;
+      }
     }
   }
   @include tablet {

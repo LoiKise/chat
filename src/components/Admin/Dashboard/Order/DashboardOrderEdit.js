@@ -1,152 +1,266 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-
+import MaterialTable from 'material-table';
+import { useSnackbar } from 'notistack';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { useDispatch } from 'react-redux';
+import { CallBackGetOrder } from '../../../../features/order/orderSlice';
+import requestAPI from '../../../../apis';
+import { useSelector } from 'react-redux';
 export default function DashboardOrderCreate(props) {
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const createForm = useRef();
+    const dispatch = useDispatch();
+    const update = useSelector(state => state.order.orderUpdate)
+    const [province, setProvince] = useState([])
 
-    const [tinh, setTinh] = useState([])
-    const [huyen, setHuyen] = useState([])
+    const [customer, setCustomer] = useState({
+        customerName: '',
+        customerPhone: '',
+        customerAddress: '',
+        customerDistrict: '',
+        customerProvince: null,
+        customerProvinceName: '',
+    })
+    const [receiver, setReceiver] = useState({
+        receiverName: '',
+        receiverPhone: '',
+        receiverAddress: '',
+        receiverDistrict: '',
+        receiverProvince: null,
+        receiverProvinceName: '',
+    })
+    const [paymentList, setPaymentList] = useState([])
+    const [unitList, setUnitList] = useState([])
+    const [table, setTable] = useState([])
+    const [products, setProducts] = useState([
+        {
+            id: 9,
+            name: "Mực tươi",
+            quantity: 2
+        }
+    ])
+    const [orderType, setOrderType] = useState([
+        {
+            id: 1,
+            name: 'Hàng lô',
+            symbox: 'HL'
+        },
+        {
+            id: 2,
+            name: 'Hàng kiện',
+            symbox: 'HK'
+        }
+    ])
+    const [data, setData] = useState({
+        customerType: '',
+        customerName: '',
+        customerAddress: '',
+        customerProvince: '',
+        customerDistrict: '',
+        customerPhone: '',
+        receiverAddress: "",
+        receiverName: "",
+        receiverPhone: "",
+        receiverProvince: '',
+        receiverDistrict: '',
+        orderName: '',
+        orderType: null,
+        categories: { id: null, name: '' },
+        unit_id: null,
+        quantity: null,
+        totalPrice: null,
+        notes: "",
+        payment_id: "",
+        driver_id: null,
+        isFreeShip: false,
+        notes: '',
+        paymentMethod: {
+            codePayment: "",
+            id: 1,
+            namePayment: ""
+        },
+        quantity: 1,
+        totalPrice: 0,
+        unit: {
+            id: 2,
+            name: 'Thùng'
+        },
+        products: []
 
-    const [orderName, setOrderName] = useState("")
-    const [orderEmail, setOrderEmail] = useState("")
-    const [orderPhone, setOrderPhone] = useState("")
-    const [orderAddress, setOrderAddress] = useState("")
-    const [orderProvince, setOrderProvince] = useState(null)
-    const [orderDistric, setOrderDistric] = useState(null)
-    const [orderPaymentMethod, setOrderPaymentMethod] = useState("")
-    const [provinceId, setProvinceId] = useState("")
-    const [product, setProduct] = useState([])
-    const [productList, setProductList] = useState([])
+    })
 
-    const [userList, setUserList] = useState([])
-    const [user, setUser] = useState("")
-    const [chooseUser, setChooseUser] = useState(false)
-    const order = props.order
+    //Custom Selection
+    const [sltTypeCustomer, setSltTypeCustomer] = useState(false);
+    const [sltProvinceCustomer, setSltProvinceCustomer] = useState(false);
+    const [sltDistrictCustomer, setSltDistrictCustomer] = useState(false);
+    const [sltProvinceReceiver, setSltProvinceReceiver] = useState(false);
+    const [sltDistrictReceiver, setSltDistrictReceiver] = useState(false);
+    const [sltOrderType, setSltOrderType] = useState(false);
+    const [sltDriver, setSltDriver] = useState(false);
+    const [sltUnit, setSltUnit] = useState(false);
+    const [sltPayment, setSltPayment] = useState(false);
+
+
+    const handleClose = () => {
+        setSltTypeCustomer(false);
+        setSltProvinceCustomer(false);
+        setSltDistrictCustomer(false);
+        setSltProvinceReceiver(false);
+        setSltDistrictReceiver(false);
+        setSltDriver(false);
+        setSltOrderType(false);
+        setSltUnit(false);
+        setSltPayment(false);
+    };
+    const handleOpenSltTypeCustomer = () => {
+        setSltTypeCustomer(true);
+    };
+    const handleOpenSltProvinceCustomer = () => {
+        setSltProvinceCustomer(true);
+    };
+    const handleOpenSltDistrictCustomer = () => {
+        setSltDistrictCustomer(true);
+    };
+    const handleOpenSltProvinceReceiver = () => {
+        setSltProvinceReceiver(true);
+    };
+    const handleOpenSltDistrictReceiver = () => {
+        setSltDistrictReceiver(true);
+    };
+    const handleOpenSltDriver = () => {
+        setSltDriver(true);
+    };
+    const handleOpenSltOrderType = () => {
+        setSltOrderType(true);
+    };
+    const handleOpenSltUnit = () => {
+        setSltUnit(true);
+    };
+    const handleOpenSltPayment = () => {
+        setSltPayment(true);
+    };
+
+    //Handle Event and Request DataBase
 
     useEffect(() => {
-        setTinh([])
-        setHuyen([])
-        setProduct([])
-        setUserList([])
-    }, [user, chooseUser])
-    // useEffect(() => {
-    //     if (chooseUser === false) {
-    //         axios.get(`http://pe.heromc.net:4000/vietnam`)
-    //             .then(res => {
-    //                 setTinh(res.data[0].tinh)
-    //                 setHuyen(res.data[0].huyen)
-    //                 if (order) {
-    //                     setOrderName(order.orderName)
-    //                     setOrderEmail(order.orderEmail)
-    //                     setOrderPhone(order.orderPhone)
-    //                     setOrderAddress(order.orderAddress)
-    //                     setOrderProvince(order.orderTinh)
-    //                     setOrderDistric(order.orderHuyen)
-    //                     setOrderPaymentMethod(order.orderPaymentMethod)
-    //                     if (typeof order.orderList !== "undefined") {
-    //                         order.orderList.map((item) => {
-    //                             axios.get(`http://pe.heromc.net:4000/products/${item.id}`)
-    //                                 .then(res => {
-    //                                     res.data.count = item.amount
-    //                                     setProductList(productList => [...productList, res.data])
-    //                                 })
-    //                             return null
-    //                         })
-    //                         return
-    //                     }
-    //                     setOrderPaymentMethod(order.orderPaymentMethod)
-    //                     if (order.orderTinh !== "") {
-    //                         res.data[0].tinh.filter((item) => {
-    //                             if (order.orderTinh === item.name) {
-    //                                 setProvinceId(item.id)
-    //                             }
-    //                             return null
-    //                         })
-    //                         setOrderProvince(order.orderTinh)
-    //                     }
-    //                     if (order.orderHuyen !== "") {
-    //                         setOrderDistric(order.orderHuyen)
-    //                     }
-    //                 }
-    //             }
-    //             )
-    //     }
-    //     axios.get(`http://pe.heromc.net:4000/products`)
-    //         .then(res => {
-    //             setProduct(res.data)
-    //         }
-    //         )
-    //     axios.get(`http://pe.heromc.net:4000/users/list`)
-    //         .then(res => {
-    //             setUserList(res.data)
-    //             res.data.filter((item) => {
-    //                 if (item.userEmail === user) {
-    //                     setOrderName(item.userName)
-    //                     setOrderEmail(item.userEmail)
-    //                     setOrderPhone(item.userPhone)
-    //                     setOrderProvince(item.userProvince)
-    //                     setOrderDistric(item.userDistric)
-    //                     setOrderAddress(item.userAddress)
-    //                     if (item.userTinh !== "") {
-    //                         tinh.filter((item2) => {
-    //                             if (item.userTinh === item2.name) {
-    //                                 setProvinceId(item2.id)
-    //                             }
-    //                             return null
-    //                         })
-    //                         setOrderProvince(item.userTinh)
-    //                     }
-    //                     if (item.userHuyen !== "") {
-    //                         setOrderDistric(item.userHuyen)
-    //                     }
-    //                 }
-    //                 return null
-    //             })
-    //         }
-    //         )
-    // }, [order, user, chooseUser, tinh])
+        getUnit();
+        getPayment();
+        getProvince();
+        if (update) {
+            let state = {
+                ...update,
+                unit_id: update?.unit?.id,
+                payment_id: update?.paymentMethod?.id,
+                orderType: update?.categories?.id
+            }
+            setData(state)
+            setProducts(update.products?.map(row => ({ ...row })))
+        }
+    }, [])
+    const getUnit = async () => {
+        const data = await requestAPI('/unit', 'GET')
+            .then(res => {
+                if (res) {
+                    setUnitList(res.data?.data)
+                    setTable([
+                        { title: "STT", field: 'id', render: rowData => rowData?.tableData?.id + 1, editable: 'never' },
+                        { title: "Sản Phẩm", field: 'name' },
+                        { title: "Số lượng", field: 'quantity' },
+                        {
+                            title: "Đơn vị", field: 'unit_id',
+                            lookup: res.data?.data?.reduce((item, cur, i) => {
+                                item[cur.id] = cur.name;
+                                return item;
+                            }, {}) // { 1: 'KG', 2: 'Cái', 3: 'Thùng' }
 
+                        }])
+                }
+            })
+            .catch(err => console.log(err))
+        return data
+    }
+    const getPayment = async () => {
+        const data = await requestAPI('/payment', 'GET')
+            .then(res => {
+                if (res) {
+                    setPaymentList(res.data?.data)
+                }
+            })
+            .catch(err => console.log(err))
+        return data
+    }
+    const getProvince = async () => {
+        const data = await requestAPI('/city', 'GET')
+            .then(res => {
+                if (res) {
+                    setProvince(res.data?.data)
+                }
+            })
+            .catch(err => console.log(err))
+        return data
+    }
+    const updateOrder = async (dataFormat) => {
+        const data = await requestAPI(`/order/${dataFormat?.id}`, 'PUT', dataFormat)
+        return data
+    }
     const onSubmit = (event) => {
         event.preventDefault()
-        var listOrder = []
-        var total = 0;
-        for (let i in productList) {
-            const data = {
-                id: productList[i]._id,
-                amount: productList[i].count,
-            }
-            total += productList[i].productFinalPrice * productList[i].count
-            listOrder.push(data)
-        }
-        axios.post(`http://pe.heromc.net:4000/order/update/${order._id}`, {
-            orderName: orderName,
-            orderEmail: orderEmail,
-            orderPhone: orderPhone,
-            orderAddress: orderAddress,
-            orderTinh: orderProvince,
-            orderHuyen: orderDistric,
-            orderList: listOrder,
-            orderTotal: total,
-            orderPaymentMethod: orderPaymentMethod,
-            orderDate: new Date()
-        }).then(() => {
-            props.setCloseEditFunc(false);
-            props.setToastFunc(true);
-        })
-    }
+        let dataFormat = { ...data, products }
+        let validatePhone = /^(((0))[0-9]{9})$/g;
+        let validatePhone1 = /^(((0))[0-9]{9})$/g;
 
+        if (dataFormat.customerDistrict.length <= 0 || dataFormat.receiverDistrict.length <= 0) {
+            enqueueSnackbar('Quận/Huyện không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (products.length <= 0) {
+            enqueueSnackbar('Hàng hóa không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (validatePhone.test(`${dataFormat.customerPhone}`) === false || validatePhone1.test(`${dataFormat.receiverPhone}`) === false) {
+            enqueueSnackbar('Số điện thoại sai định dạng hoặc không tồn tại, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else {
+            dataFormat.customerAddress = dataFormat.customerAddress + ', ' + dataFormat.customerDistrict + ', ' + dataFormat.customerProvinceName
+            dataFormat.receiverAddress = dataFormat.receiverAddress + ', ' + dataFormat.receiverDistrict + ', ' + dataFormat.receiverProvinceName
+            dataFormat.quantity = parseInt(dataFormat.quantity, 10)
+            console.log({ dataFormat });
+            updateOrder(dataFormat).then(res => {
+                if (res.data) {
+                    dispatch(CallBackGetOrder());
+                }
+            })
+            enqueueSnackbar('Cập nhật đơn hàng thành công', {
+                persist: false,
+                variant: 'success',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        }
+    }
     return (
         <div className="DashboardProductInfo">
             <div className="create-box">
                 <div className="create-box-title flex">
-                    <div className="create-box-title-text">
-                        Order infomation
-                    </div>
+                    <h2 className="create-box-title-text ">
+                        Thông tin đơn hàng
+                    </h2>
                     <div
-                        className="create-box-title-close flex-center"
+                        className="btn btn-outline-danger"
                         onClick={() => {
                             props.setCloseEditFunc(false);
                         }}
@@ -155,265 +269,462 @@ export default function DashboardOrderCreate(props) {
                     </div>
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
+                    {/* Sender Infomation */}
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Already have an account?</div>
+                        <div className="dashboard-left flex">Phân loại khách hàng<span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">
-                            <select
-                                className="input"
+                            <Select
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltTypeCustomer}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltTypeCustomer}
+                                value={data?.customerType || ""}
+                                defaultValue={"Khách Vãng Lai"}
                                 onChange={(event) => {
-                                    setUser(event.target.value)
-                                    setChooseUser(true)
-                                }}
-                            >
-                                <option></option>
-                                {
-                                    userList.map((item, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item.userEmail}
-                                            >{item.userEmail}</option>
-                                        )
+                                    setData({
+                                        ...data,
+                                        customerType: event.target.value,
                                     })
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Name</div>
-                        <div className="dashboard-right">
-                            <input
-                                type="text" name="name"
-                                value={orderName || ""}
-                                onChange={(event) => {
-                                    setOrderName(event.target.value)
-                                }} required
-                            ></input>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Email</div>
-                        <div className="dashboard-right">
-                            <input
-                                type="text" name="email"
-                                value={orderEmail || ""}
-                                onChange={(event) => {
-                                    setOrderEmail(event.target.value)
-                                }} required
-                            ></input>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Phone</div>
-                        <div className="dashboard-right">
-                            <input
-                                type="text" name="phone"
-                                value={orderPhone || ""}
-                                onChange={(event) => {
-                                    setOrderPhone(event.target.value)
-                                }} required
-                            ></input>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Province</div>
-                        <div className="dashboard-right">
-                            <select
-                                className="input"
-                                value={orderProvince}
-                                onChange={(event) => {
-                                    setProvinceId(event.target.selectedIndex)
-                                    setOrderProvince(event.target.value)
                                 }}
                             >
-                                <option disabled selected value>select a province</option>
-                                {tinh.map((item, index) => {
-                                    return (
-                                        <option
-                                            key={index}
-                                            value={item.name}
-                                        >{item.name}</option>
-                                    )
-                                })}
-                            </select>
+                                <MenuItem value="Khách Vãng Lai">
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn loại khách hàng :</em>
+                                </MenuItem>
+                                <MenuItem value="Khách Mối" >
+                                    <em >Khách mối</em>
+                                </MenuItem>
+                                <MenuItem value="Khách Vãng Lai" >
+                                    <em >Khách vãng lai</em>
+                                </MenuItem>
+                            </Select>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">District</div>
-                        <div className="dashboard-right">
-                            <select
-                                className="input"
-                                value={orderDistric}
+                        <div className="dashboard-left flex">Khách hàng gửi <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Họ và tên người gửi hàng"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.customerName || ""}
                                 onChange={(event) => {
-                                    setOrderDistric(event.target.value)
+                                    setData({ ...data, customerName: event.target.value })
+                                }}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Số điện thoại ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Số điện thoại người gửi hàng"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.customerPhone || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, customerPhone: event.target.value })
+                                }} required
+                            />
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Địa chỉ cụ thể ( Người gửi hàng ) <span style={{ color: "red" }}>*</span> </div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Địa chỉ cụ thể người gửi hàng"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.customerAddress || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, customerAddress: event.target.value })
+                                }} required
+                            />
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Tỉnh/Thành Phố ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right">
+                            <Select
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltProvinceCustomer}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltProvinceCustomer}
+                                value={data.customerProvince || ""}
+                                onChange={(event, params) => {
+                                    setData({
+                                        ...data,
+                                        customerProvince: params?.props?.value,
+                                        customerProvinceName: params?.props?.name
+                                    })
                                 }}
                             >
-                                <option disabled selected value>select a district</option>
-                                {huyen?.map((item, index) => {
-                                    if (item.tinh_id === provinceId) {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={item.name}
-                                            >{item.name}</option>
-                                        )
-                                    }
-                                    return null
+                                <MenuItem value={null} selected>
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
+                                </MenuItem>
+                                {province && province.length > 0 && province?.map((item, index) => {
+                                    return <MenuItem key={index} value={item.id} name={item.cityName}>{item.cityName}</MenuItem>
                                 })}
-                            </select>
+                            </Select>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Quận/Huyện ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right">
+                            <Select
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltDistrictCustomer}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltDistrictCustomer}
+                                value={data.customerDistrict || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, customerDistrict: event.target.value })
+                                }}
+
+                            >
+                                <MenuItem value={null} selected>
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
+                                </MenuItem>
+                                {province && province.length > 0 && province?.find(el => el.id === data.customerProvince)?.districts?.map((item, index) => {
+                                    return <MenuItem key={index} value={item.name}>{item.name}</MenuItem>
+                                })}
+                            </Select>
+                        </div>
+                    </div>
+
+                    {/* Receiver Infomation */}
+
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Khách hàng nhận <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Họ và tên người nhận hàng"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.receiverName || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, receiverName: event.target.value })
+                                }}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Số điện thoại ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Số điện thoại người nhận hàng"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.receiverPhone || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, receiverPhone: event.target.value })
+                                }} required
+                            />
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Địa chỉ cụ thể ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Địa chỉ cụ thể người nhận hàng"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.receiverAddress || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, receiverAddress: event.target.value })
+                                }} required
+                            />
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Tỉnh/Thành Phố ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right">
+                            <Select
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltProvinceReceiver}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltProvinceReceiver}
+                                value={data.receiverProvince || ""}
+                                onChange={(event, params) => {
+                                    setData({
+                                        ...data,
+                                        receiverProvince: params.props.value,
+                                        receiverProvinceName: params.props.name
+                                    })
+                                }}
+                            >
+                                <MenuItem value={null} selected>
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
+                                </MenuItem>
+                                {province && province.length > 0 && province?.map((item, index) => {
+                                    return <MenuItem key={index} value={item.id} name={item.cityName}> {item.cityName} </MenuItem>
+                                })}
+                            </Select>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Quận/Huyện ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right">
+                            <Select
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltDistrictReceiver}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltDistrictReceiver}
+                                value={data.receiverDistrict || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, receiverDistrict: event.target.value })
+                                }}
+                            >
+                                <MenuItem value={null} selected>
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn quận/huyện :</em>
+                                </MenuItem>
+                                {province && province.length > 0 && province?.find(el => el.id === data.receiverProvince)?.districts?.map((item, index) => {
+                                    return <MenuItem key={index} value={item.name}>{item.name}</MenuItem>
+                                })}
+                            </Select>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Tên hàng hóa <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Tên hàng hóa"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.orderName || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, orderName: event.target.value })
+                                }}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Loại hàng hóa <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right">
+                            <Select
+
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltOrderType}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltOrderType}
+                                value={data.orderType || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, orderType: event.target.value })
+                                }}
+                            >
+                                <MenuItem value={null}>
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn loại hàng khi đóng gói :</em>
+                                </MenuItem>
+                                {orderType && orderType.length > 0 && orderType?.map((item, index) => {
+                                    return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                                })}
+                            </Select>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Số lượng <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Số lượng"
+                                variant="outlined"
+                                color="primary"
+                                type="number"
+                                value={data?.quantity || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, quantity: event.target.value })
+                                }}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Đơn vị tính <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right">
+                            <Select
+                                defaultValue={1}
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltUnit}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltUnit}
+                                value={data.unit_id || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, unit_id: event.target.value })
+                                }}
+                            >
+                                <MenuItem value={null} selected>
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn đơn vị tính :</em>
+                                </MenuItem>
+                                {unitList && unitList.length > 0 && unitList?.map((item, index) => {
+                                    return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                                })}
+                            </Select>
+                        </div>
+                    </div>
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Thành tiền <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-totalPrice"
+                                label="Tổng số tiền cần thu"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.totalPrice || ""}
+                                onChange={(event) => {
+                                    setData({ ...data, totalPrice: event.target.value })
+                                }}
+                                required
+                            />
                         </div>
                     </div>
 
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Address</div>
-                        <div className="dashboard-right">
-                            <input
-                                type="text" name="phone"
-                                value={orderAddress || ""}
+                        <div className="dashboard-left flex">Phương thức thanh toán <span style={{ color: "red" }}>*</span></div>
+                        <div className="dashboard-right--input">
+                            <Select
+                                defaultValue={1}
+                                className="MUI-customBorder"
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                open={sltPayment}
+                                onClose={handleClose}
+                                onOpen={handleOpenSltPayment}
+                                value={data.payment_id || ""}
                                 onChange={(event) => {
-                                    setOrderAddress(event.target.value)
-                                }} required
-                            ></input>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Items</div>
-                        <div className="dashboard-right">
-                            <select
-                                className="input"
-                                style={{ height: '25px', marginBottom: '10px' }}
-                                value={""}
-                                onChange={(event) => {
-                                    const isExists = (cartItems = [], item = {}) => {
-                                        for (let cartItem of cartItems) {
-                                            if (cartItem._id === item._id) {
-                                                return cartItem;
-                                            }
-                                        }
-                                        return false;
-                                    }
-
-                                    const value = event.target.value
-                                    const virtualCart = [...productList]
-                                    if (productList.length === 0) {
-                                        virtualCart.push({ ...JSON.parse(value), count: 1 })
-                                    } else {
-                                        if (!isExists(productList, JSON.parse(value))) {
-                                            virtualCart.push({ ...JSON.parse(value), count: 1 })
-                                        } else {
-                                            for (let i = 0; i < virtualCart.length; i++) {
-                                                if (virtualCart[i]._id === JSON.parse(value)._id) {
-                                                    virtualCart[i].count += 1
-                                                    break
-                                                }
-                                            }
-                                        }
-                                    }
-                                    setProductList(virtualCart)
+                                    setData({ ...data, payment_id: event.target.value })
                                 }}
                             >
-                                <option selected value>select a product</option>
-                                {product.map((item, index) => {
-                                    return (
-                                        <option
-                                            key={index}
-                                            value={JSON.stringify(item)}
-                                        >Name: {item.productName}, Price: {item.productFinalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</option>
-                                    )
+                                <MenuItem value={null} selected>
+                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn phương thức thanh toán :</em>
+                                </MenuItem>
+                                {paymentList && paymentList.length > 0 && paymentList?.map((item, index) => {
+                                    return <MenuItem key={index} value={item.id}>{item.namePayment}</MenuItem>
                                 })}
-                            </select>
-                            <div className="" style={{ overflowY: 'hidden', flexWrap: 'wrap' }}>
-                                {productList &&
-                                    productList.map((item, index) => {
-                                        return (
-                                            <div
-                                                key={index}
-                                                className="order-list-item"
-                                            >
-                                                <img src={item.productImg[0]} alt=""></img>
-                                                <p style={{ width: '55%' }}>{item.productName}</p>
-                                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <p
-                                                        id={index}
-                                                        className="count-btn flex-center"
-                                                        onClick={(event) => {
-                                                            const arr = [...productList]
-                                                            const id = event.target.id;
-                                                            for (let i in arr) {
-                                                                if (id === i) {
-                                                                    if (arr[i].count === 0) {
-                                                                        return
-                                                                    } else {
-                                                                        arr[i].count -= 1
-                                                                    }
-                                                                }
-                                                            }
-                                                            setProductList(arr)
-                                                        }}
-                                                    >-</p>
-                                                    <p>{item.count}</p>
-                                                    <p
-                                                        id={index}
-                                                        className="count-btn flex-center"
-                                                        onClick={(event) => {
-                                                            const arr = [...productList]
-                                                            const id = event.target.id;
-                                                            for (let i in arr) {
-                                                                if (id === i) {
-                                                                    arr[i].count += 1
-                                                                }
-                                                            }
-                                                            setProductList(arr)
-                                                        }}
-                                                    >+</p>
-                                                </div>
-                                                <div
-                                                    id={index}
-                                                    className="delete-order-item flex-center"
-                                                    onClick={(event) => {
-                                                        var arr = [];
-                                                        const id = event.target.id;
-                                                        for (let i in productList) {
-                                                            if (i !== id) {
-                                                                arr.push(productList[i])
-                                                            }
-                                                        }
-                                                        setProductList(arr)
-                                                    }}>
-                                                    <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
+                            </Select>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Payment method</div>
-                        <div className="dashboard-right">
-                            <select
-                                className="input"
-                                type="text"
-                                value={orderPaymentMethod || ""}
+                        <div className="dashboard-left flex">Ghi chú</div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                id="outlined-note"
+                                label="Ghi chú đơn hàng"
+                                variant="outlined"
+                                color="primary"
+                                value={data?.notes || ""}
                                 onChange={(event) => {
-                                    setOrderPaymentMethod(event.target.value)
-                                }} required
-                            >
-                                <option></option>
-                                <option value="cash on delivery">Cash On Delivery</option>
-                                <option value="direct back transfer">Direct Back Transfer</option>
-                                <option value="paypal">Paypal</option>
-                            </select>
+                                    setData({ ...data, notes: event.target.value })
+                                }}
+                            />
                         </div>
                     </div>
+                    <MaterialTable
+                        title="Danh sách hàng hóa"
+                        data={products}
+                        columns={table}
+                        options={{
+                            search: true,
+                            selection: true,
+                            actionsColumnIndex: -1,
+                            addRowPosition: "first",
+                            exportButton: true,
+                        }}
+                        localization={{
+                            pagination: {
+                                labelDisplayedRows: '{from}-{to} trong {count}',
+                                labelRowsSelect: 'sản phẩm',
+                                previousTooltip: 'Trang trước',
+                                firstTooltip: 'Trang đầu',
+                                nextTooltip: 'Trang kế',
+                                lastTooltip: 'Trang cuối'
+                            },
+                            toolbar: {
+                                nRowsSelected: '{0} hàng đang được chọn',
+                                exportTitle: 'Tải xuống',
+                                searchTooltip: 'Tìm kiếm'
+                            },
+                            header: {
+                                actions: 'Tùy chỉnh'
+                            },
+                            body: {
+                                emptyDataSourceMessage: 'Chưa có sản phẩm',
+                                filterRow: {
+                                    filterTooltip: 'Lọc'
+                                },
+                                addTooltip: 'Thêm',
+                                editTooltip: 'Sửa',
+                                deleteTooltip: 'Xóa',
+                            }
+                        }}
+                        actions={[
+                            rowData => ({
+                                icon: 'delete',
+                                tooltip: 'Xóa tất cả lựa chọn',
+                                onClick: (event, rowData) => alert(" " + rowData.name),
+                                disabled: rowData.birthYear < 2000
+                            })
+                        ]}
+                        editable={{
+                            onRowAdd: (newRow) => new Promise((resolve, reject) => {
+                                const updatedRows = [...products, { id: Math.floor(Math.random() * 100), ...newRow }]
+                                setTimeout(() => {
+                                    setProducts(updatedRows)
+                                    resolve()
+                                }, 1000)
+                            }),
+                            onRowDelete: selectedRow => new Promise((resolve, reject) => {
+                                const index = selectedRow.tableData.id;
+                                const updatedRows = [...products]
+                                updatedRows.splice(index, 1)
+                                setTimeout(() => {
+                                    setProducts(updatedRows)
+                                    resolve()
+                                }, 2000)
+                            }),
+                            onRowUpdate: (updatedRow, oldRow) => new Promise((resolve, reject) => {
+                                const index = oldRow.tableData.id;
+                                const updatedRows = [...products]
+                                updatedRows[index] = updatedRow
+                                setTimeout(() => {
+                                    setProducts(updatedRows)
+                                    resolve()
+                                }, 2000)
+                            })
+                        }}
+                    />
                     <div className="flex-center" style={{ marginTop: '40px' }}>
-                        <button className="create-box-btn btn">
-                            Create order
+                        <button className="create-box-btn btn btn-outline-success">
+                            Cập nhật đơn hàng
                         </button>
                     </div>
+
+
                 </form>
             </div>
-        </div>
+        </div >
+
     )
 }

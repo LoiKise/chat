@@ -126,7 +126,6 @@ function Dashboard(props) {
     const setOpenEditFunc = (event) => {
         document.body.style.overflow = 'hidden';
         setOpenEdit(true)
-        setDriverId(event.target.id)
     }
 
     const setCloseEditFunc = (bool) => {

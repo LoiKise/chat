@@ -96,3 +96,13 @@
     }
   }
 }
+
+@media screen and (max-width: 768px){
+  .job-item {
+    width: 100%;
+  }
+  .job-item-list {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr;
+  }
+}

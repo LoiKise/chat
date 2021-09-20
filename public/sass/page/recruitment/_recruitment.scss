@@ -1,5 +1,6 @@
 /* Tuyển Dụng*/
 .recruitment {
+  padding-top: 5%;
   color: #fff;
   background-image: linear-gradient(to right, #c91410, #ff5e15);
 }
@@ -61,3 +62,14 @@
     fill: currentColor;
   }
 }
+
+@media screen and (max-width: 768px){
+  .recruitment {
+    padding-top: 25%;
+  }
+  .recruitment-pagination{
+    text-align: center;
+    display: block;
+  }
+}
+
