@@ -1,7 +1,6 @@
 .contact {
   background-color: black;
   color: white;
-  padding-top: 30%;
 
   &__top {
     margin-top: 60px;
@@ -121,9 +120,12 @@
   margin-top: 0 !important;
 }
 @media screen and (max-width: 768px){
-  .contact-form , .contact__top{
-    .row{
-      margin-left: 0;
+  .contact{
+    padding-top: 30%;
+    &-form, &_top{
+      .row{
+        margin-left: 0;
+      }
     }
   }
   .footer{
