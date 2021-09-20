@@ -32,7 +32,7 @@ const Index = () =>  {
     }, [])
 
     return (
-        <Link className="scroll-btn" onClick={scrollToTop} to="/">
+        <Link className="scroll-btn" onClick={scrollToTop} to="#.">
             {
                 isVisiable 
                 ? 
