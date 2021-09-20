@@ -198,7 +198,7 @@ export default function Search(props) {
             </div>
           </Panel>
           <Panel value={index} index={2}>
-            <div className="tab_content_Office  d-flex">
+            <div className="tab_content_Office">
               <div className="col-md-4">
                 <div className="ordernow-form__userinfor-item">
                   <input

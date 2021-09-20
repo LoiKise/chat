@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import ScrollToTop from '../../ScrollToTop'
 export default function index() {
   return (
     <div>
@@ -90,9 +90,7 @@ export default function index() {
         </div>
       </footer>
       <div className="link-fixed">
-        <Link className="scroll" to="/">
-          <img src="./assets/img/icon/gradient_top_circle_arrow.png" alt="" />
-        </Link>
+        <ScrollToTop />
         <Link to="/" className="messenger">
           <img src="./assets/img/icon/cirle_mess.png" alt="" />
         </Link>

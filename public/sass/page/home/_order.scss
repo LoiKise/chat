@@ -99,7 +99,7 @@
 
 .ordernow {
   @include mobile {
-    margin-top: 500px;
+    margin-top: 40%;
     height: auto;
   }
   .ordernow-form__userinfor-item {
@@ -108,8 +108,15 @@
   .ordernow-form__deliverylocation-item {
     margin-bottom: 20px;
   }
-  .ordernow-form__about-item {
-    margin-bottom: 20px;
+  .ordernow-form__about{
+    margin-top: 0;
+    
+    &-item{
+      margin-bottom: 20px;
+    }
+  }
+  .row{
+    margin-left: 0;
   }
   @include tablet {
     margin-top: 1100px;

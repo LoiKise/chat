@@ -6,6 +6,7 @@ import { rules } from "../../helpers/rules";
 import ErrorMessage from "../ErrorMessage";
 import { contact } from "../../features/contact/contactSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
+//
 export default function Index() {
   const {
     control,
@@ -232,11 +233,11 @@ export default function Index() {
           alt=""
           className="ordernow-decoration1"
         />
-        <img
+        {/* <img
           src="./assets/img/imgs/Decoration/circle_deco.png"
           alt=""
           className="ordernow-decoration2"
-        />
+        /> */}
       </div>
     </div>
   );
