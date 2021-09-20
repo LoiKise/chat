@@ -28,7 +28,7 @@ export default function Index({ isHome }) {
     },
     {
       name: "TRA CỨU",
-      link: "/",
+      link: "/Search",
     },
     {
       name: "TUYỂN DỤNG",
@@ -90,7 +90,7 @@ export default function Index({ isHome }) {
                         <img src="./assets/img/icon/bars.png" alt="" />
 
                         <div className="account-menu__list">
-                          <Link to="" className="account-menu__item">
+                          <Link to="/UserInfor" className="account-menu__item">
                             Tài khoản của tôi
                           </Link>
                           <Link
