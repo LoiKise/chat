@@ -5,16 +5,14 @@ import ErrorMessage from "../ErrorMessage";
 import { rules } from "../../helpers/rules";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { login, register } from "../../features/auth/authSlice";
+import { loginSocial, register } from "../../features/auth/authSlice";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import { toast } from "react-toastify";
 
 export default function Index() {
   const ICONGG = "/assets/img/icon/Asset 18.png";
   const ICONFB = "/assets/img/icon/Asset 19.png";
-  const clientId =
-    "427076436287-ig3ubafn7i6og61d4ng1jqe5a9ejs4du.apps.googleusercontent.com";
-  const appId = "1249486168829023";
 
   const {
     control,
@@ -34,18 +32,24 @@ export default function Index() {
 
   const handleRegister = async (data) => {
     const body = {
-      user: {
-        name: data.name,
-        sdt: data.sdt,
-      },
       password: data.password,
+      phone: data.sdt,
+      fullname: data.name,
     };
 
     try {
       const res = await dispatch(register(body));
       unwrapResult(res);
       history.push("/");
+      toast.success("Đăng ký thành công", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (error) {
+      toast.error("Đăng ký thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       if (error.status === 422) {
         for (const key in error.data) {
           setError(key, {
@@ -63,10 +67,18 @@ export default function Index() {
       accessToken: res.accessToken,
     };
     try {
-      const res = await dispatch(login(body));
+      const res = await dispatch(loginSocial(body));
       unwrapResult(res);
       history.push("/");
+      toast.success("Đăng nhập thành công", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (error) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       if (error.status === 422) {
         for (const key in error.data) {
           setError(key, {
@@ -80,21 +92,23 @@ export default function Index() {
 
   //login face
   const responseFacebook = async (res) => {
-    const profileObj = {
-      name: res.name,
-      email: res.email,
-      picture: res.picture,
-    };
-
     const body = {
-      user: profileObj,
+      user: { fullname: res.name },
       accessToken: res.accessToken,
     };
     try {
-      const res = await dispatch(login(body));
+      const res = await dispatch(loginSocial(body));
       unwrapResult(res);
       history.push("/");
+      toast.success("Đăng nhập thành công", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (error) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       if (error.status === 422) {
         for (const key in error.data) {
           setError(key, {
@@ -113,11 +127,10 @@ export default function Index() {
           <h3 className="text-center p-1">ĐĂNG KÝ</h3>
           <div className="signup__social">
             <GoogleLogin
-              clientId={clientId}
+              clientId="181812673260-2tcsdhgp7vj2rv65kkv2ap3gb901e3f9.apps.googleusercontent.com"
               render={(renderProps) => (
                 <button
                   onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
                   className="
                     login__google
                     d-flex
@@ -137,7 +150,7 @@ export default function Index() {
             />
 
             <FacebookLogin
-              appId={appId}
+              appId="863179767664254"
               autoLoad={false}
               fields="name,email,picture"
               callback={responseFacebook}
@@ -244,7 +257,7 @@ export default function Index() {
             của chúng tôi
           </p>
           <div className="yes--account">
-            <span>Bạn đã có tải khoản ? </span>
+            <span>Bạn đã có tài khoản ? </span>
             <Link to="/login" className="login__link">
               Đăng nhập
             </Link>

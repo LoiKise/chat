@@ -6,13 +6,20 @@ import { Nav, Navbar } from "react-bootstrap";
 import { logout } from "../../../features/auth/authSlice";
 import useAuthenticated from "../../../helpers/useAuthenticated";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function Index({ isHome }) {
   const authenticated = useAuthenticated();
-  const name = useSelector((state) => state.auth.profile.name);
+  const name = useSelector((state) => state.auth.profile.fullname);
   const dispatch = useDispatch();
 
-  const handleLogout = () => dispatch(logout());
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("Đăng xuất thành công", {
+      position: "top-center",
+      autoClose: 3000,
+    });
+  };
   const headerItem = [
     {
       name: "TRANG CHỦ",
