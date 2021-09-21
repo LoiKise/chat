@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
 import { CallBackGetOrder } from '../../../../features/order/orderSlice';
+import DashboardOrderControl from './DashboardOrderControl';
 
 export default function DashboardOrderTable(props) {
     const update = useSelector(state => state.order.callbackGet)
@@ -25,7 +26,6 @@ export default function DashboardOrderTable(props) {
                 if (res) {
                     setOrder(res.data?.data)
                     setConstOrder(res.data?.data)
-                    console.log({ arr: res.data?.data });
                 }
             })
             .catch(err => console.log(err))
@@ -87,25 +87,12 @@ export default function DashboardOrderTable(props) {
                     <p>{props.title}</p>
                 </div>
                 <div className="topfive-content flex-col">
-                    <div className="dashboard-addnew flex">
-                        <div>
-                            <div className="dashboard-addnew-btn btn btn-outline-success mr-5"
-                                onClick={props.setOpenCreateFunc}
-                            >Thêm</div>
-                            <div className="dashboard-addnew-btn btn btn-outline-danger"
-                                onClick={() => deleteOnClick()}
-                            >Xóa</div>
-                        </div>
-                        <div className="dashboard-addnew-search">
-                            <form
-                                onSubmit={searchOnSubmit}
-                            >
-                                <input type="text" placeholder="Tìm kiếm theo số điện thoại"
-                                    onChange={searchOnChange}
-                                ></input>
-                            </form>
-                        </div>
-                    </div>
+                    <DashboardOrderControl
+                        addController={props.setOpenCreateFunc}
+                        deleteController={deleteOnClick}
+                        searchOnChange={searchOnChange}
+                        searchController={searchOnSubmit}
+                    />
                     <div style={{ height: 400, width: "100%" }}>
                         <DataGrid
                             components={{

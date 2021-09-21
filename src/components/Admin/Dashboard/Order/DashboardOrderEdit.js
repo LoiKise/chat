@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { CallBackGetOrder } from '../../../../features/order/orderSlice';
 import requestAPI from '../../../../apis';
 import { useSelector } from 'react-redux';
+import DashboardSelectInput from './DashboardSelectInput';
 export default function DashboardOrderCreate(props) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const createForm = useRef();
@@ -35,15 +36,16 @@ export default function DashboardOrderCreate(props) {
     })
     const [paymentList, setPaymentList] = useState([])
     const [unitList, setUnitList] = useState([])
-    const [table, setTable] = useState([])
-    const [products, setProducts] = useState([
+    const [orderTypeList, setOrderTypeList] = useState([
         {
-            id: 9,
-            name: "Mực tươi",
-            quantity: 2,
-            unit_id: 1,
+            name: "Khách Mối"
+        },
+        {
+            name: "Khách Vãng Lai"
         }
     ])
+    const [table, setTable] = useState([])
+    const [products, setProducts] = useState([])
     const [orderType, setOrderType] = useState([
         {
             id: 1,
@@ -284,7 +286,7 @@ export default function DashboardOrderCreate(props) {
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
                     {/* Sender Infomation */}
-                    <div className="create-box-row flex">
+                    {/* <div className="create-box-row flex">
                         <div className="dashboard-left flex">Phân loại khách hàng<span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">
                             <Select
@@ -314,7 +316,20 @@ export default function DashboardOrderCreate(props) {
                                 </MenuItem>
                             </Select>
                         </div>
-                    </div>
+                    </div> */}
+                    <DashboardSelectInput
+                        title={"bbbbbbbbbbb"}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltTypeCustomer}
+                        handleOpenSlt={handleOpenSltTypeCustomer}
+                        subTitle={"Khách"}
+                        listSelect={orderTypeList}
+                        objectKey={"customerType"}
+                        objectNameKey={null}
+
+                    />
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Khách hàng gửi <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right--input">
@@ -361,7 +376,7 @@ export default function DashboardOrderCreate(props) {
                             />
                         </div>
                     </div>
-                    <div className="create-box-row flex">
+                    {/* <div className="create-box-row flex">
                         <div className="dashboard-left flex">Tỉnh/Thành Phố ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">
                             <Select
@@ -388,7 +403,23 @@ export default function DashboardOrderCreate(props) {
                                 })}
                             </Select>
                         </div>
-                    </div>
+                    </div> */}
+
+                    <DashboardSelectInput
+                        title={"aaaaaaaaaaaa"}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltProvinceCustomer}
+                        handleOpenSlt={handleOpenSltProvinceCustomer}
+                        subTitle={"Chọn nơi"}
+                        listSelect={province}
+                        objectKey={"customerProvince"}
+                        objectNameKey={"customerProvinceName"}
+                    />
+
+
+
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Quận/Huyện ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
                         <div className="dashboard-right">

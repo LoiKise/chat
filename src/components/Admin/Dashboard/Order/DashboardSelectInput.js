@@ -1,0 +1,50 @@
+import { isMuiElement } from '@material-ui/core'
+import React from 'react'
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
+export default function DashboardSelectInput({
+    title, data, setData, handleClose, sltOpen,
+    handleOpenSlt, subTitle, listSelect, objectKey, objectNameKey }) {
+    return (
+        <div className="create-box-row flex">
+            <div className="dashboard-left flex">{title}<span style={{ color: "red" }}>*</span></div>
+            <div className="dashboard-right">
+                <Select
+                    className="MUI-customBorder"
+                    labelId="demo-controlled-open-select-label"
+                    id="demo-controlled-open-select"
+                    open={sltOpen}
+                    onClose={handleClose}
+                    onOpen={handleOpenSlt}
+                    value={data[objectKey] || ""}
+                    onChange={(event, params) => {
+                        console.log({ [objectKey]: params?.props?.value });
+                        // const state = objectNameKey && objectNameKey.length > 0 && { [objectNameKey]: params?.props?.name }
+                        setData({
+                            ...data,
+                            [objectKey]: params?.props?.value,
+                            [objectNameKey]: params?.props?.name
+                        })
+                    }}
+                >
+                    <MenuItem value={null} selected>
+                        <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>{subTitle}</em>
+                    </MenuItem>
+                    {listSelect && listSelect.length > 0 && listSelect?.map((item, index) => {
+                        let name = ""
+                        if (item.name) {
+                            name = item.name
+                        } else if (item.cityName) {
+                            name = item.cityName
+
+                        } else if (item.namePayment) {
+                            name = item.namePayment
+                        }
+                        return <MenuItem key={index} value={item.id ? item.id : item.name} name={name}>{name}</MenuItem>
+                    })}
+                </Select>
+            </div>
+        </div>
+    )
+}
