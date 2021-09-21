@@ -1,15 +1,16 @@
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import routes from "./routes";
-import Header from './components/Layouts/Header'
-import Footer from './components/Layouts/Footer'
-function App() {
+import Header from "./components/Layouts/Header";
+import Footer from "./components/Layouts/Footer";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
+function App() {
   const RouteContainer = (routes) => {
     var result = null;
     if (routes.length > 0) {
       result = routes.map((route, index) => {
-        let isHome = route.path === '/' ? true : false
+        let isHome = route.path === "/" ? true : false;
         return (
           <Route
             key={index}
@@ -18,34 +19,33 @@ function App() {
             component={() => {
               return (
                 <>
-                  {route.path !== '/login' &&
-                    route.path !== '/register' &&
-                    route.path !== '/Dashboard' &&
-                    route.path !== '/Admin/Dashboard' &&
-                    route.path !== ''
-                    && <Header isHome={isHome} />}
+                  {route.path !== "/login" &&
+                    route.path !== "/register" &&
+                    route.path !== "/Dashboard" &&
+                    route.path !== "/Admin/Dashboard" &&
+                    route.path !== "" && <Header isHome={isHome} />}
                   <route.main />
-                  {route.path !== '/login' &&
-                    route.path !== '/register' &&
-                    route.path !== '/Dashboard' &&
-                    route.path !== '/Admin/Dashboard' &&
-                    route.path !== ''
-                    && <Footer />}
+                  {route.path !== "/login" &&
+                    route.path !== "/register" &&
+                    route.path !== "/Dashboard" &&
+                    route.path !== "/Admin/Dashboard" &&
+                    route.path !== "" && <Footer />}
                 </>
-              )
+              );
             }}
           />
-        )
+        );
       });
     }
     return result;
-  }
+  };
   return (
-    <Router>
-      <Switch>
-        {RouteContainer(routes)}
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <Switch>{RouteContainer(routes)}</Switch>
+      </Router>
+      <ToastContainer />
+    </>
   );
 }
 

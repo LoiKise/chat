@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Syntax
-//requestAPI('/login', 'POST', {user}, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
+// requestAPI('/search', 'POST', {code}, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
 export default async function requestAPI(url, method, body, injectHeader) {
   let urlOrigin = "http://localhost:3000";
   const headers = {
