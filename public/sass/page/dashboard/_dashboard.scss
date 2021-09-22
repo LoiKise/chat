@@ -411,6 +411,14 @@
     background: linear-gradient(60deg, #26c6da, #00acc1);
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
+.lightgreen {
+    background: linear-gradient(60deg, #3fff9f, #79f2b5);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(63, 255, 159, 0.4);
+}
+.darkblue {
+    background: linear-gradient(60deg, #524dea, #908cff);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(144, 140, 255, 0.4);
+}
 .dashboard-count p {
     height: 40px;
     font-size: 26px;

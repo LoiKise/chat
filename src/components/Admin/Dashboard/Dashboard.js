@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DashboardBody from './DashboardBody'
 import DashboardMenu from './DashboardMenu'
-import { faEnvelope, faFileInvoice, faHome, faInbox, faNewspaper, faShoppingBag, faTshirt, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faFileInvoice, faHome, faInbox, faNewspaper, faShoppingBag, faEnvelope, faUser, faBiking, faTruck } from '@fortawesome/free-solid-svg-icons'
 // import socketIOClient from "socket.io-client"
 // import Axios from 'axios'
 import { withRouter } from 'react-router-dom'
@@ -14,40 +14,45 @@ function Dashboard(props) {
             name: "Tổng Quan",
             icon: faHome
         },
+        // {
+        //     id: "2",
+        //     name: "Tin Nhắn",
+        //     icon: faInbox
+        // },
         {
             id: "2",
-            name: "Tin Nhắn",
-            icon: faInbox
-        },
-        {
-            id: "3",
             name: "Đơn hàng",
             icon: faFileInvoice
         },
         {
-            id: "4",
+            id: "3",
             name: "Giao Hàng",
-            icon: faEnvelope
+            icon: faTruck
+        },
+        {
+            id: "4",
+            name: "Tài Xế",
+            icon: faBiking
         },
         {
             id: "5",
-            name: "Tài Xế",
-            icon: faTshirt
-        },
-        {
-            id: "6",
             name: "Tin Tuyển Dụng",
             icon: faNewspaper
         },
         {
-            id: "7",
+            id: "6",
             name: "Tài Khoản",
             icon: faUser
         },
         {
-            id: "8",
-            name: "Báo cáo & Thống Kê",
+            id: "7",
+            name: "Đặt Hàng",
             icon: faShoppingBag
+        },
+        {
+            id: "8",
+            name: "Hỗ trợ",
+            icon: faEnvelope
         },
 
     ]

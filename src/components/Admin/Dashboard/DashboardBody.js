@@ -98,13 +98,13 @@ export default function DashboardBody(props) {
                     onClick={props.setOpenMenuOnClick}
                 ></div>
             }
-            {(props.openCreate && tabId === "3") &&
+            {(props.openCreate && tabId === "2") &&
                 <DashboardOrderCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "3") &&
+            {(props.openEdit && tabId === "2") &&
                 <DashboardOrderEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
@@ -112,56 +112,70 @@ export default function DashboardBody(props) {
                 />
             }
 
-            {(props.openCreate && tabId === "4") &&
+            {(props.openCreate && tabId === "3") &&
                 <DashboardDeliveryCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "4") &&
+            {(props.openEdit && tabId === "3") &&
                 <DashboardDeliveryEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     email={email}
                 />
             }
-            {(props.openCreate && tabId === "5") &&
+            {(props.openCreate && tabId === "4") &&
                 <DashboardDriverCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "5") &&
+            {(props.openEdit && tabId === "4") &&
                 <DashboardDriverEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     Driver={Driver}
                 />
             }
-            {(props.openCreate && tabId === "6") &&
+            {(props.openCreate && tabId === "5") &&
                 <DashboardNewsCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "6") &&
+            {(props.openEdit && tabId === "5") &&
                 <DashboardNewsEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     news={news}
                 />
             }
-            {(props.openCreate && tabId === "7") &&
+            {(props.openCreate && tabId === "6") &&
                 <DashboardUserCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "7") &&
+            {(props.openEdit && tabId === "6") &&
                 <DashboardUserEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     user={user}
+                />
+            }
+
+            {(props.openCreate && tabId === "7") &&
+                <DashboardReportCreate
+                    setCloseCreateFunc={props.setCloseCreateFunc}
+                    setToastFunc={setToastFunc}
+                />
+            }
+            {(props.openEdit && tabId === "7") &&
+                <DashboardReportEdit
+                    setCloseEditFunc={props.setCloseEditFunc}
+                    setToastFunc={setToastFunc}
+                    Report={Report}
                 />
             }
 
@@ -178,7 +192,6 @@ export default function DashboardBody(props) {
                     Report={Report}
                 />
             }
-
             <DashboardHeader
                 itemName={props.menuItems[tabId - 1].name}
                 setOpenMenuOnClick={props.setOpenMenuOnClick}
@@ -188,11 +201,11 @@ export default function DashboardBody(props) {
             {
                 tabId === "1" && <DashboardMain />
             }
-            {
+            {/* {
                 tabId === "2" && <DashboardInbox />
-            }
+            } */}
             {
-                tabId === "3" &&
+                tabId === "2" &&
                 <DashboardOrder
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -201,7 +214,7 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "4" &&
+                tabId === "3" &&
                 <DashboardDelivery
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -210,7 +223,7 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "5" &&
+                tabId === "4" &&
                 <DashboardDriver
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -219,7 +232,7 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "6" &&
+                tabId === "5" &&
                 <DashboardNews
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -228,8 +241,17 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "7" &&
+                tabId === "6" &&
                 <DashboardUser
+                    setOpenCreateFunc={props.setOpenCreateFunc}
+                    setOpenEditFunc={props.setOpenEditFunc}
+                    toast={toast}
+                    isChange={isChange}
+                />
+            }
+            {
+                tabId === "7" &&
+                <DashboardReport
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
                     toast={toast}

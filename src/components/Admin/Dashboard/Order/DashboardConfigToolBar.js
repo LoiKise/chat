@@ -6,7 +6,7 @@ export default function CustomToolbar() {
             <GridToolbarColumnsButton title={"Ẩn/Hiện Cột"} />
             <GridToolbarFilterButton title={"Lọc"} />
             <GridToolbarDensitySelector title={"Hiển thị"} />
-            <GridToolbarExport title={"Xuất excel"} csvOptions={{ utf8WithBom: true, fileName: "Danh sách đơn hàng" }} />
+            <GridToolbarExport title={"Xuất excel"} csvOptions={{ utf8WithBom: true, fileName: "Danh sách dữ liệu" }} />
         </GridToolbarContainer>
     );
 }
