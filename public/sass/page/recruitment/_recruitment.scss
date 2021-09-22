@@ -36,6 +36,8 @@
     background-color: transparent;
     font-size: 2rem;
     border-radius: 2px;
+    font-weight: 600;
+
     &.active {
       color: #fff;
       background: #ee4d2d;
@@ -63,13 +65,30 @@
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 1024px) {
   .recruitment {
-    padding-top: 25%;
+    padding-top: 10%;
   }
-  .recruitment-pagination{
+}
+
+@media screen and (max-width: 768px) {
+  .recruitment {
+    padding-top: 15%;
+  }
+  .recruitment-pagination {
     text-align: center;
     display: block;
   }
 }
-
+@media screen and(max-width:640px) {
+  .recruitment {
+    padding-top: 25%;
+  }
+  .recruitment-pagination {
+    display: flex;
+    button {
+      font-size: 1.6rem;
+      margin: 0;
+    }
+  }
+}
