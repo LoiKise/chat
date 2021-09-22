@@ -18,7 +18,7 @@ export default function index() {
         <Order />
         <Members />
         <News />
-        {/* <Contact /> */}
+        <Contact />
         <Ourpartner />
       </div>
     </>

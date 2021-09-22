@@ -14,19 +14,19 @@ export default function Search(props) {
 
     {
       name: 'Nguyễn Tấn Lợi',
-      code: 'ABC',
+      SDT: '0903693306',
       date: '10/1/2021',
       product: 'sữa',
     },
     {
       name: 'Nguyễn Tấn A',
-      code: 'ABC',
+      SDT: '0903693306',
       date: '10/1/2021',
       product: 'thuốc',
     },
     {
       name: 'Nguyễn Tấn B',
-      code: 'ABC',
+      SDT: '0903693306',
       date: '10/1/2021',
       product: 'bia',
     },
@@ -39,7 +39,7 @@ export default function Search(props) {
   //search lấy giá trị 
   const [type, setType] = useState({
     name: '',
-    code: '',
+    SDT: '',
     date: ''
   })
   console.log('userComment', type);
@@ -60,7 +60,7 @@ export default function Search(props) {
     setTimeout(() => {
 
       if (type.name && type.name.length > 0) {
-        let temp = fakeData.find(item => item.name === type.name && item.code === type.code);
+        let temp = fakeData.find(item => item.name === type.name && item.SDT === type.SDT);
         console.log(temp);
         setstate(temp);
         setLoading(false);
@@ -80,16 +80,6 @@ export default function Search(props) {
               <div className="content__tab1">
                 <form onSubmit={handleSubmit}>
                   <div className="form-group" >
-                    <p>MÃ ĐƠN HÀNG</p>
-                    <input type="text"
-                      name="code"
-                      className="tabs__search form-control"
-                      placeholder="Nhập mã đơn"
-                      onChange={handleChangeInput}
-                      value={type.code}
-                    />
-                  </div>
-                  <div className="form-group" >
                     <p>Tên khách hàng</p>
                     <input type="text"
                       name="name"
@@ -97,6 +87,16 @@ export default function Search(props) {
                       placeholder="Nhập mã đơn"
                       onChange={handleChangeInput}
                       value={type.name}
+                    />
+                  </div>
+                  <div className="form-group" >
+                    <p>Số điện thoại</p>
+                    <input type="text"
+                      name="SDT"
+                      className="tabs__search form-control"
+                      placeholder="Nhập mã đơn"
+                      onChange={handleChangeInput}
+                      value={type.SDT}
                     />
                   </div>
                   <div className="form-group" >
@@ -127,8 +127,8 @@ export default function Search(props) {
                     <Card.Img variant="top" src="./assets/img/icon/dark_logo.png"
                       alt="this is logo" />
                     <Card.Body>
-                      <Card.Title>Mã Code: {state?.code}</Card.Title>
                       <Card.Title>Tên: {state?.name}</Card.Title>
+                      <Card.Title>Số điện thoại: {state?.SDT}</Card.Title>
                       <Card.Text>
                         <Card.Title>sản phẩm: {state?.product} </Card.Title>
                       </Card.Text>
@@ -311,9 +311,9 @@ export default function Search(props) {
                   <SearchSharpIcon /> Tra cứu
                 </button>
               </div>
-              <button className="btn_tab_search">
+              {/* <button className="btn_tab_search">
                 <SearchSharpIcon /> Tra cứu vận chuyển
-              </button>
+              </button> */}
             </Tab>
           </Tabs>
         </div>
