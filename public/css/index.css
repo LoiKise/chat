@@ -755,22 +755,20 @@ p {
     display: block; } }
 
 @media (min-width: 768px) {
-  .footer {
-    margin-top: 1180px; }
-    .footer .container {
-      width: 100% !important;
-      height: auto; }
-      .footer .container .footer-list {
-        flex-direction: column !important; }
-        .footer .container .footer-list .footer-item {
-          width: 100%;
-          margin: 0px auto;
-          display: flex;
-          align-items: center; }
-          .footer .container .footer-list .footer-item span {
-            margin: 0px auto; }
-          .footer .container .footer-list .footer-item > img {
-            margin: 0px auto; } }
+  .footer .container {
+    width: 100% !important;
+    height: auto; }
+    .footer .container .footer-list {
+      flex-direction: column !important; }
+      .footer .container .footer-list .footer-item {
+        width: 100%;
+        margin: 0px auto;
+        display: flex;
+        align-items: center; }
+        .footer .container .footer-list .footer-item span {
+          margin: 0px auto; }
+        .footer .container .footer-list .footer-item > img {
+          margin: 0px auto; } }
 
 @media (min-width: 1367px) {
   .footer {
@@ -4383,7 +4381,8 @@ input::-webkit-input-placeholder {
     border: none;
     background-color: transparent;
     font-size: 2rem;
-    border-radius: 2px; }
+    border-radius: 2px;
+    font-weight: 600; }
     .recruitment-pagination button.active {
       color: #fff;
       background: #ee4d2d;
@@ -4405,12 +4404,25 @@ input::-webkit-input-placeholder {
     height: 1.4rem;
     fill: currentColor; }
 
+@media screen and (max-width: 1024px) {
+  .recruitment {
+    padding-top: 10%; } }
+
 @media screen and (max-width: 768px) {
   .recruitment {
-    padding-top: 25%; }
+    padding-top: 15%; }
   .recruitment-pagination {
     text-align: center;
     display: block; } }
+
+@media screen and (max-width: 640px) {
+  .recruitment {
+    padding-top: 25%; }
+  .recruitment-pagination {
+    display: flex; }
+    .recruitment-pagination button {
+      font-size: 1.6rem;
+      margin: 0; } }
 
 /* Công việc */
 .job-title {
@@ -4460,7 +4472,8 @@ input::-webkit-input-placeholder {
   text-align: center;
   text-transform: uppercase;
   font-size: 1.4rem;
-  font-weight: 500; }
+  font-weight: 500;
+  width: max-content; }
   .job-item-btn:hover {
     text-decoration: none; }
 
@@ -4471,10 +4484,11 @@ input::-webkit-input-placeholder {
 .job-search {
   display: flex;
   max-width: 400px;
-  margin-top: 1rem;
+  margin-top: 2rem;
   padding: 4px;
   border: 1px solid #ccc; }
   .job-search input {
+    padding: 4px 16px;
     font-size: 1.4rem;
     color: #000;
     width: 100%;
@@ -4497,12 +4511,24 @@ input::-webkit-input-placeholder {
       fill: #fff;
       transition: all 1s ease; }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .job-item {
-    width: 100%; }
+    width: 100%; } }
+
+@media screen and (max-width: 768px) {
   .job-item-list {
     display: grid;
-    grid-template-columns: 1.5fr 1.5fr; } }
+    grid-template-columns: 1.5fr 1.5fr; }
+  .job-item-btn {
+    padding: 1rem;
+    margin-left: auto; } }
+
+@media screen and (max-width: 640px) {
+  .job-item-list {
+    gap: 1rem 0;
+    grid-template-columns: 1fr; }
+  .job-item-btn {
+    margin: 0; } }
 
 .detail_job {
   padding: 70px;

@@ -5,39 +5,33 @@ import { getRecruitments } from "../../features/recruitment/recruitmentSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import useQuery from "../../helpers/useQuery";
 import { useHistory } from "react-router";
+import { stringify } from "query-string";
 
 export default function Index() {
-  const [jobs, setJob] = useState({
-    jobs: [],
-    pagination: {},
-  });
+  const [jobs, setJob] = useState([]);
   const [filters, setFilters] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [quantity, setQuantity] = useState(0);
   const query = useQuery();
   const history = useHistory();
   const dispatch = useDispatch();
-
   useEffect(() => {
     const _filter = {
       ...query,
-      page: query.page || 1,
-      limit: query.limit || 3,
+      page: Number(query.page) || 1,
+      page_size: Number(query.page_size) || 3,
     };
 
     setFilters(_filter);
     const params = {
-      page: _filter.page,
-      limit: _filter.limit,
-      name: _filter.name,
+      page: Number(_filter.page),
+      page_size: Number(_filter.page_size),
     };
-
     const _getRecruitments = async () => {
-      const data = await dispatch(getRecruitments({ params }));
+      const data = await dispatch(getRecruitments(stringify(params)));
       const res = await unwrapResult(data);
       setJob(res.data.data);
-      let quantity = res.data.data;
-      setQuantity(quantity.pagination.page_size * quantity.products.length);
+      setQuantity(res.data.total);
     };
     _getRecruitments();
 
@@ -69,9 +63,7 @@ export default function Index() {
           </div>
         </div>
       </div>
-      {/* {jobs.map((job, index) => (
-        <div key={index}>{job}</div>
-      ))} */}
+
       <div className="container">
         <form className="job-search" onSubmit={search}>
           <input
@@ -104,7 +96,7 @@ export default function Index() {
         </form>
         <div className="job">
           <h2 className="job-title">{quantity} công việc đang được tuyển</h2>
-          <JobList jobs={jobs} filters={filters} />
+          <JobList jobs={jobs} quantity={quantity} filters={filters} />
         </div>
       </div>
     </>

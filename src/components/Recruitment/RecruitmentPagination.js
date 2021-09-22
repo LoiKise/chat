@@ -6,26 +6,30 @@ import qs from "query-string";
 
 export default function RecruitmentPagination({ pagination, filters }) {
   const history = useHistory();
+  const totalPage = Math.round(pagination / 3);
+
   const { items } = usePagination({
-    count: pagination.page_size || 0,
-    page: pagination.page || 1,
+    count: totalPage || 0,
+    page: filters.page || 1,
   });
 
   const goToPrev = () => {
-    if (pagination.page !== 1) {
-      const _filters = { ...filters, page: pagination.page - 1 };
-      history.push(`/recruitment?${qs.stringify(_filters)}`);
+    if (filters.page !== 1) {
+      const _filters = { ...filters, page: filters.page - 1 };
+      console.log(_filters);
+      history.push(`/Recruitment?${qs.stringify(_filters)}`);
     }
   };
   const goToNext = () => {
-    if (pagination.page !== pagination.page_size) {
-      const _filters = { ...filters, page: pagination.page + 1 };
-      history.push(`/recruitment?${qs.stringify(_filters)}`);
+    if (filters.page !== totalPage) {
+      const _filters = { ...filters, page: filters.page + 1 };
+      console.log(_filters);
+      history.push(`/Recruitment?${qs.stringify(_filters)}`);
     }
   };
   const goToPage = (page) => {
     const _filters = { ...filters, page };
-    history.push(`/recruitment?${qs.stringify(_filters)}`);
+    history.push(`/Recruitment?${qs.stringify(_filters)}`);
   };
   return (
     <div className="recruitment-pagination">
@@ -43,7 +47,7 @@ export default function RecruitmentPagination({ pagination, filters }) {
             <button
               key={index}
               onClick={goToPrev}
-              disabled={pagination.page === 1}
+              disabled={filters.page === 1}
               className="recruitment-icon"
             >
               <svg
@@ -65,7 +69,7 @@ export default function RecruitmentPagination({ pagination, filters }) {
               key={index}
               onClick={goToNext}
               className="recruitment-icon"
-              disabled={pagination.page === pagination.page_size}
+              disabled={filters.page === totalPage}
             >
               <svg
                 enableBackground="new 0 0 11 11"
