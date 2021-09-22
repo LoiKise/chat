@@ -21,7 +21,7 @@ export default function DashboardUserTable(props) {
         getUsers();
     }, [update])
     const getUsers = async () => {
-        const data = await requestAPI('/users', 'GET')
+        const data = await requestAPI('/users/all', 'GET')
             .then(res => {
                 if (res) {
                     setUser(res.data?.data)
