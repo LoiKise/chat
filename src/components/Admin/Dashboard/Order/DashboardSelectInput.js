@@ -1,10 +1,9 @@
-import { isMuiElement } from '@material-ui/core'
 import React from 'react'
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export default function DashboardSelectInput({
-    title, data, setData, handleClose, sltOpen,
+    title, data, setData, handleClose, sltOpen, provinceId,
     handleOpenSlt, subTitle, listSelect, objectKey, objectNameKey }) {
     return (
         <div className="create-box-row flex">
@@ -19,13 +18,16 @@ export default function DashboardSelectInput({
                     onOpen={handleOpenSlt}
                     value={data[objectKey] || ""}
                     onChange={(event, params) => {
-                        console.log({ [objectKey]: params?.props?.value });
-                        // const state = objectNameKey && objectNameKey.length > 0 && { [objectNameKey]: params?.props?.name }
-                        setData({
-                            ...data,
-                            [objectKey]: params?.props?.value,
-                            [objectNameKey]: params?.props?.name
-                        })
+                        objectNameKey ?
+                            setData({
+                                ...data,
+                                [objectKey]: params?.props?.value,
+                                [objectNameKey]: params?.props?.name
+                            })
+                            : setData({
+                                ...data,
+                                [objectKey]: params?.props?.value,
+                            })
                     }}
                 >
                     <MenuItem value={null} selected>
@@ -33,6 +35,7 @@ export default function DashboardSelectInput({
                     </MenuItem>
                     {listSelect && listSelect.length > 0 && listSelect?.map((item, index) => {
                         let name = ""
+                        let value = ""
                         if (item.name) {
                             name = item.name
                         } else if (item.cityName) {
@@ -41,10 +44,19 @@ export default function DashboardSelectInput({
                         } else if (item.namePayment) {
                             name = item.namePayment
                         }
-                        return <MenuItem key={index} value={item.id ? item.id : item.name} name={name}>{name}</MenuItem>
+                        if (item.id) {
+                            if (objectKey === "customerDistrict" || objectKey === "receiverDistrict") {
+                                value = item.name
+                            } else {
+                                value = item.id
+                            }
+                        } else {
+                            value = item.name
+                        }
+                        return <MenuItem key={index} value={value} name={name}>{name}</MenuItem>
                     })}
                 </Select>
             </div>
-        </div>
+        </div >
     )
 }

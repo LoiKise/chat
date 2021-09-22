@@ -7,14 +7,23 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch } from 'react-redux';
-import { CallBackGetOrder } from '../../../../features/order/orderSlice';
+import { CallBackGetOrder } from '../../../../features/dashboard/order/orderSlice';
 import requestAPI from '../../../../apis';
+import DashboardTextInput from './DashboardTextInput';
+import DashboardSelectInput from './DashboardSelectInput';
 export default function DashboardOrderCreate(props) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const createForm = useRef();
     const dispatch = useDispatch();
     const [province, setProvince] = useState([])
-
+    const [customerTypeList] = useState([
+        {
+            name: "Khách Mối"
+        },
+        {
+            name: "Khách Vãng Lai"
+        }
+    ])
     const [customer, setCustomer] = useState({
         customerName: '',
         customerPhone: '',
@@ -51,8 +60,19 @@ export default function DashboardOrderCreate(props) {
     ])
     const [data, setData] = useState({
         customerType: '',
+        customerName: '',
+        customerAddress: '',
+        customerProvince: '',
+        customerDistrict: '',
+        customerPhone: '',
+        receiverAddress: "",
+        receiverName: "",
+        receiverPhone: "",
+        receiverProvince: '',
+        receiverDistrict: '',
         orderName: '',
         orderType: null,
+        categories: { id: null, name: '' },
         unit_id: null,
         quantity: null,
         totalPrice: null,
@@ -60,6 +80,19 @@ export default function DashboardOrderCreate(props) {
         payment_id: "",
         driver_id: null,
         isFreeShip: false,
+        notes: '',
+        paymentMethod: {
+            codePayment: "",
+            id: 1,
+            namePayment: ""
+        },
+        quantity: 1,
+        totalPrice: 0,
+        unit: {
+            id: 2,
+            name: 'Thùng'
+        },
+        products: []
     })
 
     //Custom Selection
@@ -169,7 +202,8 @@ export default function DashboardOrderCreate(props) {
     }
     const onSubmit = (event) => {
         event.preventDefault()
-        let dataFormat = { ...data, ...customer, ...receiver, products }
+        // let dataFormat = { ...data, ...customer, ...receiver, products }
+        let dataFormat = { ...data, products }
         let validatePhone = /^(((0))[0-9]{9})$/g;
         let validatePhone1 = /^(((0))[0-9]{9})$/g;
 
@@ -241,378 +275,195 @@ export default function DashboardOrderCreate(props) {
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
                     {/* Sender Infomation */}
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Phân loại khách hàng<span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right">
-                            <Select
-                                className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltTypeCustomer}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltTypeCustomer}
-                                value={data.customerType || ""}
-                                defaultValue={"Khách Vãng Lai"}
-                                onChange={(event) => {
-                                    setData({
-                                        ...data,
-                                        customerType: event.target.value,
-                                    })
-                                }}
-                            >
-                                <MenuItem value="Khách Vãng Lai" selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn loại khách hàng :</em>
-                                </MenuItem>
-                                <MenuItem value="Khách Mối" >
-                                    <em >Khách mối</em>
-                                </MenuItem>
-                                <MenuItem value="Khách Vãng Lai" >
-                                    <em >Khách vãng lai</em>
-                                </MenuItem>
-                            </Select>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Khách hàng gửi <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Họ và tên người gửi hàng"
-                                variant="outlined"
-                                color="primary"
-                                value={customer?.customerName || ""}
-                                onChange={(event) => {
-                                    setCustomer({ ...customer, customerName: event.target.value })
-                                }}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Số điện thoại ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Số điện thoại người gửi hàng"
-                                variant="outlined"
-                                color="primary"
-                                value={customer?.customerPhone || ""}
-                                onChange={(event) => {
-                                    setCustomer({ ...customer, customerPhone: event.target.value })
-                                }} required
-                            />
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Địa chỉ cụ thể ( Người gửi hàng ) <span style={{ color: "red" }}>*</span> </div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Địa chỉ cụ thể người gửi hàng"
-                                variant="outlined"
-                                color="primary"
-                                value={customer?.customerAddress || ""}
-                                onChange={(event) => {
-                                    setCustomer({ ...customer, customerAddress: event.target.value })
-                                }} required
-                            />
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Tỉnh/Thành Phố ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right">
-                            <Select
-                                className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltProvinceCustomer}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltProvinceCustomer}
-                                value={customer.customerProvince || ""}
-                                onChange={(event, params) => {
-                                    setCustomer({
-                                        ...customer,
-                                        customerProvince: params?.props?.value,
-                                        customerProvinceName: params?.props?.name
-                                    })
-                                }}
-                            >
-                                <MenuItem value={null} selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
-                                </MenuItem>
-                                {province && province.length > 0 && province?.map((item, index) => {
-                                    return <MenuItem key={index} value={item.id} name={item.cityName}>{item.cityName}</MenuItem>
-                                })}
-                            </Select>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Quận/Huyện ( Người gửi hàng ) <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right">
-                            <Select
-                                className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltDistrictCustomer}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltDistrictCustomer}
-                                value={customer.customerDistrict || ""}
-                                onChange={(event) => {
-                                    setCustomer({ ...customer, customerDistrict: event.target.value })
-                                }}
+                    <DashboardSelectInput
+                        title={"Phân loại khách hàng"}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltTypeCustomer}
+                        handleOpenSlt={handleOpenSltTypeCustomer}
+                        subTitle={"Chọn khách :"}
+                        listSelect={customerTypeList}
+                        objectKey={"customerType"}
+                        objectNameKey={null}
+                    />
 
-                            >
-                                <MenuItem value={null} selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
-                                </MenuItem>
-                                {province && province.length > 0 && province?.find(el => el.id === customer.customerProvince)?.districts?.map((item, index) => {
-                                    return <MenuItem key={index} value={item.name}>{item.name}</MenuItem>
-                                })}
-                            </Select>
-                        </div>
-                    </div>
-
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Khách hàng gửi"}
+                        placeholder={"Họ và tên người gửi hàng"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"customerName"}
+                    />
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Số điện thoại ( Người gửi hàng )"}
+                        placeholder={"Số điện thoại người gửi hàng"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"customerPhone"}
+                    />
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Địa chỉ cụ thể ( Người gửi hàng )"}
+                        placeholder={"Địa chỉ cụ thể người gửi hàng"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"customerAddress"}
+                    />
+                    <DashboardSelectInput
+                        title={"Tỉnh/Thành Phố ( Người gửi hàng ) "}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltProvinceCustomer}
+                        handleOpenSlt={handleOpenSltProvinceCustomer}
+                        subTitle={"Chọn tỉnh/thành phố :"}
+                        listSelect={province}
+                        objectKey={"customerProvince"}
+                        objectNameKey={"customerProvinceName"}
+                    />
+                    <DashboardSelectInput
+                        title={"Quận/Huyện ( Người gửi hàng ) "}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltDistrictCustomer}
+                        handleOpenSlt={handleOpenSltDistrictCustomer}
+                        subTitle={"Chọn quận/huyện :"}
+                        listSelect={data.customerProvince && province?.find(el => el.id === data.customerProvince)?.districts}
+                        objectKey={"customerDistrict"}
+                        objectNameKey={null}
+                    />
                     {/* Receiver Infomation */}
 
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Khách hàng nhận <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Họ và tên người nhận hàng"
-                                variant="outlined"
-                                color="primary"
-                                value={receiver?.receiverName || ""}
-                                onChange={(event) => {
-                                    setReceiver({ ...receiver, receiverName: event.target.value })
-                                }}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Số điện thoại ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Số điện thoại người nhận hàng"
-                                variant="outlined"
-                                color="primary"
-                                value={receiver?.receiverPhone || ""}
-                                onChange={(event) => {
-                                    setReceiver({ ...receiver, receiverPhone: event.target.value })
-                                }} required
-                            />
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Địa chỉ cụ thể ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Địa chỉ cụ thể người nhận hàng"
-                                variant="outlined"
-                                color="primary"
-                                value={receiver?.receiverAddress || ""}
-                                onChange={(event) => {
-                                    setReceiver({ ...receiver, receiverAddress: event.target.value })
-                                }} required
-                            />
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Tỉnh/Thành Phố ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right">
-                            <Select
-                                className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltProvinceReceiver}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltProvinceReceiver}
-                                value={receiver.receiverProvince || ""}
-                                onChange={(event, params) => {
-                                    setReceiver({
-                                        ...receiver,
-                                        receiverProvince: params.props.value,
-                                        receiverProvinceName: params.props.name
-                                    })
-                                }}
-                            >
-                                <MenuItem value={null} selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn tỉnh/thành phố :</em>
-                                </MenuItem>
-                                {province && province.length > 0 && province?.map((item, index) => {
-                                    return <MenuItem key={index} value={item.id} name={item.cityName}> {item.cityName} </MenuItem>
-                                })}
-                            </Select>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Quận/Huyện ( Người nhận hàng ) <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right">
-                            <Select
-                                className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltDistrictReceiver}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltDistrictReceiver}
-                                value={receiver.receiverDistrict || ""}
-                                onChange={(event) => {
-                                    setReceiver({ ...receiver, receiverDistrict: event.target.value })
-                                }}
-                            >
-                                <MenuItem value={null} selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn quận/huyện :</em>
-                                </MenuItem>
-                                {province && province.length > 0 && province?.find(el => el.id === receiver.receiverProvince)?.districts?.map((item, index) => {
-                                    return <MenuItem key={index} value={item.name}>{item.name}</MenuItem>
-                                })}
-                            </Select>
-                        </div>
-                    </div>
-
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Tên hàng hóa <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Tên hàng hóa"
-                                variant="outlined"
-                                color="primary"
-                                value={data?.orderName || ""}
-                                onChange={(event) => {
-                                    setData({ ...data, orderName: event.target.value })
-                                }}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Loại hàng hóa <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right">
-                            <Select
-
-                                className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltOrderType}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltOrderType}
-                                value={data.orderType || ""}
-                                onChange={(event) => {
-                                    setData({ ...data, orderType: event.target.value })
-                                }}
-                            >
-                                <MenuItem value={null} selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn loại hàng khi đóng gói :</em>
-                                </MenuItem>
-                                {orderType && orderType.length > 0 && orderType?.map((item, index) => {
-                                    return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
-                                })}
-                            </Select>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Số lượng <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Số lượng"
-                                variant="outlined"
-                                color="primary"
-                                type="number"
-                                value={data?.quantity || ""}
-                                onChange={(event) => {
-                                    setData({ ...data, quantity: event.target.value })
-                                }}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Đơn vị tính <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right">
-                            <Select
-                                defaultValue={1}
-                                className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltUnit}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltUnit}
-                                value={data.unit_id || ""}
-                                onChange={(event) => {
-                                    setData({ ...data, unit_id: event.target.value })
-                                }}
-                            >
-                                <MenuItem value={null} selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn đơn vị tính :</em>
-                                </MenuItem>
-                                {unitList && unitList.length > 0 && unitList?.map((item, index) => {
-                                    return <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
-                                })}
-                            </Select>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Thành tiền <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-totalPrice"
-                                label="Tổng số tiền cần thu"
-                                variant="outlined"
-                                color="primary"
-                                value={data?.totalPrice || ""}
-                                onChange={(event) => {
-                                    setData({ ...data, totalPrice: event.target.value })
-                                }}
-                                required
-                            />
-                        </div>
-                    </div>
-
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Phương thức thanh toán <span style={{ color: "red" }}>*</span></div>
-                        <div className="dashboard-right--input">
-                            <Select
-                                defaultValue={1}
-                                className="MUI-customBorder"
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={sltPayment}
-                                onClose={handleClose}
-                                onOpen={handleOpenSltPayment}
-                                value={data.payment_id || ""}
-                                onChange={(event) => {
-                                    setData({ ...data, payment_id: event.target.value })
-                                }}
-                            >
-                                <MenuItem value={null} selected>
-                                    <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>Chọn phương thức thanh toán :</em>
-                                </MenuItem>
-                                {paymentList && paymentList.length > 0 && paymentList?.map((item, index) => {
-                                    return <MenuItem key={index} value={item.id}>{item.namePayment}</MenuItem>
-                                })}
-                            </Select>
-                        </div>
-                    </div>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Ghi chú</div>
-                        <div className="dashboard-right--input">
-                            <TextField
-                                id="outlined-note"
-                                label="Ghi chú đơn hàng"
-                                variant="outlined"
-                                color="primary"
-                                value={data?.notes || ""}
-                                onChange={(event) => {
-                                    setData({ ...data, notes: event.target.value })
-                                }}
-                            />
-                        </div>
-                    </div>
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Khách hàng nhận"}
+                        placeholder={"Họ và tên người nhận hàng"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"receiverName"}
+                    />
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Số điện thoại ( Người nhận hàng )"}
+                        placeholder={"Số điện thoại người nhận hàng"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"receiverPhone"}
+                    />
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Địa chỉ cụ thể ( Người nhận hàng )"}
+                        placeholder={"Địa chỉ cụ thể người nhận hàng"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"receiverAddress"}
+                    />
+                    <DashboardSelectInput
+                        title={"Tỉnh/Thành Phố ( Người nhận hàng ) "}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltProvinceReceiver}
+                        handleOpenSlt={handleOpenSltProvinceReceiver}
+                        subTitle={"Chọn tỉnh/thành phố :"}
+                        listSelect={province}
+                        objectKey={"receiverProvince"}
+                        objectNameKey={"receiverProvinceName"}
+                    />
+                    <DashboardSelectInput
+                        title={"Quận/Huyện ( Người nhận hàng ) "}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltDistrictReceiver}
+                        handleOpenSlt={handleOpenSltDistrictReceiver}
+                        subTitle={"Chọn quận/huyện :"}
+                        listSelect={data.receiverProvince && province?.find(el => el.id === data.receiverProvince)?.districts}
+                        objectKey={"receiverDistrict"}
+                        objectNameKey={null}
+                    />
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Tên hàng hóa"}
+                        placeholder={"Thực phẩm, bánh kẹo, nước ngọt,..."}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"orderName"}
+                    />
+                    <DashboardSelectInput
+                        title={"Loại hàng hóa "}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltOrderType}
+                        handleOpenSlt={handleOpenSltOrderType}
+                        subTitle={"Chọn loại hàng khi đóng gói :"}
+                        listSelect={orderType}
+                        objectKey={"orderType"}
+                        objectNameKey={null}
+                    />
+                    <DashboardTextInput
+                        textType={"number"}
+                        title={"Số lượng"}
+                        placeholder={"Tổng số lượng sau khi đóng gói"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"quantity"}
+                    />
+                    <DashboardSelectInput
+                        title={"Đơn vị tính "}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltUnit}
+                        handleOpenSlt={handleOpenSltUnit}
+                        subTitle={"Chọn đơn vị tính :"}
+                        listSelect={unitList}
+                        objectKey={"unit_id"}
+                        objectNameKey={null}
+                    />
+                    <DashboardTextInput
+                        textType={"number"}
+                        title={"Thành tiền"}
+                        placeholder={"Tổng số tiền phụ thu"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"totalPrice"}
+                    />
+                    <DashboardSelectInput
+                        title={"Phương thức thanh toán"}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltPayment}
+                        handleOpenSlt={handleOpenSltPayment}
+                        subTitle={"Chọn phương thức thanh toán :"}
+                        listSelect={paymentList}
+                        objectKey={"payment_id"}
+                        objectNameKey={null}
+                    />
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Ghi chú"}
+                        placeholder={"Ghi chú đơn hàng"}
+                        isRequire={false}
+                        data={data}
+                        setData={setData}
+                        objectKey={"notes"}
+                    />
                     <MaterialTable
                         title="Danh sách hàng hóa"
                         data={products}

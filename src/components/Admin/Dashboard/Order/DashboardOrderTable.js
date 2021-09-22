@@ -7,7 +7,7 @@ import CustomToolbar from './DashboardConfigToolBar';
 import { useSelector, useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
-import { CallBackGetOrder } from '../../../../features/order/orderSlice';
+import { CallBackGetOrder } from '../../../../features/dashboard/order/orderSlice';
 import DashboardOrderControl from './DashboardOrderControl';
 
 export default function DashboardOrderTable(props) {

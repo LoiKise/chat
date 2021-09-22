@@ -251,7 +251,7 @@ export default function DashboardOrder(props) {
         <div className="dashboard-product">
             <DashboardProductTable
                 icon={faUser}
-                title="Orders"
+                title="Đơn hàng"
                 color="orange"
                 table={table}
                 setOpenCreateFunc={props.setOpenCreateFunc}
