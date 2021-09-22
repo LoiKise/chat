@@ -22,7 +22,7 @@ export default function RecruitmentJob({ jobs, images }) {
           <img src={images[2].IMGLocation} alt="" />
           <span>Địa điểm : TPHCM</span>
         </div>
-        <Link to="" className="job-item-btn">
+        <Link to="/DetailJob" className="job-item-btn">
           Xem chi tiết
         </Link>
         <div className="job-item-list-item">
