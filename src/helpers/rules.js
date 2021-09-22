@@ -2,11 +2,16 @@ export const rules = {
   name: {
     required: {
       value: true,
-      message: "Tên là bắt buộc nhập",
+      message: "Họ và Tên là bắt buộc nhập",
     },
     maxLength: {
       value: 160,
       message: "Tên có độ dài tối đa là 160 ký tự",
+    },
+    validate: {
+      kytu: (value) =>
+        !/[!@#$%^&*(),.?":{}|<>]/.test(value) ||
+        "Vui lòng không nhập ký tự đặc biệt",
     },
   },
   title: {
@@ -59,8 +64,8 @@ export const rules = {
       message: "Số điện thoại có độ dài trên 9 ký tự trở lên",
     },
     maxLength: {
-      value: 20,
-      message: "Số điện thoại có độ dài tối đa là 20 ký tự",
+      value: 11,
+      message: "Số điện thoại có độ dài tối đa là 11 ký tự",
     },
     validate: {
       number: (value) =>
@@ -79,6 +84,11 @@ export const rules = {
     maxLength: {
       value: 160,
       message: "Mật khẩu có độ dài tối đa là 160 ký tự",
+    },
+    validate: {
+      kytu: (value) =>
+        !/[!@#$%^&*(),.?":{}|<>]/.test(value) ||
+        "Vui lòng không nhập ký tự đặc biệt",
     },
   },
 };

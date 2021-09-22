@@ -34,9 +34,9 @@ export default function Index() {
   const handleLogin = async (data) => {
     const body = {
       phone: data.sdt,
-      password: data.password,
+      password: data.password.trim(),
     };
-
+    console.log(body);
     try {
       const res = await dispatch(login(body));
       unwrapResult(res);
@@ -237,7 +237,7 @@ export default function Index() {
             </form>
           </div>
           <p className="not--account">Bạn chưa có tài khoản ?</p>
-          <Link to="/register " className="signup__link">
+          <Link to="/register" className="signup__link">
             Đăng kí miễn phí ngay
           </Link>
         </div>
