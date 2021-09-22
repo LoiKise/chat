@@ -42,9 +42,9 @@ export default function DashboardUser(props) {
                     valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
                     renderCell: renderCellExpand
                 },
+                { headerName: "Họ và tên", field: 'fullname', renderCell: renderCellExpand, width: 200, },
                 { headerName: "Số điện thoại", field: 'phone', renderCell: renderCellExpand, width: 200, },
                 { headerName: "Mật khẩu", field: 'password', renderCell: renderCellExpand, width: 200, },
-                { headerName: "Họ và tên", field: 'fullname', hide: true, renderCell: renderCellExpand, width: 200, },
                 { headerName: "Email", field: 'email', renderCell: renderCellExpand, width: 200, },
                 { headerName: "Quyền", field: 'role', renderCell: renderCellExpand, width: 200, },
                 {
