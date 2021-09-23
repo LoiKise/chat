@@ -10,9 +10,6 @@ export const driverSlice = createSlice({
     name: 'driver',
     initialState,
     reducers: {
-        AddDriver: (state, action) => {
-            console.log('Add new');
-        },
         CallBackGetDriver: (state, action) => {
             state.callbackGet = !state.callbackGet
         },

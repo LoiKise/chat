@@ -46,12 +46,12 @@ function Dashboard(props) {
         },
         {
             id: "7",
-            name: "Đặt Hàng",
+            name: "Yêu Cầu Giao Hàng",
             icon: faShoppingBag
         },
         {
             id: "8",
-            name: "Hỗ trợ",
+            name: "Hộp Thư",
             icon: faEnvelope
         },
 

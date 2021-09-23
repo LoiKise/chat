@@ -4,6 +4,7 @@ import DashboardProductTable from './DashboardDriverTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
 import moment from 'moment';
+import { getDriverUpdate } from '../../../../features/dashboard/driver/driverSlice';
 export default function DashboardUser(props) {
 
     const [table, setTable] = useState([])
@@ -31,6 +32,7 @@ export default function DashboardUser(props) {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
+                                    getItem={getDriverUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
@@ -61,6 +63,7 @@ export default function DashboardUser(props) {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
+                                    getItem={getDriverUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
@@ -93,6 +96,7 @@ export default function DashboardUser(props) {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
+                                        getItem={getDriverUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />
@@ -123,6 +127,7 @@ export default function DashboardUser(props) {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
+                                        getItem={getDriverUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />

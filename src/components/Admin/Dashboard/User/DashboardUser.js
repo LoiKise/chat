@@ -4,6 +4,7 @@ import DashboardProductTable from './DashboardUserTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
 import moment from 'moment';
+import { getUserUpdate } from '../../../../features/dashboard/user/userSlice';
 export default function DashboardUser(props) {
 
     const [table, setTable] = useState([])
@@ -27,6 +28,7 @@ export default function DashboardUser(props) {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
+                                    getItem={getUserUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
@@ -53,6 +55,7 @@ export default function DashboardUser(props) {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
+                                    getItem={getUserUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
@@ -81,6 +84,7 @@ export default function DashboardUser(props) {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
+                                        getItem={getUserUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />
@@ -107,6 +111,7 @@ export default function DashboardUser(props) {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
+                                        getItem={getUserUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />

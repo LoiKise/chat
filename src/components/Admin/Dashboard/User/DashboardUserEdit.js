@@ -9,10 +9,10 @@ import DashboardSelectInput from './../Order/DashboardSelectInput';
 import { CallBackGetUser } from '../../../../features/dashboard/user/userSlice';
 import DashboardTextInput from './../Order/DashboardTextInput';
 export default function DashboardUserCreate(props) {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const createForm = useRef();
     const dispatch = useDispatch();
-    const update = useSelector(state => state.order.orderUpdate)
+    const update = useSelector(state => state.user.userUpdate)
     const [data, setData] = useState({
         email: "",
         password: "",

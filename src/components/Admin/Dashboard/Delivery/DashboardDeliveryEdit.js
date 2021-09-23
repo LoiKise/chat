@@ -1,42 +1,120 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-
-export default function DashboardDeliveryCreate(props) {
-
+import { useSnackbar } from 'notistack';
+import { useDispatch } from 'react-redux';
+import requestAPI from '../../../../apis';
+import { useSelector } from 'react-redux';
+import DashboardSelectInput from './../Order/DashboardSelectInput';
+import { CallBackGetDelivery } from '../../../../features/dashboard/delivery/deliverySlice';
+export default function DashboardUserCreate(props) {
+    const { enqueueSnackbar } = useSnackbar();
     const createForm = useRef();
-
-    const [DeliveryEmail, setDeliveryEmail] = useState("")
-
-    const email = props.email;
+    const dispatch = useDispatch();
+    const update = useSelector(state => state.delivery.deliveryUpdate)
+    const [sltDriver, setSltDriver] = useState(false);
+    const [sltTypeShip, setSltTypeShip] = useState(false);
+    const [sltStatus, setSltStatus] = useState(false);
+    const [drivers, setDrivers] = useState([]);
+    const [status, setStatus] = useState([]);
+    const [typeShip] = useState([
+        {
+            // id: "FAST",
+            name: 'giao hàng nhanh'
+        },
+        {
+            // id: "STANDARD",
+            name: 'giao hàng tiêu chuẩn'
+        },
+    ]);
+    const [data, setData] = useState({
+        statusId: 0,
+        saleOrderId: 0,
+        typeShip: "",
+        driverId: 0
+    })
+    //Handle Event and Request DataBase
 
     useEffect(() => {
-        if (email) {
-            setDeliveryEmail(email.DeliveryEmail)
+        getDrivers();
+        getStatus();
+        console.log(update);
+        if (update) {
+            setData(update)
         }
-    }, [email])
-
+    }, [])
+    const getDrivers = async () => {
+        const data = await requestAPI('/drivers/all', 'GET')
+            .then(res => {
+                if (res) {
+                    setDrivers(res.data?.data)
+                }
+            })
+            .catch(err => console.log(err))
+        return data
+    }
+    const getStatus = async () => {
+        const data = await requestAPI('/status', 'GET')
+            .then(res => {
+                if (res) {
+                    setStatus(res.data?.data)
+                }
+            })
+            .catch(err => console.log(err))
+        return data
+    }
+    const handleClose = () => {
+        setSltDriver(false);
+        setSltTypeShip(false);
+        setSltStatus(false);
+    };
+    const handleOpenSltDriver = () => {
+        setSltDriver(true);
+    };
+    const handleOpenSltTypeShip = () => {
+        setSltTypeShip(true);
+    };
+    const handleOpenSltStatus = () => {
+        setSltStatus(true);
+    };
+    const updateDelivery = async (dataFormat) => {
+        const data = await requestAPI('/delivery/driver', 'PUT', dataFormat)
+        return data
+    }
     const onSubmit = (event) => {
         event.preventDefault()
 
-        axios.post(`http://pe.heromc.net:4000/email/update/${email._id}`, {
-            DeliveryEmail: DeliveryEmail
-        }).then(() => {
-            props.setCloseEditFunc(false);
-            props.setToastFunc(true);
-        })
+        if (!data.statusId || !data.typeShip || !data.saleOrderId || !data.driverId) {
+            enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else {
+            console.log({ data });
+            updateDelivery(data).then(res => {
+                if (res.data) {
+                    dispatch(CallBackGetDelivery());
+                }
+            })
+            enqueueSnackbar('Cập nhật đơn giao hàng thành công', {
+                persist: false,
+                variant: 'success',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        }
     }
-
     return (
         <div className="DashboardProductInfo">
             <div className="create-box">
                 <div className="create-box-title flex">
-                    <div className="create-box-title-text">
-                        Email infomation
-                    </div>
+                    <h2 className="create-box-title-text ">
+                        Thông tin đơn giao hàng
+                    </h2>
                     <div
-                        className="create-box-title-close flex-center"
+                        className="btn btn-outline-danger"
                         onClick={() => {
                             props.setCloseEditFunc(false);
                         }}
@@ -45,25 +123,55 @@ export default function DashboardDeliveryCreate(props) {
                     </div>
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
-                    <div className="create-box-row flex">
-                        <div className="dashboard-left flex">Email</div>
-                        <div className="dashboard-right">
-                            <input
-                                type="text" name="email"
-                                value={DeliveryEmail || ""}
-                                onChange={(event) => {
-                                    setDeliveryEmail(event.target.value)
-                                }} required
-                            ></input>
-                        </div>
-                    </div>
+                    {/* Sender Infomation */}
+
+                    <DashboardSelectInput
+                        title={"Tình trạng đơn hàng"}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltStatus}
+                        handleOpenSlt={handleOpenSltStatus}
+                        subTitle={"Chọn tình trạng :"}
+                        listSelect={status}
+                        objectKey={"statusId"}
+                        objectNameKey={null}
+                    />
+                    <DashboardSelectInput
+                        title={"Tài xế"}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltDriver}
+                        handleOpenSlt={handleOpenSltDriver}
+                        subTitle={"Chọn tài xế :"}
+                        listSelect={drivers}
+                        objectKey={"driverId"}
+                        objectNameKey={null}
+                    />
+                    <DashboardSelectInput
+                        title={"Hình thức giao hàng"}
+                        data={data}
+                        setData={setData}
+                        handleClose={handleClose}
+                        sltOpen={sltTypeShip}
+                        handleOpenSlt={handleOpenSltTypeShip}
+                        subTitle={"Chọn hình thức :"}
+                        listSelect={typeShip}
+                        objectKey={"typeShip"}
+                        objectNameKey={null}
+                    />
                     <div className="flex-center" style={{ marginTop: '40px' }}>
-                        <button className="create-box-btn btn">
-                            Edit Delivery
+                        <button className="create-box-btn btn btn-outline-success">
+                            Cập nhật đơn giao hàng
                         </button>
                     </div>
+
+
                 </form>
+
             </div>
-        </div>
+        </div >
+
     )
 }
