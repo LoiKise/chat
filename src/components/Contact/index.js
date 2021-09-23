@@ -46,7 +46,7 @@ const PostContactAPI = async (dataContact) => {
             console.log({ data });
             PostContactAPI(data).then((res) => {
               if (res.data) {
-                console.log("Thêm liên hệ thành công");
+                console.log("Thêm liên hệ thành công !");
               }
             }).catch((err) => console.log(err));
         }
