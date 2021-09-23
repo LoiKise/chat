@@ -9,15 +9,18 @@ import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
 import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetDelivery } from '../../../../features/dashboard/delivery/deliverySlice';
+import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 
 export default function DashboardDeliveryTable(props) {
     const update = useSelector(state => state.delivery.callbackGet)
     const [delivery, setDelivery] = useState([])
     const [constDelivery, setConstDelivery] = useState([])
     const [selection, setSelection] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
+        setIsLoading(true)
         getDelivery();
     }, [update])
     const getDelivery = async () => {
@@ -26,6 +29,7 @@ export default function DashboardDeliveryTable(props) {
                 if (res) {
                     setDelivery(res.data?.data)
                     setConstDelivery(res.data?.data)
+                    setIsLoading(false);
                 }
             })
             .catch(err => console.log(err))
@@ -99,7 +103,9 @@ export default function DashboardDeliveryTable(props) {
                                 Toolbar: CustomToolbar,
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
+                                LoadingOverlay: CustomLoadingOverlay
                             }}
+                            loading={isLoading}
                             columns={props.table}
                             rows={delivery}
                             pagination

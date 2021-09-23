@@ -51,15 +51,16 @@ export default function DashboardUserCreate(props) {
         if (update) {
             setData(update)
         }
-    }, [])
+    }, [update])
     const updateUser = async (dataFormat) => {
-        const data = await requestAPI(`/user/${dataFormat?.id}`, 'PUT', dataFormat)
+        const data = await requestAPI(`/user/${dataFormat.id}`, 'PUT', dataFormat)
         return data
     }
     const onSubmit = (event) => {
         event.preventDefault()
+        console.log({ data });
 
-        if (!data.email || !data.fullname || !data.imgUrl || !data.password || !data.phone) {
+        if (!data.email || !data.fullname || !data.password || !data.phone) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
@@ -67,7 +68,6 @@ export default function DashboardUserCreate(props) {
                 autoHideDuration: 3000,
             })
         } else {
-            console.log({ data });
             updateUser(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetUser());

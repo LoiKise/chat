@@ -218,7 +218,7 @@ export default function DashboardDelivery(props) {
             <DashboardProductTable
                 icon={faTruck}
                 title="Danh sách đơn giao hàng"
-                color="pink"
+                color="darkyellow"
                 table={table}
                 setOpenCreateFunc={props.setOpenCreateFunc}
                 setCloseCreateFunc={props.setCloseCreateFunc}

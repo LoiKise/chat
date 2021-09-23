@@ -5,11 +5,14 @@ import CustomPagination from '../Order/CustomPagination';
 import CustomNoRowsOverlay from '../Order/CustomNoRowsOverlay';
 import CustomToolbar from '../Order/DashboardConfigToolBar';
 import requestAPI from '../../../../apis';
+import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 
 export default function DashboardSuppportTable(props) {
     const [support, setSupport] = useState([])
     const [constSupport, setConstSupport] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
+        setIsLoading(true)
         getSupports();
     }, [])
     const getSupports = async () => {
@@ -18,6 +21,7 @@ export default function DashboardSuppportTable(props) {
                 if (res) {
                     setSupport(res.data?.data)
                     setConstSupport(res.data?.data)
+                    setIsLoading(false)
                 }
             })
             .catch(err => console.log(err))
@@ -66,7 +70,9 @@ export default function DashboardSuppportTable(props) {
                                 Toolbar: CustomToolbar,
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
+                                LoadingOverlay: CustomLoadingOverlay
                             }}
+                            loading={isLoading}
                             columns={props.table}
                             rows={support}
                             pagination

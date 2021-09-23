@@ -9,15 +9,18 @@ import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
 import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetDriver } from '../../../../features/dashboard/driver/driverSlice';
+import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 
 export default function DashboardDriverTable(props) {
     const update = useSelector(state => state.driver.callbackGet)
     const [driver, setDriver] = useState([])
     const [constDriver, setConstDriver] = useState([])
     const [selection, setSelection] = useState([])
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const [isLoading, setIsLoading] = useState(false)
+    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
+        setIsLoading(true)
         getDrivers();
     }, [update])
     const getDrivers = async () => {
@@ -26,6 +29,7 @@ export default function DashboardDriverTable(props) {
                 if (res) {
                     setDriver(res.data?.data)
                     setConstDriver(res.data?.data)
+                    setIsLoading(false)
                 }
             })
             .catch(err => console.log(err))
@@ -99,7 +103,9 @@ export default function DashboardDriverTable(props) {
                                 Toolbar: CustomToolbar,
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
+                                LoadingOverlay: CustomLoadingOverlay
                             }}
+                            loading={isLoading}
                             columns={props.table}
                             rows={driver}
                             pagination

@@ -115,7 +115,7 @@ export default function DashboardRequest(props) {
             <DashboardProductTable
                 icon={faShoppingBag}
                 title="Danh Sách Yêu Cầu Giao Hàng"
-                color="orange"
+                color="darkred"
                 table={table}
                 setOpenCreateFunc={props.setOpenCreateFunc}
                 setCloseCreateFunc={props.setCloseCreateFunc}
