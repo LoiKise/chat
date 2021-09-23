@@ -2,7 +2,7 @@ import requestAPI from "./index";
 
 const recuitmentApi = {
   getRecruitments(params) {
-    return requestAPI(`/jobs?${params}`, "GET");
+    return requestAPI(`/search/job?${params}`, "GET");
   },
 };
 export default recuitmentApi;

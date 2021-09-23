@@ -20,15 +20,19 @@ export default function Index() {
       ...query,
       page: Number(query.page) || 1,
       page_size: Number(query.page_size) || 3,
+      name: query.name || "",
     };
 
     setFilters(_filter);
     const params = {
       page: Number(_filter.page),
       page_size: Number(_filter.page_size),
+      name: _filter.name,
     };
+    console.log(params);
     const _getRecruitments = async () => {
       const data = await dispatch(getRecruitments(stringify(params)));
+      console.log(data);
       const res = await unwrapResult(data);
       setJob(res.data.data);
       setQuantity(res.data.total);
@@ -45,7 +49,7 @@ export default function Index() {
 
   const search = (event) => {
     event.preventDefault();
-    history.push(`/recruitment?name=${searchValue}`);
+    history.push(`/Recruitment?name=${searchValue}`);
   };
 
   return (
