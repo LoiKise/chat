@@ -257,7 +257,7 @@ export default function DashboardOrder(props) {
             <DashboardProductTable
                 icon={faFileInvoice}
                 title="Đơn hàng"
-                color="orange"
+                color="darkpurple"
                 table={table}
                 setOpenCreateFunc={props.setOpenCreateFunc}
                 setCloseCreateFunc={props.setCloseCreateFunc}

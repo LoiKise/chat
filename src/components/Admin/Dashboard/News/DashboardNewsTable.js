@@ -9,15 +9,18 @@ import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
 import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
+import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 
 export default function DashboardNewsTable(props) {
     const update = useSelector(state => state.news.callbackGet)
     const [news, setNews] = useState([])
     const [constNews, setConstNews] = useState([])
     const [selection, setSelection] = useState([])
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const [isLoading, setIsLoading] = useState(false)
+    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
+        setIsLoading(true)
         getNews();
     }, [update])
     const getNews = async () => {
@@ -26,6 +29,7 @@ export default function DashboardNewsTable(props) {
                 if (res) {
                     setNews(res.data?.data)
                     setConstNews(res.data?.data)
+                    setIsLoading(false)
                 }
             })
             .catch(err => console.log(err))
@@ -100,7 +104,9 @@ export default function DashboardNewsTable(props) {
                                 Toolbar: CustomToolbar,
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
+                                LoadingOverlay: CustomLoadingOverlay
                             }}
+                            loading={isLoading}
                             columns={props.table}
                             rows={news}
                             pagination

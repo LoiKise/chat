@@ -5,11 +5,14 @@ import CustomPagination from '../Order/CustomPagination';
 import CustomNoRowsOverlay from '../Order/CustomNoRowsOverlay';
 import CustomToolbar from '../Order/DashboardConfigToolBar';
 import requestAPI from '../../../../apis';
+import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 
 export default function DashboardRequestTable(props) {
     const [request, setRequest] = useState([])
     const [constRequest, setConstRequest] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
+        setIsLoading(true)
         getRequests();
     }, [])
     const getRequests = async () => {
@@ -18,6 +21,7 @@ export default function DashboardRequestTable(props) {
                 if (res) {
                     setRequest(res.data?.data)
                     setConstRequest(res.data?.data)
+                    setIsLoading(false)
                 }
             })
             .catch(err => console.log(err))
@@ -66,7 +70,9 @@ export default function DashboardRequestTable(props) {
                                 Toolbar: CustomToolbar,
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
+                                LoadingOverlay: CustomLoadingOverlay
                             }}
+                            loading={isLoading}
                             columns={props.table}
                             rows={request}
                             pagination
