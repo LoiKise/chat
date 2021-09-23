@@ -3636,6 +3636,9 @@ select {
   width: 0 !important;
   height: 0 !important; }
 
+.MuiDataGrid-root .MuiDataGrid-columnHeaderTitle {
+  font-size: 13px !important; }
+
 .slider {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../assets/img/imgs/Background/backgroundHeader.png");
   height: 100vh;

@@ -1,9 +1,10 @@
-import { faBiking } from '@fortawesome/free-solid-svg-icons'
+import { faTruck } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardDeliveryTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
 import moment from 'moment';
+import { getDeliveryUpdate } from '../../../../features/dashboard/delivery/deliverySlice';
 export default function DashboardDelivery(props) {
 
     const [table, setTable] = useState([])
@@ -46,6 +47,7 @@ export default function DashboardDelivery(props) {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
+                                    getItem={getDeliveryUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
@@ -67,7 +69,8 @@ export default function DashboardDelivery(props) {
                     renderCell: renderCellExpand, width: 150,
                 },
                 {
-                    headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : !params.row?.driver?.name, width: 150,
+                    headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null
+                        ? 'Chưa có' : params.row?.driver?.name, width: 150,
                     renderCell: renderCellExpand,
                 },
                 { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
@@ -91,6 +94,7 @@ export default function DashboardDelivery(props) {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
+                                    getItem={getDeliveryUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
@@ -138,6 +142,7 @@ export default function DashboardDelivery(props) {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
+                                        getItem={getDeliveryUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />
@@ -183,6 +188,7 @@ export default function DashboardDelivery(props) {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
+                                        getItem={getDeliveryUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />
@@ -210,8 +216,8 @@ export default function DashboardDelivery(props) {
     return (
         <div className="dashboard-product">
             <DashboardProductTable
-                icon={faBiking}
-                title="Tài Xế"
+                icon={faTruck}
+                title="Danh sách đơn giao hàng"
                 color="pink"
                 table={table}
                 setOpenCreateFunc={props.setOpenCreateFunc}

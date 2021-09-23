@@ -4,7 +4,6 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
-import { useSelector } from 'react-redux';
 import DashboardSelectInput from './../Order/DashboardSelectInput';
 import { CallBackGetUser } from '../../../../features/dashboard/user/userSlice';
 import DashboardTextInput from './../Order/DashboardTextInput';

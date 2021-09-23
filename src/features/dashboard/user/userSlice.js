@@ -10,9 +10,6 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        AddUser: (state, action) => {
-            console.log('Add new');
-        },
         CallBackGetUser: (state, action) => {
             state.callbackGet = !state.callbackGet
         },

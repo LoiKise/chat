@@ -87,9 +87,6 @@ export const orderSlice = createSlice({
     name: 'Order',
     initialState,
     reducers: {
-        AddOrder: (state, action) => {
-            console.log('Add new');
-        },
         CallBackGetOrder: (state, action) => {
             state.callbackGet = !state.callbackGet
         },

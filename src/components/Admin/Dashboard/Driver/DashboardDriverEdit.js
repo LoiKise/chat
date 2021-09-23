@@ -6,34 +6,60 @@ import { useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
 import { useSelector } from 'react-redux';
 import DashboardTextInput from './../Order/DashboardTextInput';
-import { CallBackGetDriver } from '../../../../features/dashboard/driver/driverSlice';
+import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
+import DashboardSelectInput from './../Order/DashboardSelectInput';
 export default function DashboardUserCreate(props) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const createForm = useRef();
     const dispatch = useDispatch();
-    const update = useSelector(state => state.order.orderUpdate)
+    const update = useSelector(state => state.news.newsUpdate)
+    const [sltDriver, setSltDriver] = useState(false);
+    const [drivers, setDrivers] = useState([]);
     const [data, setData] = useState({
-        name: "",
-        age: "",
-        phone: "",
-        idenityCard: "",
+        nameJob: "",
+        salaryBefore: 0,
+        salaryAfter: 0,
+        degree: "",
+        address: "",
+        position: "",
+        quantity: 0,
+        require: "",
+        thumbnails: "",
     })
-
     //Handle Event and Request DataBase
 
     useEffect(() => {
+        console.log(update);
+        getDrivers();
         if (update) {
             setData(update)
         }
     }, [])
-    const updateDriver = async (dataFormat) => {
-        const data = await requestAPI(`/driver/${dataFormat?.id}`, 'PUT', dataFormat)
+    const getDrivers = async () => {
+        const data = await requestAPI('/drivers/all', 'GET')
+            .then(res => {
+                if (res) {
+                    setDrivers(res.data?.data)
+                }
+            })
+            .catch(err => console.log(err))
+        return data
+    }
+    const handleClose = () => {
+        setSltDriver(false);
+    };
+    const handleOpenSltDriver = () => {
+        setSltDriver(true);
+    };
+    const updateNews = async (dataFormat) => {
+        const data = await requestAPI(`/job/${dataFormat?.id}`, 'PUT', dataFormat)
         return data
     }
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if (!data.name || !data.idenityCard || !data.age || !data.phone) {
+        if (!data.nameJob || !data.salaryBefore || !data.salaryAfter || !data.degree || !data.address
+            || !data.position || !data.require || !data.thumbnails) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
@@ -41,12 +67,13 @@ export default function DashboardUserCreate(props) {
                 autoHideDuration: 3000,
             })
         } else {
-            updateDriver(data).then(res => {
+            console.log({ data });
+            updateNews(data).then(res => {
                 if (res.data) {
-                    dispatch(CallBackGetDriver());
+                    dispatch(CallBackGetNews());
                 }
             })
-            enqueueSnackbar('Cập nhật tài xế thành công', {
+            enqueueSnackbar('Cập nhật tin tuyển dụng thành công', {
                 persist: false,
                 variant: 'success',
                 preventDuplicate: true,
@@ -59,7 +86,7 @@ export default function DashboardUserCreate(props) {
             <div className="create-box">
                 <div className="create-box-title flex">
                     <h2 className="create-box-title-text ">
-                        Thông tin tài xế
+                        Thông tin đơn giao hàng
                     </h2>
                     <div
                         className="btn btn-outline-danger"
@@ -75,45 +102,29 @@ export default function DashboardUserCreate(props) {
 
                     <DashboardTextInput
                         textType={"text"}
-                        title={"Họ và tên"}
-                        placeholder={"Họ và tên tài xế"}
+                        title={"Tên công việc"}
+                        placeholder={"Công việc cần tuyển dụng"}
                         isRequire={true}
                         data={data}
                         setData={setData}
-                        objectKey={"name"}
+                        objectKey={"nameJob"}
                     />
 
-                    <DashboardTextInput
-                        textType={"number"}
-                        title={"Tuổi"}
-                        placeholder={"Tuổi tài xế"}
-                        isRequire={true}
+                    <DashboardSelectInput
+                        title={"Tài xế"}
                         data={data}
                         setData={setData}
-                        objectKey={"age"}
-                    />
-
-                    <DashboardTextInput
-                        textType={"text"}
-                        title={"Số điện thoại"}
-                        placeholder={"Số điện thoại tài xế"}
-                        isRequire={true}
-                        data={data}
-                        setData={setData}
-                        objectKey={"phone"}
-                    />
-                    <DashboardTextInput
-                        textType={"number"}
-                        title={"Số chứng minh nhân dân"}
-                        placeholder={"Số chứng minh nhân dân tài xế"}
-                        isRequire={true}
-                        data={data}
-                        setData={setData}
-                        objectKey={"idenityCard"}
+                        handleClose={handleClose}
+                        sltOpen={sltDriver}
+                        handleOpenSlt={handleOpenSltDriver}
+                        subTitle={"Chọn tài xế :"}
+                        listSelect={drivers}
+                        objectKey={"driverId"}
+                        objectNameKey={null}
                     />
                     <div className="flex-center" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn btn-outline-success">
-                            Cập nhật tài xế
+                            Cập nhật đơn giao hàng
                         </button>
                     </div>
 

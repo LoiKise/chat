@@ -10,9 +10,6 @@ export const deliverySlice = createSlice({
     name: 'delivery',
     initialState,
     reducers: {
-        AddDelivery: (state, action) => {
-            console.log('Add new');
-        },
         CallBackGetDelivery: (state, action) => {
             state.callbackGet = !state.callbackGet
         },
