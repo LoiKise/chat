@@ -20,7 +20,7 @@ export default function Index() {
       ...query,
       page: Number(query.page) || 1,
       page_size: Number(query.page_size) || 3,
-      name: query.name || "",
+      name: query.name,
     };
 
     setFilters(_filter);
