@@ -13,6 +13,15 @@ export default function DashboardDelivery(props) {
         if (window.innerWidth <= 600) {
             setTable([
                 {
+                    headerName: "Mã đơn hàng", field: 'saleOrderId',
+                    renderCell: renderCellExpand, width: 150,
+                },
+                {
+                    headerName: "Tên đơn hàng", field: 'orderName',
+                    valueFormatter: params => params.row?.saleOrder?.orderName,
+                    width: 150, renderCell: renderCellExpand
+                },
+                {
                     headerName: "Ngày tạo", field: 'createdAt',
                     valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
                     renderCell: renderCellExpand, width: 150,
@@ -23,7 +32,16 @@ export default function DashboardDelivery(props) {
                     renderCell: renderCellExpand, width: 150,
                 },
                 {
-                    headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : !params.row?.driver?.name, width: 150,
+                    headerName: "Số điện thoại người nhận", field: 'phone',
+                    valueFormatter: params => params.row?.saleOrder?.receiverPhone,
+                    width: 150, renderCell: renderCellExpand
+                },
+                {
+                    headerName: "Địa chỉ người nhận", field: 'address', valueFormatter: params => params.row?.saleOrder?.receiverAddress, width: 150,
+                    renderCell: renderCellExpand,
+                },
+                {
+                    headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : params.row?.driver?.name, width: 150,
                     renderCell: renderCellExpand,
                 },
                 { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
@@ -59,6 +77,15 @@ export default function DashboardDelivery(props) {
         } else {
             setTable([
                 {
+                    headerName: "Mã đơn hàng", field: 'saleOrderId',
+                    renderCell: renderCellExpand, width: 150,
+                },
+                {
+                    headerName: "Tên đơn hàng", field: 'orderName',
+                    valueFormatter: params => params.row?.saleOrder?.orderName,
+                    width: 150, renderCell: renderCellExpand
+                },
+                {
                     headerName: "Ngày tạo", field: 'createdAt',
                     valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
                     renderCell: renderCellExpand, width: 150,
@@ -69,8 +96,16 @@ export default function DashboardDelivery(props) {
                     renderCell: renderCellExpand, width: 150,
                 },
                 {
-                    headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null
-                        ? 'Chưa có' : params.row?.driver?.name, width: 150,
+                    headerName: "Số điện thoại người nhận", field: 'phone',
+                    valueFormatter: params => params.row?.saleOrder?.receiverPhone,
+                    width: 150, renderCell: renderCellExpand
+                },
+                {
+                    headerName: "Địa chỉ người nhận", field: 'address', valueFormatter: params => params.row?.saleOrder?.receiverAddress, width: 150,
+                    renderCell: renderCellExpand,
+                },
+                {
+                    headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : params.row?.driver?.name, width: 150,
                     renderCell: renderCellExpand,
                 },
                 { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
@@ -108,6 +143,15 @@ export default function DashboardDelivery(props) {
             if (window.innerWidth <= 600) {
                 setTable([
                     {
+                        headerName: "Mã đơn hàng", field: 'saleOrderId',
+                        renderCell: renderCellExpand, width: 150,
+                    },
+                    {
+                        headerName: "Tên đơn hàng", field: 'orderName',
+                        valueFormatter: params => params.row?.saleOrder?.orderName,
+                        width: 150, renderCell: renderCellExpand
+                    },
+                    {
                         headerName: "Ngày tạo", field: 'createdAt',
                         valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
                         renderCell: renderCellExpand, width: 150,
@@ -118,7 +162,16 @@ export default function DashboardDelivery(props) {
                         renderCell: renderCellExpand, width: 150,
                     },
                     {
-                        headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : !params.row?.driver?.name, width: 150,
+                        headerName: "Số điện thoại người nhận", field: 'phone',
+                        valueFormatter: params => params.row?.saleOrder?.receiverPhone,
+                        width: 150, renderCell: renderCellExpand
+                    },
+                    {
+                        headerName: "Địa chỉ người nhận", field: 'address', valueFormatter: params => params.row?.saleOrder?.receiverAddress, width: 150,
+                        renderCell: renderCellExpand,
+                    },
+                    {
+                        headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : params.row?.driver?.name, width: 150,
                         renderCell: renderCellExpand,
                     },
                     { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
@@ -154,6 +207,15 @@ export default function DashboardDelivery(props) {
             } else {
                 setTable([
                     {
+                        headerName: "Mã đơn hàng", field: 'saleOrderId',
+                        renderCell: renderCellExpand, width: 150,
+                    },
+                    {
+                        headerName: "Tên đơn hàng", field: 'orderName',
+                        valueFormatter: params => params.row?.saleOrder?.orderName,
+                        width: 150, renderCell: renderCellExpand
+                    },
+                    {
                         headerName: "Ngày tạo", field: 'createdAt',
                         valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
                         renderCell: renderCellExpand, width: 150,
@@ -164,7 +226,16 @@ export default function DashboardDelivery(props) {
                         renderCell: renderCellExpand, width: 150,
                     },
                     {
-                        headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : !params.row?.driver?.name, width: 150,
+                        headerName: "Số điện thoại người nhận", field: 'phone',
+                        valueFormatter: params => params.row?.saleOrder?.receiverPhone,
+                        width: 150, renderCell: renderCellExpand
+                    },
+                    {
+                        headerName: "Địa chỉ người nhận", field: 'address', valueFormatter: params => params.row?.saleOrder?.receiverAddress, width: 150,
+                        renderCell: renderCellExpand,
+                    },
+                    {
+                        headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : params.row?.driver?.name, width: 150,
                         renderCell: renderCellExpand,
                     },
                     { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },

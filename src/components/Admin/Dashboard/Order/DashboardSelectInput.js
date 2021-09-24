@@ -34,16 +34,7 @@ export default function DashboardSelectInput({
                         <em style={{ borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>{subTitle}</em>
                     </MenuItem>
                     {listSelect && listSelect.length > 0 && listSelect?.map((item, index) => {
-                        let name = ""
                         let value = ""
-                        if (item.name) {
-                            name = item.name
-                        } else if (item.cityName) {
-                            name = item.cityName
-
-                        } else if (item.namePayment) {
-                            name = item.namePayment
-                        }
                         if (item.id) {
                             if (objectKey === "customerDistrict" || objectKey === "receiverDistrict") {
                                 value = item.name
@@ -53,7 +44,9 @@ export default function DashboardSelectInput({
                         } else {
                             value = item.name
                         }
-                        return <MenuItem key={index} value={value} name={name}>{name}</MenuItem>
+                        return <MenuItem key={index} value={value} name={item.name || item.cityName || item.namePayment || item.id}>
+                            {item.name || item.cityName || item.namePayment || item.id}
+                        </MenuItem>
                     })}
                 </Select>
             </div>

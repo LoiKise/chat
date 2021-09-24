@@ -94,7 +94,7 @@ export default function DashboardUserCreate(props) {
         setSltStatus(true);
     };
     const updateDelivery = async (dataFormat) => {
-        const data = await requestAPI('/delivery/driver', 'PUT', dataFormat)
+        const data = await requestAPI('/delivery', 'POST', dataFormat)
         return data
     }
     const onSubmit = (event) => {
@@ -138,7 +138,7 @@ export default function DashboardUserCreate(props) {
                         <FontAwesomeIcon icon={faTimes} />
                     </div>
                 </div>
-                <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
+                <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm} className="db-form-input">
                     {/* Sender Infomation */}
 
                     <DashboardSelectInput
