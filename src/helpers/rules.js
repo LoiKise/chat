@@ -1,5 +1,5 @@
 export const rules = {
-  name: {
+  fullname: {
     required: {
       value: true,
       message: "Họ và Tên là bắt buộc nhập",
@@ -24,7 +24,7 @@ export const rules = {
       message: "Tiêu đề có độ dài tối đa là 160 ký tự",
     },
   },
-  content: {
+  text: {
     required: {
       value: true,
       message: "Nội dung là bắt buộc nhập",

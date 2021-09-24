@@ -82,8 +82,6 @@ export default function Search(props) {
         //Show noti
       }
     }, 1000);
-
-
   }
   return (
     <div className="search">
@@ -139,7 +137,7 @@ export default function Search(props) {
                 </Modal.Header>
                 <Modal.Body>
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="./assets/img/icon/dark_logo.png"
+                    <Card.Img variant="top" src="../assets/img/icon/dark_logo.png"
                       alt="this is logo" />
                     <Card.Body>
                       <Card.Title>Tên: {state?.customerName}</Card.Title>

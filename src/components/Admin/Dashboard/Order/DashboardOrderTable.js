@@ -9,15 +9,18 @@ import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
 import { CallBackGetOrder } from '../../../../features/dashboard/order/orderSlice';
 import DashboardOrderControl from './DashboardOrderControl';
+import CustomLoadingOverlay from './CustomLoadingOverlay';
 
 export default function DashboardOrderTable(props) {
     const update = useSelector(state => state.order.callbackGet)
     const [order, setOrder] = useState([])
     const [constOrder, setConstOrder] = useState([])
     const [selection, setSelection] = useState([])
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const [isLoading, setIsLoading] = useState(false)
+    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
+        setIsLoading(true)
         getOrders();
     }, [update])
     const getOrders = async () => {
@@ -26,6 +29,7 @@ export default function DashboardOrderTable(props) {
                 if (res) {
                     setOrder(res.data?.data)
                     setConstOrder(res.data?.data)
+                    setIsLoading(false)
                 }
             })
             .catch(err => console.log(err))
@@ -99,7 +103,9 @@ export default function DashboardOrderTable(props) {
                                 Toolbar: CustomToolbar,
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
+                                LoadingOverlay: CustomLoadingOverlay
                             }}
+                            loading={isLoading}
                             columns={props.table}
                             rows={order}
                             pagination

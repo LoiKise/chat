@@ -4,21 +4,18 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
-import { useSelector } from 'react-redux';
 import DashboardSelectInput from './../Order/DashboardSelectInput';
 import { CallBackGetUser } from '../../../../features/dashboard/user/userSlice';
 import DashboardTextInput from './../Order/DashboardTextInput';
 export default function DashboardUserCreate(props) {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const createForm = useRef();
+    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
-    const update = useSelector(state => state.order.orderUpdate)
+    const createForm = useRef();
     const [data, setData] = useState({
         email: "",
         password: "",
         fullname: "",
         phone: "",
-        imgUrl: null,
         role: "",
     })
 
@@ -46,14 +43,14 @@ export default function DashboardUserCreate(props) {
         setSltRole(true);
     };
     //Handle Event and Request DataBase
-    const updateUser = async (dataFormat) => {
-        const data = await requestAPI(`/user/${dataFormat?.id}`, 'POST', dataFormat)
+    const createUser = async (dataFormat) => {
+        const data = await requestAPI(`/register`, 'POST', dataFormat)
         return data
     }
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if (!data.email || !data.fullname || !data.imgUrl || !data.password || !data.phone) {
+        if (!data.email || !data.fullname || !data.password || !data.phone) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
@@ -62,12 +59,12 @@ export default function DashboardUserCreate(props) {
             })
         } else {
             console.log({ data });
-            updateUser(data).then(res => {
+            createUser(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetUser());
                 }
             })
-            enqueueSnackbar('Cập nhật tài khoản thành công', {
+            enqueueSnackbar('Thêm mới tài khoản thành công', {
                 persist: false,
                 variant: 'success',
                 preventDuplicate: true,
@@ -121,6 +118,15 @@ export default function DashboardUserCreate(props) {
                         setData={setData}
                         objectKey={"phone"}
                     />
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Mật khẩu"}
+                        placeholder={"Mật khẩu tài khoản"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"password"}
+                    />
                     <DashboardSelectInput
                         title={"Quyền sử dụng"}
                         data={data}
@@ -135,7 +141,7 @@ export default function DashboardUserCreate(props) {
                     />
                     <div className="flex-center" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn btn-outline-success">
-                            Cập nhật tài khoản
+                            Tạo tài khoản
                         </button>
                     </div>
 

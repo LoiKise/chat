@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function DashboardOrderControl({ addController, deleteController, searchController, searchOnChange }) {
+export default function DashboardOrderControl({ addController, deleteController, searchController, searchOnChange, placeholderSearch }) {
     return (
         <div className="dashboard-addnew flex">
             <div>
@@ -13,7 +13,7 @@ export default function DashboardOrderControl({ addController, deleteController,
             </div>
             <div className="dashboard-addnew-search">
                 <form onSubmit={searchController}>
-                    <input type="text" placeholder="Tìm kiếm theo số điện thoại"
+                    <input type="text" placeholder={placeholderSearch || "Tìm kiếm theo số điện thoại"}
                         onChange={searchOnChange}
                     ></input>
                 </form>

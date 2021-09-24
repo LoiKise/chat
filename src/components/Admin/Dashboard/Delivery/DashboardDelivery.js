@@ -1,9 +1,10 @@
-import { faMotorcycle } from '@fortawesome/free-solid-svg-icons'
+import { faTruck } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect, useState } from 'react'
-import DashboardProductTable from '../Order/DashboardOrderTable'
+import DashboardProductTable from './DashboardDeliveryTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
 import moment from 'moment';
+import { getDeliveryUpdate } from '../../../../features/dashboard/delivery/deliverySlice';
 export default function DashboardDelivery(props) {
 
     const [table, setTable] = useState([])
@@ -11,51 +12,42 @@ export default function DashboardDelivery(props) {
     useEffect(() => {
         if (window.innerWidth <= 600) {
             setTable([
-                { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
                     valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
-                    renderCell: renderCellExpand
-                },
-                { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
-                { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
-                { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
-                { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
-                { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
-                { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
-                { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
-                { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
-                {
-                    headerName: "Tài Xế", field: 'driver', hide: true,
-                    valueFormatter: params => params.row?.driver?.name,
-                    renderCell: renderCellExpand, hide: true
+                    renderCell: renderCellExpand, width: 150,
                 },
                 {
-                    headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
-                    renderCell: renderCellExpand
-                },
-                { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
-                {
-                    headerName: "Đơn vị", field: 'unit', valueFormatter: params => params.row?.unit?.name,
+                    headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
+                    valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                    renderCell: renderCellExpand, width: 150,
                 },
                 {
-                    headerName: "Tổng tiền", field: 'totalPrice', width: 120,
-                    valueFormatter: params => `${params.row?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`,
-                    disableClickEventBubbling: true
+                    headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : !params.row?.driver?.name, width: 150,
+                    renderCell: renderCellExpand,
+                },
+                { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
+                {
+                    headerName: "Phụ thu", field: 'totalPrice', renderCell: renderCellExpand, width: 150,
+                    valueFormatter: params => `${params.row?.saleOrder?.totalPrice && params.row?.saleOrder?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`
                 },
                 {
-                    headerName: "Trạng thái", field: 'status',
-                    valueFormatter: params => params?.row?.deliveryOrders?.length > 0 && params?.row?.deliveryOrders?.at(-1).status?.name,
-                    renderCell: renderCellExpand
+                    headerName: "Thời gian nhận hàng", field: 'plannedTime', renderCell: renderCellExpand, width: 150,
+                    valueFormatter: params => params?.row?.plannedTime ?
+                        moment(params.row?.plannedTime).format("DD-MM-YYYY HH:mm:ss") : 'Chưa bắt đầu giao',
                 },
-                { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
+                {
+                    headerName: "Tình trạng", field: 'status', width: 150,
+                    valueFormatter: params => params?.row?.status?.name,
+                    renderCell: renderCellExpand,
+                },
                 {
                     headerName: "Công cụ", field: 'control',
-
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
+                                    getItem={getDeliveryUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
@@ -66,51 +58,43 @@ export default function DashboardDelivery(props) {
             ])
         } else {
             setTable([
-                { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
                     valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
-                    renderCell: renderCellExpand
-                },
-                { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
-                { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
-                { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
-                { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
-                { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
-                { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
-                { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
-                { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
-                {
-                    headerName: "Tài Xế", field: 'driver', hide: true,
-                    valueFormatter: params => params.row?.driver?.name,
-                    renderCell: renderCellExpand, hide: true
+                    renderCell: renderCellExpand, width: 150,
                 },
                 {
-                    headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
-                    renderCell: renderCellExpand
-                },
-                { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
-                {
-                    headerName: "Đơn vị", field: 'unit', valueFormatter: params => params.row?.unit?.name,
+                    headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
+                    valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                    renderCell: renderCellExpand, width: 150,
                 },
                 {
-                    headerName: "Tổng tiền", field: 'totalPrice', width: 120,
-                    valueFormatter: params => `${params.row?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`,
-                    disableClickEventBubbling: true
+                    headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null
+                        ? 'Chưa có' : params.row?.driver?.name, width: 150,
+                    renderCell: renderCellExpand,
+                },
+                { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
+                {
+                    headerName: "Phụ thu", field: 'totalPrice', renderCell: renderCellExpand, width: 150,
+                    valueFormatter: params => `${params.row?.saleOrder?.totalPrice && params.row?.saleOrder?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`
                 },
                 {
-                    headerName: "Trạng thái", field: 'status',
-                    valueFormatter: params => params?.row?.deliveryOrders?.length > 0 && params?.row?.deliveryOrders?.at(-1).status?.name,
-                    renderCell: renderCellExpand
+                    headerName: "Thời gian nhận hàng", field: 'plannedTime', renderCell: renderCellExpand, width: 150,
+                    valueFormatter: params => params?.row?.plannedTime ?
+                        moment(params.row?.plannedTime).format("DD-MM-YYYY HH:mm:ss") : 'Chưa bắt đầu giao',
                 },
-                { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
+                {
+                    headerName: "Tình trạng", field: 'status', width: 150,
+                    valueFormatter: params => params?.row?.status?.name,
+                    renderCell: renderCellExpand,
+                },
                 {
                     headerName: "Công cụ", field: 'control',
-
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
+                                    getItem={getDeliveryUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
@@ -123,51 +107,42 @@ export default function DashboardDelivery(props) {
         function handleResize() {
             if (window.innerWidth <= 600) {
                 setTable([
-                    { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
                         valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
-                        renderCell: renderCellExpand
-                    },
-                    { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
-                    { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
-                    { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
-                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
-                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
-                    { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
-                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
-                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
-                    {
-                        headerName: "Tài Xế", field: 'driver', hide: true,
-                        valueFormatter: params => params.row?.driver?.name,
-                        renderCell: renderCellExpand, hide: true
+                        renderCell: renderCellExpand, width: 150,
                     },
                     {
-                        headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
-                        renderCell: renderCellExpand
-                    },
-                    { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
-                    {
-                        headerName: "Đơn vị", field: 'unit', valueFormatter: params => params.row?.unit?.name,
+                        headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
+                        valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                        renderCell: renderCellExpand, width: 150,
                     },
                     {
-                        headerName: "Tổng tiền", field: 'totalPrice', width: 120,
-                        valueFormatter: params => `${params.row?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`,
-                        disableClickEventBubbling: true
+                        headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : !params.row?.driver?.name, width: 150,
+                        renderCell: renderCellExpand,
+                    },
+                    { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
+                    {
+                        headerName: "Phụ thu", field: 'totalPrice', renderCell: renderCellExpand, width: 150,
+                        valueFormatter: params => `${params.row?.saleOrder?.totalPrice && params.row?.saleOrder?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`
                     },
                     {
-                        headerName: "Trạng thái", field: 'status',
-                        valueFormatter: params => params?.deliveryOrders?.at(-1).status?.name,
-                        renderCell: renderCellExpand
+                        headerName: "Thời gian nhận hàng", field: 'plannedTime', renderCell: renderCellExpand, width: 150,
+                        valueFormatter: params => params?.row?.plannedTime ?
+                            moment(params.row?.plannedTime).format("DD-MM-YYYY HH:mm:ss") : 'Chưa bắt đầu giao',
                     },
-                    { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
+                    {
+                        headerName: "Tình trạng", field: 'status', width: 150,
+                        valueFormatter: params => params?.row?.status?.name,
+                        renderCell: renderCellExpand,
+                    },
                     {
                         headerName: "Công cụ", field: 'control',
-
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
+                                        getItem={getDeliveryUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />
@@ -178,51 +153,42 @@ export default function DashboardDelivery(props) {
                 ])
             } else {
                 setTable([
-                    { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
                         valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
-                        renderCell: renderCellExpand
-                    },
-                    { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
-                    { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
-                    { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
-                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
-                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
-                    { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
-                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
-                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
-                    {
-                        headerName: "Tài Xế", field: 'driver', hide: true,
-                        valueFormatter: params => params.row?.driver?.name,
-                        renderCell: renderCellExpand, hide: true
+                        renderCell: renderCellExpand, width: 150,
                     },
                     {
-                        headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
-                        renderCell: renderCellExpand
-                    },
-                    { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
-                    {
-                        headerName: "Đơn vị", field: 'unit', valueFormatter: params => params.row?.unit?.name,
+                        headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
+                        valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                        renderCell: renderCellExpand, width: 150,
                     },
                     {
-                        headerName: "Tổng tiền", field: 'totalPrice', width: 120,
-                        valueFormatter: params => `${params.row?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`,
-                        disableClickEventBubbling: true
+                        headerName: "Tài xế", field: 'driver', valueFormatter: params => params.row?.driver === null ? 'Chưa có' : !params.row?.driver?.name, width: 150,
+                        renderCell: renderCellExpand,
+                    },
+                    { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
+                    {
+                        headerName: "Phụ thu", field: 'totalPrice', renderCell: renderCellExpand, width: 150,
+                        valueFormatter: params => `${params.row?.saleOrder?.totalPrice && params.row?.saleOrder?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`
                     },
                     {
-                        headerName: "Trạng thái", field: 'status',
-                        valueFormatter: params => params?.deliveryOrders?.at(-1).status?.name,
-                        renderCell: renderCellExpand
+                        headerName: "Thời gian nhận hàng", field: 'plannedTime', renderCell: renderCellExpand, width: 150,
+                        valueFormatter: params => params?.row?.plannedTime ?
+                            moment(params.row?.plannedTime).format("DD-MM-YYYY HH:mm:ss") : 'Chưa bắt đầu giao',
                     },
-                    { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
+                    {
+                        headerName: "Tình trạng", field: 'status', width: 150,
+                        valueFormatter: params => params?.row?.status?.name,
+                        renderCell: renderCellExpand,
+                    },
                     {
                         headerName: "Công cụ", field: 'control',
-
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
+                                        getItem={getDeliveryUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />
@@ -237,7 +203,7 @@ export default function DashboardDelivery(props) {
         return (() => {
             window.removeEventListener("resize", handleResize);
         })
-    }, [])
+    }, [props.setOpenEditFunc])
     function renderCellExpand(params) {
         return (
             <GridCellExpand
@@ -250,9 +216,9 @@ export default function DashboardDelivery(props) {
     return (
         <div className="dashboard-product">
             <DashboardProductTable
-                icon={faMotorcycle}
-                title="Giao Hàng"
-                color="darkblue"
+                icon={faTruck}
+                title="Danh sách đơn giao hàng"
+                color="darkyellow"
                 table={table}
                 setOpenCreateFunc={props.setOpenCreateFunc}
                 setCloseCreateFunc={props.setCloseCreateFunc}

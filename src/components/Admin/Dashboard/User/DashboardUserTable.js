@@ -9,23 +9,27 @@ import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
 import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetUser } from '../../../../features/dashboard/user/userSlice';
+import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 
 export default function DashboardUserTable(props) {
     const update = useSelector(state => state.user.callbackGet)
     const [user, setUser] = useState([])
     const [constUser, setConstUser] = useState([])
     const [selection, setSelection] = useState([])
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const [isLoading, setIsLoading] = useState(false)
+    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
+        setIsLoading(true)
         getUsers();
     }, [update])
     const getUsers = async () => {
-        const data = await requestAPI('/users', 'GET')
+        const data = await requestAPI('/users/all', 'GET')
             .then(res => {
                 if (res) {
                     setUser(res.data?.data)
                     setConstUser(res.data?.data)
+                    setIsLoading(false);
                 }
             })
             .catch(err => console.log(err))
@@ -99,7 +103,9 @@ export default function DashboardUserTable(props) {
                                 Toolbar: CustomToolbar,
                                 Pagination: CustomPagination,
                                 NoRowsOverlay: CustomNoRowsOverlay,
+                                LoadingOverlay: CustomLoadingOverlay
                             }}
+                            loading={isLoading}
                             columns={props.table}
                             rows={user}
                             pagination

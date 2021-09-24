@@ -1,14 +1,11 @@
 
-import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { getOrderUpdate } from '../../../../features/dashboard/order/orderSlice';
-export function EditToolbar({ setOpenEditFunc, params }) {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+export function EditToolbar({ setOpenEditFunc, params, getItem }) {
     const dispatch = useDispatch();
     const handleEdit = () => {
         setOpenEditFunc();
-        dispatch(getOrderUpdate(params))
+        dispatch(getItem(params))
     };
 
     return (
