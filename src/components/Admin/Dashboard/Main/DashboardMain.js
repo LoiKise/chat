@@ -25,11 +25,11 @@ export default function DashboardMain() {
                 setTotalIncome(total)
             }
         })
-        requestAPI('/survey/status/1', 'GET').then(res => {
-            setCountOrderStorage(res.data)
+        requestAPI('/survey/status', 'POST', { statusId: 1 }).then(res => {
+            setCountOrderStorage(res.data?.total)
         })
-        requestAPI('/survey/status/3', 'GET').then(res => {
-            setCountOrderShipped(res.data)
+        requestAPI('/survey/status', 'POST', { statusId: 3 }).then(res => {
+            setCountOrderShipped(res.data?.total)
         })
         requestAPI('/survey/totalprice', 'GET').then(res => {
             setTopOrderSales(res.data)
