@@ -29,7 +29,7 @@ export default function DashboardOrder(props) {
                 {
                     headerName: "Tài Xế", field: 'driver', hide: true,
                     valueFormatter: params => params.row?.driver?.name,
-                    renderCell: renderCellExpand, width: 150, hide: true
+                    renderCell: renderCellExpand, width: 150
                 },
                 {
                     headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
@@ -85,7 +85,7 @@ export default function DashboardOrder(props) {
                 {
                     headerName: "Tài Xế", field: 'driver', hide: true,
                     valueFormatter: params => params.row?.driver?.name,
-                    renderCell: renderCellExpand, width: 150, hide: true
+                    renderCell: renderCellExpand, width: 150
                 },
                 {
                     headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
@@ -143,7 +143,7 @@ export default function DashboardOrder(props) {
                     {
                         headerName: "Tài Xế", field: 'driver', hide: true,
                         valueFormatter: params => params.row?.driver?.name,
-                        renderCell: renderCellExpand, width: 150, hide: true
+                        renderCell: renderCellExpand, width: 150,
                     },
                     {
                         headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
@@ -199,7 +199,7 @@ export default function DashboardOrder(props) {
                     {
                         headerName: "Tài Xế", field: 'driver', hide: true,
                         valueFormatter: params => params.row?.driver?.name,
-                        renderCell: renderCellExpand, width: 150, hide: true
+                        renderCell: renderCellExpand, width: 150
                     },
                     {
                         headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
@@ -242,7 +242,7 @@ export default function DashboardOrder(props) {
         return (() => {
             window.removeEventListener("resize", handleResize);
         })
-    }, [])
+    }, [props.setOpenEditFunc])
     function renderCellExpand(params) {
         return (
             <GridCellExpand

@@ -42,7 +42,7 @@ export default function DashboardUserCreate(props) {
         if (update) {
             setData(update)
         }
-    }, [])
+    }, [update])
     const getDrivers = async () => {
         const data = await requestAPI('/drivers/all', 'GET')
             .then(res => {

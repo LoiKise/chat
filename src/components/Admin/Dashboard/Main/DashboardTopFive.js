@@ -1,25 +1,23 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function DashboardTopFive(props) {
+export default function DashboardTopFive({ data, title, color, icon, table }) {
 
-    const data = props.data
-
+    console.log({ data });
     return (
         <div className="topfive flex-col">
-            <div className={`headerbox flex-center ${props.color}`}>
-                <FontAwesomeIcon icon={props.icon} className="icon" />
+            <div className={`headerbox flex-center ${color}`}>
+                <FontAwesomeIcon icon={icon} className="icon" />
             </div>
             <div className="top-location-container">
                 <div className="headerbox-header">
-                    <p>{props.title}</p>
+                    <p>{title}</p>
                 </div>
                 <div className="topfive-content flex">
                     <div className="topfive-list">
-                        <div className="top-location-div topfive-div flex header">
+                        <div className="top-location-div topfive-div flex">
                             {
-                                props.table &&
-                                props.table.map((item, index) => {
+                                table && table?.map((item, index) => {
                                     return (
                                         <div
                                             key={index}
@@ -28,21 +26,19 @@ export default function DashboardTopFive(props) {
                                 })
                             }
                         </div>
-                        {data &&
-                            data.slice(0, 5).map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="top-location-div topfive-div flex"
-                                    >
-                                        <div style={{ width: '80%', textAlign: 'left' }} className="top-user flex">
-                                            <img src={item.orderAvatar || item.productImg[1]} className="top-user-avt" alt=""></img>
-                                            <p className="top-user-name">{item.orderName || item.productName}</p>
-                                        </div>
-                                        <div style={{ width: '80px', textAlign: 'center' }}>{item.count}</div>
+                        {data && data.length > 0 && data?.map((item, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className="top-location-div topfive-div flex"
+                                >
+                                    <div style={{ width: '80%', textAlign: 'left' }} className="top-user flex">
+                                        <p className="top-user-name">{item.orderName || item.order_customerPhone}</p>
                                     </div>
-                                )
-                            })
+                                    <div style={{ width: '80px', textAlign: 'center' }}>{item.count || item.totalPrice}</div>
+                                </div>
+                            )
+                        })
                         }
                     </div>
                 </div>

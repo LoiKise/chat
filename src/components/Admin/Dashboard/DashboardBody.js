@@ -2,12 +2,10 @@ import React, { useState } from 'react'
 import DashboardHeader from './DashboardHeader'
 import DashboardMain from './Main/DashboardMain';
 import classNames from 'classnames'
-// import DashboardInbox from './Inbox/DashboardInbox';
 import DashboardDriver from './Driver/DashboardDriver';
 import DashboardNews from './News/DashboardNews';
 import DashboardDriverEdit from './Driver/DashboardDriverEdit';
 import DashboardDriverCreate from './Driver/DashboardDriverCreate';
-// import Axios from 'axios';
 import DashboardNewsCreate from './News/DashboardNewsCreate';
 import DashboardNewsEdit from './News/DashboardNewsEdit';
 import DashboardUser from './User/DashboardUser';
@@ -31,7 +29,6 @@ export default function DashboardBody(props) {
     const [news] = useState({})
     const [user] = useState({})
     const [order] = useState({})
-    const [Report] = useState({})
     const [email] = useState([])
 
     const setToastFunc = (bool) => {

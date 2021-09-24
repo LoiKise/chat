@@ -84,7 +84,7 @@ export default function DashboardUser(props) {
                     {
                         headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
                         valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
-                        renderCell: renderCellExpand, width: 200, hide: true
+                        renderCell: renderCellExpand, width: 200
                     },
                     { headerName: "Họ và tên", field: 'name', renderCell: renderCellExpand, width: 200, },
                     { headerName: "Số điện thoại", field: 'phone', renderCell: renderCellExpand, width: 200, },
@@ -115,7 +115,7 @@ export default function DashboardUser(props) {
                     {
                         headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
                         valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
-                        renderCell: renderCellExpand, width: 200, hide: true
+                        renderCell: renderCellExpand, width: 200,
                     },
                     { headerName: "Họ và tên", field: 'name', renderCell: renderCellExpand, width: 200, },
                     { headerName: "Số điện thoại", field: 'phone', renderCell: renderCellExpand, width: 200, },
@@ -142,7 +142,7 @@ export default function DashboardUser(props) {
         return (() => {
             window.removeEventListener("resize", handleResize);
         })
-    }, [])
+    }, [props.setOpenEditFunc])
     function renderCellExpand(params) {
         return (
             <GridCellExpand
