@@ -7,6 +7,9 @@ import ErrorMessage from "../ErrorMessage";
 import { contact } from "../../features/contact/contactSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import requestAPI from "../../apis/index";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure();
 //
 export default function Index() {
   const {
@@ -27,6 +30,7 @@ export default function Index() {
   const dispatch = useDispatch();
   const history = useHistory();
   
+ 
 const PostContactAPI = async (dataContact) => {
   const data = await requestAPI(`/contact`, 'POST', dataContact);
   return data;
@@ -46,9 +50,17 @@ const PostContactAPI = async (dataContact) => {
             console.log({ data });
             PostContactAPI(data).then((res) => {
               if (res.data) {
-                console.log("Thêm liên hệ thành công !");
+                 toast.success("THÊM LIÊN HỆ THÀNH CÔNG", {
+                   position: "top-right",
+                   autoClose: 5000,
+                 });
               }
-            }).catch((err) => console.log(err));
+            }).catch((err) => {
+               toast.error("CÓ LỖI", {
+                 position: "top-right",
+                 autoClose: 5000,
+               });
+            });
         }
 
     try {
@@ -121,7 +133,7 @@ const PostContactAPI = async (dataContact) => {
                     <Controller
                       name="fullname"
                       control={control}
-                      rules={rules.name}
+                      rules={rules.fullname}
                       render={({ field }) => (
                         <input
                           name="fullname"
@@ -183,7 +195,7 @@ const PostContactAPI = async (dataContact) => {
                       alt=""
                       className="contact-form__icon"
                     />
-                    <ErrorMessage name="sdt" errors={errors} />
+                    <ErrorMessage name="phone" errors={errors} />
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -214,7 +226,7 @@ const PostContactAPI = async (dataContact) => {
                     <Controller
                       name="text"
                       control={control}
-                      rules={rules.content}
+                      rules={rules.text}
                       render={({ field }) => (
                         <textarea
                           name="text"
