@@ -6,6 +6,10 @@ import { rules } from "../../helpers/rules";
 import ErrorMessage from "../ErrorMessage";
 import { contact } from "../../features/contact/contactSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
+import requestAPI from "../../apis/index";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure();
 //
 export default function Index() {
   const {
@@ -16,24 +20,48 @@ export default function Index() {
     setError,
   } = useForm({
     defaultValues: {
-      name: "",
+      fullname: "",
       email: "",
-      sdt: "",
+      phone: "",
       title: "",
-      content: "",
+      text: "",
     },
   });
   const dispatch = useDispatch();
   const history = useHistory();
-
+  
+ 
+const PostContactAPI = async (dataContact) => {
+  const data = await requestAPI(`/contact`, 'POST', dataContact);
+  return data;
+};
   const handleContact = async (data) => {
     const body = {
-      name: data.name,
+      fullname: data.fullname,
       email: data.email,
-      sdt: data.sdt,
+      phone: data.phone,
       title: data.title,
-      content: data.content,
+      text: data.text,
     };
+    
+  if (!data.fullname || !data.email || !data.phone || !data.title || !data.text) {
+            console.log("Error");
+        } else {
+            console.log({ data });
+            PostContactAPI(data).then((res) => {
+              if (res.data) {
+                 toast.success("THÊM LIÊN HỆ THÀNH CÔNG", {
+                   position: "top-right",
+                   autoClose: 5000,
+                 });
+              }
+            }).catch((err) => {
+               toast.error("CÓ LỖI", {
+                 position: "top-right",
+                 autoClose: 5000,
+               });
+            });
+        }
 
     try {
       const res = await dispatch(contact(body));
@@ -49,7 +77,10 @@ export default function Index() {
         }
       }
     }
+
   };
+
+   
 
   return (
     <div id="section__contact" className="contact section-area">
@@ -100,16 +131,16 @@ export default function Index() {
                 <div className="col-md-6">
                   <div className="contact-form__userinfor">
                     <Controller
-                      name="name"
+                      name="fullname"
                       control={control}
-                      rules={rules.name}
+                      rules={rules.fullname}
                       render={({ field }) => (
                         <input
-                          name="name"
+                          name="fullname"
                           type="text"
                           placeholder="Họ và Tên"
                           onChange={field.onChange}
-                          value={getValues("name")}
+                          value={getValues("fullname")}
                         />
                       )}
                     />
@@ -118,7 +149,7 @@ export default function Index() {
                       alt=""
                       className="contact-form__icon"
                     />
-                    <ErrorMessage name="name" errors={errors} />
+                    <ErrorMessage name="fullname" errors={errors} />
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -147,15 +178,15 @@ export default function Index() {
                 <div className="col-md-6">
                   <div className="contact-form__userinfor">
                     <Controller
-                      name="sdt"
+                      name="phone"
                       control={control}
                       rules={rules.phone}
                       render={({ field }) => (
                         <input
-                          name="sdt"
+                          name="phone"
                           placeholder="Số điện thoại"
                           onChange={field.onChange}
-                          value={getValues("sdt")}
+                          value={getValues("phone")}
                         />
                       )}
                     />
@@ -164,7 +195,7 @@ export default function Index() {
                       alt=""
                       className="contact-form__icon"
                     />
-                    <ErrorMessage name="sdt" errors={errors} />
+                    <ErrorMessage name="phone" errors={errors} />
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -193,16 +224,16 @@ export default function Index() {
                 <div className="col-md-12">
                   <div className="contact-form__userinfor contact-form__userinfor-input">
                     <Controller
-                      name="content"
+                      name="text"
                       control={control}
-                      rules={rules.content}
+                      rules={rules.text}
                       render={({ field }) => (
                         <textarea
-                          name="content"
+                          name="text"
                           placeholder="Nhập tin nhắn"
                           className="contact-form__userinfor__input"
                           onChange={field.onChange}
-                          value={getValues("content")}
+                          value={getValues("text")}
                         />
                       )}
                     />
@@ -211,7 +242,7 @@ export default function Index() {
                       alt=""
                       className="contact-form__icon"
                     />
-                    <ErrorMessage name="content" errors={errors} />
+                    <ErrorMessage name="text" errors={errors} />
                   </div>
                 </div>
               </div>
