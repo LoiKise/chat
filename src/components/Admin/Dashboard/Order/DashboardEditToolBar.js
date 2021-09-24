@@ -9,12 +9,6 @@ export function EditToolbar({ setOpenEditFunc, params }) {
     const handleEdit = () => {
         setOpenEditFunc();
         dispatch(getOrderUpdate(params))
-        enqueueSnackbar('Cập nhật đơn hàng thành công', {
-            persist: false,
-            variant: 'success',
-            preventDuplicate: true,
-            autoHideDuration: 3000,
-        })
     };
 
     return (
