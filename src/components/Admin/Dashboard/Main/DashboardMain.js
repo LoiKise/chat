@@ -2,19 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { faFileInvoice, faMoneyBillWave, faTshirt, faUser, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import DashboardTotalCount from './DashboardTotalCount'
 import DashboardTopFive from './DashboardTopFive'
-import DashboardChart from './DashboardChart'
-import DashboardChartPie from './DashboardChartPie'
 import requestAPI from '../../../../apis';
 
 export default function DashboardMain() {
 
-    const [products, setProducts] = useState([]);
-    const [order, setOrder] = useState([]);
-    const [email, setEmail] = useState([]);
     const [countOrder, setCountOrder] = useState(0);
-    const [countRequest, setCountRequest] = useState(0);
-    const [countUser, setCountUser] = useState(0);
-
     const [totalIncome, setTotalIncome] = useState(0);
     const [topCustomer, setTopCusomer] = useState([]);
     const [countOrderStorage, setCountOrderStorage] = useState([]);

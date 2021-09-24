@@ -1,28 +1,5 @@
 export const rules = {
-  batbuoc: {
-    required: {
-      value: true,
-      message: "Trường này là bắt buộc nhập",
-    },
-    maxLength: {
-      value: 160,
-      message: "Trường này có độ dài tối đa là 160 ký tự",
-    },
-  },
-  weight: {
-    required: {
-      value: true,
-      message: "Cân nặng là bắt buộc nhập",
-    },
-    maxLength: {
-      value: 3,
-      message: "Cân nặng có khối lượng tối đa là dưới 100KG",
-    },
-    validate: {
-      number: (value) => /^[0-9]*$/.test(value) || "Cân nặng không hợp lệ",
-    },
-  },
-  name: {
+  fullname: {
     required: {
       value: true,
       message: "Họ và Tên là bắt buộc nhập",
@@ -47,7 +24,7 @@ export const rules = {
       message: "Tiêu đề có độ dài tối đa là 160 ký tự",
     },
   },
-  content: {
+  text: {
     required: {
       value: true,
       message: "Nội dung là bắt buộc nhập",
