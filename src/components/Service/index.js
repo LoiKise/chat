@@ -84,7 +84,7 @@ export default function Index() {
   return (
     <div className="order">
       <div className="container">
-        <div style={{ display: "block", width: 700, padding: 30 }}>
+        <div style={{ display: "block", padding: 30 }}>
           <Tabs defaultActiveKey="first">
             <Tab eventKey="first" title="Giao hàng tiêu chuẩn">
               <h1>Dịch vụ chuyển phát tiêu chuẩn</h1>

@@ -28,7 +28,13 @@
 
 /*---------------------------------reponsive------------------------*/
 .ourmember{
-  @include mobile{
+  @media screen and (max-width: 1440px) {
+    height: 700px;
+  }
+  @media screen and (max-width: 1023px) {
+    height: 100%;
+  }
+  @include tablet{
     .row {
       margin-left: 0;
     }
