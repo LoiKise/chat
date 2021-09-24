@@ -16,7 +16,7 @@ export default function DashboardTextInput({ title, placeholder, isRequire, data
                     onChange={(event) => {
                         setData({ ...data, [objectKey]: event.target.value })
                     }}
-                    required={require}
+                    required={isRequire}
                 />
             </div>
         </div>
