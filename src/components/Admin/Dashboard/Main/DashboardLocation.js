@@ -47,14 +47,14 @@ export default function DashboardLocation(props) {
             </div>
             <div className="top-location-container">
                 <div className="headerbox-header">
-                    <p>Global Orders by Top Locations</p>
+                    <p>TOP vị trí giao hàng</p>
                 </div>
                 <div className="top-location-content flex">
                     <div className="top-location-list">
                         <div className="top-location-div flex">
-                            <div style={{ width: '60%' }}>Province</div>
-                            <div style={{ width: '20%', textAlign: 'right' }}>Amount</div>
-                            <div style={{ width: '20%', textAlign: 'right' }}>Percent</div>
+                            <div style={{ width: '60%' }}>Tỉnh</div>
+                            <div style={{ width: '20%', textAlign: 'right' }}>Số lượng</div>
+                            <div style={{ width: '20%', textAlign: 'right' }}>Phần trăm</div>
                         </div>
                         {topLocationList.map((item, index) => {
                             return (

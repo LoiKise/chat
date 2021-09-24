@@ -1723,6 +1723,9 @@ p {
 .menu-search input:focus {
   border-bottom: 2px solid #777; }
 
+.dashboard-main {
+  padding: 20px; }
+
 .top-location {
   position: relative;
   padding-top: 20px;
@@ -2339,8 +2342,8 @@ p {
 
 .dashboard-product {
   /* background-color: #fff; */
-  position: relative;
-  padding: 20px 30px; }
+  padding: 20px 30px;
+  position: relative; }
 
 .dashboard-table {
   width: 100%;

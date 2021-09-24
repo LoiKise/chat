@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import DashboardTextInput from './../Order/DashboardTextInput';
 import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
 export default function DashboardUserCreate(props) {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const createForm = useRef();
     const dispatch = useDispatch();
     const update = useSelector(state => state.news.newsUpdate)
@@ -29,7 +29,7 @@ export default function DashboardUserCreate(props) {
         if (update) {
             setData(update)
         }
-    }, [])
+    }, [update])
     const updateNews = async (dataFormat) => {
         const data = await requestAPI(`/job/${dataFormat?.id}`, 'PUT', dataFormat)
         return data

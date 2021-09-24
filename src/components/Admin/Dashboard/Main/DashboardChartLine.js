@@ -72,7 +72,7 @@ export default function DashboardChartLine(props) {
                 saleData.push(month[i].totalSale)
             }
             setData({
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
                 datasets: [
                     {
                         label: '',
@@ -113,7 +113,7 @@ export default function DashboardChartLine(props) {
             </div>
             <div className="top-location-container" style={{ height: 'max-content' }}>
                 <div className="headerbox-header">
-                    <p>2020 Revenue</p>
+                    <p>Doanh Thu 2021</p>
                 </div>
                 <div className="top-location-content flex">
                     <div className="top-location-map" style={{ margin: '0' }}>
@@ -123,7 +123,7 @@ export default function DashboardChartLine(props) {
                 <div className="count-line"></div>
                 <div className="count-status flex-center">
                     <FontAwesomeIcon icon={faClock} className="count-up" />
-                    <p>Updated 3 minutes ago</p>
+                    <p>Cập nhật 3 phút trước</p>
                 </div>
             </div>
         </div>

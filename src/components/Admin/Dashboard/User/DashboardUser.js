@@ -126,7 +126,7 @@ export default function DashboardUser(props) {
         return (() => {
             window.removeEventListener("resize", handleResize);
         })
-    }, [])
+    }, [props.setOpenEditFunc])
     function renderCellExpand(params) {
         return (
             <GridCellExpand

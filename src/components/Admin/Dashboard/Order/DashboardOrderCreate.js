@@ -3,16 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import MaterialTable from 'material-table';
 import { useSnackbar } from 'notistack';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch } from 'react-redux';
 import { CallBackGetOrder } from '../../../../features/dashboard/order/orderSlice';
 import requestAPI from '../../../../apis';
 import DashboardTextInput from './DashboardTextInput';
 import DashboardSelectInput from './DashboardSelectInput';
 export default function DashboardOrderCreate(props) {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const createForm = useRef();
     const dispatch = useDispatch();
     const [province, setProvince] = useState([])
@@ -24,29 +21,13 @@ export default function DashboardOrderCreate(props) {
             name: "Khách Vãng Lai"
         }
     ])
-    const [customer, setCustomer] = useState({
-        customerName: '',
-        customerPhone: '',
-        customerAddress: '',
-        customerDistrict: '',
-        customerProvince: null,
-        customerProvinceName: '',
-    })
-    const [receiver, setReceiver] = useState({
-        receiverName: '',
-        receiverPhone: '',
-        receiverAddress: '',
-        receiverDistrict: '',
-        receiverProvince: null,
-        receiverProvinceName: '',
-    })
     const [paymentList, setPaymentList] = useState([])
     const [unitList, setUnitList] = useState([])
     const [table, setTable] = useState([])
     const [products, setProducts] = useState([])
 
 
-    const [orderType, setOrderType] = useState([
+    const [orderType] = useState([
         {
             id: 1,
             name: 'Hàng lô',
@@ -74,9 +55,6 @@ export default function DashboardOrderCreate(props) {
         orderType: null,
         categories: { id: null, name: '' },
         unit_id: null,
-        quantity: null,
-        totalPrice: null,
-        notes: "",
         payment_id: "",
         driver_id: null,
         isFreeShip: false,
@@ -102,7 +80,6 @@ export default function DashboardOrderCreate(props) {
     const [sltProvinceReceiver, setSltProvinceReceiver] = useState(false);
     const [sltDistrictReceiver, setSltDistrictReceiver] = useState(false);
     const [sltOrderType, setSltOrderType] = useState(false);
-    const [sltDriver, setSltDriver] = useState(false);
     const [sltUnit, setSltUnit] = useState(false);
     const [sltPayment, setSltPayment] = useState(false);
 
@@ -113,7 +90,6 @@ export default function DashboardOrderCreate(props) {
         setSltDistrictCustomer(false);
         setSltProvinceReceiver(false);
         setSltDistrictReceiver(false);
-        setSltDriver(false);
         setSltOrderType(false);
         setSltUnit(false);
         setSltPayment(false);
@@ -132,9 +108,6 @@ export default function DashboardOrderCreate(props) {
     };
     const handleOpenSltDistrictReceiver = () => {
         setSltDistrictReceiver(true);
-    };
-    const handleOpenSltDriver = () => {
-        setSltDriver(true);
     };
     const handleOpenSltOrderType = () => {
         setSltOrderType(true);

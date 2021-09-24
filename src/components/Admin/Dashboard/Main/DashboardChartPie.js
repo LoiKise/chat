@@ -66,7 +66,7 @@ export default function DashboardChartPie(props) {
             </div>
             <div className="top-location-container">
                 <div className="headerbox-header">
-                    <p>Email Statistics</p>
+                    <p>Tổng đơn đã giao</p>
                 </div>
                 <div className="top-location-content flex">
                     <div className="top-location-map pie" style={{ margin: '0' }}>
@@ -76,7 +76,7 @@ export default function DashboardChartPie(props) {
                 <div className="count-line"></div>
                 <div className="count-status flex-center">
                     <FontAwesomeIcon icon={faClock} className="count-up" />
-                    <p>Updated 3 minutes ago</p>
+                    <p>Cập nhật 3 phút trước</p>
                 </div>
             </div>
         </div>

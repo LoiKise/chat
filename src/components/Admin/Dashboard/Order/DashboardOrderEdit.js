@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import DashboardSelectInput from './DashboardSelectInput';
 import DashboardTextInput from './DashboardTextInput';
 export default function DashboardOrderCreate(props) {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const createForm = useRef();
     const dispatch = useDispatch();
     const update = useSelector(state => state.order.orderUpdate)
@@ -55,9 +55,6 @@ export default function DashboardOrderCreate(props) {
         orderType: null,
         categories: { id: null, name: '' },
         unit_id: null,
-        quantity: null,
-        totalPrice: null,
-        notes: "",
         payment_id: "",
         driver_id: null,
         isFreeShip: false,
@@ -144,7 +141,7 @@ export default function DashboardOrderCreate(props) {
                 unit_id: row.unit.id
             })))
         }
-    }, [])
+    }, [update])
     const getUnit = async () => {
         const data = await requestAPI('/unit', 'GET')
             .then(res => {

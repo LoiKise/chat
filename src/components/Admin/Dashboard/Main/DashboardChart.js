@@ -87,18 +87,18 @@ export default function DashboardChart(props) {
             </div>
             <div className="top-location-container" style={{ height: 'max-content' }}>
                 <div className="headerbox-header">
-                    <p>2020 Sales by Top 5 Categories</p>
+                    <p>Top 5 đơn hàng lớn</p>
                 </div>
                 <div className="top-location-content flex">
                     <div className="top-location-map" style={{ margin: '0' }}>
                         <Bar data={data} options={options} />
-                        {/* <Line data={data} options={options} />  */}
+                        {/* <Line data={data} options={options} /> */}
                     </div>
                 </div>
                 <div className="count-line"></div>
                 <div className="count-status flex-center">
                     <FontAwesomeIcon icon={faClock} className="count-up" />
-                    <p>Updated 3 minutes ago</p>
+                    <p>Cập nhật 3 phút trước</p>
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@ import DashboardTextInput from './../Order/DashboardTextInput';
 import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
 import DashboardSelectInput from './../Order/DashboardSelectInput';
 export default function DashboardUserCreate(props) {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar, } = useSnackbar();
     const createForm = useRef();
     const dispatch = useDispatch();
     const update = useSelector(state => state.news.newsUpdate)
@@ -34,7 +34,7 @@ export default function DashboardUserCreate(props) {
         if (update) {
             setData(update)
         }
-    }, [])
+    }, [update])
     const getDrivers = async () => {
         const data = await requestAPI('/drivers/all', 'GET')
             .then(res => {
