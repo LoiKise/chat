@@ -158,12 +158,11 @@
       justify-content: center;
       margin-top: -50px;
     }
-    .footer-item-list-item__content{
+    .footer-item-list-item__content {
       display: block;
     }
   }
   @include tablet {
-    margin-top: 1180px;
     .container {
       width: 100% !important;
       height: auto;

@@ -32,9 +32,9 @@ export default function Index() {
 
   const handleRegister = async (data) => {
     const body = {
-      password: data.password,
+      password: data.password.trim(),
       phone: data.sdt,
-      fullname: data.name,
+      fullname: data.name.trim(),
     };
 
     try {
@@ -189,7 +189,7 @@ export default function Index() {
                     <input
                       type="text"
                       name="name"
-                      placeholder="Mời nhập tên"
+                      placeholder="Mời nhập họ và tên"
                       onChange={field.onChange}
                       value={getValues("name")}
                       className="form-control rounded-0"

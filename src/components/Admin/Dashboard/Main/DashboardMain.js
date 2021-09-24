@@ -25,6 +25,7 @@ export default function DashboardMain() {
         requestAPI('/orders', 'GET').then(res => {
             if (res) {
                 setCountOrder(res.data?.total)
+                console.log(res.data);
                 let total = 0;
                 for (const item of res.data?.data) {
                     total += item.totalPrice
@@ -32,24 +33,16 @@ export default function DashboardMain() {
                 setTotalIncome(total)
             }
         })
-        requestAPI('/request', 'GET').then(res => {
-            setCountRequest(res.data?.total)
-        })
-        requestAPI('/users', 'GET').then(res => {
-            setCountUser(res.data?.total)
-        })
         requestAPI('/survey/status/1', 'GET').then(res => {
-            console.log({ TOPSTORAGE: res.data });
+            setCountOrderStorage(res.data)
         })
         requestAPI('/survey/status/3', 'GET').then(res => {
-            console.log({ TOPSHIPPED: res.data });
+            setCountOrderShipped(res.data)
         })
         requestAPI('/survey/totalprice', 'GET').then(res => {
-            // console.log({ TOTALSALE: res.data });
             setTopOrderSales(res.data)
         })
         requestAPI('/survey/phone', 'GET').then(res => {
-            // console.log({ TOPCUSTOMER: res.data });
             setTopCusomer(res.data)
         })
     }, [])
@@ -136,24 +129,7 @@ export default function DashboardMain() {
                     ]}
                 />
             </div>
-            <div className="row flex">
-                <DashboardChartPie
-                    email={email}
-                    color="pink"
-                />
-                <DashboardChart
-                    products={products}
-                    order={order}
-                    color="lightblue"
-                />
-            </div>
-            {/* <div className="row flex">
-                <DashboardChartLine
-                    icon={faTasks}
-                    order={order}
-                    color="pink"
-                />
-            </div> */}
+
         </div>
     )
 }
