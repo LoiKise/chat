@@ -208,6 +208,13 @@ export default function DashboardOrderCreate(props) {
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
+        } else if (dataFormat.quantity < 1) {
+            enqueueSnackbar('Số lượng phải lớn hơn 0', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
         }
         else {
             // let customerAddressfull = dataFormat.customerAddress + dataFormat.customerDistrict + dataFormat.customerProvinceName

@@ -1,7 +1,6 @@
 .order {
   padding-top: 180px;
   .list-cost {
-    margin-top: 50px;
     > span {
       background: #fd7a3b;
       border-radius: 20px;
@@ -9,7 +8,7 @@
       font-weight: 600;
       color: #fff;
       text-align: center;
-      margin-left: 20px;
+      margin-left: 40px;
       padding: 12px 22px 12px;
       cursor: pointer;
     }
@@ -55,8 +54,6 @@
     );
     border-radius: 66px !important;
     margin-top: 70px;
-    padding-left: 75px;
-    padding-right: 86px;
     margin-bottom: 86px;
   }
 }
@@ -67,3 +64,4 @@
 .ordernow-form__deliverylocation-item input {
   font-size: 15px;
 }
+

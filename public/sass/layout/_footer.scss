@@ -144,6 +144,9 @@
           display: flex;
           align-items: center;
           margin-top: 4rem;
+          .footer-span{
+            text-align: center;
+          }
           span {
             margin: 0px auto;
           }
@@ -173,8 +176,8 @@
           margin: 0px auto;
           display: flex;
           align-items: center;
-          span {
-            margin: 0px auto;
+          .footer-span{
+            text-align: center;
           }
           > img {
             margin: 0px auto;
@@ -198,6 +201,9 @@
           margin-top: 7rem;
           margin-bottom: 9rem;
           align-items: flex-start;
+          .footer-span{
+            text-align: left;
+          }
           span {
             margin: 0px 0px;
           }
