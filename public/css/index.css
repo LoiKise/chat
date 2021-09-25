@@ -531,14 +531,14 @@ p {
   .navbar {
     flex-direction: row-reverse; } }
 
+@media (min-width: 1367px) {
+  .navbar {
+    margin-right: 112px !important;
+    margin-left: 54px; } }
+
 @media (min-width: 768px) {
   .navbar .navbar-brand {
     margin-right: 620px !important; } }
-
-@media (min-width: 1367px) {
-  .navbar .navbar-brand {
-    margin-right: 112px !important;
-    margin-left: 54px; } }
 
 @media (max-width: 480px) {
   .navbar-light .navbar-toggler {

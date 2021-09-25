@@ -46,16 +46,15 @@
   @include tablet {
     flex-direction: row-reverse;
   }
+  @include desktop {
+    margin-right: 112px !important;
+    margin-left: 54px;
+  }
   .navbar-brand {
     @include mobile {
- 
     }
     @include tablet {
       margin-right: 620px !important;
-    }
-    @include desktop {
-      margin-right: 112px !important;
-      margin-left: 54px;
     }
   }
 }
