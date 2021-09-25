@@ -10,15 +10,12 @@ import { useSnackbar } from 'notistack';
 import { CallBackGetOrder, closeStatusView } from '../../../../features/dashboard/order/orderSlice';
 import DashboardOrderControl from './DashboardOrderControl';
 import CustomLoadingOverlay from './CustomLoadingOverlay';
-import Transition from './DashboardTransition';
-import { Dialog, DialogContent, DialogTitle, Stack, Step, StepLabel, Typography } from '@mui/material';
-import { DialogContentText, Stepper } from '@material-ui/core';
 import DashboardDialog from './DashboardDialog';
 
 export default function DashboardOrderTable(props) {
     const orderUpdate = useSelector(state => state.order.callbackGet)
     const statusView = useSelector(state => state.order.statusOrderView)
-    const orderView = useSelector(state => state.order.orderView)
+    // const orderView = useSelector(state => state.order.orderView)
     const [order, setOrder] = useState([])
     const [constOrder, setConstOrder] = useState([])
     const [selection, setSelection] = useState([])
