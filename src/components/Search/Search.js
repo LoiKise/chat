@@ -10,27 +10,27 @@ import moment from 'moment'
 
 export default function Search(props) {
 
-  const fakeData = [
+  // const fakeData = [
 
-    {
-      name: 'Nguyễn Tấn Lợi',
-      SDT: '0903693306',
-      date: '10/1/2021',
-      product: 'sữa',
-    },
-    {
-      name: 'Nguyễn Tấn A',
-      SDT: '0903693306',
-      date: '10/1/2021',
-      product: 'thuốc',
-    },
-    {
-      name: 'Nguyễn Tấn B',
-      SDT: '0903693306',
-      date: '10/1/2021',
-      product: 'bia',
-    },
-  ]
+  //   {
+  //     name: 'Nguyễn Tấn Lợi',
+  //     SDT: '0903693306',
+  //     date: '10/1/2021',
+  //     product: 'sữa',
+  //   },
+  //   {
+  //     name: 'Nguyễn Tấn A',
+  //     SDT: '0903693306',
+  //     date: '10/1/2021',
+  //     product: 'thuốc',
+  //   },
+  //   {
+  //     name: 'Nguyễn Tấn B',
+  //     SDT: '0903693306',
+  //     date: '10/1/2021',
+  //     product: 'bia',
+  //   },
+  // ]
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -75,7 +75,8 @@ export default function Search(props) {
             if (res) {
               console.log(res.data[0]);
               setstate(res.data[0]);
-              setLoading(false);
+              handleShow()
+              // setLoading(false);
             }
           }).catch(err => console.log(err))
       } else {
@@ -124,7 +125,7 @@ export default function Search(props) {
                     />
                   </div>
                   <div className="form-group">
-                    <button type="submit" className="btn_tab_search" onClick={handleShow}>
+                    <button type="submit" className="btn_tab_search" >
                       <SearchSharpIcon /> Tra cứu vận đơn
                     </button>
                   </div>
