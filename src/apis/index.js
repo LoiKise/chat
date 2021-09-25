@@ -1,14 +1,15 @@
 import axios from "axios";
 
 // Syntax
-//requestAPI('/login', 'POST', {user}, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
-export default async function requestAPI(url, method, body, injectHeader) {
+// requestAPI('/search', 'POST', {code}, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
+// export default async function requestAPI(url, method, body, injectHeader) {
+export default async function requestAPI(url, method, body) {
   let urlOrigin = "http://localhost:3000";
   const headers = {
     "Content-Type": "application/json",
     // 'Content-Type': 'multipart/form-data',
     "Access-Control-Allow-Origin": "*",
-    ...injectHeader,
+    // ...injectHeader,
   };
 
   let objMeta = {

@@ -1,9 +1,11 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faFileInvoice } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardOrderTable'
 import { EditToolbar } from './DashboardEditToolBar';
+import DashboardViewDetails from './DashboardViewDetails';
 import GridCellExpand from './GridCellExpand';
 import moment from 'moment';
+import { getOrderUpdate, getOrderView } from '../../../../features/dashboard/order/orderSlice';
 export default function DashboardOrder(props) {
 
     const [table, setTable] = useState([])
@@ -11,28 +13,28 @@ export default function DashboardOrder(props) {
     useEffect(() => {
         if (window.innerWidth <= 600) {
             setTable([
-                { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
+                { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand, width: 150 },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
                     valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
-                    renderCell: renderCellExpand
+                    renderCell: renderCellExpand, width: 150
                 },
-                { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
-                { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
-                { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
-                { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
-                { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
-                { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
-                { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
-                { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
+                { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand, width: 150 },
+                { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand, width: 150 },
+                { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, width: 150, hide: true },
                 {
                     headerName: "Tài Xế", field: 'driver', hide: true,
                     valueFormatter: params => params.row?.driver?.name,
-                    renderCell: renderCellExpand, hide: true
+                    renderCell: renderCellExpand, width: 150
                 },
                 {
                     headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
-                    renderCell: renderCellExpand
+                    renderCell: renderCellExpand, width: 150
                 },
                 { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                 {
@@ -45,20 +47,25 @@ export default function DashboardOrder(props) {
                 },
                 {
                     headerName: "Trạng thái", field: 'status',
-
-                    renderCell: renderCellExpand
+                    valueFormatter: params => params?.row?.deliveryOrders?.length > 0 && params?.row?.deliveryOrders?.at(-1).status?.name,
+                    renderCell: renderCellExpand, width: 150
                 },
-                { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
+                { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                 {
-                    headerName: "Công cụ", field: 'control',
-
+                    headerName: "Công cụ", field: 'control', width: 200,
                     renderCell: (params) => {
                         return (
-                            <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                            <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
+                                <DashboardViewDetails
+                                    getItem={getOrderView}
+                                    params={params.row}
+                                />
                                 <EditToolbar
+                                    getItem={getOrderUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
+
                             </div>
                         );
                     }
@@ -66,28 +73,28 @@ export default function DashboardOrder(props) {
             ])
         } else {
             setTable([
-                { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
+                { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand, width: 150 },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
                     valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
-                    renderCell: renderCellExpand
+                    renderCell: renderCellExpand, width: 150
                 },
-                { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
-                { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
-                { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
-                { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
-                { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
-                { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
-                { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
-                { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
+                { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand, width: 150 },
+                { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand, width: 150 },
+                { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand, width: 150 },
+                { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, width: 150, hide: true },
                 {
                     headerName: "Tài Xế", field: 'driver', hide: true,
                     valueFormatter: params => params.row?.driver?.name,
-                    renderCell: renderCellExpand, hide: true
+                    renderCell: renderCellExpand, width: 150
                 },
                 {
                     headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
-                    renderCell: renderCellExpand
+                    renderCell: renderCellExpand, width: 150
                 },
                 { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                 {
@@ -100,20 +107,25 @@ export default function DashboardOrder(props) {
                 },
                 {
                     headerName: "Trạng thái", field: 'status',
-
-                    renderCell: renderCellExpand
+                    valueFormatter: params => params?.row?.deliveryOrders?.length > 0 && params?.row?.deliveryOrders?.at(-1).status?.name,
+                    renderCell: renderCellExpand, width: 150
                 },
-                { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
+                { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                 {
-                    headerName: "Công cụ", field: 'control',
-
+                    headerName: "Công cụ", field: 'control', width: 200,
                     renderCell: (params) => {
                         return (
-                            <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                            <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
+                                <DashboardViewDetails
+                                    getItem={getOrderView}
+                                    params={params.row}
+                                />
                                 <EditToolbar
+                                    getItem={getOrderUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
+
                             </div>
                         );
                     }
@@ -123,28 +135,28 @@ export default function DashboardOrder(props) {
         function handleResize() {
             if (window.innerWidth <= 600) {
                 setTable([
-                    { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
+                    { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand, width: 150 },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
                         valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
-                        renderCell: renderCellExpand
+                        renderCell: renderCellExpand, width: 150
                     },
-                    { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
-                    { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
-                    { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
-                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
-                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
-                    { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
-                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
-                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
+                    { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, width: 150, hide: true },
                     {
                         headerName: "Tài Xế", field: 'driver', hide: true,
                         valueFormatter: params => params.row?.driver?.name,
-                        renderCell: renderCellExpand, hide: true
+                        renderCell: renderCellExpand, width: 150
                     },
                     {
                         headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
-                        renderCell: renderCellExpand
+                        renderCell: renderCellExpand, width: 150
                     },
                     { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                     {
@@ -157,19 +169,23 @@ export default function DashboardOrder(props) {
                     },
                     {
                         headerName: "Trạng thái", field: 'status',
-
-                        renderCell: renderCellExpand
+                        valueFormatter: params => params?.row?.deliveryOrders?.length > 0 && params?.row?.deliveryOrders?.at(-1).status?.name,
+                        renderCell: renderCellExpand, width: 150
                     },
-                    { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
+                    { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                     {
-                        headerName: "Công cụ", field: 'control',
-
+                        headerName: "Công cụ", field: 'control', width: 200,
                         renderCell: (params) => {
                             return (
-                                <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                                <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
                                     <EditToolbar
+                                        getItem={getOrderUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
+                                    />
+                                    <DashboardViewDetails
+                                        getItem={getOrderView}
+                                        params={params.row}
                                     />
                                 </div>
                             );
@@ -178,28 +194,28 @@ export default function DashboardOrder(props) {
                 ])
             } else {
                 setTable([
-                    { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand },
+                    { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand, width: 150 },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
                         valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
-                        renderCell: renderCellExpand
+                        renderCell: renderCellExpand, width: 150
                     },
-                    { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand },
-                    { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand },
-                    { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand },
-                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand },
-                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand },
-                    { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand },
-                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand },
-                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, hide: true },
+                    { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Khách hàng gửi", field: 'customerName', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Phân loại", field: 'customerType', hide: true, renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Số điện thoại gửi hàng", field: 'customerPhone', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Địa chỉ gửi hàng", field: 'customerAddress', hide: true, renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Khách hàng nhận", field: 'receiverName', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Số điện thoại nhận hàng", field: 'receiverPhone', renderCell: renderCellExpand, width: 150 },
+                    { headerName: "Địa chỉ nhận hàng", field: 'receiverAddress', renderCell: renderCellExpand, width: 150, hide: true },
                     {
                         headerName: "Tài Xế", field: 'driver', hide: true,
                         valueFormatter: params => params.row?.driver?.name,
-                        renderCell: renderCellExpand, hide: true
+                        renderCell: renderCellExpand, width: 150
                     },
                     {
                         headerName: "Loại Hàng", field: 'orderType', hide: true, valueFormatter: params => params.row?.categories?.name,
-                        renderCell: renderCellExpand
+                        renderCell: renderCellExpand, width: 150
                     },
                     { headerName: "Số lượng", field: 'quantity', disableClickEventBubbling: true },
                     {
@@ -212,19 +228,23 @@ export default function DashboardOrder(props) {
                     },
                     {
                         headerName: "Trạng thái", field: 'status',
-
-                        renderCell: renderCellExpand
+                        valueFormatter: params => params?.row?.deliveryOrders?.length > 0 && params?.row?.deliveryOrders?.at(-1).status?.name,
+                        renderCell: renderCellExpand, width: 150
                     },
-                    { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand },
+                    { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                     {
-                        headerName: "Công cụ", field: 'control',
-
+                        headerName: "Công cụ", field: 'control', width: 200,
                         renderCell: (params) => {
                             return (
-                                <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                                <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
                                     <EditToolbar
+                                        getItem={getOrderUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
+                                    />
+                                    <DashboardViewDetails
+                                        getItem={getOrderView}
+                                        params={params.row}
                                     />
                                 </div>
                             );
@@ -237,7 +257,7 @@ export default function DashboardOrder(props) {
         return (() => {
             window.removeEventListener("resize", handleResize);
         })
-    }, [])
+    }, [props.setOpenEditFunc])
     function renderCellExpand(params) {
         return (
             <GridCellExpand
@@ -250,9 +270,9 @@ export default function DashboardOrder(props) {
     return (
         <div className="dashboard-product">
             <DashboardProductTable
-                icon={faUser}
-                title="Orders"
-                color="orange"
+                icon={faFileInvoice}
+                title="Đơn hàng"
+                color="darkpurple"
                 table={table}
                 setOpenCreateFunc={props.setOpenCreateFunc}
                 setCloseCreateFunc={props.setCloseCreateFunc}

@@ -1,30 +1,19 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage";
 import { rules } from "../../helpers/rules";
 import { Controller, useForm } from "react-hook-form";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { login } from "../../features/auth/authSlice";
+import { login, loginSocial } from "../../features/auth/authSlice";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import useAuthenticated from "../../helpers/useAuthenticated";
+import { toast } from "react-toastify";
 
 export default function Index() {
   const ICONGG = "/assets/img/icon/Asset 18.png";
   const ICONFB = "/assets/img/icon/Asset 19.png";
   const ICONLOGO = "/assets/img/icon/Asset 16.png";
-  const selector = useAuthenticated();
-  if (selector) {
-    console.log(selector);
-  } else {
-    console.log(selector);
-  }
-
-  // id login gg, face
-  const clientId =
-    "427076436287-ig3ubafn7i6og61d4ng1jqe5a9ejs4du.apps.googleusercontent.com";
-  const appId = "1249486168829023";
 
   const {
     control,
@@ -44,15 +33,23 @@ export default function Index() {
 
   const handleLogin = async (data) => {
     const body = {
-      sdt: data.sdt,
-      password: data.password,
+      phone: data.sdt,
+      password: data.password.trim(),
     };
-
+    console.log(body);
     try {
       const res = await dispatch(login(body));
       unwrapResult(res);
       history.push("/");
+      toast.success("Đăng nhập thành công", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (error) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       if (error.status === 422) {
         for (const key in error.data) {
           setError(key, {
@@ -67,14 +64,24 @@ export default function Index() {
   //login gg
   const responseGoogle = async (res) => {
     const body = {
-      user: res.profileObj,
+      user: {
+        fullname: `${res.profileObj.familyName} ${res.profileObj.givenName}`,
+      },
       accessToken: res.accessToken,
     };
     try {
-      const res = await dispatch(login(body));
+      const res = await dispatch(loginSocial(body));
       unwrapResult(res);
       history.push("/");
+      toast.success("Đăng nhập thành công", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (error) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       if (error.status === 422) {
         for (const key in error.data) {
           setError(key, {
@@ -88,20 +95,23 @@ export default function Index() {
 
   //login face
   const responseFacebook = async (res) => {
-    const profileObj = {
-      name: res.name,
-      email: res.email,
-      picture: res.picture,
-    };
     const body = {
-      user: profileObj,
+      user: { fullname: res.name },
       accessToken: res.accessToken,
     };
     try {
-      const res = await dispatch(login(body));
+      const res = await dispatch(loginSocial(body));
       unwrapResult(res);
       history.push("/");
+      toast.success("Đăng nhập thành công", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (error) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       if (error.status === 422) {
         for (const key in error.data) {
           setError(key, {
@@ -120,7 +130,7 @@ export default function Index() {
           <h3 className="text-center p-3">ĐĂNG NHẬP</h3>
           <div className="login__social">
             <GoogleLogin
-              clientId={clientId}
+              clientId="181812673260-2tcsdhgp7vj2rv65kkv2ap3gb901e3f9.apps.googleusercontent.com"
               render={(renderProps) => (
                 <button
                   onClick={renderProps.onClick}
@@ -143,7 +153,7 @@ export default function Index() {
             />
 
             <FacebookLogin
-              appId={appId}
+              appId="863179767664254"
               autoLoad={false}
               fields="name,email,picture"
               callback={responseFacebook}
@@ -177,7 +187,6 @@ export default function Index() {
                   rules={rules.phone}
                   render={({ field }) => (
                     <input
-                      type="number"
                       className="form-control rounded-0"
                       id="form-group-phone"
                       onChange={field.onChange}
@@ -228,9 +237,9 @@ export default function Index() {
             </form>
           </div>
           <p className="not--account">Bạn chưa có tài khoản ?</p>
-          {/* <Link to="/#" className="signup__link">
+          <Link to="/register" className="signup__link">
             Đăng kí miễn phí ngay
-          </Link> */}
+          </Link>
         </div>
         <div className="col col-md-6 col-12 login__introduce">
           <div className="logo__introduce">

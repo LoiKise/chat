@@ -2,12 +2,10 @@ import React, { useState } from 'react'
 import DashboardHeader from './DashboardHeader'
 import DashboardMain from './Main/DashboardMain';
 import classNames from 'classnames'
-import DashboardInbox from './Inbox/DashboardInbox';
 import DashboardDriver from './Driver/DashboardDriver';
 import DashboardNews from './News/DashboardNews';
 import DashboardDriverEdit from './Driver/DashboardDriverEdit';
 import DashboardDriverCreate from './Driver/DashboardDriverCreate';
-// import Axios from 'axios';
 import DashboardNewsCreate from './News/DashboardNewsCreate';
 import DashboardNewsEdit from './News/DashboardNewsEdit';
 import DashboardUser from './User/DashboardUser';
@@ -16,9 +14,8 @@ import DashboardUserEdit from './User/DashboardUserEdit';
 import DashboardOrder from './Order/DashboardOrder';
 import DashboardOrderEdit from './Order/DashboardOrderEdit';
 import DashboardOrderCreate from './Order/DashboardOrderCreate';
-import DashboardReportCreate from './Report/DashboardReportCreate';
-import DashboardReportEdit from './Report/DashboardReportEdit';
-import DashboardReport from './Report/DashboardReport';
+import DashboardSupport from './Support/DashboardSupport';
+import DashboardRequest from './Request/DashboardRequest';
 import DashboardDeliveryCreate from './Delivery/DashboardDeliveryCreate';
 import DashboardDeliveryEdit from './Delivery/DashboardDeliveryEdit';
 import DashboardDelivery from './Delivery/DashboardDelivery';
@@ -28,12 +25,11 @@ export default function DashboardBody(props) {
     const tabId = props.tabId;
     const [toast, setToast] = useState(false)
     const [isChange, setIsChange] = useState(false)
-    const [Driver, setDriver] = useState({})
-    const [news, setNews] = useState({})
-    const [user, setUser] = useState({})
-    const [order, setOrder] = useState({})
-    const [Report, setReport] = useState({})
-    const [email, setEmail] = useState([])
+    const [Driver] = useState({})
+    const [news] = useState({})
+    const [user] = useState({})
+    const [order] = useState({})
+    const [email] = useState([])
 
     const setToastFunc = (bool) => {
         setIsChange(true)
@@ -46,44 +42,6 @@ export default function DashboardBody(props) {
         }, 3000)
     }
 
-    // useEffect(() => {
-    //     //     Axios.get(`http://pe.heromc.net:4000/Drivers/${props.DriverId}`)
-    //     //         .then(res => {
-    //     //             setDriver(res.data)
-    //     setDriver({})
-    //     //         }
-    //     //         )
-    //     //     Axios.get(`http://pe.heromc.net:4000/news/${props.DriverId}`)
-    //     //         .then(res => {
-    //     // setNews(res.data)
-    //     setNews({})
-    //     //         }
-    //     //         )
-    //     //     Axios.get(`http://pe.heromc.net:4000/users/list/${props.DriverId}`)
-    //     //         .then(res => {
-    //     //             setUser(res.data)
-    //     setUser({})
-    //     //         }
-    //     //         )
-    //     //     Axios.get(`http://pe.heromc.net:4000/order/${props.DriverId}`)
-    //     //         .then(res => {
-    //     //             setOrder(res.data)
-    //     setOrder({})
-    //     //         }
-    //     //         )
-    //     //     Axios.get(`http://pe.heromc.net:4000/Report/${props.DriverId}`)
-    //     //         .then(res => {
-    //     // setReport(res.data)
-    //     setReport({})
-    //     //         }
-    //     //         )
-    //     //     Axios.get(`http://pe.heromc.net:4000/email/${props.DriverId}`)
-    //     //         .then(res => {
-    //     //             setEmail(res.data)
-    //     setEmail({})
-    //     //         }
-    //     //         )
-    // }, [props.DriverId, props.openEdit])
     const openMenuMobile = props.openMenuMobile;
 
     return (
@@ -98,13 +56,13 @@ export default function DashboardBody(props) {
                     onClick={props.setOpenMenuOnClick}
                 ></div>
             }
-            {(props.openCreate && tabId === "3") &&
+            {(props.openCreate && tabId === "2") &&
                 <DashboardOrderCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "3") &&
+            {(props.openEdit && tabId === "2") &&
                 <DashboardOrderEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
@@ -112,73 +70,58 @@ export default function DashboardBody(props) {
                 />
             }
 
-            {(props.openCreate && tabId === "4") &&
+            {(props.openCreate && tabId === "3") &&
                 <DashboardDeliveryCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "4") &&
+            {(props.openEdit && tabId === "3") &&
                 <DashboardDeliveryEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     email={email}
                 />
             }
-            {(props.openCreate && tabId === "5") &&
+            {(props.openCreate && tabId === "4") &&
                 <DashboardDriverCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "5") &&
+            {(props.openEdit && tabId === "4") &&
                 <DashboardDriverEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     Driver={Driver}
                 />
             }
-            {(props.openCreate && tabId === "6") &&
+            {(props.openCreate && tabId === "5") &&
                 <DashboardNewsCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "6") &&
+            {(props.openEdit && tabId === "5") &&
                 <DashboardNewsEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     news={news}
                 />
             }
-            {(props.openCreate && tabId === "7") &&
+            {(props.openCreate && tabId === "6") &&
                 <DashboardUserCreate
                     setCloseCreateFunc={props.setCloseCreateFunc}
                     setToastFunc={setToastFunc}
                 />
             }
-            {(props.openEdit && tabId === "7") &&
+            {(props.openEdit && tabId === "6") &&
                 <DashboardUserEdit
                     setCloseEditFunc={props.setCloseEditFunc}
                     setToastFunc={setToastFunc}
                     user={user}
                 />
             }
-
-            {(props.openCreate && tabId === "8") &&
-                <DashboardReportCreate
-                    setCloseCreateFunc={props.setCloseCreateFunc}
-                    setToastFunc={setToastFunc}
-                />
-            }
-            {(props.openEdit && tabId === "8") &&
-                <DashboardReportEdit
-                    setCloseEditFunc={props.setCloseEditFunc}
-                    setToastFunc={setToastFunc}
-                    Report={Report}
-                />
-            }
-
             <DashboardHeader
                 itemName={props.menuItems[tabId - 1].name}
                 setOpenMenuOnClick={props.setOpenMenuOnClick}
@@ -188,11 +131,11 @@ export default function DashboardBody(props) {
             {
                 tabId === "1" && <DashboardMain />
             }
-            {
+            {/* {
                 tabId === "2" && <DashboardInbox />
-            }
+            } */}
             {
-                tabId === "3" &&
+                tabId === "2" &&
                 <DashboardOrder
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -201,7 +144,7 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "4" &&
+                tabId === "3" &&
                 <DashboardDelivery
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -210,7 +153,7 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "5" &&
+                tabId === "4" &&
                 <DashboardDriver
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -219,7 +162,7 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "6" &&
+                tabId === "5" &&
                 <DashboardNews
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -228,7 +171,7 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "7" &&
+                tabId === "6" &&
                 <DashboardUser
                     setOpenCreateFunc={props.setOpenCreateFunc}
                     setOpenEditFunc={props.setOpenEditFunc}
@@ -237,14 +180,20 @@ export default function DashboardBody(props) {
                 />
             }
             {
-                tabId === "8" &&
-                <DashboardReport
-                    setOpenCreateFunc={props.setOpenCreateFunc}
-                    setOpenEditFunc={props.setOpenEditFunc}
+                tabId === "7" &&
+                <DashboardRequest
                     toast={toast}
                     isChange={isChange}
                 />
             }
+            {
+                tabId === "8" &&
+                <DashboardSupport
+                    toast={toast}
+                    isChange={isChange}
+                />
+            }
+
 
         </div>
     )

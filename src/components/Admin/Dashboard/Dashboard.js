@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import DashboardBody from './DashboardBody'
 import DashboardMenu from './DashboardMenu'
-import { faEnvelope, faFileInvoice, faHome, faInbox, faNewspaper, faShoppingBag, faTshirt, faUser } from '@fortawesome/free-solid-svg-icons'
-// import socketIOClient from "socket.io-client"
-// import Axios from 'axios'
+import { faFileInvoice, faHome, faNewspaper, faShoppingBag, faEnvelope, faUser, faBiking, faTruck } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
-// const ENDPOINT = "http://pe.heromc.net:4000";
 
 function Dashboard(props) {
     const menuItems = [
@@ -14,49 +11,53 @@ function Dashboard(props) {
             name: "Tổng Quan",
             icon: faHome
         },
+        // {
+        //     id: "2",
+        //     name: "Tin Nhắn",
+        //     icon: faInbox
+        // },
         {
             id: "2",
-            name: "Tin Nhắn",
-            icon: faInbox
-        },
-        {
-            id: "3",
             name: "Đơn hàng",
             icon: faFileInvoice
         },
         {
-            id: "4",
+            id: "3",
             name: "Giao Hàng",
-            icon: faEnvelope
+            icon: faTruck
+        },
+        {
+            id: "4",
+            name: "Tài Xế",
+            icon: faBiking
         },
         {
             id: "5",
-            name: "Tài Xế",
-            icon: faTshirt
-        },
-        {
-            id: "6",
             name: "Tin Tuyển Dụng",
             icon: faNewspaper
         },
         {
-            id: "7",
+            id: "6",
             name: "Tài Khoản",
             icon: faUser
         },
         {
-            id: "8",
-            name: "Báo cáo & Thống Kê",
+            id: "7",
+            name: "Yêu Cầu Giao Hàng",
             icon: faShoppingBag
+        },
+        {
+            id: "8",
+            name: "Hộp Thư",
+            icon: faEnvelope
         },
 
     ]
     const [tabId, setTabId] = useState("1");
     const [openMenu, setOpenMenu] = useState(true);
     const [openMenuMobile, setOpenMenuMobile] = useState(true);
-    const [DriverId, setDriverId] = useState("")
+    const [DriverId,] = useState("")
 
-    // const socket = socketIOClient(ENDPOINT);
 
     const [orderNotice, setOrderNotice] = useState(null)
     const [userInfo, setUserInfo] = useState(null)
@@ -65,34 +66,6 @@ function Dashboard(props) {
         setOrderNotice(null)
         setUserInfo(null)
     }, [])
-    // useEffect(() => {
-    //     if (localStorage.getItem('token')) {
-    //         Axios.get(`http://pe.heromc.net:4000/users/${localStorage.getItem('user-id')}`, {
-    //             headers: { "authorization": `Bearer ${localStorage.getItem('token')}` }
-    //         })
-    //             .then(res => {
-    //                 setUserInfo(res.data.user)
-    //                 const userInfo = res.data.user;
-    //                 if (userInfo.userRole === 'admin') {
-    //                     socket.emit('join', {
-    //                         sessionId: 'admin',
-    //                         isAdmin: true
-    //                     })
-    //                     socket.on("placeAnOrder-notice", function (data) {
-    //                         setOrderNotice(data)
-    //                     })
-    //                 } else {
-    //                     localStorage.setItem("errLogin", "You do not have Administrator access!")
-    //                     props.history.push('/admin')
-    //                 }
-    //             })
-    //             .catch(err => {
-    //                 console.log(err)
-    //             })
-    //     } else {
-    //         props.history.push('/admin/dashboard')
-    //     }
-    // }, [socket, props.history])
 
     const setTabIdOnClick = (id) => {
         setTabId(id);

@@ -25,7 +25,7 @@ export default function DashboardTotalCount(props) {
                         <div className="count-status flex-center">
                             <FontAwesomeIcon icon={faArrowUp} className="count-up" />
                             <p className="count-up">{item.percent}%</p>
-                            <p>since last month</p>
+                            <p>với tháng trước</p>
                         </div>
                     }
                     {
@@ -33,7 +33,7 @@ export default function DashboardTotalCount(props) {
                         <div className="count-status flex-center">
                             <FontAwesomeIcon icon={faArrowDown} className="count-down" />
                             <p className="count-down">{item.percent}%</p>
-                            <p>since last month</p>
+                            <p>với tháng trước</p>
                         </div>
                     }
                 </div>

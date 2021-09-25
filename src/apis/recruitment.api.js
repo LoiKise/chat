@@ -1,9 +1,8 @@
-import axios from "axios";
-// import requestAPI from ".";
+import requestAPI from "./index";
 
 const recuitmentApi = {
-  getRecruitments(data) {
-    return axios.get("https://api-ecom.duthanhduoc.com/products", data);
+  getRecruitments(params) {
+    return requestAPI(`/jobs?${params}`, "GET");
   },
 };
 export default recuitmentApi;

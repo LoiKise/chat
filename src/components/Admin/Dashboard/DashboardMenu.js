@@ -63,7 +63,7 @@ export default function DashboardMenu(props) {
                     <div className={openUserOpt ? "db-menu-user-opt closeOpt" : "db-menu-user-opt"}>
                         <div className="db-menu-item flex-center">
                             <FontAwesomeIcon icon={faIdCard} style={{ fontSize: '18px' }} className="icon" />
-                            <p className="db-menu-name">profile</p>
+                            <p className="db-menu-name">Thông tin tài khoản</p>
                         </div>
                         <div
                             className="db-menu-item flex-center"
@@ -76,7 +76,7 @@ export default function DashboardMenu(props) {
                             }}
                         >
                             <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '18px' }} className="icon" />
-                            <p className="db-menu-name">Log out</p>
+                            <p className="db-menu-name">Đăng xuất</p>
                         </div>
                     </div>
                 </div>

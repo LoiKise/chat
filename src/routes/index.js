@@ -10,6 +10,8 @@ const ScreenService = lazy(() => import("../components/Service"));
 const ScreenLoginDashboard = lazy(() =>
   import("../components/Admin/Login/Login")
 );
+const ScreenUserInfor = lazy(() => import("../components/AcountUser/AcountUser.js"));
+const ScreenDetailJob = lazy(() => import("../components/Recruitment/Detail Item/DetaiItem.js"));
 const ScreenSearch = lazy(() => import("../components/Search/Search.js"));
 const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
 const Recruitment = lazy(() => import("../components/Recruitment/Index"));
@@ -59,6 +61,15 @@ const index = [
     ),
   },
   {
+    path: "/Search",
+    exact: true,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenSearch />
+      </Suspense>
+    ),
+  },
+  {
     path: "/Contact",
     exact: true,
     main: () => (
@@ -72,7 +83,7 @@ const index = [
     exact: true,
     main: () => (
       <Suspense key={index} fallback={<Fallback />}>
-        <ScreenSearch />
+        <ScreenService />
       </Suspense>
     ),
   },
@@ -91,6 +102,24 @@ const index = [
     main: () => (
       <Suspense key={index} fallback={<Fallback />}>
         <Dashboard />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/UserInfor",
+    exact: true,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenUserInfor />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/DetailJob",
+    exact: true,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <ScreenDetailJob />
       </Suspense>
     ),
   },

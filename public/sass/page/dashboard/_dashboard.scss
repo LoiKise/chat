@@ -1,12 +1,5 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: Poppins, sans-serif;
-}
 .Dashboard {
     width: 100%;
-    font-family: sans-serif !important;
 }
 .menu-line {
     height: 0.5px;
@@ -37,6 +30,11 @@
 }
 .DashboardMenu-disable {
     visibility: hidden;
+}
+.db-form-input {
+    overflow-y: scroll;
+    height: 100%;
+    padding: 20px;
 }
 .db-menu-overlay {
     width: 100%;
@@ -268,6 +266,7 @@
 }
 
 .dashboard-main {
+    padding: 20px;
 }
 .top-location {
     position: relative;
@@ -417,6 +416,26 @@
 .lightblue {
     background: linear-gradient(60deg, #26c6da, #00acc1);
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+.lightgreen {
+    background: linear-gradient(60deg, #3fff9f, #00875c);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(63, 255, 159, 0.4);
+}
+.darkblue {
+    background: linear-gradient(60deg, #524dea, #908cff);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(144, 140, 255, 0.4);
+}
+.darkred {
+    background: linear-gradient(60deg, #ce0c0c, #541313);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(144, 140, 255, 0.4);
+}
+.darkyellow {
+    background: linear-gradient(60deg, #a1e569, #e8d722);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(144, 140, 255, 0.4);
+}
+.darkpurple {
+    background: linear-gradient(60deg, #a04cad, #a01468);
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(168, 168, 168, 0.4);
 }
 .dashboard-count p {
     height: 40px;
@@ -881,8 +900,8 @@
 
 .dashboard-product {
     /* background-color: #fff; */
-    position: relative;
     padding: 20px 30px;
+    position: relative;
 }
 .dashboard-table {
     width: 100%;
@@ -1046,7 +1065,6 @@ select {
     background-color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
-    overflow-y: scroll;
 }
 .create-box-title {
     align-items: center;

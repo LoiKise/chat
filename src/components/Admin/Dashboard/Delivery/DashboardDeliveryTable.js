@@ -1,153 +1,85 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import classNames from 'classnames'
+import { DataGrid } from '@mui/x-data-grid';
+import CustomPagination from '../Order/CustomPagination';
+import CustomNoRowsOverlay from '../Order/CustomNoRowsOverlay';
+import CustomToolbar from '../Order/DashboardConfigToolBar';
+import { useSelector, useDispatch } from 'react-redux';
+import requestAPI from '../../../../apis';
+import { useSnackbar } from 'notistack';
+import DashboardOrderControl from '../Order/DashboardOrderControl';
+import { CallBackGetDelivery } from '../../../../features/dashboard/delivery/deliverySlice';
+import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 
 export default function DashboardDeliveryTable(props) {
-
-    const [email, setEmail] = useState([])
-    const [isSortByName, setIsSortByName] = useState(false)
-    const [constEmail, setConstEmail] = useState([])
-
+    const update = useSelector(state => state.delivery.callbackGet)
+    const [delivery, setDelivery] = useState([])
+    const [constDelivery, setConstDelivery] = useState([])
+    const [selection, setSelection] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const { enqueueSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
     useEffect(() => {
-        setEmail([])
-        setConstEmail([])
-        // axios.get(`http://pe.heromc.net:4000/email`)
-        //     .then(res => {
-        //         setEmail(res.data)
-        //         setConstEmail(res.data)
-        //     }
-        //     )
-    }, [props.isChange])
-
-    console.log(email)
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
-
-    const choosePage = (event) => {
-        if (Number(event.target.id) === 0) {
-            setCurrentPage(currentPage)
-        } else if (Number(event.target.id) === -1) {
-            if (currentPage > 1) {
-                setCurrentPage(currentPage - 1)
-            } else {
-                setCurrentPage(1);
-            }
-        } else if (Number(event.target.id) === 999) {
-            setCurrentPage(currentPage + 1)
+        setIsLoading(true)
+        getDelivery();
+    }, [update])
+    const getDelivery = async () => {
+        const data = await requestAPI('/deliveryorder', 'GET')
+            .then(res => {
+                if (res) {
+                    setDelivery(res.data?.data)
+                    setConstDelivery(res.data?.data)
+                    setIsLoading(false);
+                }
+            })
+            .catch(err => console.log(err))
+        return data
+    }
+    const deleteOnClick = () => {
+        if (selection.length > 0) {
+            RemoveDelivery({ idList: selection }).then(res => {
+                if (res) {
+                    dispatch(CallBackGetDelivery());
+                    enqueueSnackbar('Xóa hóa đơn giao hàng thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                }
+            }).catch(err => console.log(err))
         } else {
-            setCurrentPage(Number(event.target.id))
+            enqueueSnackbar('Vui lòng chọn hóa đơn giao hàng muốn xóa', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
         }
     }
-
-    const indexOfLast = currentPage * itemsPerPage;
-    const indexOfFirst = indexOfLast - itemsPerPage;
-    const current = email.slice(indexOfFirst, indexOfLast);
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(email.length / itemsPerPage); i++) {
-        pageNumbers.push(i);
+    const RemoveDelivery = async (list) => {
+        const data = await requestAPI(`/delivery/delete`, 'DELETE', list)
+        return data
     }
-
-    const pages = [];
-
-    if (pageNumbers.length > 3) {
-        if (currentPage === 2) {
-            pages.push(currentPage - 1, currentPage, currentPage + 1);
-        } else {
-            if (currentPage === 1) {
-                pages.push(currentPage, currentPage + 1, currentPage + 2);
-            } else if (currentPage === 2) {
-                pages.push(currentPage - 1, currentPage, currentPage + 1);
-            } else if (currentPage > 2 && currentPage < pageNumbers.length - 1) {
-                pages.push(currentPage - 1, currentPage, currentPage + 1);
-            } else if (currentPage === pageNumbers.length - 1) {
-                pages.push(currentPage - 1, currentPage, currentPage + 1);
-            } else {
-                pages.push(currentPage - 2, currentPage - 1, currentPage);
-            }
-        }
-    } else if (pageNumbers.length === 3) {
-        if (currentPage === 2) {
-            pages.push(currentPage - 1, currentPage, currentPage + 1);
-        } else {
-            if (currentPage === 1) {
-                pages.push(currentPage, currentPage + 1, currentPage + 2);
-            } else if (currentPage === 2) {
-                pages.push(currentPage - 1, currentPage, currentPage + 1);
-            } else if (currentPage > 2 && currentPage < pageNumbers.length - 1) {
-                pages.push(currentPage - 1, currentPage, currentPage + 1);
-            } else if (currentPage === pageNumbers.length - 1) {
-                pages.push(currentPage - 1, currentPage, currentPage + 1);
-            } else {
-                pages.push(currentPage - 2, currentPage - 1, currentPage);
-            }
-        }
-    } else if (pageNumbers.length === 2) {
-        if (currentPage === 2) {
-            pages.push(currentPage - 1, currentPage);
-        } else {
-            if (currentPage === 1) {
-                pages.push(currentPage, currentPage + 1);
-            } else if (currentPage === 2) {
-                pages.push(currentPage - 1, currentPage);
-            }
-        }
-    } else {
-        if (currentPage === 1) {
-            pages.push(currentPage);
-        }
-    }
-
-    const deleteOnClick = (event) => {
-        axios.post(`http://pe.heromc.net:4000/email/delete/:${event.target.id}`, {
-            id: event.target.id
-        })
-        setEmail(email.filter((item) => {
-            return item._id !== event.target.id
-        }))
-    }
-
     const searchOnSubmit = (event) => {
         event.preventDefault()
     }
     const searchOnChange = (event) => {
         const searchInput = event.target.value
         const search = []
-        for (let i in constEmail) {
-            if ((constEmail[i].DeliveryEmail).toLowerCase().includes(searchInput)) {
-                search.push(constEmail[i])
+        if (searchInput !== '') {
+            for (let i in constDelivery) {
+                if ((constDelivery[i]?.saleOrderId).includes(searchInput)) {
+                    search.push(constDelivery[i])
+                }
             }
+            setDelivery(search)
+        } else {
+            setDelivery(constDelivery)
         }
-        setEmail(search)
+
     }
 
-    const sortTable = (event) => {
-        if (event.target.id === "DeliveryEmail") {
-            if (isSortByName) {
-                const sortByName = [...email]
-                sortByName.sort(function (a, b) {
-                    var userA = a.DeliveryEmail.toLowerCase();
-                    var userB = b.DeliveryEmail.toLowerCase();
-                    if (userA === userB) return 0;
-                    return userA > userB ? 1 : -1;
-                })
-                setIsSortByName(false)
-                setEmail(sortByName)
-            } else {
-                const sortByName = [...email]
-                sortByName.sort(function (a, b) {
-                    var userA = a.DeliveryEmail.toLowerCase();
-                    var userB = b.DeliveryEmail.toLowerCase();
-                    if (userA === userB) return 0;
-                    return userA < userB ? 1 : -1;
-                })
-                setIsSortByName(true)
-                setEmail(sortByName)
-            }
-        }
-    }
 
     return (
         <div className="topfive flex-col" style={{ width: '100%' }}>
@@ -159,112 +91,34 @@ export default function DashboardDeliveryTable(props) {
                     <p>{props.title}</p>
                 </div>
                 <div className="topfive-content flex-col">
-                    <div className="dashboard-addnew flex">
-                        <div
-                            className="dashboard-addnew-btn btn"
-                            onClick={props.setOpenCreateFunc}
-                        >Add new</div>
-                        <div className="dashboard-addnew-search">
-                            <form
-                                onSubmit={searchOnSubmit}
-                            >
-                                <input type="text" placeholder="Search records"
-                                    onChange={searchOnChange}
-                                ></input>
-                            </form>
-                        </div>
+                    <DashboardOrderControl
+                        addController={props.setOpenCreateFunc}
+                        deleteController={deleteOnClick}
+                        searchOnChange={searchOnChange}
+                        searchController={searchOnSubmit}
+                        placeholderSearch="Tìm kiếm theo mã hóa đơn"
+                    />
+                    <div style={{ height: 400, width: "100%" }}>
+                        <DataGrid
+                            components={{
+                                Toolbar: CustomToolbar,
+                                Pagination: CustomPagination,
+                                NoRowsOverlay: CustomNoRowsOverlay,
+                                LoadingOverlay: CustomLoadingOverlay
+                            }}
+                            loading={isLoading}
+                            columns={props.table}
+                            rows={delivery}
+                            pagination
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            onSelectionModelChange={(newSelectionModel) => {
+                                setSelection(newSelectionModel)
+                            }}
+                            checkboxSelection
+                        />
                     </div>
-                    <table className="dashboard-table" style={{ tableLayout: 'fixed' }}>
-                        <tbody>
-                            <tr>
-                                {
-                                    props.table.map((item, index) => {
-                                        return (
-                                            <th
-                                                key={index} className="table-new-title table-user-title"
-                                                onClick={(event) => {
-                                                    sortTable(event)
-                                                }}
-                                                id={`Delivery${item}`}
-                                            >
-                                                {item}
-                                            </th>
-                                        )
-                                    })
-                                }
-                            </tr>
-                            {
-                                current.map((item, index) => {
-                                    let count = 0;
-                                    for (let i in item.sendedEmail) {
-                                        if (item.sendedEmail[i].isSeen === true) {
-                                            count++
-                                        }
-                                    }
-                                    return (
-                                        <tr key={index}>
-                                            <td className="table-mobile-Deliveryname">
-                                                <p>{item.DeliveryEmail}</p>
-                                            </td>
-                                            <td className="table-mobile-Deliverysent">
-                                                <p>{item.sendedEmail.length}</p>
-                                            </td>
-                                            <td className="table-mobile-Deliveryread">
-                                                <p>{count}</p>
-                                            </td>
-                                            <td>
-                                                <div className="action-table flex">
-                                                    <div
-                                                        className="action-item flex-center action-green"
-                                                        onClick={props.setOpenEditFunc}
-                                                        id={item._id}
-                                                    >
-                                                        <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faPencilAlt} />
-                                                    </div>
-                                                    <div
-                                                        className="action-item flex-center action-red"
-                                                        onClick={deleteOnClick}
-                                                        id={item._id}
-                                                    >
-                                                        <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
 
-                    <div className="pagination-container flex" style={{ justifyContent: 'flex-end', margin: '20px 0' }}>
-                        <div className="pagnigation flex-center" onClick={choosePage}>
-                            <div id="-1" className={classNames({
-                                pagnigation_disable: currentPage === 1
-                            })}>←</div>
-                            {pages.map(function (number, index) {
-                                if (currentPage === number) {
-                                    return (
-                                        <div key={number} id={number} className="pagnigation-active">
-                                            {number}
-                                        </div>
-                                    )
-                                } else {
-                                    return (
-                                        <div
-                                            key={number}
-                                            id={number}
-                                        >
-                                            {number}
-                                        </div>
-                                    )
-                                }
-                            })}
-                            <div id="999" className={classNames({
-                                pagnigation_disable: currentPage === pageNumbers.length
-                            })}>→</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

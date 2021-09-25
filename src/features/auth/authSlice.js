@@ -1,44 +1,36 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authApi from "../../apis/auth.api";
 import LocalStorage from "../../helpers/localStorage";
+import { payloadCreator } from "../../helpers/payloadCreators";
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (data, thunkAPI) => {
-    try {
-      const res = await authApi.register(data);
-      return res;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
+  payloadCreator(authApi.register)
 );
 
-export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
-  try {
-    const res = await authApi.login(data);
-    return res;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
-  }
-});
-
-export const logout = createAsyncThunk(
-  "auth/logout",
-  async (data, thunkAPI) => {
-    try {
-      const res = await authApi.logout(data);
-      return res;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
+export const login = createAsyncThunk(
+  "auth/login",
+  payloadCreator(authApi.login)
 );
 
-const handleAuth = (state, action) => {
-  const { user, accessToken } = action.payload.data;
+const handleRegister = (state, action) => {
+  const { fullname, phone, password } = action.payload.data;
+  const user = { fullname, phone };
   state.profile = user;
-  console.log(user);
+  localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
+  localStorage.setItem(LocalStorage.accessToken, password);
+};
+
+const handleLogin = (state, action) => {
+  const { name, token } = action.payload.data;
+  state.profile = { fullname: name };
+  localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
+  localStorage.setItem(LocalStorage.accessToken, token);
+};
+
+const handleAuthSocial = (state, action) => {
+  const { user, accessToken } = action.payload;
+  state.profile = user;
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
   localStorage.setItem(LocalStorage.accessToken, accessToken);
 };
@@ -54,13 +46,17 @@ const auth = createSlice({
   initialState: {
     profile: JSON.parse(localStorage.getItem(LocalStorage.user)) || {},
   },
-
+  reducers: {
+    logout: handleUnAuth,
+    loginSocial: handleAuthSocial,
+  },
   extraReducers: {
-    [register.fulfilled]: handleAuth,
-    [login.fulfilled]: handleAuth,
-    [logout.fulfilled]: handleUnAuth,
+    [register.fulfilled]: handleRegister,
+    [login.fulfilled]: handleLogin,
   },
 });
 
 const authReducer = auth.reducer;
+export const logout = auth.actions.logout;
+export const loginSocial = auth.actions.loginSocial;
 export default authReducer;
