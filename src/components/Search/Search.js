@@ -142,7 +142,7 @@ export default function Search(props) {
                       alt="this is logo" />
                     <Card.Body>
                       <Card.Title>Tên: {state?.customerName}</Card.Title>
-                      <Card.Title>Số điện thoại: {state?.phone}</Card.Title>
+                      <Card.Title>Số điện thoại: {state?.customerPhone}</Card.Title>
                       <Card.Text>
                         {state?.products?.map(item => {
                           return (
