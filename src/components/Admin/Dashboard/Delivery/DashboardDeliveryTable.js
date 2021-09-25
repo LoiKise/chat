@@ -22,7 +22,6 @@ export default function DashboardDeliveryTable(props) {
     useEffect(() => {
         setIsLoading(true)
         getDelivery();
-        console.log(constDelivery);
     }, [update])
     const getDelivery = async () => {
         const data = await requestAPI('/deliveryorder', 'GET')

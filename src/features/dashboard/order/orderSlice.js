@@ -80,7 +80,9 @@ const initialState = {
         },
     ],
     callbackGet: false,
-    orderUpdate: {}
+    orderUpdate: {},
+    orderView: {},
+    statusOrderView: false
 }
 
 export const orderSlice = createSlice({
@@ -92,12 +94,19 @@ export const orderSlice = createSlice({
         },
         getOrderUpdate: (state, action) => {
             state.orderUpdate = action.payload
+        },
+        getOrderView: (state, action) => {
+            state.orderView = action.payload
+            state.statusOrderView = true
+        },
+        closeStatusView: (state, action) => {
+            state.statusOrderView = false
         }
 
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { AddOrder, CallBackGetOrder, getOrderUpdate } = orderSlice.actions
+export const { AddOrder, CallBackGetOrder, getOrderUpdate, getOrderView, closeStatusView } = orderSlice.actions
 
 export default orderSlice.reducer

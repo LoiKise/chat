@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
-import requestAPI from "../../apis";
 import { Modal, Tab, Tabs, Card } from "react-bootstrap";
 
 
@@ -52,18 +51,18 @@ export default function Search(props) {
     })
   }
   const [state, setstate] = useState()
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const handleSubmit = (event) => {
     // chặn sự kiện submit browser
     event.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     setTimeout(() => {
 
       if (type.name && type.name.length > 0) {
         let temp = fakeData.find(item => item.name === type.name && item.SDT === type.SDT);
         console.log(temp);
         setstate(temp);
-        setLoading(false);
+        // setLoading(false);
       } else {
         //Show noti
       }

@@ -216,8 +216,8 @@ export default function DashboardOrderCreate(props) {
                 autoHideDuration: 3000,
             })
 
-        } else if (isNaN(dataFormat.quantity)) {
-            enqueueSnackbar('Số lượng phải là số, vui lòng kiểm tra lại thông tin vừa nhập', {
+        } else if (isNaN(dataFormat.quantity) && dataFormat.quantity < 1) {
+            enqueueSnackbar('Số lượng phải là số và lớn hơn 0, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'error',
                 preventDuplicate: true,
@@ -524,7 +524,7 @@ export default function DashboardOrderCreate(props) {
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
                                 console.log(newRow);
-                                if (newRow.quantity && newRow.name && newRow.unit) {
+                                if (newRow.quantity && newRow.name && newRow.unit_id) {
                                     if (isNaN(newRow.quantity)) {
                                         enqueueSnackbar('Số lượng vui lòng nhập số', {
                                             persist: false,
@@ -562,7 +562,7 @@ export default function DashboardOrderCreate(props) {
                                 }, 1000)
                             }),
                             onRowUpdate: (updatedRow, oldRow) => new Promise((resolve, reject) => {
-                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit) {
+                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit_id) {
                                     if (isNaN(updatedRow.quantity)) {
                                         enqueueSnackbar('Số lượng vui lòng nhập số', {
                                             persist: false,
