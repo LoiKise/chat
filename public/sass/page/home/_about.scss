@@ -136,6 +136,11 @@
 // }
 
 .whoweare {
+  @media screen and (max-width: 767px) {
+    .whoweare__content-text{
+      margin-top: 60px;
+    }
+  }
   @include mobile {
     .whoweare__content{
       .row{

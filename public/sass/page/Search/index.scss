@@ -5,7 +5,10 @@
     border-bottom: 1px solid #cecece;
   }
 }
-
+.wrap-search{
+  display: block;
+  padding: 30px;
+}
 .tab_content_move {
   text-align: center;
   .btn_tab_search {
@@ -136,16 +139,11 @@
 .tab-content {
   .content__tab1 {
     border: 1px solid #cecece;
-    width: 102.5%;
-    margin-left: 36px;
-    transform: translate(-48px, -25px);
     border-radius: 15px;
     padding: 25px;
     padding-bottom: 40px;
   }
   margin-top: 30px;
-  // border: 1px solid #e7e7e7;
-  padding: 10px;
   border-radius: 20px;
   display: flex;
   margin-bottom: 40px;
@@ -205,10 +203,8 @@
 
 @media screen and (max-width: 767px) {
   .row{
+    width: auto;
     justify-content: center;
-  }
-  .tab-content .content__tab1{
-    width: 104%;
   }
   .tab_content_Office{
     width: auto;
@@ -216,15 +212,8 @@
       margin-top: 20px;
     }
   }
-  .tab_content_move .btn_tab_search{
-    margin-right: 20px;
-    width: 92%;
-  }
 }
 @media screen and (max-width: 376px) {
-  .tab-content .content__tab1{
-    width: 108%;
-  }
   .tab-content .form-group input{
   padding: 20px;
   font-size: 12px;
@@ -237,9 +226,12 @@
   }
 }
 @media screen and (max-width: 322px) {
-  .tab-content .content__tab1{
-    width: 92%;
+  .wrap-search{
+    padding: 0px;
+    margin-top: 30px;
   }
+}
+@media screen and (max-width: 263px) {
   .nav{
     justify-content: center;
   }
