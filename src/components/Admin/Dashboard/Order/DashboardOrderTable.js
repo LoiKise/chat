@@ -7,12 +7,18 @@ import CustomToolbar from './DashboardConfigToolBar';
 import { useSelector, useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
-import { CallBackGetOrder } from '../../../../features/dashboard/order/orderSlice';
+import { CallBackGetOrder, closeStatusView } from '../../../../features/dashboard/order/orderSlice';
 import DashboardOrderControl from './DashboardOrderControl';
 import CustomLoadingOverlay from './CustomLoadingOverlay';
+import Transition from './DashboardTransition';
+import { Dialog, DialogContent, DialogTitle, Stack, Step, StepLabel, Typography } from '@mui/material';
+import { DialogContentText, Stepper } from '@material-ui/core';
+import DashboardDialog from './DashboardDialog';
 
 export default function DashboardOrderTable(props) {
-    const update = useSelector(state => state.order.callbackGet)
+    const orderUpdate = useSelector(state => state.order.callbackGet)
+    const statusView = useSelector(state => state.order.statusOrderView)
+    const orderView = useSelector(state => state.order.orderView)
     const [order, setOrder] = useState([])
     const [constOrder, setConstOrder] = useState([])
     const [selection, setSelection] = useState([])
@@ -22,7 +28,7 @@ export default function DashboardOrderTable(props) {
     useEffect(() => {
         setIsLoading(true)
         getOrders();
-    }, [update])
+    }, [orderUpdate])
     const getOrders = async () => {
         const data = await requestAPI('/orders', 'GET')
             .then(res => {
@@ -80,7 +86,38 @@ export default function DashboardOrderTable(props) {
 
     }
 
+    const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
+    // function ColorlibStepIcon(props) {
+    //     const { active, completed, className } = props;
 
+    //     const icons = {
+    //         1: <SettingsIcon />,
+    //         2: <GroupAddIcon />,
+    //         3: <VideoLabelIcon />,
+    //     };
+
+    //     return (
+    //         <ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
+    //             {icons[String(props.icon)]}
+    //         </ColorlibStepIconRoot>
+    //     );
+    // }
+    // function QontoStepIcon(props) {
+    //     const { active, completed, className } = props;
+
+    //     return (
+    //         <QontoStepIconRoot ownerState={{ active }} className={className}>
+    //             {completed ? (
+    //                 <Check className="QontoStepIcon-completedIcon" />
+    //             ) : (
+    //                 <div className="QontoStepIcon-circle" />
+    //             )}
+    //         </QontoStepIconRoot>
+    //     );
+    // }
+    const closeDialog = () => {
+        dispatch(closeStatusView())
+    }
     return (
         <div className="topfive flex-col" style={{ width: '100%' }}>
             <div className={`headerbox flex-center ${props.color}`}>
@@ -116,6 +153,36 @@ export default function DashboardOrderTable(props) {
                             }}
                             checkboxSelection
                         />
+                        <DashboardDialog
+                            open={statusView}
+                            onClose={closeDialog}
+                            steps={steps}
+                            titleLabel={"Lịch sử đơn hàng"}
+                        />
+                        {/* <Dialog
+                            open={statusView}
+                            TransitionComponent={Transition}
+                            keepMounted
+                            onClose={() => closeDialog()}
+                            aria-describedby="alert-dialog-slide-description"
+                        >
+                            <DialogTitle classes={"Mui-headerDialog"}></DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-slide-description">
+                                    <Stack sx={{ width: '100%', maxWidth: 400 }} spacing={4}>
+                                        <Stepper alternativeLabel activeStep={1} style={{ display: 'flex', flexDirection: 'column' }}>
+                                            {steps.map((label) => (
+                                                <Step key={label}>
+                                                    <StepLabel sx={{ mt: 1, mr: 1 }}>{label}</StepLabel>
+                                                    <Typography sx={{ mt: 1, mr: 1, fontSize: '14px' }}>{'21-09-2021'}</Typography>
+                                                </Step>
+                                            ))}
+                                        </Stepper>
+                                    </Stack>
+                                </DialogContentText>
+                            </DialogContent>
+
+                        </Dialog> */}
                     </div>
 
                 </div>

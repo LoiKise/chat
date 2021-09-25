@@ -216,8 +216,8 @@ export default function DashboardOrderCreate(props) {
                 autoHideDuration: 3000,
             })
 
-        } else if (isNaN(dataFormat.quantity)) {
-            enqueueSnackbar('Số lượng phải là số, vui lòng kiểm tra lại thông tin vừa nhập', {
+        } else if (isNaN(dataFormat.quantity) && dataFormat.quantity < 1) {
+            enqueueSnackbar('Số lượng phải là số và lớn hơn 0, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'error',
                 preventDuplicate: true,
