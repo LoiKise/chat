@@ -31,6 +31,11 @@
 .DashboardMenu-disable {
     visibility: hidden;
 }
+.db-form-input {
+    overflow-y: scroll;
+    height: 100%;
+    padding: 20px;
+}
 .db-menu-overlay {
     width: 100%;
     height: 100%;
@@ -1060,7 +1065,6 @@ select {
     background-color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
-    overflow-y: scroll;
 }
 .create-box-title {
     align-items: center;

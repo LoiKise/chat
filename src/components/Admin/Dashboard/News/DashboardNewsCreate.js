@@ -68,7 +68,7 @@ export default function DashboardUserCreate(props) {
                         <FontAwesomeIcon icon={faTimes} />
                     </div>
                 </div>
-                <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
+                <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm} className="db-form-input">
                     {/* Sender Infomation */}
 
                     <DashboardTextInput

@@ -208,6 +208,13 @@ export default function DashboardOrderCreate(props) {
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
+        } else if (dataFormat.quantity < 1) {
+            enqueueSnackbar('Số lượng phải lớn hơn 0', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
         }
         else {
             // let customerAddressfull = dataFormat.customerAddress + dataFormat.customerDistrict + dataFormat.customerProvinceName
@@ -246,7 +253,7 @@ export default function DashboardOrderCreate(props) {
                         <FontAwesomeIcon icon={faTimes} />
                     </div>
                 </div>
-                <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm}>
+                <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm} className="db-form-input">
                     {/* Sender Infomation */}
                     <DashboardSelectInput
                         title={"Phân loại khách hàng"}
@@ -487,21 +494,33 @@ export default function DashboardOrderCreate(props) {
                         ]}
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
-                                if (isNaN(newRow.quantity)) {
-                                    enqueueSnackbar('Số lượng vui lòng nhập số', {
+                                console.log(newRow);
+                                if (newRow.quantity && newRow.name && newRow.unit_id) {
+                                    if (isNaN(newRow.quantity)) {
+                                        enqueueSnackbar('Số lượng vui lòng nhập số', {
+                                            persist: false,
+                                            variant: 'error',
+                                            preventDuplicate: true,
+                                            autoHideDuration: 3000,
+                                        })
+                                        reject();
+                                    } else {
+                                        const updatedRows = [...products, newRow]
+                                        setTimeout(() => {
+                                            setProducts(updatedRows)
+                                            resolve()
+                                        }, 1000)
+                                    }
+                                } else {
+                                    enqueueSnackbar('Trường của sản phẩm không thể bỏ trống', {
                                         persist: false,
                                         variant: 'error',
                                         preventDuplicate: true,
                                         autoHideDuration: 3000,
                                     })
                                     reject();
-                                } else {
-                                    const updatedRows = [...products, newRow]
-                                    setTimeout(() => {
-                                        setProducts(updatedRows)
-                                        resolve()
-                                    }, 1000)
                                 }
+
 
                             }),
                             onRowDelete: selectedRow => new Promise((resolve, reject) => {
@@ -514,13 +533,34 @@ export default function DashboardOrderCreate(props) {
                                 }, 1000)
                             }),
                             onRowUpdate: (updatedRow, oldRow) => new Promise((resolve, reject) => {
-                                const index = oldRow.tableData.id;
-                                const updatedRows = [...products]
-                                updatedRows[index] = updatedRow
-                                setTimeout(() => {
-                                    setProducts(updatedRows)
-                                    resolve()
-                                }, 1000)
+                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit_id) {
+                                    if (isNaN(updatedRow.quantity)) {
+                                        enqueueSnackbar('Số lượng vui lòng nhập số', {
+                                            persist: false,
+                                            variant: 'error',
+                                            preventDuplicate: true,
+                                            autoHideDuration: 3000,
+                                        })
+                                        reject();
+                                    } else {
+                                        const index = oldRow.tableData.id;
+                                        const updatedRows = [...products]
+                                        updatedRows[index] = updatedRow
+                                        setTimeout(() => {
+                                            setProducts(updatedRows)
+                                            resolve()
+                                        }, 1000)
+                                    }
+                                } else {
+                                    enqueueSnackbar('Trường của sản phẩm không thể bỏ trống', {
+                                        persist: false,
+                                        variant: 'error',
+                                        preventDuplicate: true,
+                                        autoHideDuration: 3000,
+                                    })
+                                    reject();
+                                }
+
                             })
                         }}
                     />

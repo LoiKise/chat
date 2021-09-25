@@ -99,7 +99,7 @@
 
 .ordernow {
   @include mobile {
-    margin-top: 40%;
+    margin-top: 60%;
     height: auto;
   }
   .ordernow-form__userinfor-item {
@@ -122,8 +122,7 @@
     margin-top: 1100px;
     height: auto;
   }
-  @include desktop {
-    margin-top: -18px;
-    height: auto;
+  @media screen and (min-width: 1023px) {
+    margin-top: 0px;
   }
 }

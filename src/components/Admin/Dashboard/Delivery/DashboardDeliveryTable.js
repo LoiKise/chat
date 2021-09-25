@@ -69,7 +69,7 @@ export default function DashboardDeliveryTable(props) {
         const search = []
         if (searchInput !== '') {
             for (let i in constDelivery) {
-                if ((constDelivery[i].phone).includes(searchInput)) {
+                if ((constDelivery[i]?.saleOrderId).includes(searchInput)) {
                     search.push(constDelivery[i])
                 }
             }
@@ -96,6 +96,7 @@ export default function DashboardDeliveryTable(props) {
                         deleteController={deleteOnClick}
                         searchOnChange={searchOnChange}
                         searchController={searchOnSubmit}
+                        placeholderSearch="Tìm kiếm theo mã hóa đơn"
                     />
                     <div style={{ height: 400, width: "100%" }}>
                         <DataGrid

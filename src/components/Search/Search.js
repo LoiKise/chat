@@ -4,9 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
-import requestAPI from "../../apis";
 import { Modal, Tab, Tabs, Card } from "react-bootstrap";
 import moment from 'moment'
+import requestAPI from "../../apis";
 
 export default function Search(props) {
 
@@ -63,11 +63,11 @@ export default function Search(props) {
     })
   }
   const [state, setstate] = useState()
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const handleSubmit = (event) => {
     // chặn sự kiện submit browser
     event.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     setTimeout(() => {
       if (type.name && type.name.length > 0) {
         requestAPI("/search/order", "POST", type)
@@ -87,7 +87,7 @@ export default function Search(props) {
   return (
     <div className="search">
       <div className="container">
-        <div style={{ display: 'block', width: 700, padding: 30 }}>
+        <div style={{ display: 'block', padding: 30 }}>
           <Tabs defaultActiveKey="first">
             <Tab eventKey="first" title={<span>Vận đơn <EventNoteIcon /></span>} >
               <div className="content__tab1">
@@ -161,7 +161,7 @@ export default function Search(props) {
               <div className="tab_content_move">
                 <p className="text-left pl-5">Gửi từ</p>
                 <div className="row">
-                  <div className="col-md-4">
+                  <div className="col-md-4 mb-4">
                     <div className="ordernow-form__userinfor-item">
                       <input
                         type="text"
@@ -177,7 +177,7 @@ export default function Search(props) {
                       />
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-4 mb-4">
                     <div className="ordernow-form__userinfor-item">
                       <input
                         type="text"
@@ -193,7 +193,7 @@ export default function Search(props) {
                       />
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-4 mb-4">
                     <div className="ordernow-form__userinfor-item">
                       <input
                         type="text"
@@ -212,7 +212,7 @@ export default function Search(props) {
                 </div>
                 <p className="text-left pl-5">Gửi đến</p>
                 <div className="row">
-                  <div className="col-md-4">
+                  <div className="col-md-4 mb-4">
                     <div className="ordernow-form__userinfor-item">
                       <input
                         type="text"
@@ -228,7 +228,7 @@ export default function Search(props) {
                       />
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-4 mb-4">
                     <div className="ordernow-form__userinfor-item">
                       <input
                         type="text"
@@ -244,7 +244,7 @@ export default function Search(props) {
                       />
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-4 mb-4">
                     <div className="ordernow-form__userinfor-item">
                       <input
                         type="text"
@@ -263,7 +263,7 @@ export default function Search(props) {
                 </div>
                 <p className="text-left pl-5">Trọng Lượng</p>
                 <div className="row">
-                  <div className="col-md-4">
+                  <div className="col-md-4 mb-4">
                     <div className="ordernow-form__userinfor-item">
                       <input
                         type="text"
@@ -292,8 +292,8 @@ export default function Search(props) {
               </div>
             </Tab>
             <Tab eventKey="third" title={<span>Bưu cục<EventNoteIcon /></span>} >
-              <div className="tab_content_Office  d-flex">
-                <div className="col-md-4">
+              <div className="tab_content_Office row justify-content-center">
+                <div className="col-md-4 mb-4">
                   <div className="ordernow-form__userinfor-item">
                     <input
                       type="text"
@@ -309,7 +309,7 @@ export default function Search(props) {
                     />
                   </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 mb-4">
                   <div className="ordernow-form__userinfor-item">
                     <input
                       type="text"
@@ -329,9 +329,6 @@ export default function Search(props) {
                   <SearchSharpIcon /> Tra cứu
                 </button>
               </div>
-              {/* <button className="btn_tab_search">
-                <SearchSharpIcon /> Tra cứu vận chuyển
-              </button> */}
             </Tab>
           </Tabs>
         </div>

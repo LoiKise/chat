@@ -1,7 +1,9 @@
 .contact {
   background-color: black;
   color: white;
-
+  @media screen and (max-width:767px) {
+    height: 100%;
+  }
   &__top {
     margin-top: 60px;
 
@@ -95,7 +97,9 @@
 
 .contact-form .content-text__text {
   margin-left: 110px;
-
+  @media screen and (max-width:1023px) {
+    margin-left: 80px;
+  }
   &-header {
     font-size: 2rem;
     font-weight: 900;
@@ -108,6 +112,9 @@
     text-transform: capitalize;
     opacity: 0, 6;
     line-height: 2.1rem;
+    @media screen and (max-width:1023px) {
+      font-size: 1.4rem;
+    }
   }
 }
 
@@ -127,8 +134,5 @@
         margin-left: 0;
       }
     }
-  }
-  .footer{
-    padding-top: 45%;
   }
 }

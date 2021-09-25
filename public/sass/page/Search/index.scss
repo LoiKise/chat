@@ -9,15 +9,14 @@
 .tab_content_move {
   text-align: center;
   .btn_tab_search {
-    width: 23% !important;
-    font-size: 13px;
+    width: 100%;
     background-color: #fd7a3b;
     padding: 10px;
     border-radius: 20px;
     border: none;
     outline: none;
     color: #ffff;
-    font-size: 15px;
+    font-size: 16px;
     height: 55px;
     font-weight: 500;
     .MuiSvgIcon-root {
@@ -60,24 +59,14 @@
   }
   .form__about-checkitem {
     color: #151515;
-    position: absolute;
-    left: 37%;
-    bottom: 22%;
     span {
       font-weight: 500;
     }
   }
-
-  .btn_tab_search {
-    width: 19%;
-    font-size: 13px;
-  }
 }
 
 .tab_content_Office {
-  display: flex;
-  margin-bottom: 288px;
-  margin-top: -50px;
+  margin-bottom: 250px;
   .ordernow-form__userinfor-item input,
   .ordernow-form__deliverylocation-item input,
   .ordernow-form__about input {
@@ -99,16 +88,15 @@
     right: 32px;
   }
   .btn_tab_search {
-    width: 15% !important;
     font-size: 13px;
     background-color: #fd7a3b;
-    padding: 10px;
+    padding: 12px;
     border-radius: 8px;
     border: none;
     outline: none;
     color: #ffff;
     font-size: 15px;
-    height: 50px;
+    height: 55px;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -122,7 +110,6 @@
 
 .nav-tabs {
   border-bottom: 2px solid #e7e7e7 !important;
-  width: 150%;
 
   span {
     display: flex;
@@ -149,7 +136,8 @@
 .tab-content {
   .content__tab1 {
     border: 1px solid #cecece;
-    width: 112%;
+    width: 102.5%;
+    margin-left: 36px;
     transform: translate(-48px, -25px);
     border-radius: 15px;
     padding: 25px;
@@ -157,9 +145,8 @@
   }
   margin-top: 30px;
   // border: 1px solid #e7e7e7;
-  padding: 50px;
+  padding: 10px;
   border-radius: 20px;
-  width: 150%;
   display: flex;
   margin-bottom: 40px;
   .form-group {
@@ -216,16 +203,44 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .btn_tab_search {
-    margin-top: 15% !important;
-    width: 40% !important;
+@media screen and (max-width: 767px) {
+  .row{
+    justify-content: center;
   }
-  .form__about-checkitem {
-    left: 15% !important;
-    bottom: 0% !important;
+  .tab-content .content__tab1{
+    width: 104%;
   }
-  .tab_content_Office {
-    display: block !important;
+  .tab_content_Office{
+    width: auto;
+    .btn_tab_search{
+      margin-top: 20px;
+    }
+  }
+  .tab_content_move .btn_tab_search{
+    margin-right: 20px;
+    width: 92%;
+  }
+}
+@media screen and (max-width: 376px) {
+  .tab-content .content__tab1{
+    width: 108%;
+  }
+  .tab-content .form-group input{
+  padding: 20px;
+  font-size: 12px;
+  }
+  .tab-content .form-group button{
+    font-size: 9px;
+  }
+  .tab-content .form-group button .MuiSvgIcon-root{
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 322px) {
+  .tab-content .content__tab1{
+    width: 92%;
+  }
+  .nav{
+    justify-content: center;
   }
 }
