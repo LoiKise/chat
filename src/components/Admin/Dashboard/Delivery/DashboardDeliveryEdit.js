@@ -78,7 +78,7 @@ export default function DashboardUserCreate(props) {
         setSltStatus(true);
     };
     const updateDelivery = async (dataFormat) => {
-        const data = await requestAPI(`/delivery`, 'POST', dataFormat)
+        const data = await requestAPI(`/delivery/update/${dataFormat.id}`, 'PUT', dataFormat)
         return data
     }
     const onSubmit = (event) => {
@@ -93,6 +93,9 @@ export default function DashboardUserCreate(props) {
             })
         } else {
             console.log({ data });
+            delete data.driver;
+            delete data.saleOrder;
+            delete data.status;
             updateDelivery(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetDelivery());
