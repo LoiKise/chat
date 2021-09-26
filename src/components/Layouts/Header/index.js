@@ -72,7 +72,7 @@ export default function Index({ isHome }) {
         <Navbar.Brand>
           <Link to="/">
             <img
-              src="./assets/img/icon/dark_logo.png"
+              src="../assets/img/icon/dark_logo.png"
               alt="this is logo"
               className="header__logo"
             />
@@ -89,12 +89,12 @@ export default function Index({ isHome }) {
                     <div class="account">
                       <Link to="">
                         <div class="account-personal">
-                          <img src="./assets/img/icon/user_img.png" alt="" />
+                          <img src="../assets/img/icon/user_img.png" alt="" />
                         </div>
                       </Link>
                       <span>{name}</span>
                       <div class="account-menu">
-                        <img src="./assets/img/icon/bars.png" alt="" />
+                        <img src="../assets/img/icon/bars.png" alt="" />
 
                         <div className="account-menu__list">
                           <Link to="/UserInfor" className="account-menu__item">

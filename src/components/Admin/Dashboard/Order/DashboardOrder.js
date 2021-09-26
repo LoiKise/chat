@@ -2,10 +2,9 @@ import { faFileInvoice } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardOrderTable'
 import { EditToolbar } from './DashboardEditToolBar';
-import DashboardViewDetails from './DashboardViewDetails';
 import GridCellExpand from './GridCellExpand';
 import moment from 'moment';
-import { getOrderUpdate, getOrderView } from '../../../../features/dashboard/order/orderSlice';
+import { getOrderUpdate, } from '../../../../features/dashboard/order/orderSlice';
 export default function DashboardOrder(props) {
 
     const [table, setTable] = useState([])
@@ -52,14 +51,10 @@ export default function DashboardOrder(props) {
                 },
                 { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                 {
-                    headerName: "Công cụ", field: 'control', width: 200,
+                    headerName: "Công cụ", field: 'control',
                     renderCell: (params) => {
                         return (
-                            <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
-                                <DashboardViewDetails
-                                    getItem={getOrderView}
-                                    params={params.row}
-                                />
+                            <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
                                     getItem={getOrderUpdate}
                                     params={params.row}
@@ -112,14 +107,10 @@ export default function DashboardOrder(props) {
                 },
                 { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                 {
-                    headerName: "Công cụ", field: 'control', width: 200,
+                    headerName: "Công cụ", field: 'control',
                     renderCell: (params) => {
                         return (
-                            <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
-                                <DashboardViewDetails
-                                    getItem={getOrderView}
-                                    params={params.row}
-                                />
+                            <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                 <EditToolbar
                                     getItem={getOrderUpdate}
                                     params={params.row}
@@ -174,18 +165,14 @@ export default function DashboardOrder(props) {
                     },
                     { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                     {
-                        headerName: "Công cụ", field: 'control', width: 200,
+                        headerName: "Công cụ", field: 'control',
                         renderCell: (params) => {
                             return (
-                                <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
+                                <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
                                         getItem={getOrderUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
-                                    />
-                                    <DashboardViewDetails
-                                        getItem={getOrderView}
-                                        params={params.row}
                                     />
                                 </div>
                             );
@@ -233,18 +220,14 @@ export default function DashboardOrder(props) {
                     },
                     { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                     {
-                        headerName: "Công cụ", field: 'control', width: 200,
+                        headerName: "Công cụ", field: 'control',
                         renderCell: (params) => {
                             return (
-                                <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
+                                <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
                                     <EditToolbar
                                         getItem={getOrderUpdate}
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
-                                    />
-                                    <DashboardViewDetails
-                                        getItem={getOrderView}
-                                        params={params.row}
                                     />
                                 </div>
                             );

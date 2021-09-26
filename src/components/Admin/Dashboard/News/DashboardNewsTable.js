@@ -58,7 +58,7 @@ export default function DashboardNewsTable(props) {
         }
     }
     const RemoveNews = async (list) => {
-        const data = await requestAPI(`/news/delete`, 'DELETE', list)
+        const data = await requestAPI(`/job/delete`, 'DELETE', list)
         return data
     }
     const searchOnSubmit = (event) => {

@@ -5,48 +5,60 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
 import { Modal, Tab, Tabs, Card } from "react-bootstrap";
-
+import moment from 'moment'
+import requestAPI from "../../apis";
 
 export default function Search(props) {
 
-  const fakeData = [
+  // const fakeData = [
 
-    {
-      name: 'Nguyễn Tấn Lợi',
-      SDT: '0903693306',
-      date: '10/1/2021',
-      product: 'sữa',
-    },
-    {
-      name: 'Nguyễn Tấn A',
-      SDT: '0903693306',
-      date: '10/1/2021',
-      product: 'thuốc',
-    },
-    {
-      name: 'Nguyễn Tấn B',
-      SDT: '0903693306',
-      date: '10/1/2021',
-      product: 'bia',
-    },
-  ]
+  //   {
+  //     name: 'Nguyễn Tấn Lợi',
+  //     SDT: '0903693306',
+  //     date: '10/1/2021',
+  //     product: 'sữa',
+  //   },
+  //   {
+  //     name: 'Nguyễn Tấn A',
+  //     SDT: '0903693306',
+  //     date: '10/1/2021',
+  //     product: 'thuốc',
+  //   },
+  //   {
+  //     name: 'Nguyễn Tấn B',
+  //     SDT: '0903693306',
+  //     date: '10/1/2021',
+  //     product: 'bia',
+  //   },
+  // ]
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   //search lấy giá trị 
-  const [type, setType] = useState({
+  const [type, setType] = useState({ //send
     name: '',
-    SDT: '',
-    date: ''
+    customerPhone: '',
+    date: null
+  })
+  const [dataFormat, setDataFormat] = useState({ //show
+    name: '',
+    customerPhone: '',
+    date: null
   })
   console.log('userComment', type);
 
   const handleChangeInput = (event) => {
-    let { value, name } = event.target;
+    let { value, name, valueAsNumber } = event.target;
+    console.log({ date: event.target });
+    let state = event.target.type === 'date' ? valueAsNumber : value
     setType({
       ...type,
+      [name]: state
+    })
+    setDataFormat({
+      ...dataFormat,
       [name]: value
     })
   }
@@ -57,18 +69,20 @@ export default function Search(props) {
     event.preventDefault();
     // setLoading(true);
     setTimeout(() => {
-
       if (type.name && type.name.length > 0) {
-        let temp = fakeData.find(item => item.name === type.name && item.SDT === type.SDT);
-        console.log(temp);
-        setstate(temp);
-        // setLoading(false);
+        requestAPI("/search/order", "POST", type)
+          .then(res => {
+            if (res) {
+              console.log(res.data[0]);
+              setstate(res.data[0]);
+              handleShow()
+              // setLoading(false);
+            }
+          }).catch(err => console.log(err))
       } else {
         //Show noti
       }
     }, 1000);
-
-
   }
   return (
     <div className="search">
@@ -85,32 +99,33 @@ export default function Search(props) {
                       className="tabs__search form-control"
                       placeholder="Nhập mã đơn"
                       onChange={handleChangeInput}
-                      value={type.name}
+                      value={dataFormat.name}
                     />
                   </div>
                   <div className="form-group" >
                     <p>Số điện thoại</p>
                     <input type="text"
-                      name="SDT"
+                      name="customerPhone"
                       className="tabs__search form-control"
                       placeholder="Nhập mã đơn"
                       onChange={handleChangeInput}
-                      value={type.SDT}
+                      value={dataFormat.customerPhone}
                     />
                   </div>
                   <div className="form-group" >
                     <p>Nhập ngày </p>
-                    <input type="date"
+                    <input
+                      type="date"
                       name="date"
                       className="tabs__search form-control"
                       placeholder="Nhập ngày cần tìm kiếm"
                       min="2000-01-01" max="2030-12-31"
                       onChange={handleChangeInput}
-                      value={type.date}
+                      value={dataFormat.date}
                     />
                   </div>
                   <div className="form-group">
-                    <button type="submit" className="btn_tab_search" onClick={handleShow}>
+                    <button type="submit" className="btn_tab_search" >
                       <SearchSharpIcon /> Tra cứu vận đơn
                     </button>
                   </div>
@@ -123,13 +138,17 @@ export default function Search(props) {
                 </Modal.Header>
                 <Modal.Body>
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="./assets/img/icon/dark_logo.png"
+                    <Card.Img variant="top" src="../assets/img/icon/dark_logo.png"
                       alt="this is logo" />
                     <Card.Body>
-                      <Card.Title>Tên: {state?.name}</Card.Title>
-                      <Card.Title>Số điện thoại: {state?.SDT}</Card.Title>
+                      <Card.Title>Tên: {state?.customerName}</Card.Title>
+                      <Card.Title>Số điện thoại: {state?.customerPhone}</Card.Title>
                       <Card.Text>
-                        <Card.Title>sản phẩm: {state?.product} </Card.Title>
+                        {state?.products?.map(item => {
+                          return (
+                            <Card.Title>sản phẩm: {item?.name} </Card.Title>
+                          )
+                        })}
                       </Card.Text>
                     </Card.Body>
                   </Card>

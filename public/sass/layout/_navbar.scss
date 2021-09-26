@@ -52,16 +52,24 @@
     flex-direction: row-reverse;
     flex-wrap: nowrap !important;
   }
+  @include desktop {
+    margin-right: 112px !important;
+    margin-left: 54px;
+  }
   .navbar-brand {
     @include mobile {
- 
     }
+<<<<<<< HEAD
+    @include tablet {
+      margin-right: 620px !important;
+=======
     // @include tablet {
     //   margin-right: 620px !important;
     // }
     @include desktop {
       margin-right: 112px !important;
       margin-left: 54px;
+>>>>>>> c1931393fdf25077a10f6747b81b8a548a51444c
     }
   }
 }
