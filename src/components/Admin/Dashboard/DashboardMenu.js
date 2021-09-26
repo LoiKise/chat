@@ -31,19 +31,20 @@ export default function DashboardMenu(props) {
             })}>
             <div className="db-menu-overlay"></div>
             <div className="db-menu">
-                <div className="db-menu-logo flex">
-                    <div className="flex-center" style={{ height: '24px', marginLeft: '12px' }}>
-                        <p className="logo-text">LOGICSTICS</p>
-                    </div>
+                <div className="db-menu-logo flex" style={{ justifyContent: 'center' }}>
+                    <img
+                        alt="LogoDB"
+                        src={LOGO}
+                        height='24px'
+
+                    ></img>
                     {hideText === false
                         &&
-                        <img
-                            alt="LogoDB"
-                            src={LOGO}
-                            height='24px'
-                            style={{ marginLeft: '27px' }}
-                        ></img>
+                        <div className="flex-center" style={{ height: '24px', marginLeft: '12px' }}>
+                            <p className="logo-text">LOGICSTICS</p>
+                        </div>
                     }
+
                 </div>
                 <div className="menu-line"></div>
                 <div
