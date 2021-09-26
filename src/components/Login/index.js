@@ -36,7 +36,6 @@ export default function Index() {
       phone: data.sdt,
       password: data.password.trim(),
     };
-    console.log(body);
     try {
       const res = await dispatch(login(body));
       unwrapResult(res);
