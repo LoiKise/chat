@@ -33,7 +33,7 @@
       margin-top: 7px;
     }
     .header__authenWrapper {
-      // transform: translateX(66px);
+      transform: translateX(66px);
     }
   }
 }
@@ -42,17 +42,23 @@
 .navbar {
   @include mobile {
     flex-direction: row-reverse;
+    flex-wrap: wrap !important;
+  }
+  @include tablet-sm {
+    flex-direction: row-reverse;
+    flex-wrap: nowrap !important;
   }
   @include tablet {
     flex-direction: row-reverse;
+    flex-wrap: nowrap !important;
   }
   .navbar-brand {
     @include mobile {
  
     }
-    @include tablet {
-      margin-right: 620px !important;
-    }
+    // @include tablet {
+    //   margin-right: 620px !important;
+    // }
     @include desktop {
       margin-right: 112px !important;
       margin-left: 54px;
@@ -67,7 +73,7 @@
     }
     @include tablet {
       width: 5%;
-      transform: translateY(-23px);
+      // transform: translateY(-23px);
     }
   }
 }
@@ -75,6 +81,14 @@
 .header__nav-list {
   @include mobile {
     flex-direction: column;
+    background-color: black;
+    width: 100%;
+    height: auto;
+    z-index: 9999;
+    position: fixed;
+    align-items: center;
+  }
+  @include tablet-sm {
     flex-direction: column;
     background-color: black;
     width: 100%;
@@ -82,15 +96,25 @@
     z-index: 9999;
     position: fixed;
     align-items: center;
-    align-items: center;
-    transform: translate(16%, 16%);
+    transform: translate(10.3%, 16%);
   }
 
   @include tablet {
     flex-direction: column;
-    background-color: #a78964;
+    background-color: black;
     width: 100%;
-    height: 50%;
+    height: auto;
+    z-index: 9999;
+    position: fixed;
+    align-items: center;
+    transform: translate(8%, 16%);
+  }
+  @include tablet-plus{ 
+    // width 1024
+    flex-direction: row;
+    background-color: transparent;
+    width: 80%;
+    height: auto;
     z-index: 9999;
     position: fixed;
     align-items: center;
@@ -122,11 +146,16 @@
   @include tablet {
     margin-left: -11px;
   }
+
   @include desktop {
     transform: translate(-81px, -17px) !important;
   }
 }
-
+@include tablet {
+  .collapse:not(.show) {
+    display: none;
+  }
+}
 .header {
   @include desktop {
     .colorChange {

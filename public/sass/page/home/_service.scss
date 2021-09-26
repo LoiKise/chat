@@ -79,16 +79,17 @@
   @media screen and (max-width:1023px) {
     font-size: 2.5rem;
   }
-  @media screen and (max-width:767px) {
+  @media screen and (max-width:426px) {
     font-size: 1.6rem;
   }
 }
-
+.row{
+  width: auto !important;
+}
 /*---------------------------------reponsive------------------------*/
 
 .ourservices {
   @include mobile {
-    margin-top: 500px;
     .ourservices-item {
       margin: 0px auto;
       text-align: center;
@@ -96,23 +97,5 @@
       margin-left: 34px;
       margin-bottom: 25px;
     }
-    .ourservices__top{
-      margin-top: 0;
-      .row {
-        margin-left: 0;
-      }
-    }
-    .ourservices-list {
-      .row {
-        margin-left: 0;
-      }
-    }
-  }
-  @include tablet {
-    margin-top: 500px;
-  }
-  @media screen and (min-width: 1023px){
-    margin-top: 0px;
-    height: 700px;
   }
 }

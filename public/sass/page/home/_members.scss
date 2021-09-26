@@ -28,11 +28,8 @@
 
 /*---------------------------------reponsive------------------------*/
 .ourmember{
-  @media screen and (max-width: 1440px) {
-    height: 700px;
-  }
   @media screen and (max-width: 1023px) {
-    height: 100%;
+    padding-bottom: 100px;
   }
   @include tablet{
     .row {
@@ -42,6 +39,10 @@
 }
 .ourmember-list {
   .ourmember-item {
+    @media screen and (max-width: 767px) {
+      max-width: 50%;
+      margin: 0px auto;
+    }
     @include mobile {
       max-width: 50%;
       margin: 0px auto;
