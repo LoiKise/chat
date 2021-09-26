@@ -4,37 +4,19 @@ import 'bootstrap/dist/css/bootstrap.css';
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
-import { Modal, Tab, Tabs, Card } from "react-bootstrap";
+import { Modal, Tab, Tabs, Card, Alert, Table } from "react-bootstrap";
 import moment from 'moment'
+import CustomNoRowsOverlay from "../Admin/Dashboard/Order/CustomNoRowsOverlay"
+import * as ReatBootStrap from 'react-bootstrap'
 import requestAPI from "../../apis";
 
 export default function Search(props) {
 
-  // const fakeData = [
 
-  //   {
-  //     name: 'Nguyễn Tấn Lợi',
-  //     SDT: '0903693306',
-  //     date: '10/1/2021',
-  //     product: 'sữa',
-  //   },
-  //   {
-  //     name: 'Nguyễn Tấn A',
-  //     SDT: '0903693306',
-  //     date: '10/1/2021',
-  //     product: 'thuốc',
-  //   },
-  //   {
-  //     name: 'Nguyễn Tấn B',
-  //     SDT: '0903693306',
-  //     date: '10/1/2021',
-  //     product: 'bia',
-  //   },
-  // ]
+
+
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   //search lấy giá trị 
   const [type, setType] = useState({ //send
@@ -60,27 +42,31 @@ export default function Search(props) {
     setDataFormat({
       ...dataFormat,
       [name]: value
+
     })
   }
   const [state, setstate] = useState()
-  // const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const handleSubmit = (event) => {
     // chặn sự kiện submit browser
     event.preventDefault();
     // setLoading(true);
     setTimeout(() => {
       if (type.name && type.name.length > 0) {
+
         requestAPI("/search/order", "POST", type)
           .then(res => {
             if (res) {
-              console.log(res.data[0]);
-              setstate(res.data[0]);
-              handleShow()
-              // setLoading(false);
+              console.log(res.data);
+              setstate(res.data);
+              setLoading(true);
+              setShow(true)
+              // handleShowTable(true)
             }
           }).catch(err => console.log(err))
+
       } else {
-        //Show noti
+        // handleShow()
       }
     }, 1000);
   }
@@ -127,12 +113,76 @@ export default function Search(props) {
                   <div className="form-group">
                     <button type="submit" className="btn_tab_search" >
                       <SearchSharpIcon /> Tra cứu vận đơn
+                      {/* <ReatBootStrap.Spinner animation="border" /> */}
+
                     </button>
                   </div>
                 </form>
               </div>
-              <Modal show={show} onHide={handleClose} size="lg">
-                {/* {loading && <h1>Loading.... </h1>} */}
+
+
+              {show &&
+                <Table striped bordered hover size="lg" >
+                  {
+                    state && state.length > 0 ?
+                      <thead>
+                        <tr>
+                          <th className="font-weight-bold text-center">Người gửi</th>
+                          <th className="font-weight-bold text-center">Số điện thoại</th>
+                          <th className="font-weight-bold text-center">Ngày gửi</th>
+                          <th className="font-weight-bold text-center">Tên người nhận</th>
+                          <th className="font-weight-bold text-center">Hàng hóa</th>
+                          <th className="font-weight-bold text-center">Chi phí</th>
+                        </tr>
+                      </thead>
+                      : <thead>
+                        <tr>
+                          <th className="font-weight-bold text-center">Kết Quả</th>
+                        </tr>
+                      </thead>
+                  }
+
+                  {state && state.length > 0 ?
+                    state?.map(item => {
+                      return (
+                        <tbody>
+                          <td className="h5">{item?.customerName}</td>
+                          <td className="h5">{item?.customerPhone}</td>
+                          <td className="h5">{moment(item?.updatedAt).format("DD-MM-YYYY")}</td>
+                          <td className="h5">{item?.receiverName}</td>
+                          <td className="h5">{item?.orderName}</td>
+                          <td className="h5">{item?.totalPrice}</td>
+                        </tbody>
+                      )
+                    })
+                    :
+
+                    <tbody><div><CustomNoRowsOverlay /></div></tbody>
+                  }
+                </Table>
+
+              }
+
+            </Tab>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {/* <Modal show={show} onHide={handleClose} size="lg">
+                 {loading && <h1>Loading.... </h1>} 
                 <Modal.Header closeButton>
                   <Modal.Title>Kết quả tìm kiếm </Modal.Title>
                 </Modal.Header>
@@ -140,21 +190,24 @@ export default function Search(props) {
                   <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src="../assets/img/icon/dark_logo.png"
                       alt="this is logo" />
-                    <Card.Body>
-                      <Card.Title>Tên: {state?.customerName}</Card.Title>
-                      <Card.Title>Số điện thoại: {state?.customerPhone}</Card.Title>
-                      <Card.Text>
-                        {state?.products?.map(item => {
-                          return (
-                            <Card.Title>sản phẩm: {item?.name} </Card.Title>
-                          )
-                        })}
-                      </Card.Text>
-                    </Card.Body>
+                    <Card.Text>
+                      {state?.map(item => {
+                        return (
+                          <Card.Body className="w-100">
+                            <Card.Title>Tên người gửi: {item?.customerName} </Card.Title>
+                            <Card.Title>Số điện thoại: {item?.customerPhone} </Card.Title>
+                            <Card.Title>Ngày gửi: {moment(item?.updatedAt).format("DD-MM-YYYY")} </Card.Title>
+                            <Card.Title>Tên người nhận: {item?.receiverName} </Card.Title>
+                            <Card.Title>Hàng hóa: {item?.orderName} </Card.Title>
+                            <Card.Title>Chi phí: {item?.totalPrice} </Card.Title>
+                          </Card.Body>
+                        )
+                      })}
+                    </Card.Text>
                   </Card>
                 </Modal.Body>
-              </Modal>
-            </Tab>
+              </Modal> */}
+
 
 
             <Tab eventKey="second" title={<span>Cước vận chuyển <MonetizationOnRoundedIcon /></span>}>
@@ -333,6 +386,6 @@ export default function Search(props) {
           </Tabs>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

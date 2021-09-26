@@ -131,113 +131,101 @@
 
 /*---------------------------------reponsive------------------------*/
 
+// .footer {
+//   @include mobile {
+//     // margin-top: 555px;
+//     .container {
+//       max-width: 100% !important;
+//       .footer-list {
+//         flex-direction: column;
+//         .footer-item {
+//           width: 100% !important;
+//           margin: 0px auto !important;
+//           display: flex;
+//           align-items: center;
+//           margin-top: 4rem;
+//           .footer-span{
+//             text-align: center;
+//           }
+//           span {
+//             margin: 0px auto;
+//           }
+//           > img {
+//             margin: 0px auto;
+//           }
+//         }
+//       }
+//     }
+//     .footer-bottom {
+//       display: flex;
+//       justify-content: center;
+//       margin-top: -50px;
+//     }
+//     .footer-item-list-item__content {
+//       display: block;
+//     }
+//   }
+//   @include tablet {
+//     .container {
+//       width: 100% !important;
+//       height: auto;
+//       .footer-list {
+//         flex-direction: column !important;
+//         .footer-item {
+//           width: 100%;
+//           margin: 0px auto;
+//           display: flex;
+//           align-items: center;
+//           .footer-span{
+//             text-align: center;
+//           }
+//           > img {
+//             margin: 0px auto;
+//           }
+//         }
+//       }
+//     }
+//   }
+//   @include desktop {
+//     margin-top: 0px;
+//     .container {
+//       margin: 0px auto;
+//       width: 1200px !important;
+//       .footer-list {
+//         display: flex;
+//         flex-direction: row !important;
+//         .footer-item {
+//           justify-content: flex-start;
+//           align-items: none;
+//           display: flex;
+//           margin-top: 7rem;
+//           margin-bottom: 9rem;
+//           align-items: flex-start;
+//           .footer-span{
+//             text-align: left;
+//           }
+//           span {
+//             margin: 0px 0px;
+//           }
+//           &:nth-child(1) {
+//             margin-right: 5.4rem !important;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
 .footer {
-  @media screen and (max-width: 320px){
-    .footer-item-list-item{
-      margin-left: 52px;
-      img {
-        display: none;
-      }
-    }
-  }
-  @include mobile {
-    .container {
-      max-width: 100% !important;
+  .container {
+    @include ipadPro {
       .footer-list {
         flex-direction: column;
-        .footer-item {
-          width: 100% !important;
-          margin: 0px auto !important;
-          display: flex;
-          align-items: center;
-          margin-top: 4rem;
-          .footer-span{
-            text-align: center;
-          }
-          span {
-            margin: 0px auto;
-          }
-          > img {
-            margin: 0px auto;
-          }
-        }
-      }
-    }
-    .footer-bottom {
-      display: flex;
-      justify-content: center;
-      margin-top: -50px;
-    }
-    .footer-item-list-item__content {
-      display: block;
-    }
-  }
-  @media screen and (max-width: 767px){
-    .container {
-      max-width: 100% !important;
-      .footer-list {
-        flex-direction: column;
-        .footer-item {
-          width: 100% !important;
-          margin: 0px auto !important;
-          display: flex;
-          align-items: center;
-          margin-top: 4rem;
-          .footer-span{
-            text-align: center;
-          }
-          > img {
-            margin: 0px auto;
-          }
-        }
-      }
-    }
-  }
-  @include tablet {
-    .container {
-      width: 100% !important;
-      height: auto;
-      .footer-list {
-        flex-direction: column !important;
+        text-align: center;
+        align-items: center;
         .footer-item {
           width: 100%;
-          margin: 0px auto;
-          display: flex;
           align-items: center;
-          .footer-span{
-            text-align: center;
-          }
-          > img {
-            margin: 0px auto;
-          }
-        }
-      }
-    }
-  }
-  @include desktop {
-    margin-top: 0px;
-    .container {
-      margin: 0px auto;
-      width: 1200px !important;
-      .footer-list {
-        display: flex;
-        flex-direction: row !important;
-        .footer-item {
-          justify-content: flex-start;
-          align-items: none;
-          display: flex;
-          margin-top: 7rem;
-          margin-bottom: 9rem;
-          align-items: flex-start;
-          .footer-span{
-            text-align: left;
-          }
-          span {
-            margin: 0px 0px;
-          }
-          &:nth-child(1) {
-            margin-right: 5.4rem !important;
-          }
         }
       }
     }
