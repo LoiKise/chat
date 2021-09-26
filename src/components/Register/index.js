@@ -62,6 +62,13 @@ export default function Index() {
   };
 
   const responseGoogle = async (res) => {
+    if (res.profileObj === undefined && res.accessToken === undefined) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
     const body = {
       user: {
         fullname: `${res.profileObj.familyName} ${res.profileObj.givenName}`,
@@ -94,6 +101,13 @@ export default function Index() {
 
   //login face
   const responseFacebook = async (res) => {
+    if (res.name === undefined && res.accessToken === undefined) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
     const body = {
       user: { fullname: res.name },
       accessToken: res.accessToken,
