@@ -13,8 +13,6 @@ import requestAPI from "../../apis";
 export default function Search(props) {
 
 
-
-
   const [show, setShow] = useState(false);
 
 
