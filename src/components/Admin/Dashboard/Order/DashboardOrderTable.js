@@ -30,6 +30,7 @@ export default function DashboardOrderTable(props) {
         const data = await requestAPI('/orders', 'GET')
             .then(res => {
                 if (res) {
+                    console.log({ daa: res.data.data });
                     setOrder(res.data?.data)
                     setConstOrder(res.data?.data)
                     setIsLoading(false)
