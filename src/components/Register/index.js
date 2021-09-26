@@ -40,13 +40,13 @@ export default function Index() {
     try {
       const res = await dispatch(register(body));
       unwrapResult(res);
-      history.push("/");
+      history.push("/login");
       toast.success("Đăng ký thành công", {
         position: "top-center",
         autoClose: 3000,
       });
     } catch (error) {
-      toast.error("Đăng ký thất bại", {
+      toast.error("SDT đã tồn tại", {
         position: "top-center",
         autoClose: 3000,
       });
@@ -63,7 +63,9 @@ export default function Index() {
 
   const responseGoogle = async (res) => {
     const body = {
-      user: res.profileObj,
+      user: {
+        fullname: `${res.profileObj.familyName} ${res.profileObj.givenName}`,
+      },
       accessToken: res.accessToken,
     };
     try {

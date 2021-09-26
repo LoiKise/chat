@@ -13,17 +13,10 @@ export const login = createAsyncThunk(
   payloadCreator(authApi.login)
 );
 
-const handleRegister = (state, action) => {
-  const { fullname, phone, password } = action.payload.data;
-  const user = { fullname, phone };
-  state.profile = user;
-  localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
-  localStorage.setItem(LocalStorage.accessToken, password);
-};
-
 const handleLogin = (state, action) => {
   const { name, token } = action.payload.data;
-  state.profile = { fullname: name };
+  const { phone } = action.meta.arg;
+  state.profile = { fullname: name, phone: phone };
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
   localStorage.setItem(LocalStorage.accessToken, token);
 };
@@ -51,7 +44,6 @@ const auth = createSlice({
     loginSocial: handleAuthSocial,
   },
   extraReducers: {
-    [register.fulfilled]: handleRegister,
     [login.fulfilled]: handleLogin,
   },
 });
