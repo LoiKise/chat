@@ -259,16 +259,6 @@ const PostContactAPI = async (dataContact) => {
             </button>
           </div>
         </form>
-        <img
-          src="./assets/img/imgs/Decoration/square_deco.png"
-          alt=""
-          className="ordernow-decoration1"
-        />
-        {/* <img
-          src="./assets/img/imgs/Decoration/circle_deco.png"
-          alt=""
-          className="ordernow-decoration2"
-        /> */}
       </div>
     </div>
   );

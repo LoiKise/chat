@@ -38,9 +38,10 @@ export default function DashboardUserCreate(props) {
     useEffect(() => {
         getDrivers();
         getStatus();
-        console.log(update);
+        console.log({ update });
         if (update) {
-            setData(update)
+            let state = { ...update, driverId: update?.driver?.id }
+            setData(state)
         }
     }, [update])
     const getDrivers = async () => {
@@ -78,7 +79,7 @@ export default function DashboardUserCreate(props) {
         setSltStatus(true);
     };
     const updateDelivery = async (dataFormat) => {
-        const data = await requestAPI(`/delivery`, 'POST', dataFormat)
+        const data = await requestAPI(`/delivery/update/${dataFormat.id}`, 'PUT', dataFormat)
         return data
     }
     const onSubmit = (event) => {
@@ -92,10 +93,23 @@ export default function DashboardUserCreate(props) {
                 autoHideDuration: 3000,
             })
         } else {
-            console.log({ data });
+            delete data.driver;
+            delete data.saleOrder;
+            delete data.status;
             updateDelivery(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetDelivery());
+                }
+            }).catch(err => {
+                if (err) {
+                    if (err.response?.status === 409) {
+                        enqueueSnackbar('Trạng thái đã tồn tại', {
+                            persist: false,
+                            variant: 'warning',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
                 }
             })
             enqueueSnackbar('Cập nhật đơn giao hàng thành công', {
@@ -147,7 +161,7 @@ export default function DashboardUserCreate(props) {
                         subTitle={"Chọn tài xế :"}
                         listSelect={drivers}
                         objectKey={"driverId"}
-                        objectNameKey={null}
+                        subKey={"name"}
                     />
                     <DashboardSelectInput
                         title={"Hình thức giao hàng"}

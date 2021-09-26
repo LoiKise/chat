@@ -4,6 +4,8 @@ import DashboardProductTable from './DashboardDeliveryTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
 import moment from 'moment';
+import { getOrderView } from '../../../../features/dashboard/order/orderSlice';
+import DashboardViewDetails from './../Order/DashboardViewDetails';
 import { getDeliveryUpdate } from '../../../../features/dashboard/delivery/deliverySlice';
 export default function DashboardDelivery(props) {
 
@@ -60,15 +62,20 @@ export default function DashboardDelivery(props) {
                     renderCell: renderCellExpand,
                 },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Công cụ", field: 'control', width: 200,
                     renderCell: (params) => {
                         return (
-                            <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                            <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
+                                <DashboardViewDetails
+                                    getItem={getOrderView}
+                                    params={params.row}
+                                />
                                 <EditToolbar
                                     getItem={getDeliveryUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
+
                             </div>
                         );
                     }
@@ -124,15 +131,20 @@ export default function DashboardDelivery(props) {
                     renderCell: renderCellExpand,
                 },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Công cụ", field: 'control', width: 200,
                     renderCell: (params) => {
                         return (
-                            <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                            <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
+                                <DashboardViewDetails
+                                    getItem={getOrderView}
+                                    params={params.row}
+                                />
                                 <EditToolbar
                                     getItem={getDeliveryUpdate}
                                     params={params.row}
                                     setOpenEditFunc={props.setOpenEditFunc}
                                 />
+
                             </div>
                         );
                     }
@@ -190,10 +202,14 @@ export default function DashboardDelivery(props) {
                         renderCell: renderCellExpand,
                     },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Công cụ", field: 'control', width: 200,
                         renderCell: (params) => {
                             return (
-                                <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                                <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
+                                    <DashboardViewDetails
+                                        getItem={getOrderView}
+                                        params={params.row}
+                                    />
                                     <EditToolbar
                                         getItem={getDeliveryUpdate}
                                         params={params.row}
@@ -254,10 +270,14 @@ export default function DashboardDelivery(props) {
                         renderCell: renderCellExpand,
                     },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Công cụ", field: 'control', width: 200,
                         renderCell: (params) => {
                             return (
-                                <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
+                                <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
+                                    <DashboardViewDetails
+                                        getItem={getOrderView}
+                                        params={params.row}
+                                    />
                                     <EditToolbar
                                         getItem={getDeliveryUpdate}
                                         params={params.row}

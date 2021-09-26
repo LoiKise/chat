@@ -495,7 +495,7 @@ export default function DashboardOrderCreate(props) {
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
                                 console.log(newRow);
-                                if (newRow.quantity && newRow.name && newRow.unit_id) {
+                                if (newRow.quantity && newRow.name && newRow.unit) {
                                     if (isNaN(newRow.quantity)) {
                                         enqueueSnackbar('Số lượng vui lòng nhập số', {
                                             persist: false,
@@ -533,7 +533,7 @@ export default function DashboardOrderCreate(props) {
                                 }, 1000)
                             }),
                             onRowUpdate: (updatedRow, oldRow) => new Promise((resolve, reject) => {
-                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit_id) {
+                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit) {
                                     if (isNaN(updatedRow.quantity)) {
                                         enqueueSnackbar('Số lượng vui lòng nhập số', {
                                             persist: false,

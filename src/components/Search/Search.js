@@ -73,7 +73,7 @@ export default function Search(props) {
   return (
     <div className="search">
       <div className="container">
-        <div style={{ display: 'block', padding: 30 }}>
+        <div className="wrap-search">
           <Tabs defaultActiveKey="first">
             <Tab eventKey="first" title={<span>Vận đơn <EventNoteIcon /></span>} >
               <div className="content__tab1">

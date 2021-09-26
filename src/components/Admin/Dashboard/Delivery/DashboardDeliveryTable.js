@@ -10,9 +10,13 @@ import { useSnackbar } from 'notistack';
 import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetDelivery } from '../../../../features/dashboard/delivery/deliverySlice';
 import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
+import DashboardDialog from '../Order/DashboardDialog';
+import { closeStatusView } from '../../../../features/dashboard/order/orderSlice';
 
 export default function DashboardDeliveryTable(props) {
-    const update = useSelector(state => state.delivery.callbackGet)
+    const orderUpdate = useSelector(state => state.delivery.callbackGet)
+    const statusView = useSelector(state => state.order.statusOrderView)
+    const orderView = useSelector(state => state.order.orderView)
     const [delivery, setDelivery] = useState([])
     const [constDelivery, setConstDelivery] = useState([])
     const [selection, setSelection] = useState([])
@@ -22,7 +26,7 @@ export default function DashboardDeliveryTable(props) {
     useEffect(() => {
         setIsLoading(true)
         getDelivery();
-    }, [update])
+    }, [orderUpdate])
     const getDelivery = async () => {
         const data = await requestAPI('/deliveryorder', 'GET')
             .then(res => {
@@ -80,6 +84,11 @@ export default function DashboardDeliveryTable(props) {
 
     }
 
+    const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
+
+    const closeDialog = () => {
+        dispatch(closeStatusView())
+    }
 
     return (
         <div className="topfive flex-col" style={{ width: '100%' }}>
@@ -116,6 +125,13 @@ export default function DashboardDeliveryTable(props) {
                                 setSelection(newSelectionModel)
                             }}
                             checkboxSelection
+                        />
+                        <DashboardDialog
+                            open={statusView}
+                            onClose={closeDialog}
+                            steps={steps}
+                            titleLabel={"Lịch sử đơn hàng"}
+                            orderView={orderView}
                         />
                     </div>
 
