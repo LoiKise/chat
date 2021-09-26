@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import requestAPI from "../../apis";
+
 import { formatMoney } from "../../helpers/money";
 
 export default function RecruitmentJob({ jobs, images }) {
+
+
+
+
+  
+
+
   return (
     <>
       {jobs.map((job) => (
@@ -26,7 +35,9 @@ export default function RecruitmentJob({ jobs, images }) {
               <img src={images[2].IMGLocation} alt="" />
               <span>Địa điểm : {job.address}</span>
             </div>
-            <Link to="/DetailJob" className="job-item-btn">
+            <Link to={`/DetailJob/${job?.id}`} className="job-item-btn" onChange={() => {
+
+            }}>
               Xem chi tiết
             </Link>
             <div className="job-item-list-item">

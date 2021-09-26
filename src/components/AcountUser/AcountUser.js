@@ -13,7 +13,7 @@ export default function AcountUser() {
                         </div>
                         <div className="infomation ">
                             <div className="infomation__icon">
-                                <img src="./assets/img/icon/user_img.png" alt="" />
+                                <img src="../assets/img/icon/user_img.png" alt="" />
                             </div>
                             <div>
                                 <div className="informatio__name">

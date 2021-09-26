@@ -535,15 +535,22 @@ p {
     flex-direction: row-reverse;
     flex-wrap: nowrap !important; } }
 
+<<<<<<< HEAD
+=======
 @media (min-width: 768px) {
   .navbar {
     flex-direction: row-reverse;
     flex-wrap: nowrap !important; } }
 
+>>>>>>> c1931393fdf25077a10f6747b81b8a548a51444c
 @media (min-width: 1367px) {
-  .navbar .navbar-brand {
+  .navbar {
     margin-right: 112px !important;
     margin-left: 54px; } }
+
+@media (min-width: 768px) {
+  .navbar .navbar-brand {
+    margin-right: 620px !important; } }
 
 @media (max-width: 480px) {
   .navbar-light .navbar-toggler {

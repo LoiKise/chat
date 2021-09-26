@@ -2,8 +2,9 @@ import { Dialog, DialogContent, DialogTitle, Stack, Step, StepLabel, Stepper } f
 import React from 'react'
 import { DialogContentText, Typography } from '@material-ui/core';
 import Transition from './DashboardTransition';
-
-export default function DashboardDialog({ open, onClose, steps, titleLabel }) {
+import moment from 'moment'
+export default function DashboardDialog({ open, onClose, steps, titleLabel, orderView }) {
+    // console.log({ orderView });
     return (
         <Dialog
             open={open}
@@ -16,11 +17,11 @@ export default function DashboardDialog({ open, onClose, steps, titleLabel }) {
             <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                     <Stack sx={{ width: '100%', maxWidth: 400 }} spacing={4}>
-                        <Stepper alternativeLabel activeStep={1} style={{ display: 'flex' }}>
-                            {steps.map((label) => (
-                                <Step key={label}>
-                                    <StepLabel sx={{ mt: 1, mr: 1 }}>{label}</StepLabel>
-                                    <Typography sx={{ mt: 1, mr: 1, fontSize: '14px' }}>{'21-09-2021'}</Typography>
+                        <Stepper alternativeLabel activeStep={orderView?.deliveryHistory?.length} style={{ display: 'flex' }}>
+                            {orderView?.deliveryHistory?.map((item, key) => (
+                                <Step key={key}>
+                                    <StepLabel sx={{ mt: 1, mr: 1 }}>{item?.status}</StepLabel>
+                                    <Typography sx={{ mt: 1, mr: 1, fontSize: '14px' }}>{moment(item?.createdAt).format("DD-MM-YYYY HH:mm:ss")}</Typography>
                                 </Step>
                             ))}
                         </Stepper>
