@@ -14,9 +14,8 @@ export const login = createAsyncThunk(
 );
 
 const handleLogin = (state, action) => {
-  const { name, token } = action.payload.data;
-  const { phone } = action.meta.arg;
-  state.profile = { fullname: name, phone: phone };
+  const { user, token } = action.payload.data;
+  state.profile = user;
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
   localStorage.setItem(LocalStorage.accessToken, token);
 };
