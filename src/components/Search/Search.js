@@ -51,15 +51,14 @@ export default function Search(props) {
     // setLoading(true);
     setTimeout(() => {
       if (type.name && type.name.length > 0) {
-
+        setShow(true)
         requestAPI("/search/order", "POST", type)
           .then(res => {
             if (res) {
               console.log(res.data);
               setstate(res.data);
               setLoading(true);
-              setShow(true)
-              // handleShowTable(true)
+
             }
           }).catch(err => console.log(err))
 
