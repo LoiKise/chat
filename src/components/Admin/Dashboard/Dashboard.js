@@ -66,7 +66,7 @@ function Dashboard(props) {
         setOrderNotice(null)
         setUserInfo(null)
     }, [])
-
+    //call api get info user 
     const setTabIdOnClick = (id) => {
         setTabId(id);
     }

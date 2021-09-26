@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleUp, faIdCard, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
-const LOGO = "./assets/img/logo/dark_logo.png"
+const LOGO = "../assets/img/logo/dark_logo.png"
 export default function DashboardMenu(props) {
 
     const [openUserOpt, setOpenUserOpt] = useState(false)
@@ -33,7 +33,7 @@ export default function DashboardMenu(props) {
             <div className="db-menu">
                 <div className="db-menu-logo flex">
                     <div className="flex-center" style={{ height: '24px', marginLeft: '12px' }}>
-                        <p className="logo-text">SB</p>
+                        <p className="logo-text">LOGICSTICS</p>
                     </div>
                     {hideText === false
                         &&
@@ -65,6 +65,7 @@ export default function DashboardMenu(props) {
                             <FontAwesomeIcon icon={faIdCard} style={{ fontSize: '18px' }} className="icon" />
                             <p className="db-menu-name">Thông tin tài khoản</p>
                         </div>
+
                         <div
                             className="db-menu-item flex-center"
                             style={{ margin: '0' }}

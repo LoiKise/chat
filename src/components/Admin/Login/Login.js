@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { withRouter } from 'react-router-dom'
+import requestAPI from '../../../apis'
 const bg = "https://ktkdqt.ftu.edu.vn/wp-content/uploads/2018/04/tsxnk800.460.jpg"
 function Login(props) {
 
     const [arrSuccess, setArrSuccess] = useState([]);
     const [arrErr, setArrErr] = useState([]);
 
-    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
 
     useEffect(() => {
@@ -39,14 +40,20 @@ function Login(props) {
         //         setArrErr([err.response.data]);
         //         setArrSuccess([])
         //     })
-        if (email === 'admin' && password === 'admin') {
-            setArrSuccess(["Login success!"])
-            setArrErr([]);
-            props.history.push('/Dashboard')
-        } else {
-            setArrErr(["Sai tài khoản hoặc mật khẩu !"]);
-            setArrSuccess([])
-        }
+        requestAPI('/admin/dashboard', 'POST', { phone, password })
+            .then(res => {
+                if (res) {
+                    console.log({ res });
+                    setArrSuccess(['Đăng nhập thành công'])
+                    setArrErr([]);
+                    localStorage.setItem('token', res.data.token);
+                    localStorage.setItem('user-id', res.data.user.id);
+                    props.history.push('/admin/dashboard')
+                }
+            }).catch(err => {
+                setArrErr(['Đăng nhập thất bại, sai tài khoản hoặc mật khẩu']);
+                setArrSuccess([])
+            })
     }
 
     let uniqueErr, uniqueSuccess = [];
@@ -68,7 +75,7 @@ function Login(props) {
                 <div className="login-box flex">
                     <div className="login-left flex-center flex-col">
                         <img src="https://demo.uix.store/sober/wp-content/themes/sober/images/logo.svg" alt="logo" width="50%"></img>
-                        <div className="login-title">Login To Admin Dashboard</div>
+                        <div className="login-title">Đăng nhập vào trang quản lý</div>
                         <div className="login-err flex-center flex-col login-arr-admin"
                             style={{
                                 width: '80%', padding: '0',
@@ -106,21 +113,21 @@ function Login(props) {
                         <form className="admin-login-form flex-col" onSubmit={handleOnSubmit}>
                             <input
                                 type="text"
-                                placeholder="Email"
-                                value={email}
+                                placeholder="Số điện thoại"
+                                value={phone}
                                 onChange={(event) => {
-                                    setEmail(event.target.value)
+                                    setPhone(event.target.value)
                                 }}
                             />
                             <input
                                 type="password"
-                                placeholder="Password"
+                                placeholder="Mật khẩu"
                                 value={password}
                                 onChange={(event) => {
                                     setPassword(event.target.value)
                                 }}
                             />
-                            <button type="submit" className="btn">LOGIN</button>
+                            <button type="submit" className="btn">Đăng nhập</button>
                         </form>
                     </div>
                     <div className="login-right">
