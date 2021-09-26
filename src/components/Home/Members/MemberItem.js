@@ -7,7 +7,7 @@ export default function MemberItem({member}) {
                 <img src={member.avtar} alt="" className="ourmember-img" />
                 <div className="ourmember-infor">
                     <h3 className="ourmember-infor__membername">
-                        {member.name}
+                        {member.nameMembe}
                     </h3>
                     <h5 className="ourmember-infor__memberposition">
                         {member.position}

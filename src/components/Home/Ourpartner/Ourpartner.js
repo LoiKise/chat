@@ -10,9 +10,9 @@ export default function Ourpartner() {
               <div className="section__top">
                 <span>Đối tác</span>
                 <h2 className="section__top-header">Đối tác của chúng tôi</h2>
-                <div className="section__top-note">
+                {/* <div className="section__top-note">
                   Vận chuyển hàng hóa trong nước và quốc tế
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

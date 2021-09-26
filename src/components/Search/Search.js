@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnRounded";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
-import { Modal, Tab, Tabs, Card, Alert, Table } from "react-bootstrap";
+import { Tab, Tabs, Table } from "react-bootstrap";
 import moment from 'moment'
 import CustomNoRowsOverlay from "../Admin/Dashboard/Order/CustomNoRowsOverlay"
-import * as ReatBootStrap from 'react-bootstrap'
+
 import requestAPI from "../../apis";
 
 export default function Search(props) {
@@ -20,14 +20,14 @@ export default function Search(props) {
   const [type, setType] = useState({ //send
     name: '',
     customerPhone: '',
-    date: null
+    date: ''
   })
   const [dataFormat, setDataFormat] = useState({ //show
     name: '',
     customerPhone: '',
-    date: null
+    date: ''
   })
-  console.log('userComment', type);
+
 
   const handleChangeInput = (event) => {
     let { value, name, valueAsNumber } = event.target;
@@ -48,16 +48,15 @@ export default function Search(props) {
   const handleSubmit = (event) => {
     // chặn sự kiện submit browser
     event.preventDefault();
-    // setLoading(true);
     setTimeout(() => {
       if (type.name && type.name.length > 0) {
         setShow(true)
         requestAPI("/search/order", "POST", type)
           .then(res => {
             if (res) {
-              console.log(res.data);
+              // console.log(res.data);
               setstate(res.data);
-              setLoading(true);
+              // setLoading(true);
 
             }
           }).catch(err => console.log(err))
@@ -110,14 +109,10 @@ export default function Search(props) {
                   <div className="form-group">
                     <button type="submit" className="btn_tab_search" >
                       <SearchSharpIcon /> Tra cứu vận đơn
-                      {/* <ReatBootStrap.Spinner animation="border" /> */}
-
                     </button>
                   </div>
                 </form>
               </div>
-
-
               {show &&
                 <Table striped bordered hover size="lg" >
                   {
@@ -153,60 +148,11 @@ export default function Search(props) {
                       )
                     })
                     :
-
                     <tbody><div><CustomNoRowsOverlay /></div></tbody>
                   }
                 </Table>
-
               }
-
             </Tab>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <Modal show={show} onHide={handleClose} size="lg">
-                 {loading && <h1>Loading.... </h1>} 
-                <Modal.Header closeButton>
-                  <Modal.Title>Kết quả tìm kiếm </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="../assets/img/icon/dark_logo.png"
-                      alt="this is logo" />
-                    <Card.Text>
-                      {state?.map(item => {
-                        return (
-                          <Card.Body className="w-100">
-                            <Card.Title>Tên người gửi: {item?.customerName} </Card.Title>
-                            <Card.Title>Số điện thoại: {item?.customerPhone} </Card.Title>
-                            <Card.Title>Ngày gửi: {moment(item?.updatedAt).format("DD-MM-YYYY")} </Card.Title>
-                            <Card.Title>Tên người nhận: {item?.receiverName} </Card.Title>
-                            <Card.Title>Hàng hóa: {item?.orderName} </Card.Title>
-                            <Card.Title>Chi phí: {item?.totalPrice} </Card.Title>
-                          </Card.Body>
-                        )
-                      })}
-                    </Card.Text>
-                  </Card>
-                </Modal.Body>
-              </Modal> */}
-
-
-
             <Tab eventKey="second" title={<span>Cước vận chuyển <MonetizationOnRoundedIcon /></span>}>
               <div className="tab_content_move">
                 <p className="text-left pl-5">Gửi từ</p>

@@ -95,27 +95,40 @@
   margin-left: 13px;
 }
 
-/*---------------------------------reponsive------------------------*/
+// /*---------------------------------reponsive------------------------*/
 
+// .ordernow {
+//   @include mobile {
+
+//     height: auto;
+//   }
+//   .ordernow-form__userinfor-item {
+//     margin-bottom: 20px;
+//   }
+//   .ordernow-form__deliverylocation-item {
+//     margin-bottom: 20px;
+//   }
+//   .ordernow-form__about{
+//     margin-top: 0;
+
+//     &-item{
+//       margin-bottom: 20px;
+//     }
+//   }
+//   .row{
+//     margin-left: 0;
+//   }
+// }
 .ordernow {
   @include mobile {
-    margin-top: 60%;
-    height: auto;
-  }
-  .ordernow-form__userinfor-item {
-    margin-bottom: 20px;
-  }
-  .ordernow-form__deliverylocation-item {
-    margin-bottom: 20px;
-  }
-  .ordernow-form__about{
-    margin-top: 0;
-    
-    &-item{
-      margin-bottom: 20px;
+    .ordernow-form__userinfor-item {
+      margin-bottom: 50px;
     }
-  }
-  .row{
-    margin-left: 0;
+    .ordernow-form__deliverylocation-item{
+      margin-bottom: 50px;
+    }
+    .ordernow-form__typepackage{
+      margin-bottom: 50px;
+    }
   }
 }

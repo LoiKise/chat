@@ -103,7 +103,7 @@ export default function Order() {
                         </div>
                     </div>
                     <div className='section-area__btn'>
-                        <ButtonCustom name="Gửi Yêu Cầu" linkIcon={IconService} />
+                        <ButtonCustom name="Gửi Yêu Cầu" linkIcon={IconService} to="/" className="as"/>
                     </div>
 
                 </div>

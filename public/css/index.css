@@ -222,7 +222,7 @@ html {
   justify-content: center;
   margin-top: 74px; }
 
-.section-area__btn button {
+.section-area__btn a {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -510,6 +510,10 @@ p {
           color: #fff !important;
           opacity: 1; }
 
+@media (max-width: 1119px) {
+  .header .navbar-collapse .header__authenWrapper {
+    transform: translateX(80px); } }
+
 @media (max-width: 1365px) {
   .header__nav-list {
     transform: translateX(163px); } }
@@ -528,16 +532,31 @@ p {
     flex-direction: column;
     text-align: center;
     transform: translate(50px, 48px);
-    width: 100%; } }
-
-@media (max-width: 1119px) {
-  .header .navbar-collapse .header__authenWrapper {
-    transform: translateX(-6px); } }
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    padding-bottom: 170px; }
+    .header__nav-list .header__nav-item {
+      padding-bottom: 50px; }
+    .header__nav-list .header__authenWrapper {
+      transform: translateX(8px) !important; } }
 
 @media (max-width: 800px) {
   .navbar-light .navbar-toggler {
     position: absolute;
     top: 36%; } }
+
+@media (max-width: 800px) {
+  .header .colorChange .navbar-collapse .header__nav-list {
+    background-color: #6d6767;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transform: translate(48px, 25px);
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    padding-bottom: 170px; } }
 
 .header--home {
   background: transparent; }
@@ -560,7 +579,7 @@ p {
     .header--home .colorChange .navbar-collapse {
       margin-top: 7px; }
     .header--home .colorChange .header__authenWrapper {
-      transform: translateX(66px); }
+      transform: translateX(80px); }
 
 /*-------------------------reponsive-----------------------*/
 /* Footer */
@@ -585,7 +604,7 @@ p {
 
 .footer-item h2 {
   position: relative;
-  font-size: 1.9rem;
+  font-size: 16px;
   font-weight: bold;
   margin-top: 7rem;
   text-transform: uppercase; }
@@ -770,7 +789,7 @@ p {
   -moz-animation: surf 2s;
   -o-animation: surf 2s;
   animation: surf 2s; }
-  @media (min-width: 480px) {
+  @media (max-width: 480px) {
     .not-found .wave-lost {
       top: 30%;
       left: 35%;
@@ -817,7 +836,7 @@ p {
   -moz-animation: wave-message 1s;
   -o-animation: wave-message 1s;
   animation: wave-message 1s; }
-  @media (min-width: 480px) {
+  @media (max-width: 480px) {
     .not-found .wave-message {
       font-size: 2rem; } }
 
@@ -1363,7 +1382,7 @@ p {
 .ourmember .section-area__btn button:hover {
   opacity: 1; }
 
-@media (min-width: 480px) {
+@media (max-width: 480px) {
   .link-fixed {
     display: none; } }
 
@@ -3629,7 +3648,7 @@ select {
   position: relative;
   top: 50%;
   left: 25%;
-  width: 900px;
+  width: 800px;
   display: flex;
   justify-content: space-between; }
 
@@ -3713,6 +3732,16 @@ select {
     .slider .header__slogan .header__slogan-icon {
       right: -29%; } }
 
+@media (max-width: 1365px) and (max-width: 800px) {
+  .slider .header__slogan {
+    left: 5%; } }
+
+@media (max-width: 1365px) and (max-width: 480px) {
+  .slider .header__slogan-text {
+    font-size: 30px; }
+  .slider .header__slogan-icon {
+    display: none; } }
+
 @media (max-width: 1119px) {
   .slider .header__button {
     justify-content: space-around;
@@ -3724,6 +3753,15 @@ select {
     width: 828px;
     display: flex;
     justify-content: space-around; } }
+
+@media (max-width: 480px) {
+  .slider .header__button {
+    width: 400px;
+    flex-direction: column;
+    align-items: center; } }
+
+.slider .header__button .header__button-search {
+  margin-bottom: 10px; }
 
 .whoweare {
   background-color: white; }
@@ -3787,7 +3825,7 @@ select {
   .whoweare .content-text__item {
     position: relative;
     display: flex;
-    margin-top: 40px; }
+    margin-top: 25px; }
   .whoweare .content-text__item img {
     position: absolute;
     top: 50%;
@@ -3809,28 +3847,15 @@ select {
     line-height: 2.1rem; }
 
 /*---------------------------------reponsive------------------------*/
-@media screen and (max-width: 767px) {
-  .whoweare .whoweare__content-text {
-    margin-top: 60px; } }
-
-@media (min-width: 480px) {
-  .whoweare .whoweare__content .row {
-    margin-left: 0; }
-  .whoweare .whoweare__content-experience span {
-    font-size: 3.9rem; }
-  .whoweare .whoweare__content-experience :after {
-    bottom: 56% !important;
-    left: 95%; }
-  .whoweare .whoweare__content-experience p {
-    font-size: 1.1rem; }
-  .whoweare .whoweare__content-text {
-    margin-top: 60px; }
-    .whoweare .whoweare__content-text span {
-      margin-left: 0; } }
-
 @media (max-width: 800px) {
-  .whoweare .whoweare__content-text {
-    margin-top: 60px; } }
+  .section__top {
+    margin-top: 70px; } }
+
+@media (max-width: 480px) {
+  .whoweare .whoweare__content-experience span {
+    font-size: 4.9rem; }
+  .whoweare .whoweare__content-experience p {
+    font-size: 1.1rem; } }
 
 .section__top span {
   color: var(--gradient-color-to);
@@ -3917,7 +3942,7 @@ select {
   width: auto !important; }
 
 /*---------------------------------reponsive------------------------*/
-@media (min-width: 480px) {
+@media (max-width: 480px) {
   .ourservices .ourservices-item {
     margin: 0px auto;
     text-align: center;
@@ -4008,25 +4033,13 @@ select {
 .form__about-checkitem span {
   margin-left: 13px; }
 
-/*---------------------------------reponsive------------------------*/
-@media (min-width: 480px) {
-  .ordernow {
-    margin-top: 60%;
-    height: auto; } }
-
-.ordernow .ordernow-form__userinfor-item {
-  margin-bottom: 20px; }
-
-.ordernow .ordernow-form__deliverylocation-item {
-  margin-bottom: 20px; }
-
-.ordernow .ordernow-form__about {
-  margin-top: 0; }
-  .ordernow .ordernow-form__about-item {
-    margin-bottom: 20px; }
-
-.ordernow .row {
-  margin-left: 0; }
+@media (max-width: 480px) {
+  .ordernow .ordernow-form__userinfor-item {
+    margin-bottom: 50px; }
+  .ordernow .ordernow-form__deliverylocation-item {
+    margin-bottom: 50px; }
+  .ordernow .ordernow-form__typepackage {
+    margin-bottom: 50px; } }
 
 .ourmember__top {
   margin-top: 60px; }
@@ -4056,33 +4069,6 @@ select {
   margin-top: 10px; }
 
 /*---------------------------------reponsive------------------------*/
-@media screen and (max-width: 1023px) {
-  .ourmember {
-    padding-bottom: 100px; } }
-
-@media (max-width: 800px) {
-  .ourmember .row {
-    margin-left: 0; } }
-
-@media screen and (max-width: 767px) {
-  .ourmember-list .ourmember-item {
-    max-width: 50%;
-    margin: 0px auto; } }
-
-@media (min-width: 480px) {
-  .ourmember-list .ourmember-item {
-    max-width: 50%;
-    margin: 0px auto; } }
-
-@media (max-width: 800px) {
-  .ourmember-list .ourmember-item {
-    max-width: 50%;
-    margin: 0px auto; } }
-
-@media (max-width: 1929px) {
-  .ourmember-list .ourmember-item {
-    max-width: 100%; } }
-
 /* new and sale */
 .newandsale {
   background-color: white; }
@@ -4157,7 +4143,7 @@ select {
   .newandsale {
     margin-top: 0px; } }
 
-@media (min-width: 480px) {
+@media (max-width: 480px) {
   .ourservices-item {
     max-width: 80%;
     margin: 0px auto;
@@ -4170,6 +4156,20 @@ select {
 .contact {
   background-color: black;
   color: white; }
+  .contact .section-area__btn button {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 238px;
+    height: 64px;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #1f2c8c;
+    color: white;
+    cursor: pointer;
+    border-radius: 30px; }
   @media screen and (max-width: 767px) {
     .contact {
       height: 100%; } }
@@ -4484,6 +4484,8 @@ input::-webkit-input-placeholder {
     height: 54px;
     padding: 24px;
     height: auto; }
+  .detail_job .container .nav-tabs .nav-item {
+    font-size: 15px; }
 
 .job-description {
   margin-top: 46px; }
@@ -4589,9 +4591,6 @@ input::-webkit-input-placeholder {
   border-radius: 66px !important;
   margin-top: 70px;
   margin-bottom: 86px; }
-
-.section__top-header {
-  display: none; }
 
 .ordernow-form__deliverylocation-item input {
   font-size: 15px; }

@@ -8,15 +8,15 @@ $ipadPro: 1119px;
 $desktop-width: 1929px;
 
 @mixin mobile {
-    @media (min-width: $mobile-width) {
+    @media (max-width: $mobile-width) {
         @content;
     }
 }
-@mixin tablet-sm{
-    @media (max-width:$tablet-sm) {
-        @content;
-    }
-}
+// @mixin tablet-sm{
+//     @media (max-width:$tablet-sm) {
+//         @content;
+//     }
+// }
 @mixin tablet {
     @media (max-width: $tablet-width) {
         @content;
