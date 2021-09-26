@@ -132,8 +132,15 @@
 /*---------------------------------reponsive------------------------*/
 
 .footer {
+  @media screen and (max-width: 320px){
+    .footer-item-list-item{
+      margin-left: 52px;
+      img {
+        display: none;
+      }
+    }
+  }
   @include mobile {
-    // margin-top: 555px;
     .container {
       max-width: 100% !important;
       .footer-list {
@@ -163,6 +170,27 @@
     }
     .footer-item-list-item__content {
       display: block;
+    }
+  }
+  @media screen and (max-width: 767px){
+    .container {
+      max-width: 100% !important;
+      .footer-list {
+        flex-direction: column;
+        .footer-item {
+          width: 100% !important;
+          margin: 0px auto !important;
+          display: flex;
+          align-items: center;
+          margin-top: 4rem;
+          .footer-span{
+            text-align: center;
+          }
+          > img {
+            margin: 0px auto;
+          }
+        }
+      }
     }
   }
   @include tablet {

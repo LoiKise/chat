@@ -5,7 +5,7 @@ export default function NewListItem({ item }) {
 
     return (
         <>
-            <div className="col-md-12 col-lg-4 mb-md-5" >
+            <div className="col-md-12 col-lg-4 mb-md-5 mb-sm-5" >
                 <Link to='/' className="ourservices-link">
                     <div className="ourservices-item">
                         <img

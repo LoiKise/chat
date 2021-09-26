@@ -116,7 +116,6 @@
   .header__slogan {
     @include mobile {
       top: 24%;
-      left: 3%;
     }
     @include tablet {
       top: 24%;
@@ -148,6 +147,7 @@
       display: flex;
       flex-direction: column;
       width: 0px;
+      top: 35%;
     }
     button {
       margin-bottom: 15px;
@@ -169,3 +169,27 @@
   }
 }
 
+@media screen and (max-width: 767px) {
+  .slider{
+    position: relative;
+  }
+  .header__button-service{
+    position: relative;
+  }
+  .header__button{
+    left: 10%;
+    width: 430px;
+    top: 50%;
+  }
+  .header__slogan{
+    position: relative;
+    left: 10%;
+    width: 71%;
+  }
+  .header__slogan-text {
+    font-size: 4rem;
+  }
+  .header__slogan-icon{
+    display: none
+  }
+}
