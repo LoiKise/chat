@@ -186,7 +186,7 @@ export default function Index() {
                 <Controller
                   name="name"
                   control={control}
-                  rules={rules.name}
+                  rules={rules.fullname}
                   render={({ field }) => (
                     <input
                       type="text"
