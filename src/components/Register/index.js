@@ -40,13 +40,13 @@ export default function Index() {
     try {
       const res = await dispatch(register(body));
       unwrapResult(res);
-      history.push("/");
+      history.push("/login");
       toast.success("Đăng ký thành công", {
         position: "top-center",
         autoClose: 3000,
       });
     } catch (error) {
-      toast.error("Đăng ký thất bại", {
+      toast.error("SDT đã tồn tại", {
         position: "top-center",
         autoClose: 3000,
       });
@@ -62,8 +62,17 @@ export default function Index() {
   };
 
   const responseGoogle = async (res) => {
+    if (res.profileObj === undefined && res.accessToken === undefined) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
     const body = {
-      user: res.profileObj,
+      user: {
+        fullname: `${res.profileObj.familyName} ${res.profileObj.givenName}`,
+      },
       accessToken: res.accessToken,
     };
     try {
@@ -92,6 +101,13 @@ export default function Index() {
 
   //login face
   const responseFacebook = async (res) => {
+    if (res.name === undefined && res.accessToken === undefined) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
     const body = {
       user: { fullname: res.name },
       accessToken: res.accessToken,
@@ -184,7 +200,7 @@ export default function Index() {
                 <Controller
                   name="name"
                   control={control}
-                  rules={rules.name}
+                  rules={rules.fullname}
                   render={({ field }) => (
                     <input
                       type="text"

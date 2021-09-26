@@ -36,7 +36,6 @@ export default function Index() {
       phone: data.sdt,
       password: data.password.trim(),
     };
-    console.log(body);
     try {
       const res = await dispatch(login(body));
       unwrapResult(res);
@@ -63,6 +62,13 @@ export default function Index() {
 
   //login gg
   const responseGoogle = async (res) => {
+    if (res.profileObj === undefined && res.accessToken === undefined) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
     const body = {
       user: {
         fullname: `${res.profileObj.familyName} ${res.profileObj.givenName}`,
@@ -95,6 +101,13 @@ export default function Index() {
 
   //login face
   const responseFacebook = async (res) => {
+    if (res.name === undefined && res.accessToken === undefined) {
+      toast.error("Đăng nhập thất bại", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
     const body = {
       user: { fullname: res.name },
       accessToken: res.accessToken,

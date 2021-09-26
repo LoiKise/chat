@@ -92,7 +92,7 @@ export default function Index({ isHome }) {
                           <img src="../assets/img/icon/user_img.png" alt="" />
                         </div>
                       </Link>
-                      <span>{name}</span>
+                      <span className="account-name">{name}</span>
                       <div class="account-menu">
                         <img src="../assets/img/icon/bars.png" alt="" />
 
