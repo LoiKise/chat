@@ -3,7 +3,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export default function DashboardSelectInput({
-    title, data, setData, handleClose, sltOpen, provinceId,
+    title, data, setData, handleClose, sltOpen, subKey,
     handleOpenSlt, subTitle, listSelect, objectKey, objectNameKey }) {
     return (
         <div className="create-box-row flex">
