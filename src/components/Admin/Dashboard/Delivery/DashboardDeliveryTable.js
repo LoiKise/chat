@@ -14,6 +14,7 @@ import DashboardDialog from '../Order/DashboardDialog';
 import { closeStatusView } from '../../../../features/dashboard/order/orderSlice';
 
 export default function DashboardDeliveryTable(props) {
+    const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
     const orderUpdate = useSelector(state => state.delivery.callbackGet)
     const statusView = useSelector(state => state.order.statusOrderView)
     const orderView = useSelector(state => state.order.orderView)
@@ -33,6 +34,7 @@ export default function DashboardDeliveryTable(props) {
                 if (res) {
                     setDelivery(res.data?.data)
                     setConstDelivery(res.data?.data)
+                    console.log({ deli: res.data?.data });
                     setIsLoading(false);
                 }
             })
@@ -83,9 +85,6 @@ export default function DashboardDeliveryTable(props) {
         }
 
     }
-
-    const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
-
     const closeDialog = () => {
         dispatch(closeStatusView())
     }
