@@ -62,17 +62,15 @@ export default function Index() {
       note: note,
     };
     try {
-
       const res = await requestAPI("/request", "POST", body);
       reset();
       console.log(res);
-    
+
       toast.success("Đặt hàng thành công", {
         position: "top-center",
         autoClose: 3000,
       });
     } catch (error) {
-     
       toast.error("Đặt hàng thất bại", {
         position: "top-center",
         autoClose: 3000,
