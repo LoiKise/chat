@@ -25,7 +25,12 @@ export default function Search(props) {
   const [dataFormat, setDataFormat] = useState({ //show
     name: '',
     customerPhone: '',
-    date: ''
+    date: '',
+    errors: {
+      name: '',
+      customerPhone: '',
+      date: '',
+    }
   })
 
 
@@ -40,7 +45,6 @@ export default function Search(props) {
     setDataFormat({
       ...dataFormat,
       [name]: value
-
     })
   }
   const [state, setstate] = useState()
@@ -60,9 +64,9 @@ export default function Search(props) {
 
             }
           }).catch(err => console.log(err))
-
       } else {
         // handleShow()
+      
       }
     }, 1000);
   }
@@ -79,19 +83,22 @@ export default function Search(props) {
                     <input type="text"
                       name="name"
                       className="tabs__search form-control"
-                      placeholder="Nhập mã đơn"
+                      placeholder="Nhập tên khách hàng"
                       onChange={handleChangeInput}
                       value={dataFormat.name}
+                      required
                     />
+                   
                   </div>
                   <div className="form-group" >
                     <p>Số điện thoại</p>
                     <input type="text"
                       name="customerPhone"
                       className="tabs__search form-control"
-                      placeholder="Nhập mã đơn"
+                      placeholder="Nhập số điện thoại"
                       onChange={handleChangeInput}
                       value={dataFormat.customerPhone}
+                      required
                     />
                   </div>
                   <div className="form-group" >
@@ -104,6 +111,7 @@ export default function Search(props) {
                       min="2000-01-01" max="2030-12-31"
                       onChange={handleChangeInput}
                       value={dataFormat.date}
+                      requiredw
                     />
                   </div>
                   <div className="form-group">
