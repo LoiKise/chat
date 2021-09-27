@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 export default function DashboardOrderControl({ addController, handleOpenDialogDelete, searchController, searchOnChange, placeholderSearch }) {
     return (

@@ -70,13 +70,17 @@ function Dashboard(props) {
     }
     const verifyToken = async () => {
         const jwt = localStorage.getItem('token');
+        if (jwt) {
+            await requestAPI('/admin', 'POST', { token: jwt }, { Authorization: `Bearer ${localStorage.getItem('token')}` })
+                .then(res => {
+                    if (res) {
+                        setUserInfo(res.data?.user)
+                    }
+                }).catch(() => history.push('/dashboard'))
+        } else {
+            history.push('/dashboard')
+        }
 
-        await requestAPI('/admin', 'POST', { token: jwt }, { Authorization: `Bearer ${localStorage.getItem('token')}` })
-            .then(res => {
-                if (res) {
-                    setUserInfo(res.data?.user)
-                }
-            }).catch(err => history.push('/dashboard'))
 
     }
     const setOpenMenuOnClick = () => {
