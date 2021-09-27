@@ -7,7 +7,7 @@
         margin-top: -9px;
         padding: 0px;
         border-radius: 0px;
-        width: 150%;
+        width: 100%;
         margin-bottom: 40px;
         background-color: #fdfdfd;
         height: 54px;
@@ -18,6 +18,7 @@
     .nav-tabs{
       .nav-item {
         font-size: 15px;
+        font-weight: 300;
       }
     }
   }
@@ -58,7 +59,7 @@
 .tab-main-content {
   h1 {
     font-size: 21px;
-    font-weight: 400;
+    font-weight: 200;
     margin-bottom: 19px;
     margin-top: 13px;
   }
@@ -101,5 +102,14 @@
     font-size: 15px;
     margin-left: 7px;
     color: #888484;
+  }
+}
+
+.detail_job{
+  @include mobile{
+    padding: 0px;
+    .nav-tabs{
+      margin-top: 50px;
+    }
   }
 }
