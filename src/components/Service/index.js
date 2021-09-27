@@ -492,6 +492,7 @@ export default function Index() {
                     type="submit"
                     name="Gửi Yêu Cầu"
                     linkIcon={IconService}
+                    to="/"
                   />
                 </div>
               </form>

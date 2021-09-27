@@ -49,10 +49,13 @@
   }
   .whoweare__content-text span {
     color: var(--gradient-color-to);
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: 700;
     position: relative;
     margin-left: 70px;
+  }
+  .section__top-header{
+    font-size: 4rem;
   }
   .whoweare__content-text span::before {
     position: absolute;
