@@ -37,7 +37,7 @@
   height: auto;
   z-index: 9999;
   position: fixed;
-  transform: translate(70px, -2px);
+  transform: translate(70px, -10px);
 }
 .header__nav--collapse {
   flex-grow: 0 !important;
@@ -284,10 +284,14 @@
 }
 
 .navbar-light {
-  @include tablet {
-    .navbar-toggler {
+  .navbar-toggler {
+    @include tablet {
       position: absolute;
       top: 36%;
+    }
+    @include scale{
+      // background-color: red;
+      transform: translateY(-40px);
     }
   }
 }
