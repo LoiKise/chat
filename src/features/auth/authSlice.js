@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import authApi from "../../apis/auth.api";
 import LocalStorage from "../../helpers/localStorage";
 import { payloadCreator } from "../../helpers/payloadCreators";
@@ -12,6 +13,22 @@ export const login = createAsyncThunk(
   "auth/login",
   payloadCreator(authApi.login)
 );
+
+const handleError = (state, action) => {
+  const codeStatus = action.payload.response.status;
+  if (codeStatus === 404) {
+    toast.error("Tài khoản không tồn tại", {
+      position: "top-center",
+      autoClose: 3000,
+    });
+  }
+  if (codeStatus === 400) {
+    toast.error("Mật khẩu sai", {
+      position: "top-center",
+      autoClose: 3000,
+    });
+  }
+};
 
 const handleLogin = (state, action) => {
   const { user, token } = action.payload.data;
@@ -43,6 +60,7 @@ const auth = createSlice({
     loginSocial: handleAuthSocial,
   },
   extraReducers: {
+    [login.rejected]: handleError,
     [login.fulfilled]: handleLogin,
   },
 });
