@@ -13,6 +13,18 @@ export const login = createAsyncThunk(
   payloadCreator(authApi.login)
 );
 
+const handleChangePass = (state, action) => {
+  const { oldPassword, newPassword } = action.payload;
+  state.profile = {...state.profile, password : newPassword};
+  localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
+}
+
+const handleUpdate = (state, action) => {
+  const { email, fullname, phone, imgUrl } = action.payload;
+  state.profile = { ...state.profile, email, fullname, phone, imgUrl };
+  localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
+}
+
 const handleLogin = (state, action) => {
   const { user, token } = action.payload.data;
   state.profile = user;
@@ -41,6 +53,8 @@ const auth = createSlice({
   reducers: {
     logout: handleUnAuth,
     loginSocial: handleAuthSocial,
+    updateInfo : handleUpdate,
+    changePass : handleChangePass,
   },
   extraReducers: {
     [login.fulfilled]: handleLogin,
@@ -50,4 +64,6 @@ const auth = createSlice({
 const authReducer = auth.reducer;
 export const logout = auth.actions.logout;
 export const loginSocial = auth.actions.loginSocial;
+export const updateInfo = auth.actions.updateInfo;
+export const changePass = auth.actions.changePass;
 export default authReducer;
