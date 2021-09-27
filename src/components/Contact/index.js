@@ -56,7 +56,7 @@ const PostContactAPI = async (dataContact) => {
                  });
               }
             }).catch((err) => {
-               toast.error("CÓ LỖI", {
+               toast.error("THÊM LIÊN HỆ THẤT BẠI, SỐ ĐIỆN THOẠI PHẢI BẮT ĐẦU BẰNG 03, 05, 07, 08, 09", {
                  position: "top-right",
                  autoClose: 5000,
                });

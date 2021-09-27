@@ -75,7 +75,8 @@ export const rules = {
     },
     validate: {
       number: (value) =>
-        /^[0-9]*$/.test(value) || "Số điện thoại không đúng định dạng",
+        /((03|05|07|08|09)+([0-9]{8})\b)/g.test(value) ||
+        "Số điện thoại không đúng định dạng",
     },
   },
   weight: {
