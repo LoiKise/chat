@@ -175,11 +175,11 @@
 
 .whoweare {
   .whoweare__content-experience {
-      @include mobile {
-        span {
+    @include mobile {
+      span {
         font-size: 4.9rem;
       }
-      p{
+      p {
         font-size: 1.1rem;
       }
     }
