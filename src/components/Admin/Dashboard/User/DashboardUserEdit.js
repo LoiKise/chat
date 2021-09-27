@@ -60,7 +60,7 @@ export default function DashboardUserCreate(props) {
         event.preventDefault()
         console.log({ data });
 
-        if (!data.email || !data.fullname || !data.password || !data.phone) {
+        if (!data.email || !data.fullname || !data.password || !data.phone || !data.role) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
@@ -79,6 +79,13 @@ export default function DashboardUserCreate(props) {
                     })
                     props.setCloseEditFunc(false);
                 }
+            }).catch(err => {
+                enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
+                    persist: false,
+                    variant: 'warning',
+                    preventDuplicate: true,
+                    autoHideDuration: 3000,
+                })
             })
 
         }
