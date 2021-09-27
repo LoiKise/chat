@@ -12,6 +12,7 @@ import { CallBackGetDelivery } from '../../../../features/dashboard/delivery/del
 import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 import DashboardDialog from '../Order/DashboardDialog';
 import { closeStatusView } from '../../../../features/dashboard/order/orderSlice';
+import DashboardDialogConfirm from './../Order/DashboardDialogConfirm';
 
 export default function DashboardDeliveryTable(props) {
     const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
@@ -22,6 +23,7 @@ export default function DashboardDeliveryTable(props) {
     const [constDelivery, setConstDelivery] = useState([])
     const [selection, setSelection] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [open, setOpen] = useState(false)
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -39,6 +41,12 @@ export default function DashboardDeliveryTable(props) {
             })
             .catch(err => console.log(err))
         return data
+    }
+    const handleOpenDialogDelete = () => {
+        setOpen(true);
+    }
+    const handleCloseDialogDelete = () => {
+        setOpen(false);
     }
     const deleteOnClick = () => {
         if (selection.length > 0) {
@@ -103,6 +111,7 @@ export default function DashboardDeliveryTable(props) {
                         deleteController={deleteOnClick}
                         searchOnChange={searchOnChange}
                         searchController={searchOnSubmit}
+                        handleOpenDialogDelete={handleOpenDialogDelete}
                         placeholderSearch="Tìm kiếm theo mã hóa đơn"
                     />
                     <div style={{ height: 400, width: "100%" }}>
@@ -130,6 +139,11 @@ export default function DashboardDeliveryTable(props) {
                             steps={steps}
                             titleLabel={"Lịch sử đơn hàng"}
                             orderView={orderView}
+                        />
+                        <DashboardDialogConfirm
+                            open={open}
+                            handleCloseDialogDelete={handleCloseDialogDelete}
+                            handleDelete={deleteOnClick}
                         />
                     </div>
 

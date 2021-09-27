@@ -1,57 +1,39 @@
-import React, { useEffect, useState } from 'react'
-// import Axios from 'axios'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis'
+import { useSnackbar } from 'notistack';
 const bg = "https://ktkdqt.ftu.edu.vn/wp-content/uploads/2018/04/tsxnk800.460.jpg"
 function Login(props) {
-
-    const [arrSuccess, setArrSuccess] = useState([]);
-    const [arrErr, setArrErr] = useState([]);
-
+    const { enqueueSnackbar } = useSnackbar();
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
-
-    useEffect(() => {
-        if (localStorage.getItem('errLogin')) {
-            setArrErr([localStorage.getItem('errLogin')]);
-        }
-        setTimeout(() => {
-            localStorage.removeItem('errLogin')
-            setArrErr([])
-        }, 3000)
-    }, [])
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
         requestAPI('/admin/dashboard', 'POST', { phone, password })
             .then(res => {
                 if (res) {
-                    console.log({ res });
-                    setArrSuccess(['Đăng nhập thành công'])
-                    setArrErr([]);
                     localStorage.setItem('token', res.data.token);
                     localStorage.setItem('user-id', res.data.user.id);
+                    enqueueSnackbar('Đăng nhập thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
                     props.history.push('/admin/dashboard')
+
                 }
             }).catch(err => {
-                setArrErr(['Đăng nhập thất bại, sai tài khoản hoặc mật khẩu']);
-                setArrSuccess([])
+                enqueueSnackbar('Đăng nhập thất bại', {
+                    persist: false,
+                    variant: 'error',
+                    preventDuplicate: true,
+                    autoHideDuration: 3000,
+                })
             })
     }
 
-    let uniqueErr, uniqueSuccess = [];
-    if (arrErr.length > 0) {
-        uniqueErr = arrErr.filter(function (item, pos) {
-            return arrErr.indexOf(item) === pos;
-        })
-    }
-    if (arrSuccess.length > 0) {
-        uniqueSuccess = arrSuccess.filter(function (item, pos) {
-            return arrSuccess.indexOf(item) === pos;
-        })
-    }
 
     return (
         <div className="Login">
@@ -61,40 +43,6 @@ function Login(props) {
                     <div className="login-left flex-center flex-col">
                         <img src="https://demo.uix.store/sober/wp-content/themes/sober/images/logo.svg" alt="logo" width="50%"></img>
                         <div className="login-title">Đăng nhập vào trang quản lý</div>
-                        <div className="login-err flex-center flex-col login-arr-admin"
-                            style={{
-                                width: '80%', padding: '0',
-                                // heigh    t: '40px'
-                            }}>
-                            {uniqueErr &&
-                                <div style={{ width: '100%', padding: '0' }}>
-                                    {
-                                        uniqueErr.map((item, index) => {
-                                            return (
-                                                <div key={index}>
-                                                    <FontAwesomeIcon icon={faTimes} style={{ marginRight: '10px', color: 'red' }} />
-                                                    {item}
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            }
-                            {uniqueSuccess &&
-                                <div style={{ width: '100%', padding: '0' }}>
-                                    {
-                                        uniqueSuccess.map((item, index) => {
-                                            return (
-                                                <div key={index} className="login-success">
-                                                    <FontAwesomeIcon icon={faCheck} style={{ marginRight: '10px', color: 'green' }} />
-                                                    {item}
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            }
-                        </div>
                         <form className="admin-login-form flex-col" onSubmit={handleOnSubmit}>
                             <input
                                 type="text"

@@ -10,6 +10,7 @@ import { useSnackbar } from 'notistack';
 import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
 import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
+import DashboardDialogConfirm from '../Order/DashboardDialogConfirm';
 
 export default function DashboardNewsTable(props) {
     const update = useSelector(state => state.news.callbackGet)
@@ -17,6 +18,7 @@ export default function DashboardNewsTable(props) {
     const [constNews, setConstNews] = useState([])
     const [selection, setSelection] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [open, setOpen] = useState(false)
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -80,7 +82,12 @@ export default function DashboardNewsTable(props) {
 
     }
 
-
+    const handleOpenDialogDelete = () => {
+        setOpen(true);
+    }
+    const handleCloseDialogDelete = () => {
+        setOpen(false);
+    }
     return (
         <div className="topfive flex-col" style={{ width: '100%' }}>
             <div className={`headerbox flex-center ${props.color}`}>
@@ -96,6 +103,7 @@ export default function DashboardNewsTable(props) {
                         deleteController={deleteOnClick}
                         searchOnChange={searchOnChange}
                         searchController={searchOnSubmit}
+                        handleOpenDialogDelete={handleOpenDialogDelete}
                         placeholderSearch={"Tìm kiếm theo tên công việc"}
                     />
                     <div style={{ height: 400, width: "100%" }}>
@@ -118,7 +126,11 @@ export default function DashboardNewsTable(props) {
                             checkboxSelection
                         />
                     </div>
-
+                    <DashboardDialogConfirm
+                        open={open}
+                        handleCloseDialogDelete={handleCloseDialogDelete}
+                        handleDelete={deleteOnClick}
+                    />
                 </div>
             </div>
         </div>
