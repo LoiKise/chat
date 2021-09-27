@@ -40,6 +40,13 @@ export default function DashboardUserCreate(props) {
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
+        } else if (data.salaryBefore < 0 || data.salaryAfter < 0) {
+            enqueueSnackbar('Mức lương tối thiểu là 0đ', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
         } else {
             createNews(data).then(res => {
                 if (res.data) {
