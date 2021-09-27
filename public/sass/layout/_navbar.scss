@@ -59,17 +59,8 @@
   .navbar-brand {
     @include mobile {
     }
-<<<<<<< HEAD
     @include tablet {
       margin-right: 620px !important;
-=======
-    // @include tablet {
-    //   margin-right: 620px !important;
-    // }
-    @include desktop {
-      margin-right: 112px !important;
-      margin-left: 54px;
->>>>>>> c1931393fdf25077a10f6747b81b8a548a51444c
     }
   }
 }
@@ -117,7 +108,7 @@
     align-items: center;
     transform: translate(8%, 16%);
   }
-  @include tablet-plus{ 
+  @include tablet-plus {
     // width 1024
     flex-direction: row;
     background-color: transparent;

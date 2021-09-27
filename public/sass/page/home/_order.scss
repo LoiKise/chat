@@ -29,6 +29,8 @@
 }
 .ordernow-form__userinfor-item input,
 .ordernow-form__deliverylocation-item input,
+.ordernow-form__deliverylocation-item select,
+.ordernow-form__about-item select,
 .ordernow-form__about input {
   border: none;
   border-radius: 30px;
@@ -38,6 +40,23 @@
   font-weight: 600;
   height: 70px;
   width: 100%;
+}
+.ordernow-form__deliverylocation-itemm {
+  padding-left: 20px !important;
+  padding-right: 0 !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.ordernow-form__deliverylocation-itemm select {
+  color: red;
+}
+.ordernow-form__deliverylocation-item select {
+  z-index: 1;
+  left: 0;
+  top: 0;
+}
+.ordernow-form__deliverylocation-item option {
+  color: #000;
 }
 .ordernow-form__userinfor-item input:focus,
 .ordernow-form__deliverylocation-item input:focus,
@@ -50,6 +69,12 @@
   top: 50%;
   transform: translateY(-50%);
   right: 28px;
+}
+.ordernow-form__iconn {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-150%, -75%);
 }
 
 //   .ordernow-form__deliverylocation {
@@ -108,14 +133,14 @@
   .ordernow-form__deliverylocation-item {
     margin-bottom: 20px;
   }
-  .ordernow-form__about{
+  .ordernow-form__about {
     margin-top: 0;
-    
-    &-item{
+
+    &-item {
       margin-bottom: 20px;
     }
   }
-  .row{
+  .row {
     margin-left: 0;
   }
 }

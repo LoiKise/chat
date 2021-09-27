@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
@@ -9,11 +9,16 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { rules } from "../../helpers/rules";
 import ErrorMessage from "../../components/ErrorMessage/index";
+import axios from "axios";
 
 // import { set } from 'immer/dist/internal';
 
 export default function Index() {
   const IconService = "./assets/img/icon/planes.png";
+  const [cityList, setCityList] = useState([]);
+  const [districtList, setDistrictList] = useState([]);
+  const [boroughList, setBoroughList] = useState([]);
+  const [typeProductList, setTypeProductlist] = useState([]);
 
   const {
     control,
@@ -28,19 +33,21 @@ export default function Index() {
       phone: "",
       address: "",
       borough: "",
-      district: "",
       city: "",
+      district: "",
       typeProduct: "",
       weight: "",
       fastShip: false,
       hangdonglanh: false,
-      hangdevo: false,
+      devo: false,
     },
   });
   const handleValue = async (data) => {
     let note = "";
     let fastShip = false;
-    const address = `${data.address}, ${data.borough}, ${data.district}, ${data.city}.`;
+    const address = `${data.address}, ${data.borough}, ${
+      data.district.split("-")[1]
+    }, ${data.city.split("-")[1]}.`;
     if (data.devo && data.devo !== undefined) {
       note += "Dễ vỡ,";
     }
@@ -57,26 +64,53 @@ export default function Index() {
       phone: data.phone,
       address: address,
       typeProduct: data.typeProduct,
-      weight: data.weight,
+      weight: Number(data.weight),
       fastShip: fastShip,
       note: note,
     };
     try {
       const res = await requestAPI("/request", "POST", body);
       reset();
-      console.log(res);
 
       toast.success("Đặt hàng thành công", {
         position: "top-center",
         autoClose: 3000,
       });
     } catch (error) {
-      toast.error("Đặt hàng thất bại", {
+      toast.error("Số điện thoại không tồn tại", {
         position: "top-center",
         autoClose: 3000,
       });
-      console.log(error);
     }
+  };
+
+  useEffect(() => {
+    const getCity = async () => {
+      const res = await axios.get("https://provinces.open-api.vn/api/p/");
+      const res1 = await requestAPI("/category", "GET");
+      setTypeProductlist(res1.data.data);
+      setCityList(res.data);
+    };
+    getCity();
+  }, []);
+
+  const changeCity = async (e) => {
+    const code = e.target.value.split("-");
+    const res = await axios.get(
+      `https://provinces.open-api.vn/api/p/${code[0]}?depth=2`
+    );
+    setDistrictList([]);
+    setBoroughList([]);
+    setDistrictList(res.data.districts);
+  };
+
+  const changeDistrict = async (e) => {
+    const code = e.target.value.split("-");
+    const res = await axios.get(
+      `https://provinces.open-api.vn/api/d/${code[0]}?depth=2`
+    );
+    setBoroughList([]);
+    setBoroughList(res.data.wards);
   };
 
   return (
@@ -139,7 +173,7 @@ export default function Index() {
                         <Controller
                           name="fullname"
                           control={control}
-                          rules={rules.name}
+                          rules={rules.fullname}
                           render={({ field }) => (
                             <input
                               name="fullname"
@@ -220,19 +254,34 @@ export default function Index() {
                           name="city"
                           control={control}
                           rules={rules.batbuoc}
+                          onChange={changeCity}
                           render={({ field }) => (
-                            <input
+                            <select
                               name="city"
-                              onChange={field.onChange}
-                              className="ordernow-form__province"
-                              placeholder="Tỉnh / Thành Phố"
+                              className="ordernow-form__deliverylocation-itemm"
+                              onChange={(e) => {
+                                field.onChange(e);
+                                changeCity(e);
+                              }}
                               value={getValues("city")}
-                            />
+                            >
+                              <option hidden value="">
+                                Tỉnh / Thành Phố
+                              </option>
+                              {cityList.map((city, index) => (
+                                <option
+                                  key={index}
+                                  value={`${city.code}-${city.name}`}
+                                >
+                                  {city.name}
+                                </option>
+                              ))}
+                            </select>
                           )}
                         />
                         <img
                           src="./assets/img/icon/tomato_down_arrow.png"
-                          className="ordernow-form__icon"
+                          className="ordernow-form__iconn"
                           alt=""
                         />
                       </div>
@@ -245,18 +294,34 @@ export default function Index() {
                           rules={rules.batbuoc}
                           control={control}
                           render={({ field }) => (
-                            <input
+                            <select
                               name="district"
-                              onChange={field.onChange}
-                              className="ordernow-form__province"
-                              placeholder="Huyện / Quận"
+                              className="ordernow-form__deliverylocation-itemm"
+                              onChange={(e) => {
+                                field.onChange(e);
+                                changeDistrict(e);
+                              }}
                               value={getValues("district")}
-                            />
+                            >
+                              <option hidden value="">
+                                Huyện / Quận
+                              </option>
+                              {districtList.map((district, index) => (
+                                <>
+                                  <option
+                                    key={index}
+                                    value={`${district.code}-${district.name}`}
+                                  >
+                                    {district.name}
+                                  </option>
+                                </>
+                              ))}
+                            </select>
                           )}
                         />
                         <img
                           src="./assets/img/icon/tomato_down_arrow.png"
-                          className="ordernow-form__icon"
+                          className="ordernow-form__iconn"
                           alt=""
                         />
                       </div>
@@ -269,18 +334,26 @@ export default function Index() {
                           rules={rules.batbuoc}
                           control={control}
                           render={({ field }) => (
-                            <input
+                            <select
                               name="borough"
+                              className="ordernow-form__deliverylocation-itemm"
                               onChange={field.onChange}
-                              className="ordernow-form__province"
-                              placeholder="Xã / Thị Xã"
                               value={getValues("borough")}
-                            />
+                            >
+                              <option hidden value="">
+                                Xã / Phường
+                              </option>
+                              {boroughList.map((borough, index) => (
+                                <option key={index} value={borough.name}>
+                                  {borough.name}
+                                </option>
+                              ))}
+                            </select>
                           )}
                         />
                         <img
                           src="./assets/img/icon/tomato_down_arrow.png"
-                          className="ordernow-form__icon"
+                          className="ordernow-form__iconn"
                           alt=""
                         />
                       </div>
@@ -316,18 +389,26 @@ export default function Index() {
                           control={control}
                           rules={rules.batbuoc}
                           render={({ field }) => (
-                            <input
+                            <select
                               name="typeProduct"
+                              className="ordernow-form__deliverylocation-itemm"
                               onChange={field.onChange}
-                              className="ordernow-form__typepackage"
-                              placeholder="Loại Hàng"
                               value={getValues("typeProduct")}
-                            />
+                            >
+                              <option hidden value="">
+                                Loại Hàng
+                              </option>
+                              {typeProductList.map((type, index) => (
+                                <option key={index} value={type.name}>
+                                  {type.name}
+                                </option>
+                              ))}
+                            </select>
                           )}
                         />
                         <img
                           src="./assets/img/icon/tomato_down_arrow.png"
-                          className="ordernow-form__icon"
+                          className="ordernow-form__iconn"
                           alt=""
                         />
                       </div>
@@ -364,7 +445,7 @@ export default function Index() {
                                   type="checkbox"
                                   name="fastShip"
                                   onChange={field.onChange}
-                                  value={getValues("fastShip")}
+                                  checked={getValues("fastShip")}
                                 />
                               )}
                             />
@@ -380,7 +461,7 @@ export default function Index() {
                                   type="checkbox"
                                   name="devo"
                                   onChange={field.onChange}
-                                  value={getValues("hangdevo")}
+                                  checked={getValues("devo")}
                                 />
                               )}
                             />
@@ -395,7 +476,7 @@ export default function Index() {
                                   type="checkbox"
                                   name="hangdonglanh"
                                   onChange={field.onChange}
-                                  value={getValues("hangdonglanh")}
+                                  checked={getValues("hangdonglanh")}
                                 />
                               )}
                             />
