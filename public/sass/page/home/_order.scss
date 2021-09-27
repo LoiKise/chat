@@ -146,7 +146,6 @@
 // }
 .ordernow {
   @include mobile {
-<<<<<<< HEAD
     margin-top: 60%;
     height: auto;
   }
@@ -165,16 +164,5 @@
   }
   .row {
     margin-left: 0;
-=======
-    .ordernow-form__userinfor-item {
-      margin-bottom: 50px;
-    }
-    .ordernow-form__deliverylocation-item{
-      margin-bottom: 50px;
-    }
-    .ordernow-form__typepackage{
-      margin-bottom: 50px;
-    }
->>>>>>> 5e15ea5c5e9aef5f0e973b3ecdda76e8d50578c3
   }
 }
