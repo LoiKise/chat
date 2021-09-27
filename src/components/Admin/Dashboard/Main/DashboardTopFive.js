@@ -2,8 +2,6 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function DashboardTopFive({ data, title, color, icon, table }) {
-
-    console.log({ data });
     return (
         <div className="topfive flex-col">
             <div className={`headerbox flex-center ${color}`}>

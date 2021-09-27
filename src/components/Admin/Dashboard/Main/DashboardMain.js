@@ -17,7 +17,6 @@ export default function DashboardMain() {
         requestAPI('/orders', 'GET').then(res => {
             if (res) {
                 setCountOrder(res.data?.total)
-                console.log(res.data);
                 let total = 0;
                 for (const item of res.data?.data) {
                     total += item.totalPrice

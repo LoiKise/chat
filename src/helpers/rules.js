@@ -14,6 +14,12 @@ export const rules = {
         "Vui lòng không nhập ký tự đặc biệt",
     },
   },
+  batbuoc: {
+    required: {
+      value: true,
+      message: "Trường này là bắt buộc nhập",
+    },
+  },
   title: {
     required: {
       value: true,
@@ -70,6 +76,20 @@ export const rules = {
     validate: {
       number: (value) =>
         /^[0-9]*$/.test(value) || "Số điện thoại không đúng định dạng",
+    },
+  },
+  weight: {
+    required: {
+      value: true,
+      message: "Trọng lượng là bắt buộc nhập",
+    },
+    maxLength: {
+      value: 2,
+      message: "Trọng lượng tối đa 100KG",
+    },
+    validate: {
+      number: (value) =>
+        /^[0-9]*$/.test(value) || "Trọng lượng tối đa 100 ký tự",
     },
   },
   password: {

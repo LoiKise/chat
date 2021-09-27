@@ -286,7 +286,7 @@ p {
   text-decoration: underline; }
 
 .submit-form {
-  background-color: #fea276;
+  background-color: #fea276 !important;
   font-weight: bold;
   color: #fff;
   border: none;
@@ -1510,6 +1510,7 @@ p {
   font-size: 12px;
   justify-content: flex-start;
   padding: 10px;
+  padding-left: 15px;
   margin-bottom: 10px;
   cursor: pointer;
   height: 50px;
@@ -3976,6 +3977,8 @@ select {
 
 .ordernow-form__userinfor-item input,
 .ordernow-form__deliverylocation-item input,
+.ordernow-form__deliverylocation-item select,
+.ordernow-form__about-item select,
 .ordernow-form__about input {
   border: none;
   border-radius: 30px;
@@ -3985,6 +3988,23 @@ select {
   font-weight: 600;
   height: 70px;
   width: 100%; }
+
+.ordernow-form__deliverylocation-itemm {
+  padding-left: 20px !important;
+  padding-right: 0 !important;
+  -webkit-appearance: none;
+  -moz-appearance: none; }
+
+.ordernow-form__deliverylocation-itemm select {
+  color: red; }
+
+.ordernow-form__deliverylocation-item select {
+  z-index: 1;
+  left: 0;
+  top: 0; }
+
+.ordernow-form__deliverylocation-item option {
+  color: #000; }
 
 .ordernow-form__userinfor-item input:focus,
 .ordernow-form__deliverylocation-item input:focus,
@@ -3996,6 +4016,12 @@ select {
   top: 50%;
   transform: translateY(-50%);
   right: 28px; }
+
+.ordernow-form__iconn {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translate(-150%, -75%); }
 
 .ordernow-form__deliverylocation-header {
   font-size: 1.6rem;
@@ -4034,12 +4060,23 @@ select {
   margin-left: 13px; }
 
 @media (max-width: 480px) {
-  .ordernow .ordernow-form__userinfor-item {
-    margin-bottom: 50px; }
-  .ordernow .ordernow-form__deliverylocation-item {
-    margin-bottom: 50px; }
-  .ordernow .ordernow-form__typepackage {
-    margin-bottom: 50px; } }
+  .ordernow {
+    margin-top: 60%;
+    height: auto; } }
+
+.ordernow .ordernow-form__userinfor-item {
+  margin-bottom: 20px; }
+
+.ordernow .ordernow-form__deliverylocation-item {
+  margin-bottom: 20px; }
+
+.ordernow .ordernow-form__about {
+  margin-top: 0; }
+  .ordernow .ordernow-form__about-item {
+    margin-bottom: 20px; }
+
+.ordernow .row {
+  margin-left: 0; }
 
 .ourmember__top {
   margin-top: 60px; }
