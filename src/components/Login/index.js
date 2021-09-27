@@ -232,7 +232,7 @@ export default function Index() {
                 className="
                   login__input--submit
                   d-flex
-                  justify-content-between
+                  justify-content-end
                   align-items-center
                 "
               >
