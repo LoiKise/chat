@@ -4,7 +4,6 @@ import { DialogContentText, Typography } from '@material-ui/core';
 import Transition from './DashboardTransition';
 import moment from 'moment'
 export default function DashboardDialog({ open, onClose, steps, titleLabel, orderView }) {
-    console.log({ orderView });
     return (
         <Dialog
             open={open}

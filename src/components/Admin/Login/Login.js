@@ -25,21 +25,6 @@ function Login(props) {
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        // Axios.post('http://pe.heromc.net:4000/users/login', {
-        //     loginEmail: email,
-        //     loginPassword: password
-        // })
-        //     .then(res => {
-        //         setArrSuccess(["Login success!"])
-        //         setArrErr([]);
-        //         localStorage.setItem('token', res.data.token);
-        //         localStorage.setItem('user-id', res.data.user._id);
-        //         props.history.push('/admin/dashboard')
-        //     })
-        //     .catch(err => {
-        //         setArrErr([err.response.data]);
-        //         setArrSuccess([])
-        //     })
         requestAPI('/admin/dashboard', 'POST', { phone, password })
             .then(res => {
                 if (res) {

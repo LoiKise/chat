@@ -69,7 +69,7 @@ export default function DashboardUserCreate(props) {
         const data = await requestAPI('/status', 'GET')
             .then(res => {
                 if (res) {
-                    setStatus(res.data?.data)
+                    setStatus(res.data)
                 }
             })
             .catch(err => console.log(err))

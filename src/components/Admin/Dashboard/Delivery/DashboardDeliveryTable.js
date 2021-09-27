@@ -29,12 +29,11 @@ export default function DashboardDeliveryTable(props) {
         getDelivery();
     }, [orderUpdate])
     const getDelivery = async () => {
-        const data = await requestAPI('/deliveryorder', 'GET')
+        const data = await requestAPI('/delivery', 'GET')
             .then(res => {
                 if (res) {
                     setDelivery(res.data?.data)
                     setConstDelivery(res.data?.data)
-                    console.log({ deli: res.data?.data });
                     setIsLoading(false);
                 }
             })
