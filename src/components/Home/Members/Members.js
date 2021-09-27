@@ -44,7 +44,7 @@ export default function Members({ title, content }) {
               <MemberItem memberItem={memberItem} />
             </div>
             <div className="section-area__btn">
-              <ButtonCustom name="Gửi Yêu Cầu" linkIcon={IconService} isTransparent={2}/>
+              <ButtonCustom name="Gửi Yêu Cầu" linkIcon={IconService} isTransparent={2} />
             </div>
           </div>
         </div>
