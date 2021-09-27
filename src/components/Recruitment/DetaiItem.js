@@ -37,11 +37,11 @@ export default function DetaiItem() {
   return (
     <div className="detail_job">
       <div className="container">
-        <div style={{ display: 'block', width: 700, padding: 30 }}>
+        <div style={{ display: 'block', padding: 30 }}>
           <Tabs defaultActiveKey="first">
             <Tab eventKey="first" title="THÔNG TIN">
               <div className="row">
-                <div className="col-md-8  col-sm-12 tab-main-content">
+                <div className="col-md-8  col-md-12 tab-main-content">
                   <h1>CÁC PHÚC LỢI DÀNH CHO BẠN</h1>
                   <div className="benefits">
                     <div className="benefit ">
@@ -75,7 +75,7 @@ export default function DetaiItem() {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-4 tab-sidebar">
+                <div className="col-md-4 col-md-12 tab-sidebar">
                   <div className="box-summary">
                     <div className="summary-item d-flex">
                       <div className="icon icon-date-posted">
@@ -128,10 +128,10 @@ export default function DetaiItem() {
             </Tab>
             <Tab eventKey="second" title="CÔNG TY">
               <div className="row">
-                <div className="col-8">
+                <div className="col-md-4 col-md-12">
                   <h1>CÔNG TY GPT GROUPT NET</h1>
                 </div>
-                <div className="col-4">
+                <div className="col-md-4 col-md-12">
                   <div className="box-summary">
                     <div className="summary-item d-flex">
                       <div className="icon icon-date-posted">
