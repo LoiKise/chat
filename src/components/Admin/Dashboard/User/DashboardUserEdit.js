@@ -71,14 +71,16 @@ export default function DashboardUserCreate(props) {
             updateUser(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetUser());
+                    enqueueSnackbar('Cập nhật tài khoản thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseEditFunc(false);
                 }
             })
-            enqueueSnackbar('Cập nhật tài khoản thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (

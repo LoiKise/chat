@@ -58,32 +58,25 @@ function Dashboard(props) {
     const [openMenu, setOpenMenu] = useState(true);
     const [openMenuMobile, setOpenMenuMobile] = useState(true);
     const [DriverId,] = useState("")
-    const [isAccess, setIsAccess] = useState(false);
     const history = useHistory();
-    const [orderNotice, setOrderNotice] = useState(null)
+    const [orderNotice] = useState(null)
     const [userInfo, setUserInfo] = useState(null)
-
     useEffect(() => {
-        setOrderNotice(null)
-        setUserInfo(null)
         verifyToken()
-        // if (!isAccess) {
-        //     history.push('/dashboard');
-        // }
-    }, [])
+    }, [localStorage.getItem('token')])
     //call api get info user 
     const setTabIdOnClick = (id) => {
         setTabId(id);
     }
     const verifyToken = async () => {
         const jwt = localStorage.getItem('token');
-        await requestAPI('/verifytoken', 'POST', jwt, { Authorization: `Bearer ${localStorage.getItem('token')}` })
+
+        await requestAPI('/admin', 'POST', { token: jwt }, { Authorization: `Bearer ${localStorage.getItem('token')}` })
             .then(res => {
                 if (res) {
-                    console.log({ res });
-                    setIsAccess(true);
+                    setUserInfo(res.data?.user)
                 }
-            }).catch(err => setIsAccess(false))
+            }).catch(err => history.push('/dashboard'))
 
     }
     const setOpenMenuOnClick = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSnackbar } from 'notistack';
@@ -58,18 +58,19 @@ export default function DashboardUserCreate(props) {
                 autoHideDuration: 3000,
             })
         } else {
-            console.log({ data });
             createUser(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetUser());
+                    enqueueSnackbar('Thêm mới tài khoản thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseCreateFunc(false);
                 }
             })
-            enqueueSnackbar('Thêm mới tài khoản thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (

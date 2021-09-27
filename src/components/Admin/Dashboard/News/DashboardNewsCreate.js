@@ -38,18 +38,19 @@ export default function DashboardUserCreate(props) {
                 autoHideDuration: 3000,
             })
         } else {
-            console.log({ data });
             createNews(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetNews());
+                    props.setCloseCreateFunc(false);
+                    enqueueSnackbar('Thêm mới tin tuyển dụng thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
                 }
             })
-            enqueueSnackbar('Thêm mới tin tuyển dụng thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (

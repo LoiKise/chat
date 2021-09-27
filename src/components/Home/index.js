@@ -18,7 +18,7 @@ export default function index() {
         <Order />
         <Members />
         <News />
-        <Contact />
+        <Contact style={{ width: "100%" }} />
         <Ourpartner />
       </div>
     </>

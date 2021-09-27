@@ -175,18 +175,18 @@ export default function DashboardOrderCreate(props) {
     }
     const onSubmit = (event) => {
         event.preventDefault()
-        // let dataFormat = { ...data, ...customer, ...receiver, products }
         let dataFormat = { ...data, products }
         let validatePhone = /^(((0))[0-9]{9})$/g;
         let validatePhone1 = /^(((0))[0-9]{9})$/g;
 
-        if (dataFormat.customerDistrict.length <= 0 || dataFormat.receiverDistrict.length <= 0) {
-            enqueueSnackbar('Quận/Huyện không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+        if (!dataFormat.customerType) {
+            enqueueSnackbar('Phân loại khách không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
-                variant: 'warning',
+                variant: 'error',
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
+
         } else if (products.length <= 0) {
             enqueueSnackbar('Hàng hóa không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
@@ -201,15 +201,58 @@ export default function DashboardOrderCreate(props) {
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
-        } else if (dataFormat.totalPrice < 0 || dataFormat.totalPrice > 100000000) {
-            enqueueSnackbar('Số tiền không được âm và lớn hơn 1.000.000.000đ', {
+
+        } else if (dataFormat?.customerProvince?.length <= 0 || dataFormat?.receiverProvince?.length <= 0) {
+            enqueueSnackbar('Tỉnh/Thành Phố không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'error',
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
-        } else if (dataFormat.quantity < 1) {
-            enqueueSnackbar('Số lượng phải lớn hơn 0', {
+        } else if (dataFormat?.customerDistrict?.length <= 0 || dataFormat?.receiverDistrict?.length <= 0) {
+            enqueueSnackbar('Quận/Huyện không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (!dataFormat.orderType) {
+            enqueueSnackbar('Loại hàng hóa không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (isNaN(dataFormat.quantity) || dataFormat.quantity < 1) {
+            enqueueSnackbar('Số lượng phải là số và lớn hơn 0, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (isNaN(dataFormat.totalPrice) || dataFormat.totalPrice < 0) {
+            enqueueSnackbar('Số tiền phải là số, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (!dataFormat.unit_id) {
+            enqueueSnackbar('Đơn vị tính không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (!dataFormat.payment_id) {
+            enqueueSnackbar('Phương thức thanh toán không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (products.length <= 0) {
+            enqueueSnackbar('Hàng hóa không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'error',
                 preventDuplicate: true,
@@ -217,23 +260,22 @@ export default function DashboardOrderCreate(props) {
             })
         }
         else {
-            // let customerAddressfull = dataFormat.customerAddress + dataFormat.customerDistrict + dataFormat.customerProvinceName
             dataFormat.customerAddress = dataFormat.customerAddress + ', ' + dataFormat.customerDistrict + ', ' + dataFormat.customerProvinceName
             dataFormat.receiverAddress = dataFormat.receiverAddress + ', ' + dataFormat.receiverDistrict + ', ' + dataFormat.receiverProvinceName
             dataFormat.quantity = parseInt(dataFormat.quantity, 10)
-
-            console.log({ dataFormat });
             createOrders(dataFormat).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetOrder());
+                    enqueueSnackbar('Thêm đơn hàng thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseCreateFunc(false);
                 }
             })
-            enqueueSnackbar('Thêm đơn hàng thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
 
@@ -472,7 +514,7 @@ export default function DashboardOrderCreate(props) {
                                 searchTooltip: 'Tìm kiếm'
                             },
                             header: {
-                                actions: 'Tùy chỉnh'
+                                actions: 'Thao tác'
                             },
                             body: {
                                 emptyDataSourceMessage: 'Chưa có sản phẩm',
