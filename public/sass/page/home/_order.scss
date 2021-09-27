@@ -99,7 +99,18 @@
 .ordernow-form__about-item .ordernow-form__icon {
   right: 40px;
 }
-
+.section__top {
+  span {
+    line-height: 19px;
+    font-size: 3rem !important;
+    font-weight: 500;
+  }
+}
+.nav-tabs {
+  .nav-item {
+    font-size: 15px;
+  }
+}
 .form__about-checklist {
   display: flex;
   justify-content: space-around;
