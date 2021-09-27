@@ -18,7 +18,7 @@ export default function AboutUs() {
         {
             img: './assets/img/icon/package.png',
             title: 'Sứ Mệnh',
-            content: ' Chất đầy niêm tin yêu của khách hàng trên mỗi chuyến xe, chúng tôi có sứ mệnh mang đến mọi điều tốt đẹpnhất cho khách hàng với tốc độ nhanh nhất , an toàn tuyệt đối'
+            content: ' Chất đầy niềm tin yêu của khách hàng trên mỗi chuyến xe, chúng tôi có sứ mệnh mang đến mọi điều tốt đẹp nhất cho khách hàng với tốc độ nhanh nhất , an toàn tuyệt đối'
         },
     ]
 

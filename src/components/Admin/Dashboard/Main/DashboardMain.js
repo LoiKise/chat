@@ -17,7 +17,6 @@ export default function DashboardMain() {
         requestAPI('/orders', 'GET').then(res => {
             if (res) {
                 setCountOrder(res.data?.total)
-                console.log(res.data);
                 let total = 0;
                 for (const item of res.data?.data) {
                     total += item.totalPrice
@@ -25,10 +24,10 @@ export default function DashboardMain() {
                 setTotalIncome(total)
             }
         })
-        requestAPI('/survey/status', 'POST', { statusId: 1 }).then(res => {
+        requestAPI(`/survey/status/1`, 'GET').then(res => {
             setCountOrderStorage(res.data?.total)
         })
-        requestAPI('/survey/status', 'POST', { statusId: 3 }).then(res => {
+        requestAPI('/survey/status/3', 'GET').then(res => {
             setCountOrderShipped(res.data?.total)
         })
         requestAPI('/survey/totalprice', 'GET').then(res => {

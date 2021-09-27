@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { faBell, faEllipsisV, faListUl, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Axios from 'axios'
 
 export default function DashboardHeader(props) {
 
@@ -9,34 +8,6 @@ export default function DashboardHeader(props) {
     const [notice, setNotice] = useState(null)
     const [unreadedNotice, setUnreadedNotice] = useState(0)
 
-    useEffect(() => {
-        setUnreadedNotice(0)
-        setNotice(null)
-        // Axios.get(`http://pe.heromc.net:4000/notice`)
-        //     .then(res => {
-        //         setNotice((res.data).reverse())
-        //         let count = 0;
-        //         for (let i in res.data) {
-        //             if (res.data[i].isRead === 'false') {
-        //                 count++
-        //             }
-        //             setUnreadedNotice(count)
-        //         }
-        //     }
-        //     )
-    }, [props.orderNotice])
-
-    const readNotice = () => {
-        if (openNotice) {
-            setOpenNotice(false)
-        } else {
-            Axios.post(`http://pe.heromc.net:4000/notice/update`, {
-                readAll: true
-            })
-            setUnreadedNotice(0)
-            setOpenNotice(true)
-        }
-    }
     const openMenuOnClick = () => {
         props.setOpenMenuOnClick()
     }
@@ -60,7 +31,6 @@ export default function DashboardHeader(props) {
                 </form>
                 <div
                     className="menu-notice noselect"
-                    onClick={readNotice}
                 >
                     <FontAwesomeIcon icon={faBell} style={{ pointerEvents: 'none' }} className="icon" />
                     {unreadedNotice > 0 &&

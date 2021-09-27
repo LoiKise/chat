@@ -14,6 +14,7 @@ import DashboardDialog from '../Order/DashboardDialog';
 import { closeStatusView } from '../../../../features/dashboard/order/orderSlice';
 
 export default function DashboardDeliveryTable(props) {
+    const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
     const orderUpdate = useSelector(state => state.delivery.callbackGet)
     const statusView = useSelector(state => state.order.statusOrderView)
     const orderView = useSelector(state => state.order.orderView)
@@ -28,7 +29,7 @@ export default function DashboardDeliveryTable(props) {
         getDelivery();
     }, [orderUpdate])
     const getDelivery = async () => {
-        const data = await requestAPI('/deliveryorder', 'GET')
+        const data = await requestAPI('/delivery', 'GET')
             .then(res => {
                 if (res) {
                     setDelivery(res.data?.data)
@@ -83,9 +84,6 @@ export default function DashboardDeliveryTable(props) {
         }
 
     }
-
-    const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
-
     const closeDialog = () => {
         dispatch(closeStatusView())
     }

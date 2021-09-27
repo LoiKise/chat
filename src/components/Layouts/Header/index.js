@@ -86,13 +86,13 @@ export default function Index({ isHome }) {
                 <HeaderNavItem headerItem={headerItem} />
                 <li className="header__nav-item header__authenWrapper">
                   {authenticated && (
-                    <div class="account">
+                    <div className="account">
                       <Link to="">
                         <div class="account-personal">
                           <img src="../assets/img/icon/user_img.png" alt="" />
                         </div>
                       </Link>
-                      <span>{name}</span>
+                      <span className="account-name">{name}</span>
                       <div class="account-menu">
                         <img src="../assets/img/icon/bars.png" alt="" />
 

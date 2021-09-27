@@ -3,7 +3,7 @@ import ButtonCustom from '../../../utils/Buttons/ButtonCustom'
 import CategoryTitle from '../Category/CategoryTitle/CategoryTitle'
 import MemberItem from './MemberListItem'
 
-export default function Members() {
+export default function Members({ title, content }) {
 
   const memberItem = [
     {
@@ -35,7 +35,7 @@ export default function Members() {
           <div className="ourmember__top">
             <div className="row justify-content-md-center">
               <div className="col-md-6">
-              <CategoryTitle title='Đội ngũ' content='Đội Ngũ Của Chúng Tôi' />
+                <CategoryTitle title='Đội ngũ' content='Đội Ngũ Của Chúng Tôi' />
               </div>
             </div>
           </div>
@@ -44,7 +44,7 @@ export default function Members() {
               <MemberItem memberItem={memberItem} />
             </div>
             <div className="section-area__btn">
-              <ButtonCustom name="Gửi Yêu Cầu" linkIcon={IconService} />
+              <ButtonCustom name="Gửi Yêu Cầu" linkIcon={IconService} isTransparent={2}/>
             </div>
           </div>
         </div>

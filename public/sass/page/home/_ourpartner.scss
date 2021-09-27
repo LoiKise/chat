@@ -26,11 +26,3 @@
   }
 }
 
-.ourpartner {
-  @include mobile {
-    margin-top: 60%;
-    .row {
-      margin-left: 0;
-    }
-  }
-}

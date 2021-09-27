@@ -484,14 +484,19 @@ export default function DashboardOrderCreate(props) {
                                 deleteTooltip: 'Xóa',
                             }
                         }}
-                        actions={[
-                            rowData => ({
-                                icon: 'delete',
-                                tooltip: 'Xóa tất cả lựa chọn',
-                                onClick: (event, rowData) => alert(" " + rowData.name),
-                                disabled: rowData.birthYear < 2000
+                        actions={[{
+                            tooltip: 'Xóa tất cả lựa chọn',
+                            icon: 'delete',
+                            onClick: (evt, data) => new Promise((resolve, reject) => {
+                                const updatedRows = [...products]
+                                let state = updatedRows.filter(item => !data.includes(item))
+                                setTimeout(() => {
+                                    setProducts(state)
+                                    resolve()
+                                }, 1000)
+
                             })
-                        ]}
+                        }]}
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
                                 console.log(newRow);

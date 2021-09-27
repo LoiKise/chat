@@ -510,12 +510,10 @@ export default function DashboardOrderCreate(props) {
                             tooltip: 'Xóa tất cả lựa chọn',
                             icon: 'delete',
                             onClick: (evt, data) => new Promise((resolve, reject) => {
-                                let updatedRows = [...products]
+                                const updatedRows = [...products]
+                                let state = updatedRows.filter(item => !data.includes(item))
                                 setTimeout(() => {
-                                    for (let item of data) {
-                                        updatedRows.splice(item?.tableData.id, 1)
-                                    }
-                                    setProducts(updatedRows)
+                                    setProducts(state)
                                     resolve()
                                 }, 1000)
 
