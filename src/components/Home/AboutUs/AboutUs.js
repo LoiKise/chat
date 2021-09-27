@@ -42,7 +42,7 @@ export default function AboutUs() {
                         </div>
                         <div className="col-md-12 col-lg-6">
                             <div className="whoweare__content-text">
-                                <CategoryTitle title='Chúng tôi là' content='Vài Điều Về Chúng Tôi' />
+                                <CategoryTitle title='Chúng tôi là ai ?' content='Vài Điều Về Chúng Tôi' />
                                 <ul className="content-text__list">
                                     <AboutListItem aboutListItem={aboutListItem} />
                                 </ul>
