@@ -173,6 +173,9 @@
       outline-color: non;
       border: 1px solid #fd7a3b;
       border-radius: 11px;
+      &:hover{
+        background-color: dodgerblue;
+      }
       .MuiSvgIcon-root {
         transform: rotateY(168deg);
         font-size: 25px;

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function DashboardOrderControl({ addController, deleteController, searchController, searchOnChange, placeholderSearch }) {
+export default function DashboardOrderControl({ addController, handleOpenDialogDelete, searchController, searchOnChange, placeholderSearch }) {
     return (
         <div className="dashboard-addnew flex">
             <div>
@@ -8,7 +8,7 @@ export default function DashboardOrderControl({ addController, deleteController,
                     onClick={addController}
                 >Thêm</div>
                 <div className="dashboard-addnew-btn btn btn-outline-danger"
-                    onClick={() => deleteController()}
+                    onClick={() => handleOpenDialogDelete(true)}
                 >Xóa</div>
             </div>
             <div className="dashboard-addnew-search">
@@ -18,6 +18,7 @@ export default function DashboardOrderControl({ addController, deleteController,
                     ></input>
                 </form>
             </div>
+
         </div>
     )
 }

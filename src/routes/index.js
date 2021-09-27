@@ -10,8 +10,12 @@ const ScreenService = lazy(() => import("../components/Service"));
 const ScreenLoginDashboard = lazy(() =>
   import("../components/Admin/Login/Login")
 );
-const ScreenUserInfor = lazy(() => import("../components/AcountUser/AcountUser"));
-const ScreenDetailJob = lazy(() => import("../components/Recruitment/DetaiItem"));
+const ScreenUserInfor = lazy(() =>
+  import("../components/AcountUser/AcountUser")
+);
+const ScreenDetailJob = lazy(() =>
+  import("../components/Recruitment/DetaiItem")
+);
 const ScreenSearch = lazy(() => import("../components/Search/Search"));
 const Dashboard = lazy(() => import("../components/Admin/Dashboard/Dashboard"));
 const Recruitment = lazy(() => import("../components/Recruitment/Index"));
@@ -120,7 +124,7 @@ const index = [
     main: () => (
       <Suspense key={index} fallback={<Fallback />}>
         <ScreenDetailJob />
-       </Suspense>
+      </Suspense>
     ),
   },
   {

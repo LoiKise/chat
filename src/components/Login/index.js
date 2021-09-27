@@ -45,10 +45,6 @@ export default function Index() {
         autoClose: 3000,
       });
     } catch (error) {
-      toast.error("Đăng nhập thất bại", {
-        position: "top-center",
-        autoClose: 3000,
-      });
       if (error.status === 422) {
         for (const key in error.data) {
           setError(key, {
@@ -236,7 +232,7 @@ export default function Index() {
                 className="
                   login__input--submit
                   d-flex
-                  justify-content-between
+                  justify-content-end
                   align-items-center
                 "
               >

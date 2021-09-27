@@ -69,7 +69,7 @@ export default function DashboardUserCreate(props) {
         const data = await requestAPI('/status', 'GET')
             .then(res => {
                 if (res) {
-                    setStatus(res.data?.data)
+                    setStatus(res.data)
                 }
             })
             .catch(err => console.log(err))
@@ -108,18 +108,19 @@ export default function DashboardUserCreate(props) {
                 autoHideDuration: 3000,
             })
         } else {
-            console.log({ data });
             updateDelivery(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetDelivery());
+                    enqueueSnackbar('Tạo đơn giao hàng thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseCreateFunc(false);
                 }
             })
-            enqueueSnackbar('Tạo đơn giao hàng thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (

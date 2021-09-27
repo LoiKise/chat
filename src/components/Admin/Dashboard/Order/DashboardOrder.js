@@ -51,7 +51,7 @@ export default function DashboardOrder(props) {
                 },
                 { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Tùy chỉnh", field: 'control',
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -107,7 +107,7 @@ export default function DashboardOrder(props) {
                 },
                 { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Tùy chỉnh", field: 'control',
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -165,7 +165,7 @@ export default function DashboardOrder(props) {
                     },
                     { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Tùy chỉnh", field: 'control',
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -220,7 +220,7 @@ export default function DashboardOrder(props) {
                     },
                     { headerName: "Ghi chú", field: 'notes', renderCell: renderCellExpand, width: 150 },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Tùy chỉnh", field: 'control',
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>

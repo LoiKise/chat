@@ -62,7 +62,7 @@ export default function DashboardDelivery(props) {
                     renderCell: renderCellExpand,
                 },
                 {
-                    headerName: "Công cụ", field: 'control', width: 200,
+                    headerName: "Tùy chỉnh", field: 'control', width: 200,
                     renderCell: (params) => {
                         return (
                             <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
@@ -131,7 +131,7 @@ export default function DashboardDelivery(props) {
                     renderCell: renderCellExpand,
                 },
                 {
-                    headerName: "Công cụ", field: 'control', width: 200,
+                    headerName: "Tùy chỉnh", field: 'control', width: 200,
                     renderCell: (params) => {
                         return (
                             <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
@@ -202,7 +202,7 @@ export default function DashboardDelivery(props) {
                         renderCell: renderCellExpand,
                     },
                     {
-                        headerName: "Công cụ", field: 'control', width: 200,
+                        headerName: "Tùy chỉnh", field: 'control', width: 200,
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>
@@ -270,7 +270,7 @@ export default function DashboardDelivery(props) {
                         renderCell: renderCellExpand,
                     },
                     {
-                        headerName: "Công cụ", field: 'control', width: 200,
+                        headerName: "Tùy chỉnh", field: 'control', width: 200,
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex align-items-center" style={{ cursor: "pointer", width: '100%', justifyContent: "space-evenly" }}>

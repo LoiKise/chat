@@ -3,7 +3,8 @@ import DashboardBody from './DashboardBody'
 import DashboardMenu from './DashboardMenu'
 import { faFileInvoice, faHome, faNewspaper, faShoppingBag, faEnvelope, faUser, faBiking, faTruck } from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
-
+import requestAPI from '../../../apis';
+import { useHistory } from 'react-router';
 function Dashboard(props) {
     const menuItems = [
         {
@@ -57,20 +58,31 @@ function Dashboard(props) {
     const [openMenu, setOpenMenu] = useState(true);
     const [openMenuMobile, setOpenMenuMobile] = useState(true);
     const [DriverId,] = useState("")
-
-
-    const [orderNotice, setOrderNotice] = useState(null)
+    const history = useHistory();
+    const [orderNotice] = useState(null)
     const [userInfo, setUserInfo] = useState(null)
-
     useEffect(() => {
-        setOrderNotice(null)
-        setUserInfo(null)
-    }, [])
+        verifyToken()
+    }, [localStorage.getItem('token')])
     //call api get info user 
     const setTabIdOnClick = (id) => {
         setTabId(id);
     }
+    const verifyToken = async () => {
+        const jwt = localStorage.getItem('token');
+        if (jwt) {
+            await requestAPI('/admin', 'POST', { token: jwt }, { Authorization: `Bearer ${localStorage.getItem('token')}` })
+                .then(res => {
+                    if (res) {
+                        setUserInfo(res.data?.user)
+                    }
+                }).catch(() => history.push('/dashboard'))
+        } else {
+            history.push('/dashboard')
+        }
 
+
+    }
     const setOpenMenuOnClick = () => {
         if (window.innerWidth <= 1110) {
             setOpenMenu(true);

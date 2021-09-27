@@ -6,11 +6,14 @@ import { useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
 import DashboardTextInput from './../Order/DashboardTextInput';
 import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
+import { TextField } from '@material-ui/core';
+import moment from 'moment'
 export default function DashboardUserCreate(props) {
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     const createForm = useRef();
     const [data, setData] = useState({
+        expirationDate: "",
         nameJob: "",
         salaryBefore: 0,
         salaryAfter: 0,
@@ -30,26 +33,41 @@ export default function DashboardUserCreate(props) {
         event.preventDefault()
 
         if (!data.nameJob || !data.salaryBefore || !data.salaryAfter || !data.degree || !data.address
-            || !data.position || !data.require || !data.thumbnails) {
+            || !data.position || !data.require || !data.thumbnails || !data.expirationDate) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
-        } else {
-            console.log({ data });
-            createNews(data).then(res => {
-                if (res.data) {
-                    dispatch(CallBackGetNews());
-                }
-            })
-            enqueueSnackbar('Thêm mới tin tuyển dụng thành công', {
+        } else if (data.salaryBefore < 0 || data.salaryAfter < 0) {
+            enqueueSnackbar('Mức lương tối thiểu là 0đ', {
                 persist: false,
-                variant: 'success',
+                variant: 'warning',
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
+        } else {
+            createNews(data).then(res => {
+                if (res.data) {
+                    dispatch(CallBackGetNews());
+                    props.setCloseCreateFunc(false);
+                    enqueueSnackbar('Thêm mới tin tuyển dụng thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                }
+            }).catch(() => {
+                enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
+                    persist: false,
+                    variant: 'warning',
+                    preventDuplicate: true,
+                    autoHideDuration: 3000,
+                })
+            })
+
         }
     }
     return (
@@ -152,6 +170,30 @@ export default function DashboardUserCreate(props) {
                         setData={setData}
                         objectKey={"thumbnails"}
                     />
+
+                    <div className="create-box-row flex">
+                        <div className="dashboard-left flex">Hạn cuối nộp hồ sơ</div>
+                        <div className="dashboard-right--input">
+                            <TextField
+                                // id="date"
+                                error={data.expirationDate?.length < 1 ? true : false}
+                                id="outlined-totalPrice"
+                                label="Giới hạn thời gian nộp hồ sơ tuyển dụng"
+                                type="date"
+                                variant="outlined"
+                                color="primary"
+                                defaultValue={moment(Date.now).format("DD-MM-YYYY")}
+                                sx={{ width: 220 }}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                onChange={(event) => {
+                                    setData({ ...data, expirationDate: event.target.valueAsDate })
+                                }}
+                                required={true}
+                            />
+                        </div>
+                    </div>
                     <div className="flex-center" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn btn-outline-success">
                             Tạo Tin Tuyển Dụng

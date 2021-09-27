@@ -18,6 +18,11 @@ export default function DashboardNews(props) {
                     renderCell: renderCellExpand, width: 200
                 },
                 {
+                    headerName: "Hạn cuối", field: 'expirationDate',
+                    valueFormatter: params => moment(params.row?.expirationDate).format("DD-MM-YYYY"),
+                    renderCell: renderCellExpand, width: 200
+                },
+                {
                     headerName: "Ngày Cập nhật", field: 'updatedAt', hide: true,
                     valueFormatter: params => params?.row?.updatedAt ? moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss") : 'Chưa cập nhật',
                     renderCell: renderCellExpand, width: 200
@@ -39,7 +44,7 @@ export default function DashboardNews(props) {
                 { headerName: "Yêu cầu kỹ năng", field: 'require', renderCell: renderCellExpand, width: 200 },
                 { headerName: "Mô tả", field: 'thumbnails', renderCell: renderCellExpand, width: 200 },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Tùy chỉnh", field: 'control',
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -61,6 +66,11 @@ export default function DashboardNews(props) {
                     renderCell: renderCellExpand, width: 200
                 },
                 {
+                    headerName: "Hạn cuối", field: 'expirationDate',
+                    valueFormatter: params => moment(params.row?.expirationDate).format("DD-MM-YYYY"),
+                    renderCell: renderCellExpand, width: 200
+                },
+                {
                     headerName: "Ngày Cập nhật", field: 'updatedAt', hide: true,
                     valueFormatter: params => params?.row?.updatedAt ? moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss") : 'Chưa cập nhật',
                     renderCell: renderCellExpand, width: 200
@@ -82,7 +92,7 @@ export default function DashboardNews(props) {
                 { headerName: "Yêu cầu kỹ năng", field: 'require', renderCell: renderCellExpand, width: 200 },
                 { headerName: "Mô tả", field: 'thumbnails', renderCell: renderCellExpand, width: 200 },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Tùy chỉnh", field: 'control',
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -106,6 +116,11 @@ export default function DashboardNews(props) {
                         renderCell: renderCellExpand, width: 200
                     },
                     {
+                        headerName: "Hạn cuối", field: 'expirationDate',
+                        valueFormatter: params => moment(params.row?.expirationDate).format("DD-MM-YYYY"),
+                        renderCell: renderCellExpand, width: 200
+                    },
+                    {
                         headerName: "Ngày Cập nhật", field: 'updatedAt', hide: true,
                         valueFormatter: params => params?.row?.updatedAt ? moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss") : 'Chưa cập nhật',
                         renderCell: renderCellExpand, width: 200
@@ -115,9 +130,9 @@ export default function DashboardNews(props) {
                         headerName: "Mức Lương", field: 'salary',
                         valueFormatter: params =>
                             `
-                    ${params?.row?.salaryBefore?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ - 
-                    ${params?.row?.salaryAfter?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
-                    `,
+                        ${params?.row?.salaryBefore?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ - 
+                        ${params?.row?.salaryAfter?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
+                        `,
                         renderCell: renderCellExpand, width: 200
                     },
                     { headerName: "Địa Chỉ", field: 'address', renderCell: renderCellExpand, width: 200 },
@@ -127,7 +142,7 @@ export default function DashboardNews(props) {
                     { headerName: "Yêu cầu kỹ năng", field: 'require', renderCell: renderCellExpand, width: 200 },
                     { headerName: "Mô tả", field: 'thumbnails', renderCell: renderCellExpand, width: 200 },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Tùy chỉnh", field: 'control',
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -149,6 +164,11 @@ export default function DashboardNews(props) {
                         renderCell: renderCellExpand, width: 200
                     },
                     {
+                        headerName: "Hạn cuối", field: 'expirationDate',
+                        valueFormatter: params => moment(params.row?.expirationDate).format("DD-MM-YYYY"),
+                        renderCell: renderCellExpand, width: 200
+                    },
+                    {
                         headerName: "Ngày Cập nhật", field: 'updatedAt', hide: true,
                         valueFormatter: params => params?.row?.updatedAt ? moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss") : 'Chưa cập nhật',
                         renderCell: renderCellExpand, width: 200
@@ -158,9 +178,9 @@ export default function DashboardNews(props) {
                         headerName: "Mức Lương", field: 'salary',
                         valueFormatter: params =>
                             `
-                    ${params?.row?.salaryBefore?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ - 
-                    ${params?.row?.salaryAfter?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
-                    `,
+                        ${params?.row?.salaryBefore?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ - 
+                        ${params?.row?.salaryAfter?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
+                        `,
                         renderCell: renderCellExpand, width: 200
                     },
                     { headerName: "Địa Chỉ", field: 'address', renderCell: renderCellExpand, width: 200 },
@@ -170,7 +190,7 @@ export default function DashboardNews(props) {
                     { headerName: "Yêu cầu kỹ năng", field: 'require', renderCell: renderCellExpand, width: 200 },
                     { headerName: "Mô tả", field: 'thumbnails', renderCell: renderCellExpand, width: 200 },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Tùy chỉnh", field: 'control',
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>

@@ -10,6 +10,7 @@ import { useSnackbar } from 'notistack';
 import { CallBackGetOrder } from '../../../../features/dashboard/order/orderSlice';
 import DashboardOrderControl from './DashboardOrderControl';
 import CustomLoadingOverlay from './CustomLoadingOverlay';
+import DashboardDialogConfirm from './DashboardDialogConfirm';
 
 export default function DashboardOrderTable(props) {
     const orderUpdate = useSelector(state => state.order.callbackGet)
@@ -17,6 +18,7 @@ export default function DashboardOrderTable(props) {
     const [constOrder, setConstOrder] = useState([])
     const [selection, setSelection] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [open, setOpen] = useState(false)
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -28,6 +30,7 @@ export default function DashboardOrderTable(props) {
             .then(res => {
                 if (res) {
                     setOrder(res.data?.data)
+                    console.log(res.data?.data)
                     setConstOrder(res.data?.data)
                     setIsLoading(false)
                 }
@@ -79,7 +82,12 @@ export default function DashboardOrderTable(props) {
         }
 
     }
-
+    const handleOpenDialogDelete = () => {
+        setOpen(true);
+    }
+    const handleCloseDialogDelete = () => {
+        setOpen(false);
+    }
     return (
         <div className="topfive flex-col" style={{ width: '100%' }}>
             <div className={`headerbox flex-center ${props.color}`}>
@@ -95,6 +103,7 @@ export default function DashboardOrderTable(props) {
                         deleteController={deleteOnClick}
                         searchOnChange={searchOnChange}
                         searchController={searchOnSubmit}
+                        handleOpenDialogDelete={handleOpenDialogDelete}
                     />
                     <div style={{ height: 400, width: "100%" }}>
                         <DataGrid
@@ -116,6 +125,11 @@ export default function DashboardOrderTable(props) {
                             checkboxSelection
                         />
                     </div>
+                    <DashboardDialogConfirm
+                        open={open}
+                        handleCloseDialogDelete={handleCloseDialogDelete}
+                        handleDelete={deleteOnClick}
+                    />
 
                 </div>
             </div>

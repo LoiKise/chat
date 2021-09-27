@@ -38,7 +38,6 @@ export default function DashboardUserCreate(props) {
     useEffect(() => {
         getDrivers();
         getStatus();
-        console.log({ update });
         if (update) {
             let state = { ...update, driverId: update?.driver?.id }
             setData(state)
@@ -58,7 +57,7 @@ export default function DashboardUserCreate(props) {
         const data = await requestAPI('/status', 'GET')
             .then(res => {
                 if (res) {
-                    setStatus(res.data?.data)
+                    setStatus(res.data)
                 }
             })
             .catch(err => console.log(err))
@@ -84,7 +83,6 @@ export default function DashboardUserCreate(props) {
     }
     const onSubmit = (event) => {
         event.preventDefault()
-
         if (!data.statusId || !data.typeShip || !data.saleOrderId || !data.driverId) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
@@ -99,11 +97,25 @@ export default function DashboardUserCreate(props) {
             updateDelivery(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetDelivery());
+                    enqueueSnackbar('Cập nhật đơn giao hàng thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseEditFunc(false);
                 }
             }).catch(err => {
                 if (err) {
-                    if (err.response?.status === 409) {
-                        enqueueSnackbar('Trạng thái đã tồn tại', {
+                    if (err.response?.status === 404) {
+                        enqueueSnackbar('Đơn giao hàng không tồn tại, hoặc ai đó đã xóa nó', {
+                            persist: false,
+                            variant: 'warning',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    } else if (err.response?.status === 400) {
+                        enqueueSnackbar('Trạng thái đã tồn tại hoặc tài xế không được đổi khi đang giao hàng', {
                             persist: false,
                             variant: 'warning',
                             preventDuplicate: true,
@@ -112,12 +124,7 @@ export default function DashboardUserCreate(props) {
                     }
                 }
             })
-            enqueueSnackbar('Cập nhật đơn giao hàng thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (
