@@ -71,8 +71,7 @@ export default function DashboardMenu(props) {
                             className="db-menu-item flex-center"
                             style={{ margin: '0' }}
                             onClick={() => {
-                                localStorage.removeItem('user-id')
-                                localStorage.removeItem('token');
+                                localStorage.removeItem('accessToken');
                                 sessionStorage.removeItem('chat-id')
                                 window.location.reload(false);
                             }}

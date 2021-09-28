@@ -53,15 +53,13 @@ p {
 }
 
 @media screen and (min-width: 768px) {
-  .login__introduce {
-    display: block;
-  }
   .login__form {
     border: 1px solid #bebec0;
     padding: 5% 8% !important;
     border-right: none;
   }
   .login__introduce {
+    display: block;
     background-color: #fea276;
     color: #fff;
     padding: 5% 8% !important;
