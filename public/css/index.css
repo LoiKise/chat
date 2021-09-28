@@ -617,9 +617,10 @@ p {
   position: absolute;
   background-color: #ff5e15;
   top: 100%;
-  width: 50%;
+  width: 100%;
   left: 0;
-  height: 3px; }
+  height: 2px;
+  margin-top: 4px; }
 
 .footer-item p {
   font-size: 1.7rem;
