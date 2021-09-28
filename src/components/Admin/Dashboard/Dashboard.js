@@ -5,6 +5,8 @@ import { faFileInvoice, faHome, faNewspaper, faShoppingBag, faEnvelope, faUser, 
 import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis';
 import { useHistory } from 'react-router';
+import { ACCESS_TOKEN } from './../../../utils/constant';
+import { useSnackbar } from 'notistack';
 function Dashboard(props) {
     const menuItems = [
         {
@@ -54,6 +56,7 @@ function Dashboard(props) {
         },
 
     ]
+    const { enqueueSnackbar } = useSnackbar();
     const [tabId, setTabId] = useState("1");
     const [openMenu, setOpenMenu] = useState(true);
     const [openMenuMobile, setOpenMenuMobile] = useState(true);
@@ -63,18 +66,27 @@ function Dashboard(props) {
     const [userInfo, setUserInfo] = useState(null)
     useEffect(() => {
         verifyToken()
-    }, [localStorage.getItem('token')])
+    }, [ACCESS_TOKEN])
     //call api get info user 
     const setTabIdOnClick = (id) => {
         setTabId(id);
     }
     const verifyToken = async () => {
-        const jwt = localStorage.getItem('token');
-        if (jwt) {
-            await requestAPI('/admin', 'POST', { token: jwt }, { Authorization: `Bearer ${localStorage.getItem('token')}` })
+        if (ACCESS_TOKEN()) {
+            await requestAPI('/admin', 'POST', { token: ACCESS_TOKEN() })
                 .then(res => {
                     if (res) {
-                        setUserInfo(res.data?.user)
+                        if (res.data?.user) {
+                            setUserInfo(res.data?.user)
+                        } else {
+                            history.push('/dashboard')
+                            enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                                persist: false,
+                                variant: 'error',
+                                preventDuplicate: true,
+                                autoHideDuration: 3000,
+                            })
+                        }
                     }
                 }).catch(() => history.push('/dashboard'))
         } else {

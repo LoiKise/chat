@@ -37,7 +37,7 @@ const Index = () =>  {
                 isVisiable 
                 ? 
                     <img
-                    src="./assets/img/icon/gradient_top_circle_arrow.png"
+                    src="../assets/img/icon/gradient_top_circle_arrow.png"
                     alt="scrool to top"
                     />
                 :
