@@ -6,8 +6,12 @@ import CustomNoRowsOverlay from '../Order/CustomNoRowsOverlay';
 import CustomToolbar from '../Order/DashboardConfigToolBar';
 import requestAPI from '../../../../apis';
 import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
+import { useSnackbar } from 'notistack';
+import { useHistory } from 'react-router';
 
 export default function DashboardRequestTable(props) {
+    const history = useHistory();
+    const { enqueueSnackbar } = useSnackbar();
     const [request, setRequest] = useState([])
     const [constRequest, setConstRequest] = useState([])
     const [isLoading, setIsLoading] = useState(false)
@@ -24,7 +28,19 @@ export default function DashboardRequestTable(props) {
                     setIsLoading(false)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err) {
+                    if (err.response.status === 403 || err.response.status === 401) {
+                        history.push('/dashboard')
+                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
+            })
         return data
     }
     const searchOnSubmit = (event) => {

@@ -11,15 +11,17 @@ import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetDriver } from '../../../../features/dashboard/driver/driverSlice';
 import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 import DashboardDialogConfirm from '../Order/DashboardDialogConfirm';
+import { useHistory } from 'react-router';
 
 export default function DashboardDriverTable(props) {
     const update = useSelector(state => state.driver.callbackGet)
+    const history = useHistory();
+    const { enqueueSnackbar } = useSnackbar();
     const [driver, setDriver] = useState([])
     const [constDriver, setConstDriver] = useState([])
     const [selection, setSelection] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [open, setOpen] = useState(false)
-    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
         setIsLoading(true)
@@ -34,7 +36,19 @@ export default function DashboardDriverTable(props) {
                     setIsLoading(false)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err) {
+                    if (err.response.status === 403 || err.response.status === 401) {
+                        history.push('/dashboard')
+                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
+            })
         return data
     }
     const deleteOnClick = () => {

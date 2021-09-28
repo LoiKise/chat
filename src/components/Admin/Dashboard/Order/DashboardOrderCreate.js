@@ -540,7 +540,7 @@ export default function DashboardOrderCreate(props) {
                             })
                         }]}
                         editable={{
-                            onRowAdd: (newRow) => new Promise((resolve, reject) => {
+                            onRowAdd: (newRow) => {
                                 if (newRow.quantity && newRow.name && newRow.unit) {
                                     if (isNaN(newRow.quantity) || newRow.quantity < 1) {
                                         enqueueSnackbar('Số lượng vui lòng nhập số lớn hơn 0', {
@@ -549,13 +549,11 @@ export default function DashboardOrderCreate(props) {
                                             preventDuplicate: true,
                                             autoHideDuration: 3000,
                                         })
-                                        reject();
                                     } else {
                                         const updatedRows = [...products, newRow]
-                                        setTimeout(() => {
-                                            setProducts(updatedRows)
-                                            resolve()
-                                        }, 1000)
+                                        // setTimeout(() => {
+                                        setProducts(updatedRows)
+                                        // }, 1000)
                                     }
                                 } else {
                                     enqueueSnackbar('Trường của sản phẩm không thể bỏ trống', {
@@ -564,11 +562,10 @@ export default function DashboardOrderCreate(props) {
                                         preventDuplicate: true,
                                         autoHideDuration: 3000,
                                     })
-                                    reject();
                                 }
 
 
-                            }),
+                            },
                             onRowDelete: selectedRow => new Promise((resolve, reject) => {
                                 const index = selectedRow.tableData.id;
                                 const updatedRows = [...products]
