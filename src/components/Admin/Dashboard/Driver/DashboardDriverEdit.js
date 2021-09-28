@@ -52,7 +52,19 @@ export default function DashboardUserCreate(props) {
                     })
                     props.setCloseEditFunc(false);
                 }
+            }).catch(err => {
+                if (err) {
+                    if (err.response.status === 400) {
+                        enqueueSnackbar('Thông tin không hợp lệ, vui lòng kiểm tra lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
             })
+
 
         }
     }
