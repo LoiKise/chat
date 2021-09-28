@@ -5,6 +5,9 @@ import requestAPI from '../../apis';
 import { updateInfo } from "../../features/auth/authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { useHistory } from 'react-router';
+import { ACCESS_TOKEN } from '../../utils/constant'
+import Loading from './Loading';
 
 export default function AcountUser() {
 
@@ -23,8 +26,11 @@ export default function AcountUser() {
     const [oldPassword, setOldPassword] = useState()
     const [errors, setErrors] = useState();
     const [openPopup, setOpenPopup] = useState(false)
+    const [loading, setLoading] = useState(false)
+    console.log(loading)
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const toggleUpdate = () => {
         setUpdate(true)
@@ -71,12 +77,18 @@ export default function AcountUser() {
     //Lấy danh sách lịch sử đơn hàng
     useEffect(() => {
         getOrderUser(id)
+        setLoading(true)
     }, [])
 
     const getOrderUser = async (id) => {
-        const res = await requestAPI(`/order/user/${id}`, 'GET', id);
-        setOrders(res.data.listOrder)
-        res.data === 'User have no order' ? setHasOrder(false) : setHasOrder(true)
+        if(!ACCESS_TOKEN()){
+            history.push('/login')
+        } else {
+            const res = await requestAPI(`/order/user/${id}`, 'GET', id);
+            setOrders(res.data.listOrder)
+            setLoading(false)
+            res.data === 'User have no order' ? setHasOrder(false) : setHasOrder(true)
+        }
     }
 
     //Thay đổi mật khẩu
@@ -98,6 +110,8 @@ export default function AcountUser() {
                     position: "top-right",
                     autoClose: 5000,
                 });
+                setNewPassword('');
+                setOldPassword('');
                 return res
             }
         } catch (error) {
@@ -187,17 +201,22 @@ export default function AcountUser() {
                 <div className="col col-md-7 col-12 personal--right">
                     <div className="order--title">Lịch sử đơn hàng</div>
                     {
+                        loading && !statusSocial && (
+                            <Loading />
+                        )
+                    }
+                    {
                         statusSocial && (
                             <h1 style={{textAlign : 'center' }}>Bạn cần đăng kí bằng tài khoản số điện thoại để sử dụng dịch vụ này</h1>
                         )
                     }
                     {
-                        !hasOrder && !statusSocial && (
+                        !hasOrder && !statusSocial && !loading && (
                             <h1 style={{textAlign : 'center' }}>Hiện tại bạn không có đơn hàng nào</h1>
                         )
                     }
                     {
-                        hasOrder && !statusSocial && orders.map((item) => {
+                        hasOrder && !statusSocial && !loading &&  orders.map((item) => {
                             return (
                                 <div className="order--details">
                                     <img src="./assets/img/icon/box.png" alt="" class="order--logo"/>
@@ -205,7 +224,7 @@ export default function AcountUser() {
                                             <p className="font-weight-bold">Mã đơn : {item.id}</p>
                                             <p className="font-weight-bold">Tiêu đề : {item.orderName}</p>
                                     </div>
-                                    <button class="order--seen" onClick={(id) => tooglePopup(item.id)}>
+                                    <button className="order--seen" onClick={(id) => tooglePopup(item.id)}>
                                         XEM CHI TIẾT
                                     </button>
                                     {
@@ -215,24 +234,68 @@ export default function AcountUser() {
                                                     <div className="box">
                                                         <span className="close-icon" onClick={tooglePopupClose}>x</span>
                                                         <div>
-                                                            <p className="font-weight-bold">Mã đơn : {item.id}</p>
-                                                            <p className="font-weight-bold">Tiêu đề : {item.orderName}</p>
-                                                            <p className="font-weight-bold">Loại khách : {item.customerType}</p>
-                                                            <p className="font-weight-bold">Số lương : {item.quantity}</p>
-                                                            <p className="font-weight-bold">Giá : {item.totalPrice}</p>
-                                                            <p className="font-weight-bold">Ghi chú : {item.notes}</p>
+                                                            <table className="table">
+                                                                <thead className="thead-light">
+                                                                    <tr>
+                                                                    <th scope="col" className="font-weight-bold">Mã đơn</th>
+                                                                    <th scope="col" className="font-weight-bold">Tiêu đề</th>
+                                                                    <th scope="col" className="font-weight-bold">Loại khách</th>
+                                                                    <th scope="col" className="font-weight-bold">Số lượng</th>
+                                                                    <th scope="col" className="font-weight-bold">Giá</th>
+                                                                    <th scope="col" className="font-weight-bold">Ghi chú</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                    <td>{item.id}</td>
+                                                                    <td>{item.orderName}</td>
+                                                                    <td>{item.customerType}</td>
+                                                                    <td>{item.quantity}</td>
+                                                                    <td>{item.totalPrice}</td>
+                                                                    <td>{item.notes}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                             <div className="row">
                                                                 <div className="col-md-6">
-                                                                    <p className="font-weight-bold">NGƯỜI GỬI</p>
-                                                                    <p className="font-weight-500">{item.customerName}</p>
-                                                                    <p className="font-weight-500">{item.customerAddress}</p>
-                                                                    <p className="font-weight-500">{item.customerPhone}</p>
+                                                                    <table className="table">
+                                                                        <thead className="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col" className="font-weight-bold">NGƯỜI GỬI</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    {item.customerName}
+                                                                                    <br />
+                                                                                    {item.customerAddress}
+                                                                                    <br />
+                                                                                    {item.customerPhone}
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
                                                                 <div className="col-md-6">
-                                                                    <p className="font-weight-bold">NGƯỜI NHẬN</p>
-                                                                    <p className="font-weight-500">{item.receiverName}</p>
-                                                                    <p className="font-weight-500">{item.receiverAddress}</p>
-                                                                    <p className="font-weight-500">{item.receiverPhone}</p>
+                                                                    <table className="table">
+                                                                        <thead className="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col" className="font-weight-bold">NGƯỜI NHẬN</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    {item.receiverName}
+                                                                                    <br />
+                                                                                    {item.receiverAddress}
+                                                                                    <br />
+                                                                                    {item.receiverPhone}
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
                                                             </div>
                                                         </div>
