@@ -4887,6 +4887,15 @@ input::-webkit-input-placeholder {
 .error {
   color: red; }
 
+.background {
+  background-color: #EAEAEA; }
+
+.personal {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 30%;
+  padding-bottom: 2%; }
+
 .personal--left .personal--title {
   background-color: #FEE1D3;
   color: #FE621B;
@@ -4904,6 +4913,9 @@ input::-webkit-input-placeholder {
   color: #BEBEC0;
   font-size: 0.9rem;
   cursor: pointer; }
+
+.personal--right {
+  margin-top: 10%; }
 
 .personal--right .order--title {
   background-color: #FEE1D3;
@@ -4967,7 +4979,7 @@ input::-webkit-input-placeholder {
   margin: 0 auto;
   height: auto;
   max-height: 70vh;
-  margin-top: calc(100vh - 85vh - 20px);
+  margin-top: 15%;
   background: #FFFFE3;
   border-radius: 4px;
   padding: 20px;
@@ -4979,8 +4991,8 @@ input::-webkit-input-placeholder {
   cursor: pointer;
   position: fixed;
   right: calc(15% - 30px);
-  top: calc(100vh - 85vh - 33px);
-  background: #ededed;
+  top: 25%;
+  background: #EDEDED;
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -4990,10 +5002,14 @@ input::-webkit-input-placeholder {
   font-size: 20px; }
 
 @media screen and (min-width: 768px) {
+  .personal {
+    padding-top: 10%; }
   .personal--right .order--title {
     width: 35%; }
   .personal--left {
     margin: 0 3%; }
+  .personal--right {
+    margin-top: 0; }
   .personal--right .order--details {
     display: flex;
     justify-content: space-around;
