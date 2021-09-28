@@ -146,12 +146,15 @@
 }
 
 @media screen and (min-width: 768px){
+  .button{
+    width: 50%;
+  }
   .box{
     margin-top: 15%;
     width: 70%;
   }
   .close-icon{
-    top: 20%;
+    top: 10%;
   }
   .text-position{
     text-align: right;
@@ -180,8 +183,29 @@
   }
   .personal--right .order--seen{
       height: 2.5rem;
-      width: 17%;
+      width: 30%;
       line-height: 0.3rem;
-
   }
+  .personal{
+    & p , & span{
+      font-size: 0.95rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1051px){
+  .button{
+    width: 50%;
+  }
+  .close-icon{
+    top: 20%;
+  }
+  .personal{
+    & p , & span{
+      font-size: 1.2rem;
+    }
+  }
+  .personal--right .order--seen{
+    width: 20%;
+}
 }
