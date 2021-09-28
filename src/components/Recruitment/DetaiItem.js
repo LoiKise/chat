@@ -41,7 +41,7 @@ export default function DetaiItem() {
           <Tabs defaultActiveKey="first">
             <Tab eventKey="first" title="THÔNG TIN">
               <div className="row">
-                <div className="col-md-8  col-md-12 tab-main-content">
+                <div className="col-xl-8  col-md-12 tab-main-content">
                   <h1>CÁC PHÚC LỢI DÀNH CHO BẠN</h1>
                   <div className="benefits">
                     <div className="benefit ">
