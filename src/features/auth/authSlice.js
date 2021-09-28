@@ -45,6 +45,8 @@ const handleError = (state, action) => {
 const handleLogin = (state, action) => {
   const { user, token } = action.payload.data;
   state.profile = user;
+  state.statusSocial = false;
+  localStorage.setItem(LocalStorage.statusSocial, JSON.stringify(state.statusSocial));
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
   localStorage.setItem(LocalStorage.accessToken, token);
 };
@@ -52,12 +54,15 @@ const handleLogin = (state, action) => {
 const handleAuthSocial = (state, action) => {
   const { user, accessToken } = action.payload;
   state.profile = user;
+  state.statusSocial = true;
+  localStorage.setItem(LocalStorage.statusSocial, JSON.stringify(state.statusSocial));
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
   localStorage.setItem(LocalStorage.accessToken, accessToken);
 };
 
 const handleUnAuth = (state) => {
   state.profile = {};
+  localStorage.removeItem(LocalStorage.statusSocial);
   localStorage.removeItem(LocalStorage.user);
   localStorage.removeItem(LocalStorage.accessToken);
 };
@@ -66,6 +71,7 @@ const auth = createSlice({
   name: "auth",
   initialState: {
     profile: JSON.parse(localStorage.getItem(LocalStorage.user)) || {},
+    statusSocial : JSON.parse(localStorage.getItem(LocalStorage.statusSocial)),
   },
   reducers: {
     logout: handleUnAuth,
