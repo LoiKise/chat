@@ -15,7 +15,7 @@ export default function HeaderNavItem({ headerItem }) {
       return (
         <li className="header__nav-item" key={index}>
           {item.name === 'GIỚI THIỆU' ?
-            <a href="#footer" className="header__nav-link" onClick={scrollToBottom}>Giới Thiệu</a>
+            <a href="#footer" className="header__nav-link" onClick={scrollToBottom}>GIỚI THIỆU</a>
             :
             <Link className="header__nav-link" to={item.link}>
               {item.name}
