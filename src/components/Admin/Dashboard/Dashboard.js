@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis';
 import { useHistory } from 'react-router';
 import { ACCESS_TOKEN } from './../../../utils/constant';
+import { useSnackbar } from 'notistack';
 function Dashboard(props) {
     const menuItems = [
         {
@@ -55,6 +56,7 @@ function Dashboard(props) {
         },
 
     ]
+    const { enqueueSnackbar } = useSnackbar();
     const [tabId, setTabId] = useState("1");
     const [openMenu, setOpenMenu] = useState(true);
     const [openMenuMobile, setOpenMenuMobile] = useState(true);
@@ -70,13 +72,21 @@ function Dashboard(props) {
         setTabId(id);
     }
     const verifyToken = async () => {
-        console.log(ACCESS_TOKEN());
         if (ACCESS_TOKEN()) {
             await requestAPI('/admin', 'POST', { token: ACCESS_TOKEN() })
                 .then(res => {
                     if (res) {
-                        console.log(res.data)
-                        setUserInfo(res.data?.user)
+                        if (res.data?.user) {
+                            setUserInfo(res.data?.user)
+                        } else {
+                            history.push('/dashboard')
+                            enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                                persist: false,
+                                variant: 'error',
+                                preventDuplicate: true,
+                                autoHideDuration: 3000,
+                            })
+                        }
                     }
                 }).catch(() => history.push('/dashboard'))
         } else {

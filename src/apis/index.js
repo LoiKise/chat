@@ -4,7 +4,6 @@ import { ACCESS_TOKEN } from './../utils/constant';
 // Syntax
 // requestAPI('/search', 'POST', {code}, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
 export default async function requestAPI(url, method, body) {
-  // let injectHeader = { Authorization: ACCESS_TOKEN }
   let urlOrigin = "http://localhost:3000";
   const headers = {
     "Content-Type": "application/json",
