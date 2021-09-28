@@ -65,18 +65,23 @@ export default function Index() {
       note: note,
     };
     try {
-      await requestAPI("/request", "POST", body);
-      reset();
-
-      toast.success("Đặt hàng thành công", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      const res = await requestAPI("/request", "POST", body)
+        .then(() => {
+          reset();
+          toast.success("Đặt hàng thành công", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        })
+        .catch((err) =>
+          toast.error(err.response.data.message, {
+            position: "top-center",
+            autoClose: 3000,
+          })
+        );
+      return res;
     } catch (error) {
-      toast.error("Số điện thoại không tồn tại", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      console.log(error);
     }
   };
 
