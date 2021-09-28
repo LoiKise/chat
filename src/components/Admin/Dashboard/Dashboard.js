@@ -5,6 +5,7 @@ import { faFileInvoice, faHome, faNewspaper, faShoppingBag, faEnvelope, faUser, 
 import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis';
 import { useHistory } from 'react-router';
+import { ACCESS_TOKEN } from './../../../utils/constant';
 function Dashboard(props) {
     const menuItems = [
         {
@@ -63,17 +64,18 @@ function Dashboard(props) {
     const [userInfo, setUserInfo] = useState(null)
     useEffect(() => {
         verifyToken()
-    }, [localStorage.getItem('token')])
+    }, [ACCESS_TOKEN])
     //call api get info user 
     const setTabIdOnClick = (id) => {
         setTabId(id);
     }
     const verifyToken = async () => {
-        const jwt = localStorage.getItem('token');
-        if (jwt) {
-            await requestAPI('/admin', 'POST', { token: jwt }, { Authorization: `Bearer ${localStorage.getItem('token')}` })
+        console.log(ACCESS_TOKEN());
+        if (ACCESS_TOKEN()) {
+            await requestAPI('/admin', 'POST', { token: ACCESS_TOKEN() })
                 .then(res => {
                     if (res) {
+                        console.log(res.data)
                         setUserInfo(res.data?.user)
                     }
                 }).catch(() => history.push('/dashboard'))

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis'
 import { useSnackbar } from 'notistack';
+import { faTemperatureHigh } from '@fortawesome/free-solid-svg-icons';
 const bg = "https://ktkdqt.ftu.edu.vn/wp-content/uploads/2018/04/tsxnk800.460.jpg"
 function Login(props) {
     const { enqueueSnackbar } = useSnackbar();
@@ -13,8 +14,7 @@ function Login(props) {
         requestAPI('/admin/dashboard', 'POST', { phone, password })
             .then(res => {
                 if (res) {
-                    localStorage.setItem('token', res.data.token);
-                    localStorage.setItem('user-id', res.data.user.id);
+                    localStorage.setItem('accessToken', res.data.token);
                     enqueueSnackbar('Đăng nhập thành công', {
                         persist: false,
                         variant: 'success',
@@ -25,12 +25,30 @@ function Login(props) {
 
                 }
             }).catch(err => {
-                enqueueSnackbar('Đăng nhập thất bại', {
-                    persist: false,
-                    variant: 'error',
-                    preventDuplicate: true,
-                    autoHideDuration: 3000,
-                })
+                if (err) {
+                    if (err.response?.status === 403) {
+                        enqueueSnackbar('Bạn không đủ quyền truy cập vào địa chỉ này', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    } else if (err.response?.status === 400) {
+                        enqueueSnackbar('Mật khẩu chưa chính xác', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    } else if (err.response?.status === 404) {
+                        enqueueSnackbar('Không tồn tại tài khoản này', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
             })
     }
 
