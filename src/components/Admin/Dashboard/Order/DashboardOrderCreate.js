@@ -540,32 +540,35 @@ export default function DashboardOrderCreate(props) {
                             })
                         }]}
                         editable={{
-                            onRowAdd: (newRow) => {
-                                if (newRow.quantity && newRow.name && newRow.unit) {
-                                    if (isNaN(newRow.quantity) || newRow.quantity < 1) {
-                                        enqueueSnackbar('Số lượng vui lòng nhập số lớn hơn 0', {
+                            onRowAdd: newRow => new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    if (newRow.quantity && newRow.name && newRow.unit) {
+                                        if (isNaN(newRow.quantity) || newRow.quantity < 1) {
+                                            enqueueSnackbar('Số lượng vui lòng nhập số lớn hơn 0', {
+                                                persist: false,
+                                                variant: 'error',
+                                                preventDuplicate: true,
+                                                autoHideDuration: 3000,
+                                            })
+                                            reject();
+                                        } else {
+
+                                            setProducts([...products, newRow])
+                                            resolve()
+
+                                        }
+                                    } else {
+                                        enqueueSnackbar('Trường của sản phẩm không thể bỏ trống', {
                                             persist: false,
                                             variant: 'error',
                                             preventDuplicate: true,
                                             autoHideDuration: 3000,
                                         })
-                                    } else {
-                                        const updatedRows = [...products, newRow]
-                                        // setTimeout(() => {
-                                        setProducts(updatedRows)
-                                        // }, 1000)
+                                        reject();
                                     }
-                                } else {
-                                    enqueueSnackbar('Trường của sản phẩm không thể bỏ trống', {
-                                        persist: false,
-                                        variant: 'error',
-                                        preventDuplicate: true,
-                                        autoHideDuration: 3000,
-                                    })
-                                }
+                                }, 1000)
 
-
-                            },
+                            }),
                             onRowDelete: selectedRow => new Promise((resolve, reject) => {
                                 const index = selectedRow.tableData.id;
                                 const updatedRows = [...products]

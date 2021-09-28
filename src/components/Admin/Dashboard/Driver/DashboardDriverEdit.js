@@ -6,60 +6,34 @@ import { useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
 import { useSelector } from 'react-redux';
 import DashboardTextInput from './../Order/DashboardTextInput';
-import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
-import DashboardSelectInput from './../Order/DashboardSelectInput';
+import { CallBackGetDriver } from '../../../../features/dashboard/driver/driverSlice';
 export default function DashboardUserCreate(props) {
-    const { enqueueSnackbar, } = useSnackbar();
-    const createForm = useRef();
+    const { enqueueSnackbar } = useSnackbar();
+    const update = useSelector(state => state.driver.driverUpdate)
     const dispatch = useDispatch();
-    const update = useSelector(state => state.news.newsUpdate)
-    const [sltDriver, setSltDriver] = useState(false);
-    const [drivers, setDrivers] = useState([]);
+    const createForm = useRef();
     const [data, setData] = useState({
-        nameJob: "",
-        salaryBefore: 0,
-        salaryAfter: 0,
-        degree: "",
-        address: "",
-        position: "",
-        quantity: 0,
-        require: "",
-        thumbnails: "",
+        age: "",
+        password: "",
+        name: "",
+        phone: "",
+        idenityCard: "",
     })
-    //Handle Event and Request DataBase
 
+    //Handle Event and Request DataBase
+    const updateDriver = async (dataFormat) => {
+        const data = await requestAPI(`/driver/${dataFormat.id}`, 'PUT', dataFormat)
+        return data
+    }
     useEffect(() => {
-        console.log(update);
-        getDrivers();
         if (update) {
             setData(update)
         }
     }, [update])
-    const getDrivers = async () => {
-        const data = await requestAPI('/drivers/all', 'GET')
-            .then(res => {
-                if (res) {
-                    setDrivers(res.data?.data)
-                }
-            })
-            .catch(err => console.log(err))
-        return data
-    }
-    const handleClose = () => {
-        setSltDriver(false);
-    };
-    const handleOpenSltDriver = () => {
-        setSltDriver(true);
-    };
-    const updateNews = async (dataFormat) => {
-        const data = await requestAPI(`/job/${dataFormat?.id}`, 'PUT', dataFormat)
-        return data
-    }
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if (!data.nameJob || !data.salaryBefore || !data.salaryAfter || !data.degree || !data.address
-            || !data.position || !data.require || !data.thumbnails) {
+        if (!data.idenityCard || !data.name || !data.age || !data.phone) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
@@ -67,10 +41,10 @@ export default function DashboardUserCreate(props) {
                 autoHideDuration: 3000,
             })
         } else {
-            updateNews(data).then(res => {
+            updateDriver(data).then(res => {
                 if (res.data) {
-                    dispatch(CallBackGetNews());
-                    enqueueSnackbar('Cập nhật tin tuyển dụng thành công', {
+                    dispatch(CallBackGetDriver());
+                    enqueueSnackbar('Cập nhật tài xế thành công', {
                         persist: false,
                         variant: 'success',
                         preventDuplicate: true,
@@ -79,12 +53,7 @@ export default function DashboardUserCreate(props) {
                     props.setCloseEditFunc(false);
                 }
             })
-            enqueueSnackbar('Cập nhật tin tuyển dụng thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (
@@ -92,7 +61,7 @@ export default function DashboardUserCreate(props) {
             <div className="create-box">
                 <div className="create-box-title flex">
                     <h2 className="create-box-title-text ">
-                        Thông tin đơn giao hàng
+                        Thông tin tài xế
                     </h2>
                     <div
                         className="btn btn-outline-danger"
@@ -105,32 +74,47 @@ export default function DashboardUserCreate(props) {
                 </div>
                 <form onSubmit={onSubmit} encType="multipart/form-data" ref={createForm} className="db-form-input">
                     {/* Sender Infomation */}
-
                     <DashboardTextInput
                         textType={"text"}
-                        title={"Tên công việc"}
-                        placeholder={"Công việc cần tuyển dụng"}
+                        title={"Họ và tên"}
+                        placeholder={"Họ và tên tài xế"}
                         isRequire={true}
                         data={data}
                         setData={setData}
-                        objectKey={"nameJob"}
+                        objectKey={"name"}
                     />
 
-                    <DashboardSelectInput
-                        title={"Tài xế"}
+                    <DashboardTextInput
+                        textType={"number"}
+                        title={"Tuổi"}
+                        placeholder={"Tuổi tài xế"}
+                        isRequire={true}
                         data={data}
                         setData={setData}
-                        handleClose={handleClose}
-                        sltOpen={sltDriver}
-                        handleOpenSlt={handleOpenSltDriver}
-                        subTitle={"Chọn tài xế :"}
-                        listSelect={drivers}
-                        objectKey={"driverId"}
-                        objectNameKey={null}
+                        objectKey={"age"}
+                    />
+
+                    <DashboardTextInput
+                        textType={"text"}
+                        title={"Số điện thoại"}
+                        placeholder={"Số điện thoại tài xế"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"phone"}
+                    />
+                    <DashboardTextInput
+                        textType={"number"}
+                        title={"Số chứng minh nhân dân"}
+                        placeholder={"Số chứng minh nhân dân tài xế"}
+                        isRequire={true}
+                        data={data}
+                        setData={setData}
+                        objectKey={"idenityCard"}
                     />
                     <div className="flex-center" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn btn-outline-success">
-                            Cập nhật đơn giao hàng
+                            Cập nhật tài xế
                         </button>
                     </div>
 

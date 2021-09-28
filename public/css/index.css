@@ -5013,7 +5013,8 @@ input::-webkit-input-placeholder {
 
 @media screen and (min-width: 768px) {
   .box {
-    margin-top: 15%; }
+    margin-top: 15%;
+    width: 70%; }
   .close-icon {
     top: 20%; }
   .text-position {

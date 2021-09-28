@@ -563,32 +563,33 @@ export default function DashboardOrderCreate(props) {
                             })
                         }]}
                         editable={{
-                            onRowAdd: (newRow) => new Promise((resolve, reject) => {
-                                if (newRow.quantity && newRow.name && newRow.unit) {
-                                    if (isNaN(newRow.quantity) || newRow.quantity < 1) {
-                                        enqueueSnackbar('Số lượng vui lòng nhập số lớn hơn 0', {
+                            onRowAdd: newRow => new Promise((resolve, reject) => {
+                                setTimeout(() => {
+
+                                    if (newRow.quantity && newRow.name && newRow.unit_id) {
+                                        if (isNaN(newRow.quantity) || newRow.quantity < 1) {
+                                            enqueueSnackbar('Số lượng vui lòng nhập số lớn hơn 0', {
+                                                persist: false,
+                                                variant: 'error',
+                                                preventDuplicate: true,
+                                                autoHideDuration: 3000,
+                                            })
+                                            reject();
+                                        } else {
+                                            const updatedRows = [...products, newRow]
+                                            setProducts(updatedRows)
+                                            resolve()
+                                        }
+                                    } else {
+                                        enqueueSnackbar('Trường của sản phẩm không thể bỏ trống', {
                                             persist: false,
                                             variant: 'error',
                                             preventDuplicate: true,
                                             autoHideDuration: 3000,
                                         })
                                         reject();
-                                    } else {
-                                        const updatedRows = [...products, newRow]
-                                        setTimeout(() => {
-                                            setProducts(updatedRows)
-                                            resolve()
-                                        }, 1000)
                                     }
-                                } else {
-                                    enqueueSnackbar('Trường của sản phẩm không thể bỏ trống', {
-                                        persist: false,
-                                        variant: 'error',
-                                        preventDuplicate: true,
-                                        autoHideDuration: 3000,
-                                    })
-                                    reject();
-                                }
+                                }, 1000)
 
 
                             }),
@@ -602,7 +603,7 @@ export default function DashboardOrderCreate(props) {
                                 }, 1000)
                             }),
                             onRowUpdate: (updatedRow, oldRow) => new Promise((resolve, reject) => {
-                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit) {
+                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit_id) {
                                     if (isNaN(updatedRow.quantity) || updatedRow.quantity < 1) {
                                         enqueueSnackbar('Số lượng vui lòng nhập số lớn hơn 0', {
                                             persist: false,
