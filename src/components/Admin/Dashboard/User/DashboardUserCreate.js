@@ -7,8 +7,10 @@ import requestAPI from '../../../../apis';
 import DashboardSelectInput from './../Order/DashboardSelectInput';
 import { CallBackGetUser } from '../../../../features/dashboard/user/userSlice';
 import DashboardTextInput from './../Order/DashboardTextInput';
+import { useHistory } from 'react-router';
 export default function DashboardUserCreate(props) {
     const { enqueueSnackbar } = useSnackbar();
+    const history = useHistory();
     const dispatch = useDispatch();
     const createForm = useRef();
     const [data, setData] = useState({
@@ -76,6 +78,15 @@ export default function DashboardUserCreate(props) {
                     preventDuplicate: true,
                     autoHideDuration: 3000,
                 })
+                if (err.response?.status === 403 || err.response?.status === 401) {
+                    history.push('/dashboard')
+                    enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                        persist: false,
+                        variant: 'error',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                }
             })
 
         }

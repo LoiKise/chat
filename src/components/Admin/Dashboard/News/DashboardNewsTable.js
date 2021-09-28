@@ -11,15 +11,17 @@ import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
 import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 import DashboardDialogConfirm from '../Order/DashboardDialogConfirm';
+import { useHistory } from 'react-router';
 
 export default function DashboardNewsTable(props) {
     const update = useSelector(state => state.news.callbackGet)
+    const history = useHistory();
+    const { enqueueSnackbar } = useSnackbar();
     const [news, setNews] = useState([])
     const [constNews, setConstNews] = useState([])
     const [selection, setSelection] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [open, setOpen] = useState(false)
-    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
         setIsLoading(true)
@@ -34,7 +36,19 @@ export default function DashboardNewsTable(props) {
                     setIsLoading(false)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err) {
+                    if (err.response.status === 403 || err.response.status === 401) {
+                        history.push('/dashboard')
+                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
+            })
         return data
     }
     const deleteOnClick = () => {

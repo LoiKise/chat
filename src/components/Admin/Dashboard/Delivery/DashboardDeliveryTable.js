@@ -13,9 +13,12 @@ import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 import DashboardDialog from '../Order/DashboardDialog';
 import { closeStatusView } from '../../../../features/dashboard/order/orderSlice';
 import DashboardDialogConfirm from './../Order/DashboardDialogConfirm';
+import { useHistory } from 'react-router';
 
 export default function DashboardDeliveryTable(props) {
     const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
+    const history = useHistory();
+    const { enqueueSnackbar } = useSnackbar();
     const orderUpdate = useSelector(state => state.delivery.callbackGet)
     const statusView = useSelector(state => state.order.statusOrderView)
     const orderView = useSelector(state => state.order.orderView)
@@ -24,7 +27,6 @@ export default function DashboardDeliveryTable(props) {
     const [selection, setSelection] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [open, setOpen] = useState(false)
-    const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     useEffect(() => {
         setIsLoading(true)
@@ -39,7 +41,19 @@ export default function DashboardDeliveryTable(props) {
                     setIsLoading(false);
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err) {
+                    if (err.response.status === 403 || err.response.status === 401) {
+                        history.push('/dashboard')
+                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
+            })
         return data
     }
     const handleOpenDialogDelete = () => {

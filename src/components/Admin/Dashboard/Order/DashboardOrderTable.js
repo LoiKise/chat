@@ -11,9 +11,11 @@ import { CallBackGetOrder } from '../../../../features/dashboard/order/orderSlic
 import DashboardOrderControl from './DashboardOrderControl';
 import CustomLoadingOverlay from './CustomLoadingOverlay';
 import DashboardDialogConfirm from './DashboardDialogConfirm';
+import { useHistory } from 'react-router';
 
 export default function DashboardOrderTable(props) {
     const orderUpdate = useSelector(state => state.order.callbackGet)
+    const history = useHistory();
     const [order, setOrder] = useState([])
     const [constOrder, setConstOrder] = useState([])
     const [selection, setSelection] = useState([])
@@ -35,7 +37,19 @@ export default function DashboardOrderTable(props) {
                     setIsLoading(false)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err) {
+                    if (err.response.status === 403 || err.response.status === 401) {
+                        history.push('/dashboard')
+                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
+            })
         return data
     }
     const deleteOnClick = () => {

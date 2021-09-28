@@ -11,9 +11,11 @@ import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetUser } from '../../../../features/dashboard/user/userSlice';
 import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
 import DashboardDialogConfirm from '../Order/DashboardDialogConfirm';
+import { useHistory } from 'react-router';
 
 export default function DashboardUserTable(props) {
     const update = useSelector(state => state.user.callbackGet)
+    const history = useHistory();
     const [user, setUser] = useState([])
     const [constUser, setConstUser] = useState([])
     const [selection, setSelection] = useState([])
@@ -34,7 +36,19 @@ export default function DashboardUserTable(props) {
                     setIsLoading(false);
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err) {
+                    if (err.response.status === 403 || err.response.status === 401) {
+                        history.push('/dashboard')
+                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
+            })
         return data
     }
     const deleteOnClick = () => {
