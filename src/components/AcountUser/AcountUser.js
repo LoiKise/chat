@@ -24,10 +24,8 @@ export default function AcountUser() {
     const [hasOrder, setHasOrder] = useState(false)
     const [newPassword, setNewPassword] = useState()
     const [oldPassword, setOldPassword] = useState()
-    const [errors, setErrors] = useState();
     const [openPopup, setOpenPopup] = useState(false)
     const [loading, setLoading] = useState(false)
-    console.log(loading)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -49,6 +47,11 @@ export default function AcountUser() {
         setOpenPopup(false)
     }
 
+    const cancelUpdate = () => {
+        setUpdate(false);
+        setChangePass(false);
+        history.push('/UserInfor');
+    }
 
     //Update profile
     const updateProfile = async (data) => {
@@ -60,15 +63,22 @@ export default function AcountUser() {
         }
 
         try {
-            const res = await requestAPI(`/user/${id}`, 'PUT', body);
-            const resUpdate = await dispatch(updateInfo(body));
-            unwrapResult(res);
-            setUpdate(false);
-            toast.success("CẬP NHẬT THÀNH CÔNG", {
-                position: "top-right",
-                autoClose: 5000,
-            });
-            return res
+            if(fullname.length <= 0){
+                toast.error("TÊN KHÔNG ĐƯỢC ĐỂ TRỐNG", {
+                    position: "top-right",
+                    autoClose: 5000,
+                });
+            } else {
+                const res = await requestAPI(`/user/${id}`, 'PUT', body);
+                const resUpdate = await dispatch(updateInfo(body));
+                unwrapResult(res);
+                setUpdate(false);
+                toast.success("CẬP NHẬT THÀNH CÔNG", {
+                    position: "top-right",
+                    autoClose: 5000,
+                });
+                return res
+            }
         } catch (error) {
             console.log(error)
         }
@@ -100,7 +110,10 @@ export default function AcountUser() {
 
         try {
             if(newPassword.length < 6 || newPassword.length > 160) {
-            setErrors('Mật khẩu có độ dài từ 6 - 160 ký tự')
+            toast.error("MẬT KHẨU CÓ ĐỘ DÀI TỪ 6 - 160 KÝ TỰ", {
+                position: "top-right",
+                autoClose: 5000,
+            });
             } else {
                 const res = await requestAPI(`/user/changepassword/${id}`, 'POST', body);
                 //const resUpdate = await dispatch(changePass(body));
@@ -126,8 +139,8 @@ export default function AcountUser() {
     return (
         <div className="background">
             <div className="personal">
-                <div className="row">
-                    <div className="col col-md-4 col-12 personal--left text-center">
+                <div className="row row-personal">
+                    <div className="col-md-4 col-12 personal--left text-center">
                         <div className="personal--title">Thông tin người dùng</div>
                         <div className="personal--infor">
                             <img src="../assets/img/icon/user_img.png" alt="" className="avatar mb-3" />
@@ -138,68 +151,70 @@ export default function AcountUser() {
                                 }
                                 {
                                     update && (
-                                        <div>
-                                            <br />
-                                            <input className="form-control" name="fullname"  type="text" value={fullname} onChange={e => setFullname(e.target.value)}/> 
+                                        <div className="row row-personal">
+                                            <p className="infor--phone p-2 col-md-3 text-position">Tên :</p>
+                                            <input className="form-input form-control col-md-7" name="fullname"  type="text" value={fullname} onChange={e => setFullname(e.target.value)}/> 
                                         </div>
                                     )
                                 }
-                            <img src="asset/img/icon/Asset 6.png" alt="" className="edit" />
                                 {
                                     !update && !statusSocial &&(
-                                        <div>
+                                        <div className="d-flex justify-content-center align-items-center">
                                             <p className="infor--phone p-2">Số điện thoại :</p>
-                                            <span className="font-weight-bold">{profile.phone}</span>
+                                            <p className="font-weight-bold">{profile.phone}</p>
                                         </div>
 
                                     )
                                 }
                                 {
                                     update && (
-                                        <div>
-                                            <p className="infor--phone p-2">Số điện thoại :</p>
-                                            <br />
-                                            <input className="form-control" name="phone" type="number" value={phone} onChange={e => setPhone(e.target.value)} readOnly/>
+                                        <div className="row row-personal">
+                                            <p className="infor--phone p-2 col-md-3 text-position">Số điện thoại :</p>
+                                            <input className="form-input form-control col-md-7" name="phone" type="number" value={phone} onChange={e => setPhone(e.target.value)} readOnly/>
                                         </div>
                                         
                                     )
                                 } 
+                                    {
+                                        !update && !statusSocial && !changePass &&(
+                                            <button type="submit" className="button btn-success" onClick={toggleUpdate}>Cập nhật thông tin</button>
+                                        )
+                                    }
+                                    {
+                                        update && (
+                                            <div>
+                                                <button type="submit" className="button btn-success" onClick={updateProfile}>Cập nhật</button>
+                                                <button type="submit" className="button btn-danger" onClick={cancelUpdate}>Hủy</button>
+                                            </div>
+                                        )
+                                    }
                                 {
-                                    !changePass && !statusSocial &&(
+                                    !changePass && !statusSocial && !update &&(
                                         <div>
-                                            <p className="infor--password p-2">Mật khẩu: <span className="font-weight-bold">************</span></p>
-                                            <a className="infor--changepass" onClick={toogleChangePass}>Đổi mật khẩu</a>
+                                            {/* <p className="infor--password p-2">Mật khẩu: <span className="font-weight-bold">************</span></p> */}
+                                            <button type="submit" className="button btn-info" onClick={toogleChangePass}>Đổi mật khẩu</button>
                                         </div>
                                     )
                                 }
                                 {
                                     changePass && (
                                         <div>
-                                            <p>Mật khẩu cũ :</p>
-                                            <input className="form-control" name="oldPassword"  type="text" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
-                                            <p>Mật khẩu mới :</p>
-                                            <input className="form-control" name="newPassword"  type="text" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
-                                            <p className="error">{errors}</p>
-                                            <br />
-                                            <a className="infor--changepass" onClick={changePassword}>Xác nhận đổi mật khẩu</a>
+                                            <div className="row row-personal">
+                                                <p className="col-md-4 text-position">Mật khẩu cũ :</p>
+                                                <input className="form-input form-control col-md-7" name="oldPassword"  type="password" value={oldPassword} onChange={e => setOldPassword(e.target.value)}/>
+                                            </div>
+                                            <div className="row row-personal">
+                                                <p className="col-md-4 text-position">Mật khẩu mới :</p>
+                                                <input className="form-input form-control col-md-7" name="newPassword"  type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
+                                            </div>
+                                            <button className="button btn-success" onClick={changePassword}>Đổi mật khẩu</button>
+                                            <button type="submit" className="button btn-danger" onClick={cancelUpdate}>Hủy</button>                                 
                                         </div>
                                     )
                                 }
-                            <div className="btn_update_user">
-                                {
-                                    !update && !statusSocial && (
-                                        <button type="submit" className="btn-success text-white" onClick={toggleUpdate}>Cập nhật thông tin cá nhân</button>
-                                    )
-                                }
-                                {
-                                    update && (
-                                        <button type="submit" className="btn-success text-white" onClick={updateProfile}>Xác nhận cập nhật</button>
-                                    )
-                                }
-                            </div>
                         </div>
                     </div>
-                    <div className="col col-md-7 col-12 personal--right">
+                    <div className="col-md-7 col-12 personal--right">
                         <div className="order--title">Lịch sử đơn hàng</div>
                         {
                             loading && !statusSocial && (
@@ -225,7 +240,7 @@ export default function AcountUser() {
                                                 <p className="font-weight-bold">Mã đơn : {item.id}</p>
                                                 <p className="font-weight-bold">Tiêu đề : {item.orderName}</p>
                                         </div>
-                                        <button className="order--seen" onClick={(id) => tooglePopup(item.id)}>
+                                        <button className="order--seen button btn-success" onClick={(id) => tooglePopup(item.id)}>
                                             XEM CHI TIẾT
                                         </button>
                                         {
@@ -257,7 +272,7 @@ export default function AcountUser() {
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <div className="row">
+                                                                <div className="row row-personal">
                                                                     <div className="col-md-6">
                                                                         <table className="table">
                                                                             <thead className="thead-light">

@@ -4876,10 +4876,8 @@ input::-webkit-input-placeholder {
   .nav {
     justify-content: center; } }
 
-.col {
-  border-radius: 30px;
-  padding: 5%;
-  background-color: #FFF; }
+.row-personal {
+  margin: 1% 0; }
 
 .avatar {
   width: 30%; }
@@ -4890,11 +4888,21 @@ input::-webkit-input-placeholder {
 .background {
   background-color: #EAEAEA; }
 
+.text-position {
+  text-align: center; }
+
+.personal--left, .personal--right {
+  border-radius: 30px;
+  padding: 5%;
+  background-color: #FFF; }
+
 .personal {
   width: 80%;
   margin: 0 auto;
   padding-top: 30%;
   padding-bottom: 2%; }
+  .personal p, .personal span {
+    font-size: 1.2rem; }
 
 .personal--left .personal--title {
   background-color: #FEE1D3;
@@ -4911,7 +4919,7 @@ input::-webkit-input-placeholder {
 .personal--left .infor--changepass {
   text-decoration: underline;
   color: #BEBEC0;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   cursor: pointer; }
 
 .personal--right {
@@ -4944,25 +4952,27 @@ input::-webkit-input-placeholder {
   width: 10%; }
 
 .personal--right .order--seen {
-  background-color: #52CA7E;
   color: #FFF;
   border: none;
   border-radius: 10px;
   padding: 2%;
-  height: 2rem;
-  width: 30%;
-  font-size: 0.75rem; }
+  height: 3rem;
+  width: 35%;
+  font-size: 1.0rem; }
 
-.btn_update_user {
-  margin-top: 5rem; }
-  .btn_update_user button {
-    padding: 7px;
-    background-color: #56cb81;
-    font-weight: 500;
-    font-size: 12px;
-    border-radius: 9px;
-    outline: none;
-    border: none; }
+.button {
+  width: 40%;
+  margin: 1rem 0.5rem;
+  font-size: 1.2rem !important;
+  padding: 7px;
+  font-weight: 500;
+  border-radius: 9px;
+  outline: none;
+  border: none; }
+
+.form-input {
+  margin: 0 auto;
+  width: 65%; }
 
 /* Popup style */
 .popup-box {
@@ -4975,11 +4985,11 @@ input::-webkit-input-placeholder {
 
 .box {
   position: relative;
-  width: 70%;
+  width: 100%;
   margin: 0 auto;
   height: auto;
   max-height: 70vh;
-  margin-top: 15%;
+  margin-top: 45%;
   background: #FFFFE3;
   border-radius: 4px;
   padding: 20px;
@@ -4991,7 +5001,7 @@ input::-webkit-input-placeholder {
   cursor: pointer;
   position: fixed;
   right: calc(15% - 30px);
-  top: 25%;
+  top: 15%;
   background: #EDEDED;
   width: 25px;
   height: 25px;
@@ -5002,6 +5012,12 @@ input::-webkit-input-placeholder {
   font-size: 20px; }
 
 @media screen and (min-width: 768px) {
+  .box {
+    margin-top: 15%; }
+  .close-icon {
+    top: 20%; }
+  .text-position {
+    text-align: right; }
   .personal {
     padding-top: 10%; }
   .personal--right .order--title {
