@@ -75,7 +75,8 @@ export const rules = {
     },
     validate: {
       number: (value) =>
-        /^[0-9]*$/.test(value) || "Số điện thoại không đúng định dạng",
+        /((03|05|07|08|09)+([0-9]{8})\b)/g.test(value) ||
+        "Số điện thoại không đúng định dạng",
     },
   },
   weight: {
@@ -84,12 +85,12 @@ export const rules = {
       message: "Trọng lượng là bắt buộc nhập",
     },
     maxLength: {
-      value: 2,
+      value: 3,
       message: "Trọng lượng tối đa 100KG",
     },
     validate: {
       number: (value) =>
-        /^[0-9]*$/.test(value) || "Trọng lượng tối đa 100 ký tự",
+        /^[0-9]*$/.test(value) || "Vui lòng nhập đúng định dạng là số",
     },
   },
   password: {

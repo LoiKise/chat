@@ -65,7 +65,7 @@ export default function Index() {
       note: note,
     };
     try {
-      const res = await requestAPI("/request", "POST", body);
+      await requestAPI("/request", "POST", body);
       reset();
 
       toast.success("Đặt hàng thành công", {
@@ -83,9 +83,9 @@ export default function Index() {
   useEffect(() => {
     const getCity = async () => {
       const res = await axios.get("https://provinces.open-api.vn/api/p/");
+      setCityList(res.data);
       const res1 = await requestAPI("/categories", "GET");
       setTypeProductlist(res1.data.data);
-      setCityList(res.data);
     };
     getCity();
   }, []);
@@ -261,14 +261,12 @@ export default function Index() {
                         Huyện / Quận
                       </option>
                       {districtList.map((district, index) => (
-                        <>
-                          <option
-                            key={index}
-                            value={`${district.code}-${district.name}`}
-                          >
-                            {district.name}
-                          </option>
-                        </>
+                        <option
+                          key={index}
+                          value={`${district.code}-${district.name}`}
+                        >
+                          {district.name}
+                        </option>
                       ))}
                     </select>
                   )}
