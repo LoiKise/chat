@@ -18,9 +18,7 @@ export default function DashboardMain() {
             if (res) {
                 setCountOrder(res.data?.total)
                 let total = 0;
-                for (const item of res.data?.data) {
-                    total += item.totalPrice
-                }
+                res.data?.data?.map(item => total += item.totalPrice)
                 setTotalIncome(total)
             }
         })

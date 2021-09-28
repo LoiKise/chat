@@ -96,7 +96,7 @@ export default function DashboardDeliveryTable(props) {
         const search = []
         if (searchInput !== '') {
             for (let i in constDelivery) {
-                if ((constDelivery[i]?.saleOrderId).includes(searchInput)) {
+                if ((constDelivery[i]?.saleOrderId?.toString()).includes(searchInput)) {
                     search.push(constDelivery[i])
                 }
             }
