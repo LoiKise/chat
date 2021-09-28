@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis'
 import { useSnackbar } from 'notistack';
-import { faTemperatureHigh } from '@fortawesome/free-solid-svg-icons';
 const bg = "https://ktkdqt.ftu.edu.vn/wp-content/uploads/2018/04/tsxnk800.460.jpg"
 const LOGO = "../assets/img/logo/dark_logo.png"
 function Login(props) {
