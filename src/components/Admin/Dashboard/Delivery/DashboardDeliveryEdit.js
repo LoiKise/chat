@@ -94,8 +94,6 @@ export default function DashboardUserCreate(props) {
             delete data.driver;
             delete data.saleOrder;
             delete data.status;
-            console.log({ data });
-
             updateDelivery(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetDelivery());
@@ -105,6 +103,7 @@ export default function DashboardUserCreate(props) {
                         preventDuplicate: true,
                         autoHideDuration: 3000,
                     })
+                    props.setCloseEditFunc(false);
                 }
             }).catch(err => {
                 if (err) {

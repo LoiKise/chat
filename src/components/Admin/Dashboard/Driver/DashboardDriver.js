@@ -27,7 +27,7 @@ export default function DashboardUser(props) {
                 { headerName: "Tuổi", field: 'age', renderCell: renderCellExpand, width: 200, },
                 { headerName: "Chứng minh nhân dân", field: 'idenityCard', renderCell: renderCellExpand, width: 200, },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Tùy chỉnh", field: 'control',
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -58,7 +58,7 @@ export default function DashboardUser(props) {
                 { headerName: "Tuổi", field: 'age', renderCell: renderCellExpand, width: 200, },
                 { headerName: "Chứng minh nhân dân", field: 'idenityCard', renderCell: renderCellExpand, width: 200, },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Tùy chỉnh", field: 'control',
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -91,7 +91,7 @@ export default function DashboardUser(props) {
                     { headerName: "Tuổi", field: 'age', renderCell: renderCellExpand, width: 200, },
                     { headerName: "Chứng minh nhân dân", field: 'idenityCard', renderCell: renderCellExpand, width: 200, },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Tùy chỉnh", field: 'control',
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -122,7 +122,7 @@ export default function DashboardUser(props) {
                     { headerName: "Tuổi", field: 'age', renderCell: renderCellExpand, width: 200, },
                     { headerName: "Chứng minh nhân dân", field: 'idenityCard', renderCell: renderCellExpand, width: 200, },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Tùy chỉnh", field: 'control',
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>

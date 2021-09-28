@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSnackbar } from 'notistack';
@@ -7,8 +7,10 @@ import requestAPI from '../../../../apis';
 import DashboardSelectInput from './../Order/DashboardSelectInput';
 import { CallBackGetUser } from '../../../../features/dashboard/user/userSlice';
 import DashboardTextInput from './../Order/DashboardTextInput';
+import { useHistory } from 'react-router';
 export default function DashboardUserCreate(props) {
     const { enqueueSnackbar } = useSnackbar();
+    const history = useHistory();
     const dispatch = useDispatch();
     const createForm = useRef();
     const [data, setData] = useState({
@@ -50,7 +52,7 @@ export default function DashboardUserCreate(props) {
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if (!data.email || !data.fullname || !data.password || !data.phone) {
+        if (!data.email || !data.fullname || !data.password || !data.phone || !data.role) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'warning',
@@ -58,18 +60,35 @@ export default function DashboardUserCreate(props) {
                 autoHideDuration: 3000,
             })
         } else {
-            console.log({ data });
             createUser(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetUser());
+                    enqueueSnackbar('Thêm mới tài khoản thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseCreateFunc(false);
+                }
+            }).catch(err => {
+                enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
+                    persist: false,
+                    variant: 'warning',
+                    preventDuplicate: true,
+                    autoHideDuration: 3000,
+                })
+                if (err.response?.status === 403 || err.response?.status === 401) {
+                    history.push('/dashboard')
+                    enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                        persist: false,
+                        variant: 'error',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
                 }
             })
-            enqueueSnackbar('Thêm mới tài khoản thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (

@@ -75,7 +75,7 @@ export default function DetaiItem() {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-4 col-md-12 tab-sidebar">
+                <div className="col-xl-4 col-md-12 tab-sidebar">
                   <div className="box-summary">
                     <div className="summary-item d-flex">
                       <div className="icon icon-date-posted">
@@ -128,10 +128,10 @@ export default function DetaiItem() {
             </Tab>
             <Tab eventKey="second" title="CÔNG TY">
               <div className="row">
-                <div className="col-md-4 col-md-12">
+                <div className="col-md-8 col-md-12">
                   <h1>CÔNG TY GPT GROUPT NET</h1>
                 </div>
-                <div className="col-md-4 col-md-12">
+                <div className="col-xl-4 col-md-12">
                   <div className="box-summary">
                     <div className="summary-item d-flex">
                       <div className="icon icon-date-posted">

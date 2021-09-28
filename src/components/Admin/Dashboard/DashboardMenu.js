@@ -56,7 +56,7 @@ export default function DashboardMenu(props) {
                             <img alt="" src="https://static.wixstatic.com/media/9d895c_475f2a6d48f5479f8ebc1611d366210e~mv2.png/v1/fill/w_240,h_240,al_c,q_85,usm_0.66_1.00_0.01/9d895c_475f2a6d48f5479f8ebc1611d366210e~mv2.webp"></img>
                         </div>
                         {(hideText === false && props.userInfo) && <p className="db-menu-name" style={{ marginLeft: '26px' }}>
-                            {props.userInfo.userName}
+                            {props.userInfo?.fullname}
                         </p>}
                         {hideText === false && openUserOpt === true && <FontAwesomeIcon icon={faAngleUp} style={{ fontSize: '18px' }} />}
                         {hideText === false && openUserOpt === false && <FontAwesomeIcon icon={faAngleDown} style={{ fontSize: '18px' }} />}
@@ -71,8 +71,7 @@ export default function DashboardMenu(props) {
                             className="db-menu-item flex-center"
                             style={{ margin: '0' }}
                             onClick={() => {
-                                localStorage.removeItem('user-id')
-                                localStorage.removeItem('token');
+                                localStorage.removeItem('accessToken');
                                 sessionStorage.removeItem('chat-id')
                                 window.location.reload(false);
                             }}

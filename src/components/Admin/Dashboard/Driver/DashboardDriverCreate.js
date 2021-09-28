@@ -37,14 +37,16 @@ export default function DashboardUserCreate(props) {
             createDriver(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetDriver());
+                    enqueueSnackbar('Thêm mới tài xế thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseCreateFunc(false);
                 }
             })
-            enqueueSnackbar('Thêm mới tài xế thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (

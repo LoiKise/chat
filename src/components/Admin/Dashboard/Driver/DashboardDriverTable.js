@@ -10,14 +10,18 @@ import { useSnackbar } from 'notistack';
 import DashboardOrderControl from '../Order/DashboardOrderControl';
 import { CallBackGetDriver } from '../../../../features/dashboard/driver/driverSlice';
 import CustomLoadingOverlay from '../Order/CustomLoadingOverlay';
+import DashboardDialogConfirm from '../Order/DashboardDialogConfirm';
+import { useHistory } from 'react-router';
 
 export default function DashboardDriverTable(props) {
     const update = useSelector(state => state.driver.callbackGet)
+    const history = useHistory();
+    const { enqueueSnackbar } = useSnackbar();
     const [driver, setDriver] = useState([])
     const [constDriver, setConstDriver] = useState([])
     const [selection, setSelection] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const { enqueueSnackbar } = useSnackbar();
+    const [open, setOpen] = useState(false)
     const dispatch = useDispatch();
     useEffect(() => {
         setIsLoading(true)
@@ -32,7 +36,19 @@ export default function DashboardDriverTable(props) {
                     setIsLoading(false)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err) {
+                    if (err.response.status === 403 || err.response.status === 401) {
+                        history.push('/dashboard')
+                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
+                    }
+                }
+            })
         return data
     }
     const deleteOnClick = () => {
@@ -80,7 +96,12 @@ export default function DashboardDriverTable(props) {
 
     }
 
-
+    const handleOpenDialogDelete = () => {
+        setOpen(true);
+    }
+    const handleCloseDialogDelete = () => {
+        setOpen(false);
+    }
     return (
         <div className="topfive flex-col" style={{ width: '100%' }}>
             <div className={`headerbox flex-center ${props.color}`}>
@@ -96,6 +117,7 @@ export default function DashboardDriverTable(props) {
                         deleteController={deleteOnClick}
                         searchOnChange={searchOnChange}
                         searchController={searchOnSubmit}
+                        handleOpenDialogDelete={handleOpenDialogDelete}
                     />
                     <div style={{ height: 400, width: "100%" }}>
                         <DataGrid
@@ -117,6 +139,11 @@ export default function DashboardDriverTable(props) {
                             checkboxSelection
                         />
                     </div>
+                    <DashboardDialogConfirm
+                        open={open}
+                        handleCloseDialogDelete={handleCloseDialogDelete}
+                        handleDelete={deleteOnClick}
+                    />
 
                 </div>
             </div>

@@ -7,7 +7,7 @@ export default function DashboardTextInput({ title, placeholder, isRequire, data
             <div className="dashboard-left flex">{title} {isRequire ? <span style={{ color: "red" }}>*</span> : null}</div>
             <div className="dashboard-right--input">
                 <TextField
-                    error={data[objectKey].length < 1 ? true : false}
+                    error={isRequire && (data[objectKey]?.length < 1 || data[objectKey] < 0) ? true : false}
                     type={textType}
                     id="outlined-totalPrice"
                     label={placeholder}

@@ -23,7 +23,7 @@ export default function DashboardUser(props) {
                 { headerName: "Email", field: 'email', renderCell: renderCellExpand },
                 { headerName: "Quyền", field: 'role', renderCell: renderCellExpand },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Tùy chỉnh", field: 'control',
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -50,7 +50,7 @@ export default function DashboardUser(props) {
                 { headerName: "Email", field: 'email', renderCell: renderCellExpand, width: 200, },
                 { headerName: "Quyền", field: 'role', renderCell: renderCellExpand, width: 200, },
                 {
-                    headerName: "Công cụ", field: 'control',
+                    headerName: "Tùy chỉnh", field: 'control',
                     renderCell: (params) => {
                         return (
                             <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -79,7 +79,7 @@ export default function DashboardUser(props) {
                     { headerName: "Email", field: 'email', renderCell: renderCellExpand },
                     { headerName: "Quyền", field: 'role', renderCell: renderCellExpand },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Tùy chỉnh", field: 'control',
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
@@ -106,7 +106,7 @@ export default function DashboardUser(props) {
                     { headerName: "Email", field: 'email', renderCell: renderCellExpand },
                     { headerName: "Quyền", field: 'role', renderCell: renderCellExpand },
                     {
-                        headerName: "Công cụ", field: 'control',
+                        headerName: "Tùy chỉnh", field: 'control',
                         renderCell: (params) => {
                             return (
                                 <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>

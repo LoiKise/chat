@@ -135,7 +135,7 @@ export default function Index() {
   return (
     <div className="login container py-5">
       <div className="row">
-        <div className="col col-md-6 col-12 login__form">
+        <div className=" col-md-6 col-12 login__form">
           <h3 className="text-center p-3">ĐĂNG NHẬP</h3>
           <div className="login__social">
             <GoogleLogin
@@ -250,7 +250,7 @@ export default function Index() {
             Đăng kí miễn phí ngay
           </Link>
         </div>
-        <div className="col col-md-6 col-12 login__introduce">
+        <div className=" col-md-6 col-12 login__introduce">
           <div className="logo__introduce">
             <img src={ICONLOGO} alt="logo--intro" />
           </div>

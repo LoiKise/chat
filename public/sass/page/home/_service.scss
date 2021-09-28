@@ -1,6 +1,6 @@
 .section__top span {
   color: var(--gradient-color-to);
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
   position: relative;
 }
@@ -27,6 +27,9 @@
 }
 .ourservices-link:hover .ourservices-item__content-overlay {
   opacity: 1;
+}
+.section__top-header{
+  font-size: 4rem;
 }
 .ourservices-item__img {
   width: 100%;

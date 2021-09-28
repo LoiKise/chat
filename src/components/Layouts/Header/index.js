@@ -95,7 +95,6 @@ export default function Index({ isHome }) {
                       <span className="account-name">{name}</span>
                       <div class="account-menu">
                         <img src="../assets/img/icon/bars.png" alt="" />
-
                         <div className="account-menu__list">
                           <Link to="/UserInfor" className="account-menu__item">
                             Tài khoản của tôi

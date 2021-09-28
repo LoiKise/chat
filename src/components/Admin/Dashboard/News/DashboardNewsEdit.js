@@ -50,13 +50,14 @@ export default function DashboardUserCreate(props) {
             updateNews(data).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetNews());
+                    enqueueSnackbar('Cập nhật tin tuyển dụng thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseEditFunc(false);
                 }
-            })
-            enqueueSnackbar('Cập nhật tin tuyển dụng thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
             })
         }
     }

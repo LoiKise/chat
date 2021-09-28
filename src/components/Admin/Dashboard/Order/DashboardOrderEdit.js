@@ -193,14 +193,14 @@ export default function DashboardOrderCreate(props) {
         let dataFormat = { ...data, products }
         let validatePhone = /^(((0))[0-9]{9})$/g;
         let validatePhone1 = /^(((0))[0-9]{9})$/g;
-
-        if (dataFormat?.customerDistrict?.length <= 0 || dataFormat?.receiverDistrict?.length <= 0) {
-            enqueueSnackbar('Quận/Huyện không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+        if (!dataFormat.customerType) {
+            enqueueSnackbar('Phân loại khách không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
-                variant: 'warning',
+                variant: 'error',
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
+
         } else if (products.length <= 0) {
             enqueueSnackbar('Hàng hóa không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
@@ -216,21 +216,64 @@ export default function DashboardOrderCreate(props) {
                 autoHideDuration: 3000,
             })
 
-        } else if (isNaN(dataFormat.quantity) && dataFormat.quantity < 1) {
+        } else if (dataFormat?.customerProvince?.length <= 0 || dataFormat?.receiverProvince?.length <= 0) {
+            enqueueSnackbar('Tỉnh/Thành Phố không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (dataFormat?.customerDistrict?.length <= 0 || dataFormat?.receiverDistrict?.length <= 0) {
+            enqueueSnackbar('Quận/Huyện không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (!dataFormat.orderType) {
+            enqueueSnackbar('Loại hàng hóa không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (isNaN(dataFormat.quantity) || dataFormat.quantity < 1) {
             enqueueSnackbar('Số lượng phải là số và lớn hơn 0, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'error',
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
-        } else if (isNaN(dataFormat.totalPrice)) {
+        } else if (isNaN(dataFormat.totalPrice) || dataFormat.totalPrice < 0) {
             enqueueSnackbar('Số tiền phải là số, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
                 variant: 'error',
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
-        } else {
+        } else if (!dataFormat.unit_id) {
+            enqueueSnackbar('Đơn vị tính không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (!dataFormat.payment_id) {
+            enqueueSnackbar('Phương thức thanh toán không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (products.length <= 0) {
+            enqueueSnackbar('Hàng hóa không được bỏ trống, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'error',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        }
+        else {
             if (dataFormat.customerDistrict && dataFormat.customerProvinceName) {
                 dataFormat.customerAddress = dataFormat.customerAddress + ', ' + dataFormat.customerDistrict + ', ' + dataFormat.customerProvinceName
                 dataFormat.receiverAddress = dataFormat.receiverAddress + ', ' + dataFormat.receiverDistrict + ', ' + dataFormat.receiverProvinceName
@@ -244,19 +287,19 @@ export default function DashboardOrderCreate(props) {
             delete dataFormat.receiverDistrict;
             delete dataFormat.receiverProvinceName;
             delete dataFormat.deliveryOrders;
-            console.log({ dataFormat });
-
             updateOrder(dataFormat).then(res => {
                 if (res.data) {
                     dispatch(CallBackGetOrder());
+                    enqueueSnackbar('Cập nhật đơn hàng thành công', {
+                        persist: false,
+                        variant: 'success',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                    props.setCloseEditFunc(false);
                 }
             })
-            enqueueSnackbar('Cập nhật đơn hàng thành công', {
-                persist: false,
-                variant: 'success',
-                preventDuplicate: true,
-                autoHideDuration: 3000,
-            })
+
         }
     }
     return (
@@ -493,7 +536,7 @@ export default function DashboardOrderCreate(props) {
                                 searchTooltip: 'Tìm kiếm'
                             },
                             header: {
-                                actions: 'Tùy chỉnh'
+                                actions: 'Thao tác'
                             },
                             body: {
                                 emptyDataSourceMessage: 'Chưa có sản phẩm',
@@ -521,10 +564,9 @@ export default function DashboardOrderCreate(props) {
                         }]}
                         editable={{
                             onRowAdd: (newRow) => new Promise((resolve, reject) => {
-                                console.log(newRow);
-                                if (newRow.quantity && newRow.name && newRow.unit_id) {
-                                    if (isNaN(newRow.quantity)) {
-                                        enqueueSnackbar('Số lượng vui lòng nhập số', {
+                                if (newRow.quantity && newRow.name && newRow.unit) {
+                                    if (isNaN(newRow.quantity) || newRow.quantity < 1) {
+                                        enqueueSnackbar('Số lượng vui lòng nhập số lớn hơn 0', {
                                             persist: false,
                                             variant: 'error',
                                             preventDuplicate: true,
@@ -560,9 +602,9 @@ export default function DashboardOrderCreate(props) {
                                 }, 1000)
                             }),
                             onRowUpdate: (updatedRow, oldRow) => new Promise((resolve, reject) => {
-                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit_id) {
-                                    if (isNaN(updatedRow.quantity)) {
-                                        enqueueSnackbar('Số lượng vui lòng nhập số', {
+                                if (updatedRow.quantity && updatedRow.name && updatedRow.unit) {
+                                    if (isNaN(updatedRow.quantity) || updatedRow.quantity < 1) {
+                                        enqueueSnackbar('Số lượng vui lòng nhập số lớn hơn 0', {
                                             persist: false,
                                             variant: 'error',
                                             preventDuplicate: true,
