@@ -84,10 +84,6 @@ export const rules = {
       value: true,
       message: "Trọng lượng là bắt buộc nhập",
     },
-    maxLength: {
-      value: 3,
-      message: "Trọng lượng tối đa 100KG",
-    },
     validate: {
       number: (value) =>
         /^[0-9]*$/.test(value) || "Vui lòng nhập đúng định dạng là số",
