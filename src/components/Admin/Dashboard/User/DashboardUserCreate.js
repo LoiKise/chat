@@ -72,15 +72,18 @@ export default function DashboardUserCreate(props) {
                     props.setCloseCreateFunc(false);
                 }
             }).catch(err => {
-                enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
-                    persist: false,
-                    variant: 'warning',
-                    preventDuplicate: true,
-                    autoHideDuration: 3000,
-                })
                 if (err.response?.status === 403 || err.response?.status === 401) {
                     history.push('/dashboard')
                     enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                        persist: false,
+                        variant: 'error',
+                        preventDuplicate: true,
+                        autoHideDuration: 3000,
+                    })
+                }
+                if (err.response?.status === 400) {
+                    history.push('/dashboard')
+                    enqueueSnackbar('Số điện thoại tài khoản này đã tồn tại, vui lòng nhập lại', {
                         persist: false,
                         variant: 'error',
                         preventDuplicate: true,
