@@ -139,7 +139,7 @@ export default function Index() {
   return (
     <div className="signup container">
       <div className="row">
-        <div className="col col-12 signup__form">
+        <div className=" col-12 signup__form">
           <h3 className="text-center p-1">ĐĂNG KÝ</h3>
           <div className="signup__social">
             <GoogleLogin
