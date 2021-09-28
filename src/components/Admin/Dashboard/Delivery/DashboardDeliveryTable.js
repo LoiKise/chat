@@ -16,7 +16,7 @@ import DashboardDialogConfirm from './../Order/DashboardDialogConfirm';
 import { useHistory } from 'react-router';
 
 export default function DashboardDeliveryTable(props) {
-    const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao', 'Đã Hủy'];
+    const steps = ['Lưu Kho', 'Đang Vận Chuyển', 'Đã Giao'];
     const history = useHistory();
     const { enqueueSnackbar } = useSnackbar();
     const orderUpdate = useSelector(state => state.delivery.callbackGet)

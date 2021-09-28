@@ -4,6 +4,7 @@ import { DialogContentText, Typography } from '@material-ui/core';
 import Transition from './DashboardTransition';
 import moment from 'moment'
 export default function DashboardDialog({ open, onClose, steps, titleLabel, orderView }) {
+    console.log({ orderView });
     return (
         <Dialog
             open={open}
@@ -15,12 +16,15 @@ export default function DashboardDialog({ open, onClose, steps, titleLabel, orde
             <DialogTitle >{titleLabel}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
-                    <Stack sx={{ width: '100%', maxWidth: 400 }} spacing={4}>
+                    <Stack sx={{ width: '100%', maxWidth: 400 }} spacing={2}>
                         <Stepper alternativeLabel activeStep={orderView?.deliveryHistory?.length - 1} style={{ display: 'flex' }}>
                             {steps.map((label, index) => {
                                 let deliveryCurrent;
                                 if (orderView?.deliveryHistory?.length > index) {
                                     deliveryCurrent = orderView?.deliveryHistory[index];
+                                    if (orderView?.deliveryHistory[2]) {
+                                        label = deliveryCurrent?.status
+                                    }
                                 } else {
                                     deliveryCurrent = null;
                                 }
