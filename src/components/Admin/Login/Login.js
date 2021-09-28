@@ -3,8 +3,10 @@ import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis'
 import { useSnackbar } from 'notistack';
 const bg = "https://ktkdqt.ftu.edu.vn/wp-content/uploads/2018/04/tsxnk800.460.jpg"
+const LOGO = "../assets/img/logo/dark_logo.png"
 function Login(props) {
     const { enqueueSnackbar } = useSnackbar();
+
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
 
@@ -41,7 +43,7 @@ function Login(props) {
             <div className="login-overlay flex-center">
                 <div className="login-box flex">
                     <div className="login-left flex-center flex-col">
-                        <img src="https://demo.uix.store/sober/wp-content/themes/sober/images/logo.svg" alt="logo" width="50%"></img>
+                        <img src={LOGO} alt="logo" width="50%"></img>
                         <div className="login-title">Đăng nhập vào trang quản lý</div>
                         <form className="admin-login-form flex-col" onSubmit={handleOnSubmit}>
                             <input

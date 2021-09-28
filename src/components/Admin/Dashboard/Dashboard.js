@@ -5,6 +5,7 @@ import { faFileInvoice, faHome, faNewspaper, faShoppingBag, faEnvelope, faUser, 
 import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis';
 import { useHistory } from 'react-router';
+import { useSnackbar } from 'notistack';
 function Dashboard(props) {
     const menuItems = [
         {
@@ -54,6 +55,7 @@ function Dashboard(props) {
         },
 
     ]
+    const { enqueueSnackbar } = useSnackbar();
     const [tabId, setTabId] = useState("1");
     const [openMenu, setOpenMenu] = useState(true);
     const [openMenuMobile, setOpenMenuMobile] = useState(true);
@@ -73,8 +75,16 @@ function Dashboard(props) {
         if (jwt) {
             await requestAPI('/admin', 'POST', { token: jwt }, { Authorization: `Bearer ${localStorage.getItem('token')}` })
                 .then(res => {
-                    if (res) {
+                    if (res.data?.user) {
                         setUserInfo(res.data?.user)
+                    } else {
+                        history.push('/dashboard')
+                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                            persist: false,
+                            variant: 'error',
+                            preventDuplicate: true,
+                            autoHideDuration: 3000,
+                        })
                     }
                 }).catch(() => history.push('/dashboard'))
         } else {
