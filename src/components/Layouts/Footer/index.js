@@ -4,7 +4,7 @@ import ScrollToTop from '../../ScrollToTop'
 export default function index() {
   return (
     <div>
-      <footer className="footer">
+      <footer className="footer" id="footer">
         <div className="container">
           <div className="footer-list">
             <div className="footer-item">

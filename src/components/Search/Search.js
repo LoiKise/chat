@@ -22,30 +22,27 @@ export default function Search(props) {
     customerPhone: '',
     date: ''
   })
-  const [dataFormat, setDataFormat] = useState({ //show
-    name: '',
-    customerPhone: '',
-    date: '',
-    errors: {
-      name: '',
-      customerPhone: '',
-      date: '',
-    }
-  })
+  // const [dataFormat, setDataFormat] = useState({ //show
+  //   name: '',
+  //   customerPhone: '',
+  //   date: '',
+  // })
 
 
   const handleChangeInput = (event) => {
-    let { value, name, valueAsNumber } = event.target;
-    console.log({ date: event.target });
-    let state = event.target.type === 'date' ? valueAsNumber : value
+    let { value, name, valueAsDate } = event.target;
+    // console.log({ date: event.target });
+    let state = event.target.type === 'date' ? valueAsDate : value
+    // console.log(type)
+    console.log(valueAsDate)
     setType({
       ...type,
-      [name]: state
-    })
-    setDataFormat({
-      ...dataFormat,
       [name]: value
     })
+    // setDataFormat({
+    //   ...dataFormat,
+    //   [name]: value
+    // })
   }
   const [state, setstate] = useState()
   const [loading, setLoading] = useState(false)
@@ -61,7 +58,6 @@ export default function Search(props) {
               // console.log(res.data);
               setstate(res.data);
               // setLoading(true);
-
             }
           }).catch(err => console.log(err))
       } else {
@@ -85,7 +81,7 @@ export default function Search(props) {
                       className="tabs__search form-control"
                       placeholder="Nhập tên khách hàng"
                       onChange={handleChangeInput}
-                      value={dataFormat.name}
+                      value={type.name}
                       required
                     />
                    
@@ -97,7 +93,7 @@ export default function Search(props) {
                       className="tabs__search form-control"
                       placeholder="Nhập số điện thoại"
                       onChange={handleChangeInput}
-                      value={dataFormat.customerPhone}
+                      value={type.customerPhone}
                       required
                     />
                   </div>
@@ -110,7 +106,7 @@ export default function Search(props) {
                       placeholder="Nhập ngày cần tìm kiếm"
                       min="2000-01-01" max="2030-12-31"
                       onChange={handleChangeInput}
-                      value={dataFormat.date}
+                      value={type.date}
                       requiredw
                     />
                   </div>
