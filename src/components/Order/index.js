@@ -41,9 +41,8 @@ export default function Index() {
   const handleValue = async (data) => {
     let note = "";
     let fastShip = false;
-    const address = `${data.address}, ${data.borough}, ${
-      data.district.split("-")[1]
-    }, ${data.city.split("-")[1]}.`;
+    const address = `${data.address}, ${data.borough}, ${data.district.split("-")[1]
+      }, ${data.city.split("-")[1]}.`;
     if (data.devo && data.devo !== undefined) {
       note += "Dễ vỡ,";
     }
@@ -445,14 +444,15 @@ export default function Index() {
           </div>
         </div>
         <div className="section-area__btn">
-          <ButtonCustom
-            type="submit"
-            name="Gửi Yêu Cầu"
+          <button type="submit">
+            GỬI YÊU CẦU
+            {/* name="Gửi Yêu Cầu"
             linkIcon={IconService}
-            isTransparent={3}
-          />
+            isTransparent={3} */}
+          </button>
         </div>
       </form>
     </div>
   );
 }
+
