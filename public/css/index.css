@@ -3664,6 +3664,9 @@ select {
   width: 800px;
   display: flex;
   justify-content: space-between; }
+  .header__button a:hover {
+    text-decoration: none;
+    color: azure; }
 
 .header__button-search,
 .header__button-service {

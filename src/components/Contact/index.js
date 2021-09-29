@@ -16,6 +16,7 @@ export default function Index() {
     control,
     handleSubmit,
     getValues,
+     reset,
     formState: { errors },
     setError,
   } = useForm({
@@ -50,6 +51,7 @@ const PostContactAPI = async (dataContact) => {
             console.log({ data });
             PostContactAPI(data).then((res) => {
               if (res.data) {
+                reset();
                  toast.success("THÊM LIÊN HỆ THÀNH CÔNG", {
                    position: "top-right",
                    autoClose: 5000,
