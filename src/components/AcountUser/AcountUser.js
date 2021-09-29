@@ -110,10 +110,15 @@ export default function AcountUser() {
 
         try {
             if(newPassword.length < 6 || newPassword.length > 160) {
-            toast.error("MẬT KHẨU CÓ ĐỘ DÀI TỪ 6 - 160 KÝ TỰ", {
-                position: "top-right",
-                autoClose: 5000,
-            });
+                toast.error("MẬT KHẨU CÓ ĐỘ DÀI TỪ 6 - 160 KÝ TỰ", {
+                    position: "top-right",
+                    autoClose: 5000,
+                });
+            } else if(oldPassword == newPassword) {
+                toast.error("MẬT KHẨU MỚI KHÔNG ĐƯỢC TRÙNG MẬT KHẨU CŨ", {
+                    position: "top-right",
+                    autoClose: 5000,
+                });
             } else {
                 const res = await requestAPI(`/user/changepassword/${id}`, 'POST', body);
                 //const resUpdate = await dispatch(changePass(body));
