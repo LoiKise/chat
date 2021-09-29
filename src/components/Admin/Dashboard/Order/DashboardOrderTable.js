@@ -32,7 +32,6 @@ export default function DashboardOrderTable(props) {
             .then(res => {
                 if (res) {
                     setOrder(res.data?.data)
-                    console.log(res.data?.data)
                     setConstOrder(res.data?.data)
                     setIsLoading(false)
                 }

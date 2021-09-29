@@ -40,8 +40,15 @@ export default function DashboardUserCreate(props) {
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
-        } else if (data.salaryBefore < 0 || data.salaryAfter < 0) {
-            enqueueSnackbar('Mức lương tối thiểu là 0đ', {
+        } else if (data.salaryBefore < 0) {
+            enqueueSnackbar('Mức lương tối thiểu chưa chính xác, vui lòng nhập trong khoảng từ 0đ -> 100.000.000đ', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (data.salaryAfter < 0) {
+            enqueueSnackbar('Mức lương tối đa chưa chính xác, vui lòng nhập trong khoảng từ 0đ -> 100.000.000đ', {
                 persist: false,
                 variant: 'warning',
                 preventDuplicate: true,
