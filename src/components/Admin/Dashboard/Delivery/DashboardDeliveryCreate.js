@@ -41,10 +41,7 @@ export default function DashboardUserCreate(props) {
         getDrivers();
         getStatus();
         getOrder();
-        if (update) {
-            setData(update)
-        }
-    }, [update])
+    }, [])
     const getDrivers = async () => {
         const data = await requestAPI('/drivers/all', 'GET')
             .then(res => {

@@ -17,11 +17,11 @@ export default function DashboardDialog({ open, onClose, steps, titleLabel, orde
             <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                     <Stack sx={{ width: '100%', maxWidth: 400 }} spacing={2}>
-                        <Stepper alternativeLabel activeStep={orderView?.deliveryHistory?.length - 1} style={{ display: 'flex' }}>
+                        <Stepper alternativeLabel activeStep={orderView?.length - 1} style={{ display: 'flex' }}>
                             {steps.map((label, index) => {
                                 let deliveryCurrent;
                                 if (orderView?.deliveryHistory?.length > index) {
-                                    deliveryCurrent = orderView?.deliveryHistory[index];
+                                    deliveryCurrent = orderView[index];
                                     if (orderView?.deliveryHistory[2]) {
                                         label = deliveryCurrent?.status
                                     }

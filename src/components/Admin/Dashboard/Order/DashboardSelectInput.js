@@ -3,8 +3,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export default function DashboardSelectInput({
-    title, data, setData, handleClose, sltOpen, subKey,
+    title, data, setData, handleClose, sltOpen, disable,
     handleOpenSlt, subTitle, listSelect, objectKey, objectNameKey }) {
+    console.log({ data });
     return (
         <div className="create-box-row flex">
             <div className="dashboard-left flex">{title}<span style={{ color: "red" }}>*</span></div>
@@ -17,6 +18,7 @@ export default function DashboardSelectInput({
                     onClose={handleClose}
                     onOpen={handleOpenSlt}
                     value={data[objectKey] || ""}
+                    disabled={disable || false}
                     onChange={(event, params) => {
                         objectNameKey ?
                             setData({

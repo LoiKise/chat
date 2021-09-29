@@ -201,6 +201,7 @@ export default function DashboardUserCreate(props) {
                             />
                         </div>
                     </div>
+
                     <div className="flex-center" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn btn-outline-success">
                             Tạo Tin Tuyển Dụng

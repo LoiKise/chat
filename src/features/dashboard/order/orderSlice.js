@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import requestAPI from '../../../apis'
 
 const initialState = {
     orderList: [
@@ -98,6 +99,12 @@ export const orderSlice = createSlice({
         getOrderView: (state, action) => {
             state.orderView = action.payload
             state.statusOrderView = true
+            requestAPI(`/delivery/history/${action.payload?.id}`, 'GET')
+                .then(res => {
+                    console.log({ history: res.data?.delivery[0]?.deliveryHistory });
+                }).catch({
+
+                })
         },
         closeStatusView: (state, action) => {
             state.statusOrderView = false

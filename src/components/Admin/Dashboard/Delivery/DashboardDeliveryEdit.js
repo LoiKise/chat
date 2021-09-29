@@ -39,7 +39,10 @@ export default function DashboardUserCreate(props) {
         getDrivers();
         getStatus();
         if (update) {
-            let state = { ...update, driverId: update?.driver?.id }
+            let state = {
+                ...update, driverId: update?.driver?.id,
+                disable: update?.statusId === -1 || update?.statusId === 3 ? true : false
+            }
             setData(state)
         }
     }, [update])
@@ -157,6 +160,7 @@ export default function DashboardUserCreate(props) {
                         listSelect={status}
                         objectKey={"statusId"}
                         objectNameKey={null}
+                        disable={data?.disable}
                     />
                     <DashboardSelectInput
                         title={"Tài xế"}
