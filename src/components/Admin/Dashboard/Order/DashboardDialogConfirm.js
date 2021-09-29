@@ -38,7 +38,7 @@ export default function DashboardDialogConfirm({ open, handleCloseDialogDelete, 
                     <button onClick={handleCloseDialogDelete} className="btn  btn-outline-danger btn-lg">
                         Hủy bỏ
                     </button>
-                    <button className="btn btn-success btn-lg">
+                    <button className="btn btn-success btn-lg" onClick={confirmDelete}>
                         Đồng ý
                     </button>
                 </DialogActions>
