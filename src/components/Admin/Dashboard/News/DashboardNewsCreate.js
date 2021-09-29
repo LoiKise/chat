@@ -54,6 +54,13 @@ export default function DashboardUserCreate(props) {
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
+        } else if (data.quantity < 1) {
+            enqueueSnackbar('Số lượng nhân viên tuyển dụng không được nhỏ hơn 1', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
         } else {
             createNews(data).then(res => {
                 if (res.data) {
