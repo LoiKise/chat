@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Transition from './DashboardTransition';
+import { fontSize } from '@mui/system';
 export default function DashboardDialogConfirm({ open, handleCloseDialogDelete, handleDelete }) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -25,21 +26,21 @@ export default function DashboardDialogConfirm({ open, handleCloseDialogDelete, 
                 onClose={() => handleCloseDialogDelete()}
                 aria-labelledby="responsive-dialog-title"
             >
-                <DialogTitle id="responsive-dialog-title">
+                <DialogTitle id="responsive-dialog-title " className="MUI-titleDialog">
                     {'Nhắc nhở'}
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
+                    <DialogContentText sx={{ fontSize: 15 }}>
                         Bạn chắc chắn muốn xóa các lựa chọn này ?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={handleCloseDialogDelete}>
+                    <button onClick={handleCloseDialogDelete} className="btn  btn-outline-danger btn-lg">
                         Hủy bỏ
-                    </Button>
-                    <Button onClick={() => confirmDelete()} autoFocus>
+                    </button>
+                    <button className="btn btn-success btn-lg">
                         Đồng ý
-                    </Button>
+                    </button>
                 </DialogActions>
             </Dialog>
         </div>

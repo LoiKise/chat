@@ -20,9 +20,9 @@ export default function DashboardDialog({ open, onClose, steps, titleLabel, orde
                         <Stepper alternativeLabel activeStep={orderView?.length - 1} style={{ display: 'flex' }}>
                             {steps.map((label, index) => {
                                 let deliveryCurrent;
-                                if (orderView?.deliveryHistory?.length > index) {
+                                if (orderView?.length > index) {
                                     deliveryCurrent = orderView[index];
-                                    if (orderView?.deliveryHistory[2]) {
+                                    if (orderView[2]) {
                                         label = deliveryCurrent?.status
                                     }
                                 } else {
