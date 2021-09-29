@@ -73,7 +73,6 @@ export default function DashboardUserCreate(props) {
                 }
             }).catch(err => {
                 if (err.response?.status === 403 || err.response?.status === 401) {
-                    history.push('/dashboard')
                     enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
                         persist: false,
                         variant: 'error',
@@ -82,7 +81,6 @@ export default function DashboardUserCreate(props) {
                     })
                 }
                 if (err.response?.status === 400) {
-                    history.push('/dashboard')
                     enqueueSnackbar('Số điện thoại tài khoản này đã tồn tại, vui lòng nhập lại', {
                         persist: false,
                         variant: 'error',

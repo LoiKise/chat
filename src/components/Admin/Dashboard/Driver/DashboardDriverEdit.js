@@ -54,8 +54,39 @@ export default function DashboardUserCreate(props) {
                 }
             }).catch(err => {
                 if (err) {
-                    if (err.response.status === 400) {
-                        enqueueSnackbar('Thông tin không hợp lệ, vui lòng kiểm tra lại', {
+                    if (err.response?.status === 400) {
+                        if (err.response?.data?.message === 'Invalid Phone number') {
+                            enqueueSnackbar('Số điện thoại không hợp lệ', {
+                                persist: false,
+                                variant: 'warning',
+                                preventDuplicate: true,
+                                autoHideDuration: 3000,
+                            })
+                        }
+                        else if (err.response?.data?.message === 'Invalid age') {
+                            enqueueSnackbar('Yêu cầu tuổi từ 18 -> 60', {
+                                persist: false,
+                                variant: 'warning',
+                                preventDuplicate: true,
+                                autoHideDuration: 3000,
+                            })
+                        } else if (err.response?.data?.message === 'Name is not empty') {
+                            enqueueSnackbar('Tên không được bỏ trống', {
+                                persist: false,
+                                variant: 'warning',
+                                preventDuplicate: true,
+                                autoHideDuration: 3000,
+                            })
+                        } else if (err.response?.data?.message === 'Invalid idenityCard') {
+                            enqueueSnackbar('Tên không được bỏ trống', {
+                                persist: false,
+                                variant: 'warning',
+                                preventDuplicate: true,
+                                autoHideDuration: 3000,
+                            })
+                        }
+                    } else if (err.response?.status === 403 || err.response?.status === 401) {
+                        enqueueSnackbar('Phát hiện lỗi truy cập vui lòng đăng nhập lại', {
                             persist: false,
                             variant: 'error',
                             preventDuplicate: true,

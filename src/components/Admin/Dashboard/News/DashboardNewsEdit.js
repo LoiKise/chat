@@ -30,7 +30,9 @@ export default function DashboardUserCreate(props) {
 
     useEffect(() => {
         if (update) {
-            setData(update)
+            console.log({ update });
+
+            setData({ ...update, expirationDate: new Date(update.expirationDate) })
         }
     }, [update])
     const updateNews = async (dataFormat) => {
@@ -57,6 +59,13 @@ export default function DashboardUserCreate(props) {
             })
         } else if (data.salaryAfter < 0) {
             enqueueSnackbar('Mức lương tối đa chưa chính xác, vui lòng nhập trong khoảng từ 0đ -> 100.000.000đ', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (data.quantity < 1) {
+            enqueueSnackbar('Số lượng nhân viên tuyển dụng không được nhỏ hơn 1', {
                 persist: false,
                 variant: 'warning',
                 preventDuplicate: true,
@@ -190,13 +199,13 @@ export default function DashboardUserCreate(props) {
                         <div className="dashboard-right--input">
                             <TextField
                                 // id="date"
-                                error={data.expirationDate?.length < 1 ? true : false}
-                                id="outlined-totalPrice"
+                                error={data.expirationDate < Date.now()}
+                                id="outlined-expirationDate"
                                 label="Giới hạn thời gian nộp hồ sơ tuyển dụng"
                                 type="date"
                                 variant="outlined"
                                 color="primary"
-                                defaultValue={moment(Date.now).format("DD-MM-YYYY")}
+                                defaultValue={new Date(data.expirationDate)}
                                 sx={{ width: 220 }}
                                 InputLabelProps={{
                                     shrink: true,

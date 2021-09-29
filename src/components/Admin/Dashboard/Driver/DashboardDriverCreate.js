@@ -25,7 +25,7 @@ export default function DashboardUserCreate(props) {
     }
     const onSubmit = (event) => {
         event.preventDefault()
-
+        console.log({ driver: data });
         if (!data.idenityCard || !data.name || !data.age || !data.phone) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
                 persist: false,
@@ -48,7 +48,7 @@ export default function DashboardUserCreate(props) {
             }).catch(err => {
                 if (err) {
                     if (err.response?.status === 400) {
-                        if (err.response?.data?.message === 'Invalid Phone number') {
+                        if (err.response?.data?.message === 'Invalid phone number') {
                             enqueueSnackbar('Số điện thoại không hợp lệ', {
                                 persist: false,
                                 variant: 'warning',
@@ -71,7 +71,7 @@ export default function DashboardUserCreate(props) {
                                 autoHideDuration: 3000,
                             })
                         } else if (err.response?.data?.message === 'Invalid idenityCard') {
-                            enqueueSnackbar('Tên không được bỏ trống', {
+                            enqueueSnackbar('Chứng minh thư chưa chính xác', {
                                 persist: false,
                                 variant: 'warning',
                                 preventDuplicate: true,
