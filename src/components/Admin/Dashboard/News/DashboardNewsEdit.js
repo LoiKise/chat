@@ -24,6 +24,7 @@ export default function DashboardUserCreate(props) {
         quantity: 0,
         require: "",
         thumbnails: "",
+        expirationDate: ""
     })
     //Handle Event and Request DataBase
 
@@ -56,6 +57,13 @@ export default function DashboardUserCreate(props) {
             })
         } else if (data.salaryAfter < 0) {
             enqueueSnackbar('Mức lương tối đa chưa chính xác, vui lòng nhập trong khoảng từ 0đ -> 100.000.000đ', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (data.expirationDate < Date.now()) {
+            enqueueSnackbar('Hạn cuối nộp hồ sơ không được nhỏ hơn ngày hiện tại ', {
                 persist: false,
                 variant: 'warning',
                 preventDuplicate: true,

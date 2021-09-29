@@ -23,6 +23,7 @@ export default function DashboardUserCreate(props) {
         quantity: 0,
         require: "",
         thumbnails: "",
+        thumbnails: "",
     })
     //Handle Event and Request DataBase
     const createNews = async (dataFormat) => {
@@ -56,6 +57,13 @@ export default function DashboardUserCreate(props) {
             })
         } else if (data.quantity < 1) {
             enqueueSnackbar('Số lượng nhân viên tuyển dụng không được nhỏ hơn 1', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (data.expirationDate < Date.now()) {
+            enqueueSnackbar('Hạn cuối nộp hồ sơ không được nhỏ hơn ngày hiện tại ', {
                 persist: false,
                 variant: 'warning',
                 preventDuplicate: true,
