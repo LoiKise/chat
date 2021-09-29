@@ -34,6 +34,7 @@ export default function Index() {
       const data = await dispatch(getRecruitments(stringify(params)));
       console.log(data);
       const res = await unwrapResult(data);
+      console.log(res);
       setJob(res.data.data);
       setQuantity(res.data.total);
     };
