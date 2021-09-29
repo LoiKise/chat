@@ -1499,10 +1499,11 @@ p {
   font-size: 14px;
   transition: height 0.4s;
   height: 0;
-  overflow: hidden; }
+  overflow: hidden;
+  margin-top: 10px; }
 
 .closeOpt {
-  height: 125px; }
+  height: 50px; }
 
 .closeOpt div:first-child {
   margin-top: 15px; }
@@ -3618,6 +3619,9 @@ select {
 .MUI-titleDialog {
   background-color: #9b0c0c !important;
   padding: 10px !important; }
+
+.MuiTooltip-popperInteractive {
+  z-index: 99999 !important; }
 
 .slider {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../assets/img/imgs/Background/backgroundHeader.png");

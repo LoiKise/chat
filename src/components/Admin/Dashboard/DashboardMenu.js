@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleUp, faIdCard, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
+import { Tooltip, Zoom } from '@mui/material'
 const LOGO = "../assets/img/logo/dark_logo.png"
 export default function DashboardMenu(props) {
 
@@ -52,9 +53,11 @@ export default function DashboardMenu(props) {
                     onClick={clickToShowUserOpt}
                 >
                     <div className="flex-center" style={{ padding: '0 5px' }}>
-                        <div className="db-menu-avt flex-center">
-                            <img alt="" src="https://static.wixstatic.com/media/9d895c_475f2a6d48f5479f8ebc1611d366210e~mv2.png/v1/fill/w_240,h_240,al_c,q_85,usm_0.66_1.00_0.01/9d895c_475f2a6d48f5479f8ebc1611d366210e~mv2.webp"></img>
-                        </div>
+                        <Tooltip title={props.userInfo?.fullname} placement="right" TransitionComponent={Zoom} disableHoverListener={!hideText}>
+                            <div className="db-menu-avt flex-center">
+                                <img alt="" src="https://static.wixstatic.com/media/9d895c_475f2a6d48f5479f8ebc1611d366210e~mv2.png/v1/fill/w_240,h_240,al_c,q_85,usm_0.66_1.00_0.01/9d895c_475f2a6d48f5479f8ebc1611d366210e~mv2.webp"></img>
+                            </div>
+                        </Tooltip>
                         {(hideText === false && props.userInfo) && <p className="db-menu-name" style={{ marginLeft: '26px' }}>
                             {props.userInfo?.fullname}
                         </p>}
@@ -62,23 +65,24 @@ export default function DashboardMenu(props) {
                         {hideText === false && openUserOpt === false && <FontAwesomeIcon icon={faAngleDown} style={{ fontSize: '18px' }} />}
                     </div>
                     <div className={openUserOpt ? "db-menu-user-opt closeOpt" : "db-menu-user-opt"}>
-                        <div className="db-menu-item flex-center">
+                        {/* <div className="db-menu-item flex-center">
                             <FontAwesomeIcon icon={faIdCard} style={{ fontSize: '18px' }} className="icon" />
                             <p className="db-menu-name">Thông tin tài khoản</p>
-                        </div>
-
-                        <div
-                            className="db-menu-item flex-center"
-                            style={{ margin: '0' }}
-                            onClick={() => {
-                                localStorage.removeItem('accessToken');
-                                sessionStorage.removeItem('chat-id')
-                                window.location.reload(false);
-                            }}
-                        >
-                            <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '18px' }} className="icon" />
-                            <p className="db-menu-name">Đăng xuất</p>
-                        </div>
+                        </div> */}
+                        <Tooltip title={"Đăng xuất"} placement="right" TransitionComponent={Zoom} disableHoverListener={!hideText}>
+                            <div
+                                className="db-menu-item flex-center"
+                                style={{ margin: '0' }}
+                                onClick={() => {
+                                    localStorage.removeItem('accessToken');
+                                    sessionStorage.removeItem('chat-id')
+                                    window.location.reload(false);
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: '18px' }} className="icon" />
+                                <p className="db-menu-name">Đăng xuất</p>
+                            </div>
+                        </Tooltip>
                     </div>
                 </div>
                 <div className="menu-line"></div>
@@ -86,28 +90,32 @@ export default function DashboardMenu(props) {
                     {
                         menuItems.map((item, index) => {
                             return (
-                                <div
-                                    key={index}
-                                    className={classNames("db-menu-item flex-center", {
-                                        db_menu_active: props.tabId === item.id,
-                                    })}
-                                    onClick={() => {
-                                        props.setTabIdOnClick(item.id);
-                                        props.setCloseCreateFunc(false);
-                                        props.setCloseEditFunc(false);
-                                        if (window.innerWidth <= 1110) {
-                                            props.setOpenMenuOnClick()
-                                        }
-                                    }}
-                                >
-                                    <FontAwesomeIcon icon={item.icon} style={{ fontSize: '18px' }} className="icon" />
-                                    {hideText === false && <p className="db-menu-name">{item.name}</p>}
-                                </div>
+                                <Tooltip title={item.name} placement="right" TransitionComponent={Zoom} disableHoverListener={!hideText}>
+
+                                    <div
+                                        key={index}
+                                        className={classNames("db-menu-item flex-center", {
+                                            db_menu_active: props.tabId === item.id,
+                                        })}
+                                        onClick={() => {
+                                            props.setTabIdOnClick(item.id);
+                                            props.setCloseCreateFunc(false);
+                                            props.setCloseEditFunc(false);
+                                            if (window.innerWidth <= 1110) {
+                                                props.setOpenMenuOnClick()
+                                            }
+                                        }}
+                                    >
+                                        {/* //TransitionComponent={Zoom} */}
+                                        <FontAwesomeIcon icon={item.icon} style={{ fontSize: '18px' }} className="icon" />
+                                        {hideText === false && <p className="db-menu-name">{item.name}</p>}
+                                    </div>
+                                </Tooltip>
                             )
                         })
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

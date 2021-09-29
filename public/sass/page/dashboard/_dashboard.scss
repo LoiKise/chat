@@ -100,9 +100,10 @@
     transition: height 0.4s;
     height: 0;
     overflow: hidden;
+    margin-top: 10px;
 }
 .closeOpt {
-    height: 125px;
+    height: 50px;
 }
 .closeOpt div:first-child {
     margin-top: 15px;
