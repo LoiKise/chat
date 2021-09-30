@@ -4,7 +4,7 @@ import { ACCESS_TOKEN } from "./../utils/constant";
 // Syntax
 // requestAPI('/search', 'POST', {code}, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
 export default async function requestAPI(url, method, body) {
-  let urlOrigin = "http://localhost:3000";
+  let urlOrigin = "https://serverlogistics.herokuapp.com"; //http://localhost:3000
   const headers = {
     "Content-Type": "application/json",
     // 'Content-Type': 'multipart/form-data',

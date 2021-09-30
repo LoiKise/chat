@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardNewsTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
-import moment from 'moment';
 import { getNewsUpdate } from '../../../../features/dashboard/news/newsSlice.js';
+import { datetimeVN, dateVN } from '../../../../helpers/time';
+import { formatMoney } from './../../../../helpers/money';
 export default function DashboardNews(props) {
 
     const [table, setTable] = useState([])
@@ -14,27 +15,23 @@ export default function DashboardNews(props) {
             setTable([
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand, width: 200
                 },
                 {
                     headerName: "Hạn cuối", field: 'expirationDate',
-                    valueFormatter: params => moment(params.row?.expirationDate).format("DD-MM-YYYY"),
+                    valueFormatter: params => dateVN(params.row?.expirationDate),
                     renderCell: renderCellExpand, width: 200
                 },
                 {
                     headerName: "Ngày Cập nhật", field: 'updatedAt', hide: true,
-                    valueFormatter: params => params?.row?.updatedAt ? moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss") : 'Chưa cập nhật',
+                    valueFormatter: params => params?.row?.updatedAt ? datetimeVN(params.row?.updatedAt) : 'Chưa cập nhật',
                     renderCell: renderCellExpand, width: 200
                 },
                 { headerName: "Tên Công Việc", field: 'nameJob', renderCell: renderCellExpand, width: 200 },
                 {
                     headerName: "Mức Lương", field: 'salary',
-                    valueFormatter: params =>
-                        `
-                    ${params?.row?.salaryBefore?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ - 
-                    ${params?.row?.salaryAfter?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
-                    `,
+                    valueFormatter: params => ` ${formatMoney(params?.row?.salaryBefore, '.')}đ - ${formatMoney(params?.row?.salaryAfter)}đ `,
                     renderCell: renderCellExpand, width: 200
                 },
                 { headerName: "Địa Chỉ", field: 'address', renderCell: renderCellExpand, width: 200 },
@@ -62,27 +59,23 @@ export default function DashboardNews(props) {
             setTable([
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand, width: 200
                 },
                 {
                     headerName: "Hạn cuối", field: 'expirationDate',
-                    valueFormatter: params => moment(params.row?.expirationDate).format("DD-MM-YYYY"),
+                    valueFormatter: params => dateVN(params.row?.expirationDate),
                     renderCell: renderCellExpand, width: 200
                 },
                 {
                     headerName: "Ngày Cập nhật", field: 'updatedAt', hide: true,
-                    valueFormatter: params => params?.row?.updatedAt ? moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss") : 'Chưa cập nhật',
+                    valueFormatter: params => params?.row?.updatedAt ? datetimeVN(params.row?.updatedAt) : 'Chưa cập nhật',
                     renderCell: renderCellExpand, width: 200
                 },
                 { headerName: "Tên Công Việc", field: 'nameJob', renderCell: renderCellExpand, width: 200 },
                 {
                     headerName: "Mức Lương", field: 'salary',
-                    valueFormatter: params =>
-                        `
-                    ${params?.row?.salaryBefore?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ - 
-                    ${params?.row?.salaryAfter?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
-                    `,
+                    valueFormatter: params => ` ${formatMoney(params?.row?.salaryBefore)}đ - ${formatMoney(params?.row?.salaryAfter)}đ `,
                     renderCell: renderCellExpand, width: 200
                 },
                 { headerName: "Địa Chỉ", field: 'address', renderCell: renderCellExpand, width: 200 },
@@ -112,27 +105,23 @@ export default function DashboardNews(props) {
                 setTable([
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand, width: 200
                     },
                     {
                         headerName: "Hạn cuối", field: 'expirationDate',
-                        valueFormatter: params => moment(params.row?.expirationDate).format("DD-MM-YYYY"),
+                        valueFormatter: params => dateVN(params.row?.expirationDate),
                         renderCell: renderCellExpand, width: 200
                     },
                     {
                         headerName: "Ngày Cập nhật", field: 'updatedAt', hide: true,
-                        valueFormatter: params => params?.row?.updatedAt ? moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss") : 'Chưa cập nhật',
+                        valueFormatter: params => params?.row?.updatedAt ? datetimeVN(params.row?.updatedAt) : 'Chưa cập nhật',
                         renderCell: renderCellExpand, width: 200
                     },
                     { headerName: "Tên Công Việc", field: 'nameJob', renderCell: renderCellExpand, width: 200 },
                     {
                         headerName: "Mức Lương", field: 'salary',
-                        valueFormatter: params =>
-                            `
-                        ${params?.row?.salaryBefore?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ - 
-                        ${params?.row?.salaryAfter?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
-                        `,
+                        valueFormatter: params => ` ${formatMoney(params?.row?.salaryBefore)}đ - ${formatMoney(params?.row?.salaryAfter)}đ `,
                         renderCell: renderCellExpand, width: 200
                     },
                     { headerName: "Địa Chỉ", field: 'address', renderCell: renderCellExpand, width: 200 },
@@ -160,27 +149,23 @@ export default function DashboardNews(props) {
                 setTable([
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand, width: 200
                     },
                     {
                         headerName: "Hạn cuối", field: 'expirationDate',
-                        valueFormatter: params => moment(params.row?.expirationDate).format("DD-MM-YYYY"),
+                        valueFormatter: params => dateVN(params.row?.expirationDate),
                         renderCell: renderCellExpand, width: 200
                     },
                     {
                         headerName: "Ngày Cập nhật", field: 'updatedAt', hide: true,
-                        valueFormatter: params => params?.row?.updatedAt ? moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss") : 'Chưa cập nhật',
+                        valueFormatter: params => params?.row?.updatedAt ? datetimeVN(params.row?.updatedAt) : 'Chưa cập nhật',
                         renderCell: renderCellExpand, width: 200
                     },
                     { headerName: "Tên Công Việc", field: 'nameJob', renderCell: renderCellExpand, width: 200 },
                     {
                         headerName: "Mức Lương", field: 'salary',
-                        valueFormatter: params =>
-                            `
-                        ${params?.row?.salaryBefore?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ - 
-                        ${params?.row?.salaryAfter?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
-                        `,
+                        valueFormatter: params => ` ${formatMoney(params?.row?.salaryBefore)}đ - ${formatMoney(params?.row?.salaryAfter)}đ `,
                         renderCell: renderCellExpand, width: 200
                     },
                     { headerName: "Địa Chỉ", field: 'address', renderCell: renderCellExpand, width: 200 },

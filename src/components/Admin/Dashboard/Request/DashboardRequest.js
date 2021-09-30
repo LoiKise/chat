@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardRequestTable'
 import GridCellExpand from '../Order/GridCellExpand';
 import moment from 'moment';
+import { datetimeVN } from '../../../../helpers/time';
 export default function DashboardRequest(props) {
 
     const [table, setTable] = useState([])
@@ -12,7 +13,7 @@ export default function DashboardRequest(props) {
             setTable([
                 {
                     headerName: "Ngày tạo", field: 'createdAt', width: 150,
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand
                 },
                 { headerName: "Số điện thoại", field: 'phone', width: 100, renderCell: renderCellExpand },
@@ -33,7 +34,7 @@ export default function DashboardRequest(props) {
             setTable([
                 {
                     headerName: "Ngày tạo", field: 'createdAt', width: 150,
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand
                 },
                 { headerName: "Số điện thoại", field: 'phone', width: 100, renderCell: renderCellExpand },
@@ -56,7 +57,7 @@ export default function DashboardRequest(props) {
                 setTable([
                     {
                         headerName: "Ngày tạo", field: 'createdAt', width: 150,
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand
                     },
                     { headerName: "Số điện thoại", field: 'phone', width: 100, renderCell: renderCellExpand },
@@ -77,7 +78,7 @@ export default function DashboardRequest(props) {
                 setTable([
                     {
                         headerName: "Ngày tạo", field: 'createdAt', width: 150,
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand
                     },
                     { headerName: "Số điện thoại", field: 'phone', width: 100, renderCell: renderCellExpand },
