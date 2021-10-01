@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DataGrid } from '@mui/x-data-grid';
 import CustomPagination from '../Order/CustomPagination';
@@ -23,34 +23,36 @@ export default function DashboardDriverTable(props) {
     const [isLoading, setIsLoading] = useState(false)
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch();
+
+    const getDrivers = useCallback(
+        async () => {
+            const data = await requestAPI('/drivers/all', 'GET')
+                .then(res => {
+                    if (res) {
+                        setDriver(res.data?.data)
+                        setConstDriver(res.data?.data)
+                        setIsLoading(false)
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        if (err.response.status === 403 || err.response.status === 401) {
+                            history.push('/dashboard')
+                            enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                                persist: false,
+                                variant: 'error',
+                                preventDuplicate: true,
+                                autoHideDuration: 3000,
+                            })
+                        }
+                    }
+                })
+            return data
+        }, [enqueueSnackbar, history])
     useEffect(() => {
         setIsLoading(true)
         getDrivers();
-    }, [update])
-    const getDrivers = async () => {
-        const data = await requestAPI('/drivers/all', 'GET')
-            .then(res => {
-                if (res) {
-                    setDriver(res.data?.data)
-                    setConstDriver(res.data?.data)
-                    setIsLoading(false)
-                }
-            })
-            .catch(err => {
-                if (err) {
-                    if (err.response.status === 403 || err.response.status === 401) {
-                        history.push('/dashboard')
-                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
-                            persist: false,
-                            variant: 'error',
-                            preventDuplicate: true,
-                            autoHideDuration: 3000,
-                        })
-                    }
-                }
-            })
-        return data
-    }
+    }, [update, getDrivers])
     const deleteOnClick = () => {
         if (selection.length > 0) {
             RemoveDriver({ idList: selection }).then(res => {

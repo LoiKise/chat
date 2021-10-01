@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DataGrid } from '@mui/x-data-grid';
 import CustomPagination from '../Order/CustomPagination';
@@ -15,11 +15,7 @@ export default function DashboardSuppportTable(props) {
     const [support, setSupport] = useState([])
     const [constSupport, setConstSupport] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    useEffect(() => {
-        setIsLoading(true)
-        getSupports();
-    }, [])
-    const getSupports = async () => {
+    const getSupports = useCallback(async () => {
         const data = await requestAPI('/contact/all', 'GET')
             .then(res => {
                 if (res) {
@@ -42,7 +38,12 @@ export default function DashboardSuppportTable(props) {
                 }
             })
         return data
-    }
+    }, [history, enqueueSnackbar])
+    useEffect(() => {
+        setIsLoading(true)
+        getSupports();
+    }, [history, enqueueSnackbar, getSupports])
+
     const searchOnSubmit = (event) => {
         event.preventDefault()
     }

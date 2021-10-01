@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardUserTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
-import moment from 'moment';
 import { getUserUpdate } from '../../../../features/dashboard/user/userSlice';
 import { datetimeVN } from '../../../../helpers/time';
 export default function DashboardUser(props) {

@@ -2,7 +2,6 @@ import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardRequestTable'
 import GridCellExpand from '../Order/GridCellExpand';
-import moment from 'moment';
 import { datetimeVN } from '../../../../helpers/time';
 export default function DashboardRequest(props) {
 

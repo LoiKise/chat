@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardDeliveryTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
-import moment from 'moment';
 import { getOrderView } from '../../../../features/dashboard/order/orderSlice';
 import DashboardViewDetails from './../Order/DashboardViewDetails';
 import { getDeliveryUpdate } from '../../../../features/dashboard/delivery/deliverySlice';

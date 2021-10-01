@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DataGrid } from '@mui/x-data-grid';
 import CustomPagination from './CustomPagination';
@@ -23,11 +23,8 @@ export default function DashboardOrderTable(props) {
     const [open, setOpen] = useState(false)
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
-    useEffect(() => {
-        setIsLoading(true)
-        getOrders();
-    }, [orderUpdate])
-    const getOrders = async () => {
+
+    const getOrders = useCallback(async () => {
         const data = await requestAPI('/orders', 'GET')
             .then(res => {
                 if (res) {
@@ -50,7 +47,11 @@ export default function DashboardOrderTable(props) {
                 }
             })
         return data
-    }
+    }, [history, enqueueSnackbar])
+    useEffect(() => {
+        setIsLoading(true)
+        getOrders();
+    }, [orderUpdate, getOrders])
     const deleteOnClick = () => {
         if (selection.length > 0) {
             RemoveOrder({ idList: selection }).then(res => {

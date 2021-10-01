@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardOrderTable'
 import { EditToolbar } from './DashboardEditToolBar';
 import GridCellExpand from './GridCellExpand';
-import moment from 'moment';
 import { getOrderUpdate, } from '../../../../features/dashboard/order/orderSlice';
 import { datetimeVN } from '../../../../helpers/time';
 export default function DashboardOrder(props) {

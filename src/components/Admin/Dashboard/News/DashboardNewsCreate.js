@@ -23,7 +23,6 @@ export default function DashboardUserCreate(props) {
         quantity: 0,
         require: "",
         thumbnails: "",
-        thumbnails: "",
     })
     //Handle Event and Request DataBase
     const createNews = async (dataFormat) => {

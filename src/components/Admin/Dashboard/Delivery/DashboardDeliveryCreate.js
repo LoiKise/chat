@@ -4,14 +4,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
-import { useSelector } from 'react-redux';
 import DashboardSelectInput from './../Order/DashboardSelectInput';
 import { CallBackGetDelivery } from '../../../../features/dashboard/delivery/deliverySlice';
 export default function DashboardUserCreate(props) {
     const { enqueueSnackbar } = useSnackbar();
     const createForm = useRef();
     const dispatch = useDispatch();
-    const update = useSelector(state => state.delivery.deliveryUpdate)
     const [sltDriver, setSltDriver] = useState(false);
     const [sltTypeShip, setSltTypeShip] = useState(false);
     const [sltStatus, setSltStatus] = useState(false);
