@@ -1,5 +1,4 @@
 import React from "react";
-
 export default function index() {
-  return <>Loading...</>;
+  return <div className="loading"></div>;
 }

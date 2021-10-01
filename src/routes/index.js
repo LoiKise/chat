@@ -32,6 +32,15 @@ const index = [
     ),
   },
   {
+    path: "/fallback",
+    exact: true,
+    main: () => (
+      <Suspense key={index} fallback={<Fallback />}>
+        <Fallback />
+      </Suspense>
+    ),
+  },
+  {
     path: "/Recruitment",
     main: () => (
       <Suspense key={index} fallback={<Fallback />}>
