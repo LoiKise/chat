@@ -54,7 +54,7 @@
     position: relative;
     margin-left: 70px;
   }
-  .section__top-header{
+  .section__top-header {
     font-size: 4rem;
   }
   .whoweare__content-text span::before {
@@ -110,66 +110,6 @@
 
 /*---------------------------------reponsive------------------------*/
 
-// .whoweare {
-//   @include mobile {
-//     .whoweare__content-experience {
-//       span {
-//         font-size: 3.9rem;
-//       }
-//       & :after {
-//         bottom: 56% !important;
-//         left: 95%;
-//       }
-//       p {
-//         font-size: 1.1rem;
-//       }
-//     }
-//     .whoweare__content-text {
-//       margin-top: 60px;
-//     }
-//   }
-// }
-
-// .whoweare {
-//   @include tablet {
-//     .whoweare__content-text {
-//       margin-top: 60px;
-//     }
-//   }
-// }
-
-// .whoweare {
-//   @include mobile {
-//     .whoweare__content{
-//       .row{
-//         margin-left: 0;
-//       }
-//     }
-//     .whoweare__content-experience {
-//       span {
-//         font-size: 3.9rem;
-//       }
-//       & :after {
-//         bottom: 56% !important;
-//         left: 95%;
-//       }
-//       p {
-//         font-size: 1.1rem;
-//       }
-//     }
-//     .whoweare__content-text {
-//       margin-top: 60px;
-//       span {
-//         margin-left: 0;
-//       }
-//     }
-//   }
-//   @include tablet {
-//     .whoweare__content-text {
-//       margin-top: 60px;
-//     }
-//   }
-// }
 .section__top {
   @include tablet {
     margin-top: 70px;
@@ -177,6 +117,14 @@
 }
 
 .whoweare {
+  @include mobile {
+    .whoweare__content-text {
+      span {
+        margin-left: 0px;
+      }
+    }
+  }
+
   .whoweare__content-experience {
     @include mobile {
       span {
