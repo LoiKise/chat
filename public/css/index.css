@@ -546,6 +546,11 @@ p {
     transform: translate(70px, -10px);
     width: 67%; } }
 
+@media (max-width: 1365px) {
+  .header__nav-list {
+    transform: translate(256px, -10px);
+    width: 72%; } }
+
 @media (max-width: 1119px) {
   .header__nav-list {
     transform: translateX(248px);
