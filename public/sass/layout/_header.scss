@@ -37,8 +37,9 @@
   height: auto;
   z-index: 9999;
   position: fixed;
-  transform: translate(70px, -10px);
+  transform: translate(60px, -10px);
 }
+
 .header__nav--collapse {
   flex-grow: 0 !important;
 }
@@ -144,108 +145,11 @@
   }
 }
 
-// .navbar {
-//   @include mobile {
-//     flex-direction: row-reverse;
-//   }
-//   @include tablet {
-//     flex-direction: row-reverse;
-//   }
-//   .navbar-brand {
-//     @include mobile {
-//     }
-//     @include tablet {
-//       margin-right: 620px !important;
-//       margin-left: 40px;
-//     }
-//     @include desktop {
-//       margin-right: 112px !important;
-//       margin-left: 54px;
-//     }
-//   }
-// }
-// .navbar-light {
-//   .navbar-toggler {
-//     @include mobile {
-//       width: 10%;
-//       transform: translateY(-23px);
-//     }
-//     @include tablet {
-//       width: 5%;
-//       transform: translateY(-23px);
-//     }
-//   }
-// }
-
-// .header__nav-list {
-//   @include desktop {
-//     flex-direction: row;
-//     background-color: transparent;
-//     width: 100%;
-//     height: auto;
-//     z-index: 9999;
-//     position: fixed;
-//     align-items: center;
-//     transform: translate(-35%, -20%);
-//   }
-//   @include tablet-plus {
-//     flex-direction: row;
-//     background-color: transparent;
-//     width: 72%;
-//     height: auto;
-//     z-index: 9999;
-//     position: fixed;
-//     align-items: center;
-//     transform: translate(-35%, -20%);
-//   }
-
-//   @include mobile {
-//     flex-direction: column;
-//     background-color: black;
-//     width: 100%;
-//     height: auto;
-//     z-index: 9999;
-//     position: fixed;
-//     align-items: center;
-//     align-items: center;
-//     transform: translate(16%, 16%);
-//   }
-
-//   .header__authenWrapper {
-//     @include tablet {
-//       transform: translateX(0px);
-//     }
-//     @include desktop {
-//       //transform: translateX(115px);
-//     }
-//   }
-// }
-
-// .navbar-collapse {
-//   @include mobile {
-//     margin-left: -11px;
-//   }
-//   @include tablet {
-//     margin-left: -11px;
-//   }
-//   @include desktop {
-//     transform: translate(-81px, -17px) !important;
-//   }
-// }
-
-// .header {
-//   @include desktop {
-//     .colorChange {
-//       .navbar-collapse {
-//         .header__nav-list {
-//           margin-top: 0px;
-//         }
-//       }
-//     }
-//   }
-// }
 .header {
   .navbar-collapse {
+    @include res-1200 {
+      margin-left: -150px;
+    }
     @include ipadPro {
       .header__authenWrapper {
         transform: translateX(80px);
@@ -254,32 +158,72 @@
   }
 }
 .header__nav-list {
-  @include res-1200 {
-    transform: translateX(163px);
+  @include desktop-Mac {
+    width: 53%;
+    transform: translate(-175px, -10px);
   }
+  @include desktop {
+    transform: translate(70px, -10px);
+    width: 67%;
+  }
+  // @include res-1200 {
+  //   // transform: translateX(150px);
+  //   transform: translate(240px, -10px) !important;
+  // }
+
   @include ipadPro {
-    transform: translateX(123px);
+    transform: translateX(248px);
     width: 70%;
     .header__nav-link {
       font-size: 15px;
     }
   }
+
   @include tablet {
     background-color: black;
     display: flex;
     flex-direction: column;
     text-align: center;
-    transform: translate(50px, 48px);
+    transform: translate(205px, 48px);
     width: 100%;
     height: 100%;
     justify-content: center;
     padding-bottom: 170px;
     .header__nav-item {
-      padding-bottom: 50px;
+      @include tablet{
+        a{
+          font-size: 30px;
+        }
+        span{
+          font-size: 30px;
+        }
+      }
+      @include mobile-mini {
+        padding-bottom: 20px;
+        a{
+          font-size: 13px;
+        }
+        span{
+          font-size: 13px;
+        }
+      }
+      @include mobile{
+        padding-bottom: 20px;
+        a{
+          font-size: 15px;
+        }
+        span{
+          font-size: 15px;
+        }
+      }
     }
     .header__authenWrapper {
       transform: translateX(8px) !important;
     }
+  }
+  @include mobile {
+    // background-color: red;
+    transform: translate(218px, 48px);
   }
 }
 
@@ -289,7 +233,7 @@
       position: absolute;
       top: 36%;
     }
-    @include scale{
+    @include scale {
       // background-color: red;
       transform: translateY(-40px);
     }
@@ -297,15 +241,26 @@
 }
 
 .header {
-  @include tablet {
-    .colorChange {
-      .navbar-collapse {
-        .header__nav-list {
+  .colorChange {
+    .navbar-collapse {
+      .header__nav-list {
+        @include tablet {
           background-color: #6d6767;
           display: flex;
           flex-direction: column;
           text-align: center;
-          transform: translate(48px, 25px);
+          transform: translate(204px, 25px);
+          width: 100%;
+          height: 100vh;
+          justify-content: center;
+          padding-bottom: 170px;
+        }
+        @include mobile {
+          background-color: #6d6767;
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          transform: translate(217px, 25px);
           width: 100%;
           height: 100vh;
           justify-content: center;
@@ -315,3 +270,6 @@
     }
   }
 }
+// @include mobile{
+//   transform: translate(187px, 25px);
+// }
