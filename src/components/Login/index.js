@@ -58,11 +58,13 @@ export default function Index() {
 
   //login gg
   const responseGoogle = async (res) => {
-    if (res.profileObj === undefined && res.accessToken === undefined) {
-      toast.error("Đăng nhập thất bại", {
+    console.log(res.error);
+    if (res.error === "popup_closed_by_user") {
+      return toast.error("Đăng nhập thất bại", {
         position: "top-center",
         autoClose: 3000,
       });
+    } else if (res.error === "idpiframe_initialization_failed") {
       return;
     }
     const body = {
