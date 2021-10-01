@@ -27,14 +27,13 @@ export default function Search(props) {
   //   customerPhone: '',
   //   date: '',
   // })
-
+  const [state, setstate] = useState()
 
   const handleChangeInput = (event) => {
     let { value, name, valueAsDate } = event.target;
     // console.log({ date: event.target });
-    let state = event.target.type === 'date' ? valueAsDate : value
+    // let state = event.target.type === 'date' ? valueAsDate : value
     // console.log(type)
-    console.log(valueAsDate)
     setType({
       ...type,
       [name]: value
@@ -44,8 +43,7 @@ export default function Search(props) {
     //   [name]: value
     // })
   }
-  const [state, setstate] = useState()
-  const [loading, setLoading] = useState(false)
+
   const handleSubmit = (event) => {
     // chặn sự kiện submit browser
     event.preventDefault();
@@ -62,7 +60,7 @@ export default function Search(props) {
           }).catch(err => console.log(err))
       } else {
         // handleShow()
-      
+
       }
     }, 1000);
   }
@@ -84,7 +82,7 @@ export default function Search(props) {
                       value={type.name}
                       required
                     />
-                   
+
                   </div>
                   <div className="form-group" >
                     <p>Số điện thoại</p>
