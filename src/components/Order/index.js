@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import ButtonCustom from "../../utils/Buttons/ButtonCustom";
 import CategoryTitle from "../Home/Category/CategoryTitle/CategoryTitle";
 import requestAPI from "../../apis";
 import { Controller, useForm } from "react-hook-form";
@@ -41,8 +40,9 @@ export default function Index() {
   const handleValue = async (data) => {
     let note = "";
     let fastShip = false;
-    const address = `${data.address}, ${data.borough}, ${data.district.split("-")[1]
-      }, ${data.city.split("-")[1]}.`;
+    const address = `${data.address}, ${data.borough}, ${
+      data.district.split("-")[1]
+    }, ${data.city.split("-")[1]}.`;
     if (data.devo && data.devo !== undefined) {
       note += "Dễ vỡ,";
     }
@@ -446,13 +446,10 @@ export default function Index() {
         <div className="section-area__btn">
           <button type="submit">
             GỬI YÊU CẦU
-            {/* name="Gửi Yêu Cầu"
-            linkIcon={IconService}
-            isTransparent={3} */}
+            <img className="section-area__img" src={IconService} alt="" />
           </button>
         </div>
       </form>
     </div>
   );
 }
-
