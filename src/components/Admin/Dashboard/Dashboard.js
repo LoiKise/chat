@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import DashboardBody from './DashboardBody'
 import DashboardMenu from './DashboardMenu'
 import { faFileInvoice, faHome, faNewspaper, faShoppingBag, faEnvelope, faUser, faBiking, faTruck } from '@fortawesome/free-solid-svg-icons'
@@ -64,14 +64,12 @@ function Dashboard(props) {
     const history = useHistory();
     const [orderNotice] = useState(null)
     const [userInfo, setUserInfo] = useState(null)
-    useEffect(() => {
-        verifyToken()
-    }, [ACCESS_TOKEN])
+
     //call api get info user 
     const setTabIdOnClick = (id) => {
         setTabId(id);
     }
-    const verifyToken = async () => {
+    const verifyToken = useCallback(async () => {
         if (ACCESS_TOKEN()) {
             await requestAPI('/admin', 'POST', { token: ACCESS_TOKEN() })
                 .then(res => {
@@ -92,9 +90,10 @@ function Dashboard(props) {
         } else {
             history.push('/dashboard')
         }
-
-
-    }
+    }, [history, enqueueSnackbar])
+    useEffect(() => {
+        verifyToken()
+    }, [verifyToken])
     const setOpenMenuOnClick = () => {
         if (window.innerWidth <= 1110) {
             setOpenMenu(true);

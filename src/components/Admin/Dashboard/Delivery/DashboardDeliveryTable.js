@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DataGrid } from '@mui/x-data-grid';
 import CustomPagination from '../Order/CustomPagination';
@@ -28,11 +28,8 @@ export default function DashboardDeliveryTable(props) {
     const [isLoading, setIsLoading] = useState(false)
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch();
-    useEffect(() => {
-        setIsLoading(true)
-        getDelivery();
-    }, [orderUpdate])
-    const getDelivery = async () => {
+
+    const getDelivery = useCallback(async () => {
         const data = await requestAPI('/delivery', 'GET')
             .then(res => {
                 if (res) {
@@ -55,7 +52,11 @@ export default function DashboardDeliveryTable(props) {
                 }
             })
         return data
-    }
+    }, [enqueueSnackbar, history])
+    useEffect(() => {
+        setIsLoading(true)
+        getDelivery();
+    }, [orderUpdate, getDelivery])
     const handleOpenDialogDelete = () => {
         setOpen(true);
     }

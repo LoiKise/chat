@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardDeliveryTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
-import moment from 'moment';
 import { getOrderView } from '../../../../features/dashboard/order/orderSlice';
 import DashboardViewDetails from './../Order/DashboardViewDetails';
 import { getDeliveryUpdate } from '../../../../features/dashboard/delivery/deliverySlice';
+import { datetimeVN } from '../../../../helpers/time';
+import { formatMoney } from './../../../../helpers/money';
 export default function DashboardDelivery(props) {
 
     const [table, setTable] = useState([])
@@ -25,12 +26,12 @@ export default function DashboardDelivery(props) {
                 },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand, width: 150,
                 },
                 {
                     headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
-                    valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.updatedAt),
                     renderCell: renderCellExpand, width: 150,
                 },
                 {
@@ -49,12 +50,12 @@ export default function DashboardDelivery(props) {
                 { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
                 {
                     headerName: "Phụ thu", field: 'totalPrice', renderCell: renderCellExpand, width: 150,
-                    valueFormatter: params => `${params.row?.saleOrder?.totalPrice && params.row?.saleOrder?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`
+                    valueFormatter: params => `${formatMoney(params.row?.saleOrder?.totalPrice)}đ`
                 },
                 {
                     headerName: "Thời gian nhận hàng", field: 'plannedTime', renderCell: renderCellExpand, width: 150,
                     valueFormatter: params => params?.row?.plannedTime ?
-                        moment(params.row?.plannedTime).format("DD-MM-YYYY HH:mm:ss") : 'Chưa bắt đầu giao',
+                        datetimeVN(params.row?.plannedTime) : 'Chưa bắt đầu giao',
                 },
                 {
                     headerName: "Tình trạng", field: 'status', width: 150,
@@ -94,12 +95,12 @@ export default function DashboardDelivery(props) {
                 },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand, width: 150,
                 },
                 {
                     headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
-                    valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.updatedAt),
                     renderCell: renderCellExpand, width: 150,
                 },
                 {
@@ -118,12 +119,12 @@ export default function DashboardDelivery(props) {
                 { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
                 {
                     headerName: "Phụ thu", field: 'totalPrice', renderCell: renderCellExpand, width: 150,
-                    valueFormatter: params => `${params.row?.saleOrder?.totalPrice && params.row?.saleOrder?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`
+                    valueFormatter: params => `${formatMoney(params.row?.saleOrder?.totalPrice)}đ`
                 },
                 {
                     headerName: "Thời gian nhận hàng", field: 'plannedTime', renderCell: renderCellExpand, width: 150,
                     valueFormatter: params => params?.row?.plannedTime ?
-                        moment(params.row?.plannedTime).format("DD-MM-YYYY HH:mm:ss") : 'Chưa bắt đầu giao',
+                        datetimeVN(params.row?.plannedTime) : 'Chưa bắt đầu giao',
                 },
                 {
                     headerName: "Tình trạng", field: 'status', width: 150,
@@ -165,12 +166,12 @@ export default function DashboardDelivery(props) {
                     },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand, width: 150,
                     },
                     {
                         headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
-                        valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.updatedAt),
                         renderCell: renderCellExpand, width: 150,
                     },
                     {
@@ -189,12 +190,12 @@ export default function DashboardDelivery(props) {
                     { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
                     {
                         headerName: "Phụ thu", field: 'totalPrice', renderCell: renderCellExpand, width: 150,
-                        valueFormatter: params => `${params.row?.saleOrder?.totalPrice && params.row?.saleOrder?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`
+                        valueFormatter: params => `${formatMoney(params.row?.saleOrder?.totalPrice)}đ`
                     },
                     {
                         headerName: "Thời gian nhận hàng", field: 'plannedTime', renderCell: renderCellExpand, width: 150,
                         valueFormatter: params => params?.row?.plannedTime ?
-                            moment(params.row?.plannedTime).format("DD-MM-YYYY HH:mm:ss") : 'Chưa bắt đầu giao',
+                            datetimeVN(params.row?.plannedTime) : 'Chưa bắt đầu giao',
                     },
                     {
                         headerName: "Tình trạng", field: 'status', width: 150,
@@ -215,6 +216,7 @@ export default function DashboardDelivery(props) {
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />
+
                                 </div>
                             );
                         }
@@ -233,12 +235,12 @@ export default function DashboardDelivery(props) {
                     },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand, width: 150,
                     },
                     {
                         headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
-                        valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.updatedAt),
                         renderCell: renderCellExpand, width: 150,
                     },
                     {
@@ -257,12 +259,12 @@ export default function DashboardDelivery(props) {
                     { headerName: "Phương thức giao hàng", field: 'typeShip', renderCell: renderCellExpand, width: 150, },
                     {
                         headerName: "Phụ thu", field: 'totalPrice', renderCell: renderCellExpand, width: 150,
-                        valueFormatter: params => `${params.row?.saleOrder?.totalPrice && params.row?.saleOrder?.totalPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ`
+                        valueFormatter: params => `${formatMoney(params.row?.saleOrder?.totalPrice)}đ`
                     },
                     {
                         headerName: "Thời gian nhận hàng", field: 'plannedTime', renderCell: renderCellExpand, width: 150,
                         valueFormatter: params => params?.row?.plannedTime ?
-                            moment(params.row?.plannedTime).format("DD-MM-YYYY HH:mm:ss") : 'Chưa bắt đầu giao',
+                            datetimeVN(params.row?.plannedTime) : 'Chưa bắt đầu giao',
                     },
                     {
                         headerName: "Tình trạng", field: 'status', width: 150,
@@ -283,6 +285,7 @@ export default function DashboardDelivery(props) {
                                         params={params.row}
                                         setOpenEditFunc={props.setOpenEditFunc}
                                     />
+
                                 </div>
                             );
                         }

@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import DashboardTextInput from './../Order/DashboardTextInput';
 import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
 import { TextField } from '@material-ui/core';
-import moment from 'moment'
 export default function DashboardUserCreate(props) {
     const { enqueueSnackbar } = useSnackbar();
     const createForm = useRef();

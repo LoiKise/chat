@@ -15,16 +15,16 @@ export const login = createAsyncThunk(
 );
 
 const handleChangePass = (state, action) => {
-  const { oldPassword, newPassword } = action.payload;
-  state.profile = {...state.profile, password : newPassword};
+  const { newPassword } = action.payload;
+  state.profile = { ...state.profile, password: newPassword };
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
-}
+};
 
 const handleUpdate = (state, action) => {
   const { email, fullname, phone, imgUrl } = action.payload;
   state.profile = { ...state.profile, email, fullname, phone, imgUrl };
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
-}
+};
 
 const handleError = (state, action) => {
   const codeStatus = action.payload.response.status;
@@ -46,7 +46,10 @@ const handleLogin = (state, action) => {
   const { user, token } = action.payload.data;
   state.profile = user;
   state.statusSocial = false;
-  localStorage.setItem(LocalStorage.statusSocial, JSON.stringify(state.statusSocial));
+  localStorage.setItem(
+    LocalStorage.statusSocial,
+    JSON.stringify(state.statusSocial)
+  );
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
   localStorage.setItem(LocalStorage.accessToken, token);
 };
@@ -55,7 +58,10 @@ const handleAuthSocial = (state, action) => {
   const { user, accessToken } = action.payload;
   state.profile = user;
   state.statusSocial = true;
-  localStorage.setItem(LocalStorage.statusSocial, JSON.stringify(state.statusSocial));
+  localStorage.setItem(
+    LocalStorage.statusSocial,
+    JSON.stringify(state.statusSocial)
+  );
   localStorage.setItem(LocalStorage.user, JSON.stringify(state.profile));
   localStorage.setItem(LocalStorage.accessToken, accessToken);
 };
@@ -71,13 +77,13 @@ const auth = createSlice({
   name: "auth",
   initialState: {
     profile: JSON.parse(localStorage.getItem(LocalStorage.user)) || {},
-    statusSocial : JSON.parse(localStorage.getItem(LocalStorage.statusSocial)),
+    statusSocial: JSON.parse(localStorage.getItem(LocalStorage.statusSocial)),
   },
   reducers: {
     logout: handleUnAuth,
     loginSocial: handleAuthSocial,
-    updateInfo : handleUpdate,
-    changePass : handleChangePass,
+    updateInfo: handleUpdate,
+    changePass: handleChangePass,
   },
   extraReducers: {
     [login.rejected]: handleError,

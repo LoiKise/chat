@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardOrderTable'
 import { EditToolbar } from './DashboardEditToolBar';
 import GridCellExpand from './GridCellExpand';
-import moment from 'moment';
 import { getOrderUpdate, } from '../../../../features/dashboard/order/orderSlice';
+import { datetimeVN } from '../../../../helpers/time';
 export default function DashboardOrder(props) {
 
     const [table, setTable] = useState([])
@@ -15,7 +15,7 @@ export default function DashboardOrder(props) {
                 { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand, width: 150 },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand, width: 150
                 },
                 { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand, width: 150 },
@@ -71,7 +71,7 @@ export default function DashboardOrder(props) {
                 { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand, width: 150 },
                 {
                     headerName: "Ngày tạo", field: 'createdAt',
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand, width: 150
                 },
                 { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand, width: 150 },
@@ -129,7 +129,7 @@ export default function DashboardOrder(props) {
                     { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand, width: 150 },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand, width: 150
                     },
                     { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand, width: 150 },
@@ -184,7 +184,7 @@ export default function DashboardOrder(props) {
                     { headerName: "Mã Đơn", field: 'id', renderCell: renderCellExpand, width: 150 },
                     {
                         headerName: "Ngày tạo", field: 'createdAt',
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand, width: 150
                     },
                     { headerName: "Phân loại khách", field: 'customerType', renderCell: renderCellExpand, width: 150 },

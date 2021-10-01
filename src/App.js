@@ -4,7 +4,6 @@ import Header from "./components/Layouts/Header";
 import Footer from "./components/Layouts/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { scrollTop } from "dom-helpers";
 
 function App() {
   const RouteContainer = (routes) => {
@@ -43,7 +42,7 @@ function App() {
   return (
     <>
       <Router>
-        <scrollTop/>
+        <scrollTop />
         <Switch>{RouteContainer(routes)}</Switch>
       </Router>
       <ToastContainer />

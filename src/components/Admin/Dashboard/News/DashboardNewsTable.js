@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DataGrid } from '@mui/x-data-grid';
 import CustomPagination from '../Order/CustomPagination';
@@ -23,34 +23,36 @@ export default function DashboardNewsTable(props) {
     const [isLoading, setIsLoading] = useState(false)
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch();
+    const getNews = useCallback(
+        async () => {
+            const data = await requestAPI('/jobs/all', 'GET')
+                .then(res => {
+                    if (res) {
+                        setNews(res.data?.data)
+                        setConstNews(res.data?.data)
+                        setIsLoading(false)
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        if (err.response.status === 403 || err.response.status === 401) {
+                            history.push('/dashboard')
+                            enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
+                                persist: false,
+                                variant: 'error',
+                                preventDuplicate: true,
+                                autoHideDuration: 3000,
+                            })
+                        }
+                    }
+                })
+            return data
+        }, [enqueueSnackbar, history])
     useEffect(() => {
         setIsLoading(true)
         getNews();
-    }, [update])
-    const getNews = async () => {
-        const data = await requestAPI('/jobs/all', 'GET')
-            .then(res => {
-                if (res) {
-                    setNews(res.data?.data)
-                    setConstNews(res.data?.data)
-                    setIsLoading(false)
-                }
-            })
-            .catch(err => {
-                if (err) {
-                    if (err.response.status === 403 || err.response.status === 401) {
-                        history.push('/dashboard')
-                        enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
-                            persist: false,
-                            variant: 'error',
-                            preventDuplicate: true,
-                            autoHideDuration: 3000,
-                        })
-                    }
-                }
-            })
-        return data
-    }
+    }, [update, getNews])
+
     const deleteOnClick = () => {
         if (selection.length > 0) {
             RemoveNews({ idList: selection }).then(res => {

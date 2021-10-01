@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import DashboardProductTable from './DashboardDriverTable'
 import { EditToolbar } from '../Order/DashboardEditToolBar';
 import GridCellExpand from '../Order/GridCellExpand';
-import moment from 'moment';
 import { getDriverUpdate } from '../../../../features/dashboard/driver/driverSlice';
+import { datetimeVN } from '../../../../helpers/time';
 export default function DashboardUser(props) {
 
     const [table, setTable] = useState([])
@@ -14,12 +14,12 @@ export default function DashboardUser(props) {
             setTable([
                 {
                     headerName: "Ngày tạo", field: 'createdAt', width: 200,
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand
                 },
                 {
                     headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
-                    valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.updatedAt),
                     renderCell: renderCellExpand, width: 200
                 },
                 { headerName: "Họ và tên", field: 'name', renderCell: renderCellExpand, width: 200, },
@@ -45,12 +45,12 @@ export default function DashboardUser(props) {
             setTable([
                 {
                     headerName: "Ngày tạo", field: 'createdAt', width: 200,
-                    valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.createdAt),
                     renderCell: renderCellExpand
                 },
                 {
                     headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
-                    valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                    valueFormatter: params => datetimeVN(params.row?.updatedAt),
                     renderCell: renderCellExpand, width: 200
                 },
                 { headerName: "Họ và tên", field: 'name', renderCell: renderCellExpand, width: 200, },
@@ -78,12 +78,12 @@ export default function DashboardUser(props) {
                 setTable([
                     {
                         headerName: "Ngày tạo", field: 'createdAt', width: 200,
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand, hide: true
                     },
                     {
                         headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
-                        valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.updatedAt),
                         renderCell: renderCellExpand, width: 200
                     },
                     { headerName: "Họ và tên", field: 'name', renderCell: renderCellExpand, width: 200, },
@@ -109,12 +109,12 @@ export default function DashboardUser(props) {
                 setTable([
                     {
                         headerName: "Ngày tạo", field: 'createdAt', width: 200,
-                        valueFormatter: params => moment(params.row?.createdAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.createdAt),
                         renderCell: renderCellExpand, hide: true
                     },
                     {
                         headerName: "Ngày cập nhật", field: 'updatedAt', hide: true,
-                        valueFormatter: params => moment(params.row?.updatedAt).format("DD-MM-YYYY HH:mm:ss"),
+                        valueFormatter: params => datetimeVN(params.row?.updatedAt),
                         renderCell: renderCellExpand, width: 200,
                     },
                     { headerName: "Họ và tên", field: 'name', renderCell: renderCellExpand, width: 200, },

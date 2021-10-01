@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faAngleUp, faIdCard, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleUp, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { Tooltip, Zoom } from '@mui/material'
 const LOGO = "../assets/img/logo/dark_logo.png"
