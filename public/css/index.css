@@ -3975,6 +3975,9 @@ select {
 .ordernow {
   background-image: linear-gradient(to right, var(--gradient-color-from), var(--gradient-color-to)); }
 
+.section-area__img {
+  height: 2rem; }
+
 .ordernow__top {
   margin-top: 60px; }
 
