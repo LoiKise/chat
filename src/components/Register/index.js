@@ -62,12 +62,13 @@ export default function Index() {
   };
 
   const responseGoogle = async (res) => {
+    console.log(res.error);
     if (res.error === "popup_closed_by_user") {
       return toast.error("Đăng nhập thất bại", {
         position: "top-center",
         autoClose: 3000,
       });
-    } else if (res.error !== "popup_closed_by_user") {
+    } else if (res.error === "idpiframe_initialization_failed") {
       return;
     }
     const body = {
