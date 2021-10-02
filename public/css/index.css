@@ -534,7 +534,7 @@ p {
 
 @media (max-width: 1119px) {
   .header .navbar-collapse .header__authenWrapper {
-    transform: translateX(80px); } }
+    transform: translateX(65px); } }
 
 @media (max-width: 1921px) {
   .header__nav-list {
@@ -629,6 +629,10 @@ p {
     height: 100vh;
     justify-content: center;
     padding-bottom: 170px; } }
+
+@media (max-width: 1119px) {
+  .header .colorChange .navbar-collapse .header__nav-list .header__authenWrapper {
+    transform: translateX(65px); } }
 
 .header--home {
   background: transparent; }
