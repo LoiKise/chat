@@ -62,13 +62,7 @@ export default function Index() {
   };
 
   const responseGoogle = async (res) => {
-    console.log(res.error);
-    if (res.error === "popup_closed_by_user") {
-      return toast.error("Đăng nhập thất bại", {
-        position: "top-center",
-        autoClose: 3000,
-      });
-    } else if (res.error === "idpiframe_initialization_failed") {
+    if (res.error) {
       return;
     }
     const body = {
@@ -100,10 +94,7 @@ export default function Index() {
   //login face
   const responseFacebook = async (res) => {
     if (res.name === undefined && res.accessToken === undefined) {
-      return toast.error("Đăng nhập thất bại", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      return;
     }
     const body = {
       user: { fullname: res.name },

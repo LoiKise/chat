@@ -58,13 +58,7 @@ export default function Index() {
 
   //login gg
   const responseGoogle = async (res) => {
-    console.log(res.error);
-    if (res.error === "popup_closed_by_user") {
-      return toast.error("Đăng nhập thất bại", {
-        position: "top-center",
-        autoClose: 3000,
-      });
-    } else if (res.error === "idpiframe_initialization_failed") {
+    if (res.error) {
       return;
     }
     const body = {
@@ -76,7 +70,7 @@ export default function Index() {
     try {
       const res = await dispatch(loginSocial(body));
       unwrapResult(res);
-      history.push("/");
+      // history.push("/");
       toast.success("Đăng nhập thành công", {
         position: "top-center",
         autoClose: 3000,
@@ -96,10 +90,6 @@ export default function Index() {
   //login face
   const responseFacebook = async (res) => {
     if (res.name === undefined && res.accessToken === undefined) {
-      toast.error("Đăng nhập thất bại", {
-        position: "top-center",
-        autoClose: 3000,
-      });
       return;
     }
     const body = {
