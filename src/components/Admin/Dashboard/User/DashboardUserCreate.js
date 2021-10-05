@@ -51,9 +51,32 @@ export default function DashboardUserCreate(props) {
     }
     const onSubmit = (event) => {
         event.preventDefault()
-
+        const vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        const ver_name = /[^a-z0-9]/gi;
+        const ver_pass = /^([a-zA-Z0-9]+)$/;
         if (!data.email || !data.fullname || !data.password || !data.phone || !data.role) {
             enqueueSnackbar('Không được bỏ trống các trường, vui lòng kiểm tra lại thông tin vừa nhập', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (!ver_name.test(data.fullname)) {
+            enqueueSnackbar('Vui lòng nhập đẩy đủ họ và tên ( Nguyễn Văn A hoặc Nguyễn A )', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (!vnf_regex.test(data.phone)) {
+            enqueueSnackbar('Số điện thoại không hợp lệ vui lòng kiểm tra lại', {
+                persist: false,
+                variant: 'warning',
+                preventDuplicate: true,
+                autoHideDuration: 3000,
+            })
+        } else if (!ver_pass.test(data.password) || data.password.length >= 6) {
+            enqueueSnackbar('Mật khẩu vui lòng không được nhỏ hơn 6 ký tự và không chứa ký tự đặc biệt', {
                 persist: false,
                 variant: 'warning',
                 preventDuplicate: true,
@@ -113,7 +136,7 @@ export default function DashboardUserCreate(props) {
                     {/* Sender Infomation */}
 
                     <DashboardTextInput
-                        textType={"text"}
+                        textType={"email"}
                         title={"Email"}
                         placeholder={"Địa chỉ Email"}
                         isRequire={true}
@@ -124,7 +147,7 @@ export default function DashboardUserCreate(props) {
                     <DashboardTextInput
                         textType={"text"}
                         title={"Họ và tên"}
-                        placeholder={"Họ và tên tài khoản"}
+                        placeholder={"Họ và tên người dùng"}
                         isRequire={true}
                         data={data}
                         setData={setData}
@@ -133,14 +156,14 @@ export default function DashboardUserCreate(props) {
                     <DashboardTextInput
                         textType={"text"}
                         title={"Số điện thoại"}
-                        placeholder={"Số điện thoại tài khoản"}
+                        placeholder={"Số điện thoại người dùng"}
                         isRequire={true}
                         data={data}
                         setData={setData}
                         objectKey={"phone"}
                     />
                     <DashboardTextInput
-                        textType={"text"}
+                        textType={"password"}
                         title={"Mật khẩu"}
                         placeholder={"Mật khẩu tài khoản"}
                         isRequire={true}

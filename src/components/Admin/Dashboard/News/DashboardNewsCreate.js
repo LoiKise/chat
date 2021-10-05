@@ -6,8 +6,11 @@ import { useDispatch } from 'react-redux';
 import requestAPI from '../../../../apis';
 import DashboardTextInput from './../Order/DashboardTextInput';
 import { CallBackGetNews } from '../../../../features/dashboard/news/newsSlice.js';
-import { TextField } from '@material-ui/core';
-import moment from 'moment'
+import TextField from '@mui/material/TextField';
+import DatePicker from '@mui/lab/DatePicker';
+import viLocale from 'date-fns/locale/vi';
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 export default function DashboardUserCreate(props) {
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
@@ -47,8 +50,8 @@ export default function DashboardUserCreate(props) {
                 preventDuplicate: true,
                 autoHideDuration: 3000,
             })
-        } else if (data.salaryAfter < 0) {
-            enqueueSnackbar('Mức lương tối đa chưa chính xác, vui lòng nhập trong khoảng từ 0đ -> 100.000.000đ', {
+        } else if (data.salaryAfter < 0 || data.salaryAfter < data.salaryBefore) {
+            enqueueSnackbar('Mức lương tối đa chưa chính xác, vui lòng nhập trong khoảng từ Mức lương tối thiểu -> 100.000.000đ', {
                 persist: false,
                 variant: 'warning',
                 preventDuplicate: true,
@@ -195,24 +198,22 @@ export default function DashboardUserCreate(props) {
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Hạn cuối nộp hồ sơ</div>
                         <div className="dashboard-right--input">
-                            <TextField
-                                // id="date"
-                                error={data.expirationDate?.length < 1 ? true : false}
-                                id="outlined-totalPrice"
-                                label="Giới hạn thời gian nộp hồ sơ tuyển dụng"
-                                type="date"
-                                variant="outlined"
-                                color="primary"
-                                defaultValue={moment(Date.now).format("DD-MM-YYYY")}
-                                sx={{ width: 220 }}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                onChange={(event) => {
-                                    setData({ ...data, expirationDate: event.target.valueAsDate })
-                                }}
-                                required={true}
-                            />
+                            <LocalizationProvider locale={viLocale} dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    views={['day']}
+                                    label="Hạn cuối nộp hồ sơ tuyển dụng"
+                                    value={data.expirationDate}
+                                    onChange={(date) => {
+                                        setData({ ...data, expirationDate: date })
+                                    }}
+                                    renderInput={(params) => <TextField
+                                        {...params}
+                                        helperText={
+                                            data.expirationDate &&
+                                            data.expirationDate < Date.now() &&
+                                            "Hạn cuối phải lớn hơn ngày hiện tại"} />}
+                                />
+                            </LocalizationProvider>
                         </div>
                     </div>
 
