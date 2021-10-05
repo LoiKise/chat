@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
-import { Button, Input } from '@mui/material';
+import { Button, CircularProgress, Input } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import requestAPI from '../../../../apis';
 import { useSnackbar } from 'notistack';
 import { useHistory } from 'react-router-dom';
 import CustomNoRowsOverlay from '../Order/CustomNoRowsOverlay';
+import { Box } from '@mui/system';
 export const DashboardPostage = () => {
     const [displayImage, setDisplayImage] = useState('');
     const { enqueueSnackbar } = useSnackbar();
@@ -66,6 +67,7 @@ export const DashboardPostage = () => {
             .then(res => {
                 if (res) {
                     setStatus(true);
+                    setLoading(false);
                     enqueueSnackbar('Cập nhật bảng giá thành công', {
                         persist: false,
                         variant: 'success',
@@ -75,6 +77,7 @@ export const DashboardPostage = () => {
                 }
             })
             .catch(err => {
+                setLoading(false);
                 if (err.response?.status === 403 || err.response?.status === 401) {
                     history.push('/dashboard')
                     enqueueSnackbar('Đã phát hiện lỗi truy cập, vui lòng đăng nhập lại', {
@@ -123,12 +126,16 @@ export const DashboardPostage = () => {
                             Cập nhật
                         </Button>
                     </div>
-                    <div style={{ width: '460px', height: '460px' }}>
+                    <div style={{ width: '460px', height: '460px' }} className="flex-center">
                         {
-
-                            displayImage ?
-                                <div className="dashboard-upload-image" style={{ backgroundImage: `url(${displayImage})` }} /> :
-                                <CustomNoRowsOverlay />
+                            !loading ?
+                                displayImage ?
+                                    <div className="dashboard-upload-image" style={{ backgroundImage: `url(${displayImage})` }} /> :
+                                    <CustomNoRowsOverlay />
+                                :
+                                <Box>
+                                    <CircularProgress />
+                                </Box>
                         }
                     </div>
 
