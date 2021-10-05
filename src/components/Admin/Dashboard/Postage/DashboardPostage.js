@@ -9,9 +9,9 @@ import { useHistory } from 'react-router-dom';
 import CustomNoRowsOverlay from '../Order/CustomNoRowsOverlay';
 import { Box } from '@mui/system';
 export const DashboardPostage = () => {
-    const [displayImage, setDisplayImage] = useState('');
     const { enqueueSnackbar } = useSnackbar();
     const history = useHistory();
+    const [displayImage, setDisplayImage] = useState('');
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState(true)
     // Get Image 
