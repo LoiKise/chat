@@ -91,11 +91,6 @@ export default function index() {
       </footer>
       <div className="link-fixed">
         <ScrollToTop />
-        {/* Remove when deploy in webhost */}
-        <Link to="/admin/dashboard" style={{ position: 'fixed', bottom: '20%', right: '30px' }}>
-          <button className="btn btn-outline-success btn-lg">ADMIN</button>
-        </Link>
-        {/* ------------------ */}
         <Link to="/" className="messenger">
           <img src="./assets/img/icon/cirle_mess.png" alt="" />
         </Link>

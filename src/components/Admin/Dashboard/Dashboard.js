@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import DashboardBody from './DashboardBody'
 import DashboardMenu from './DashboardMenu'
-import { faFileInvoice, faHome, faNewspaper, faShoppingBag, faEnvelope, faUser, faBiking, faTruck } from '@fortawesome/free-solid-svg-icons'
+import {
+    faFileInvoice, faHome, faNewspaper,
+    faShoppingBag, faEnvelope, faUser, faBiking,
+    faTruck, faMoneyBill
+} from '@fortawesome/free-solid-svg-icons'
 import { withRouter } from 'react-router-dom'
 import requestAPI from '../../../apis';
 import { useHistory } from 'react-router';
@@ -14,11 +18,6 @@ function Dashboard(props) {
             name: "Tổng Quan",
             icon: faHome
         },
-        // {
-        //     id: "2",
-        //     name: "Tin Nhắn",
-        //     icon: faInbox
-        // },
         {
             id: "2",
             name: "Đơn hàng",
@@ -53,6 +52,11 @@ function Dashboard(props) {
             id: "8",
             name: "Hộp Thư",
             icon: faEnvelope
+        },
+        {
+            id: "9",
+            name: "Bảng giá",
+            icon: faMoneyBill
         },
 
     ]

@@ -19,6 +19,7 @@ import DashboardRequest from './Request/DashboardRequest';
 import DashboardDeliveryCreate from './Delivery/DashboardDeliveryCreate';
 import DashboardDeliveryEdit from './Delivery/DashboardDeliveryEdit';
 import DashboardDelivery from './Delivery/DashboardDelivery';
+import { DashboardPostage } from './Postage/DashboardPostage';
 
 export default function DashboardBody(props) {
 
@@ -192,6 +193,10 @@ export default function DashboardBody(props) {
                     toast={toast}
                     isChange={isChange}
                 />
+            }
+            {
+                tabId === "9" &&
+                <DashboardPostage />
             }
 
 

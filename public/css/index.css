@@ -1481,6 +1481,20 @@ p {
   border-bottom: 0.7px #777 solid;
   margin: 15px 0; }
 
+.dashboard-upload-image {
+  border: 2px dashed #fff;
+  height: 460px;
+  width: 460px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: 0.25s; }
+
 .DashboardMenu {
   width: 260px;
   height: 100vh;
