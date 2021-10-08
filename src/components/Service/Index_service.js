@@ -7,7 +7,7 @@ import Transition from '../Admin/Dashboard/Order/DashboardTransition';
 import { CircularProgress, Dialog, DialogContent, DialogTitle, Stack } from '@mui/material'
 import { DialogContentText } from '@material-ui/core';
 import requestAPI from "../../apis";
-import CustomNoRowsOverlay from './../Admin/Dashboard/Order/CustomNoRowsOverlay';
+import CustomNoRowsOverlay from '../Admin/Dashboard/Order/CustomNoRowsOverlay';
 import { Box } from '@mui/system';
 
 export default function Index() {
