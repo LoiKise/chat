@@ -4445,6 +4445,10 @@ input::-webkit-input-placeholder {
   .ourpartner-logo {
     height: 80px; }
 
+iframe ._94vh {
+  bottom: 110px !important;
+  height: 500px; }
+
 /* Tuyển Dụng*/
 .recruitment {
   padding-top: 5%;
