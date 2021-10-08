@@ -7,6 +7,7 @@ import SliderBar from "./SliderBar/SliderBar";
 import News from "./News/News";
 import Contact from "./Contact/Contact";
 import Ourpartner from "./Ourpartner/Ourpartner";
+import Chatbox from "../ChatBox/Chatbox";
 
 export default function index() {
   return (
@@ -18,6 +19,7 @@ export default function index() {
         <Order />
         <Members />
         <News />
+        <Chatbox />
         <Contact style={{ width: "100%" }} />
         <Ourpartner />
       </div>
