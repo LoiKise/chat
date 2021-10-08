@@ -7,7 +7,8 @@ import SliderBar from "./SliderBar/SliderBar";
 import News from "./News/News";
 import Contact from "./Contact/Contact";
 import Ourpartner from "./Ourpartner/Ourpartner";
-import Chatbox from "../ChatBox/Chatbox";
+import Chatbox from "./Chatbox/Chatbox";
+
 
 export default function index() {
   return (
