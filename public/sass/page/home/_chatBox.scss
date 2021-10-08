@@ -1,6 +1,8 @@
-iframe {
-  & ._94vh {
-    bottom: 110px !important;
-    height: 500px;
-  }
+iframe._94vh {
+  bottom: 110px !important;
+  height: 500px;
+}
+iframe > ._94vh {
+  bottom: 110px !important;
+  height: 500px;
 }
