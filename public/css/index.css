@@ -4449,10 +4449,8 @@ input::-webkit-input-placeholder {
   bottom: 105px !important;
   right: 28px !important; }
 
-.za-chat__head-box .logo {
-  width: 16% !important; }
-  .za-chat__head-box .logo img {
-    width: 100%; }
+.za-chat__head-box .logo img {
+  width: 100%; }
 
 /* Tuyển Dụng*/
 .recruitment {
