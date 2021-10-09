@@ -91,12 +91,6 @@ export default function index() {
       </footer>
       <div className="link-fixed">
         <ScrollToTop />
-        <Link to="/" className="messenger">
-          <img src="./assets/img/icon/cirle_mess.png" alt="" />
-        </Link>
-        <Link to="/" className="zalo">
-          <img src="./assets/img/icon/circle_zalo.png" alt="" />
-        </Link>
       </div>
     </div>
   );
