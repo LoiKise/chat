@@ -8,6 +8,7 @@ import News from "./News/News";
 import Contact from "./Contact/Contact";
 import Ourpartner from "./Ourpartner/Ourpartner";
 import Chatbox from "./Chatbox/Chatbox";
+import Zalo from "./Chatbox/Zalo";
 
 
 export default function index() {
@@ -21,6 +22,7 @@ export default function index() {
         <Members />
         <News />
         <Chatbox />
+        <Zalo />
         <Contact style={{ width: "100%" }} />
         <Ourpartner />
       </div>
