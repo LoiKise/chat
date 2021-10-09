@@ -22,7 +22,7 @@ export default function index() {
         <Members />
         <News />
         <Chatbox />
-        <Zalo />
+
         <Contact style={{ width: "100%" }} />
         <Ourpartner />
       </div>
