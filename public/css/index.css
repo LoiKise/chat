@@ -4445,13 +4445,14 @@ input::-webkit-input-placeholder {
   .ourpartner-logo {
     height: 80px; }
 
-iframe._94vh {
-  bottom: 110px !important;
-  height: 500px; }
+.zalo-chat-widget {
+  bottom: 105px !important;
+  right: 28px !important; }
 
-iframe > ._94vh {
-  bottom: 110px !important;
-  height: 500px; }
+.za-chat__head-box .logo {
+  width: 16% !important; }
+  .za-chat__head-box .logo img {
+    width: 100%; }
 
 /* Tuyển Dụng*/
 .recruitment {
