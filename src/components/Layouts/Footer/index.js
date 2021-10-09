@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import ScrollToTop from '../../ScrollToTop'
 export default function index() {
   return (
@@ -91,6 +91,7 @@ export default function index() {
       </footer>
       <div className="link-fixed">
         <ScrollToTop />
+
       </div>
     </div>
   );
